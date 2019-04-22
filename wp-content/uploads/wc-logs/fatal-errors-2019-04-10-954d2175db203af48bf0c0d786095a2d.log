@@ -1,0 +1,42 @@
+2019-04-10T06:41:35+00:00 CRITICAL Uncaught Error: Call to undefined function get_current_screen() in C:\xampp\htdocs\travel\wp-content\themes\travel\single.php:7
+Stack trace:
+#0 C:\xampp\htdocs\travel\wp-includes\template-loader.php(77): include()
+#1 C:\xampp\htdocs\travel\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\travel\index.php(17): require('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\travel\wp-content\themes\travel\single.php on line 7
+
+2019-04-10T06:41:37+00:00 CRITICAL Uncaught Error: Call to undefined function get_current_screen() in C:\xampp\htdocs\travel\wp-content\themes\travel\single.php:7
+Stack trace:
+#0 C:\xampp\htdocs\travel\wp-includes\template-loader.php(77): include()
+#1 C:\xampp\htdocs\travel\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\travel\index.php(17): require('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\travel\wp-content\themes\travel\single.php on line 7
+
+2019-04-10T06:41:41+00:00 CRITICAL Uncaught Error: Call to undefined function get_current_screen() in C:\xampp\htdocs\travel\wp-content\themes\travel\single.php:7
+Stack trace:
+#0 C:\xampp\htdocs\travel\wp-includes\template-loader.php(77): include()
+#1 C:\xampp\htdocs\travel\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\travel\index.php(17): require('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\travel\wp-content\themes\travel\single.php on line 7
+
+2019-04-10T06:41:50+00:00 CRITICAL Uncaught Error: Call to undefined function get_current_screen() in C:\xampp\htdocs\travel\wp-content\themes\travel\single.php:7
+Stack trace:
+#0 C:\xampp\htdocs\travel\wp-includes\template-loader.php(77): include()
+#1 C:\xampp\htdocs\travel\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\travel\index.php(17): require('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\travel\wp-content\themes\travel\single.php on line 7
+
+2019-04-10T06:43:29+00:00 CRITICAL Uncaught Error: Call to undefined function get_current_screen() in C:\xampp\htdocs\travel\wp-content\themes\travel\single.php:7
+Stack trace:
+#0 C:\xampp\htdocs\travel\wp-includes\template-loader.php(77): include()
+#1 C:\xampp\htdocs\travel\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\travel\index.php(17): require('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\travel\wp-content\themes\travel\single.php on line 7
+
+2019-04-10T07:08:49+00:00 CRITICAL Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\travel\wp-includes\Requests\Transport\cURL.php on line 163
+

@@ -1,0 +1,84 @@
+.page{
+  h1{
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .giao_dich_moi{
+    position: relative;
+    table{
+      border-collapse: collapse;
+      tr:first-child{
+        background: #0056b3;
+        td{
+          padding: 15px 0px;
+          border-color: #fff;
+          color: #FFF;
+        }
+      }
+      td{
+        border:1px solid #eaeaea;
+        text-align: center;
+        padding: 10px 0px;
+      }
+    }
+    .acf-fields{
+      display: flex;
+      flex-wrap: wrap;
+      position: relative;
+      .acf-field--post-title{
+        width: 100% !important;
+        padding-top: 0px;
+      }
+      .acf-tab-wrap{
+        width: 100%;
+        padding: 0px 12px;
+        background: none;
+        border: none;
+        ul{
+          padding:0px;
+          border: none;
+          &:before{
+            display: none;
+          }
+          &:after{
+            display: none;
+          }
+          li{
+            border: none;
+          }
+        }
+      }
+      .acf-field{
+        width: 16.66%;
+        border: none;
+        input,textarea{
+          border: 1px solid #dedede;
+          border-radius: 0px;
+        }
+      }
+    }
+    .acf-form-submit{
+      text-align: center;
+      position: fixed;
+      bottom:15px;
+      left: 40px;
+      z-index: 100;
+      input{
+        padding: 0px;
+        width: 120px;
+        height: 40px;
+        border: none;
+        font-size: 14px;
+        text-transform: uppercase;
+        background: #007bff;
+        color: #FFF;
+        border-radius: 0px;
+        cursor: pointer;
+        transition: 0.5s;
+        &:hover{
+          background: #28a745;
+        }
+      }
+    }
+  }
+}

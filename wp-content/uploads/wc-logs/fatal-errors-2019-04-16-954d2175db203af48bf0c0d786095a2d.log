@@ -1,0 +1,14 @@
+2019-04-16T04:32:15+00:00 CRITICAL syntax error, unexpected 'endwhile' (T_ENDWHILE) in C:\xampp\htdocs\travel\wp-content\themes\travel\template-parts\edit_tai_khoan.php on line 65
+
+2019-04-16T09:34:43+00:00 CRITICAL require(): Failed opening required 'C:\xampp\htdocs\travel/wp-content/themes/travel/inc/custom-post-types/giao-dich-tien.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\travel\wp-content\themes\travel\functions.php on line 130
+
+2019-04-16T09:34:59+00:00 CRITICAL require(): Failed opening required 'C:\xampp\htdocs\travel/wp-content/themes/travel/inc/custom-post-types/giao-dich-tien.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\travel\wp-content\themes\travel\functions.php on line 130
+
+2019-04-16T09:35:19+00:00 CRITICAL require(): Failed opening required 'C:\xampp\htdocs\travel/wp-content/themes/travel/inc/custom-post-types/giao-dich-tien.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\travel\wp-content\themes\travel\functions.php on line 130
+
+2019-04-16T09:35:30+00:00 CRITICAL require(): Failed opening required 'C:\xampp\htdocs\travel/wp-content/themes/travel/inc/custom-post-types/giao-dich-tien.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\travel\wp-content\themes\travel\functions.php on line 130
+
+2019-04-16T09:35:31+00:00 CRITICAL require(): Failed opening required 'C:\xampp\htdocs\travel/wp-content/themes/travel/inc/custom-post-types/giao-dich-tien.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\travel\wp-content\themes\travel\functions.php on line 130
+
+2019-04-16T09:35:31+00:00 CRITICAL require(): Failed opening required 'C:\xampp\htdocs\travel/wp-content/themes/travel/inc/custom-post-types/giao-dich-tien.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\travel\wp-content\themes\travel\functions.php on line 130
+

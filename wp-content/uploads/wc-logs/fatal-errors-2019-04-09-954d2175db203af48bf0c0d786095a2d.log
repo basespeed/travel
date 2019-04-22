@@ -1,0 +1,4 @@
+2019-04-09T06:13:22+00:00 CRITICAL Cannot redeclare cw_post_type_news_history_giao_dich() (previously declared in C:\xampp\htdocs\travel\wp-content\themes\travel\inc\custom-post-types\history_giao_dich.php:4) in C:\xampp\htdocs\travel\wp-content\themes\travel\inc\custom-post-types\history_giao_dich.php on line 64
+
+2019-04-09T06:13:26+00:00 CRITICAL Cannot redeclare cw_post_type_news_history_giao_dich() (previously declared in C:\xampp\htdocs\travel\wp-content\themes\travel\inc\custom-post-types\history_giao_dich.php:4) in C:\xampp\htdocs\travel\wp-content\themes\travel\inc\custom-post-types\history_giao_dich.php on line 64
+

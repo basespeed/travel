@@ -1,0 +1,20 @@
+2019-04-05T07:13:04+00:00 CRITICAL Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\traveler\wp-content\themes\traveler\inc\class\class.cart.php on line 34
+
+2019-04-05T07:13:04+00:00 CRITICAL Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\traveler\wp-content\themes\traveler\inc\class\class.cart.php on line 34
+
+2019-04-05T07:13:04+00:00 CRITICAL Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\traveler\wp-content\themes\traveler\inc\class\class.cart.php on line 34
+
+2019-04-05T07:13:04+00:00 CRITICAL Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\traveler\wp-content\themes\traveler\inc\class\class.cart.php on line 34
+
+2019-04-05T07:13:04+00:00 CRITICAL Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\traveler\wp-content\themes\traveler\inc\class\class.cart.php on line 34
+
+2019-04-05T07:14:23+00:00 CRITICAL Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\traveler\wp-content\themes\traveler\inc\class\class.cart.php on line 34
+
+2019-04-05T08:13:26+00:00 CRITICAL Cannot redeclare travel_customize_register() (previously declared in C:\xampp\htdocs\travel\wp-content\themes\travel\inc\customizer.php:13) in C:\xampp\htdocs\travel\wp-content\themes\travel\inc\customizer.php on line 28
+
+2019-04-05T08:15:21+00:00 CRITICAL Cannot redeclare travel_customize_register() (previously declared in C:\xampp\htdocs\travel\wp-content\themes\travel\inc\customizer.php:13) in C:\xampp\htdocs\travel\wp-content\themes\travel\inc\customizer.php on line 28
+
+2019-04-05T08:15:35+00:00 CRITICAL require(): Failed opening required 'C:\xampp\htdocs\travel/wp-content/themes/travel/inc/custome-post-type/services.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\travel\wp-content\themes\travel\functions.php on line 104
+
+2019-04-05T08:32:40+00:00 CRITICAL Cannot redeclare cw_post_type_news() (previously declared in C:\xampp\htdocs\travel\wp-content\themes\travel\inc\custom-post-types\services.php:4) in C:\xampp\htdocs\travel\wp-content\themes\travel\inc\custom-post-types\services.php on line 33
+

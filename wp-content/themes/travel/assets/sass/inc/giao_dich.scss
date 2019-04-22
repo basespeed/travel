@@ -1,0 +1,48 @@
+.them_giao_dich{
+  table{
+    border-collapse: collapse;
+    td{
+      font-size: 14px;
+      padding: 10px;
+      border:1px solid #dedede;
+    }
+  }
+  .title{
+    margin-bottom: 15px;
+    h2{
+      margin: 0;
+      text-transform: uppercase;
+      font-size: 20px;
+      color: #2656B1;
+      margin-bottom: 10px;
+    }
+    input{
+      width: 100%;
+      border-radius: 0px;
+      border:1px solid #dedede;
+    }
+  }
+  .phuc_hoi{
+    background: #2A7AFE;
+    color: #FFF;
+    width: fit-content;
+    padding: 5px 10px;
+    display: block;
+    margin: auto;
+    margin-top: -10px;
+    margin-bottom: 35px;
+    transition: 0.5s;
+    &:hover{
+      background: #369046;
+    }
+  }
+  .alert_tk_sucess{
+    margin-bottom: 15px;
+  }
+}
+
+.single-giao_dich {
+  .alert_tk_fail{
+    margin-top: -15px;
+  }
+}

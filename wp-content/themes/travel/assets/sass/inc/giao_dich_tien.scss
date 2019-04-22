@@ -1,0 +1,39 @@
+.single-tien{
+  .acf-form-submit {
+    text-align: center;
+    position: fixed;
+    bottom: 15px;
+    left: 40px;
+    z-index: 100;
+  }
+  .acf-form-submit input {
+    padding: 0px;
+    width: 120px;
+    height: 40px;
+    border: none;
+    font-size: 14px;
+    text-transform: uppercase;
+    background: #007bff;
+    color: #FFF;
+    border-radius: 0px;
+    cursor: pointer;
+    transition: 0.5s;
+  }
+
+  .quantri_admin .menu_admin ul li:nth-child(7) {
+    a{
+      background: #1A56B2 !important;
+    }
+    ul{
+      display: block !important;
+      a{
+        background: #32373C !important;
+      }
+      li:last-child{
+        a{
+          background: #000 !important;
+        }
+      }
+    }
+  }
+}

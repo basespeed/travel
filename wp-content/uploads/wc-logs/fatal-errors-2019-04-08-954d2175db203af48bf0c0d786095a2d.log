@@ -1,0 +1,28 @@
+2019-04-08T04:05:25+00:00 CRITICAL syntax error, unexpected '}', expecting end of file in C:\xampp\htdocs\travel\wp-content\themes\travel\inc\acf\random-field.php on line 152
+
+2019-04-08T04:05:26+00:00 CRITICAL syntax error, unexpected '}', expecting end of file in C:\xampp\htdocs\travel\wp-content\themes\travel\inc\acf\random-field.php on line 152
+
+2019-04-08T04:24:43+00:00 CRITICAL Cannot redeclare render_field() (previously declared in C:\xampp\htdocs\travel\wp-content\plugins\acf\includes\api\api-template.php:1509) in C:\xampp\htdocs\travel\wp-content\themes\travel\inc\acf\random-field.php on line 42
+
+2019-04-08T04:24:45+00:00 CRITICAL Cannot redeclare render_field() (previously declared in C:\xampp\htdocs\travel\wp-content\plugins\acf\includes\api\api-template.php:1509) in C:\xampp\htdocs\travel\wp-content\themes\travel\inc\acf\random-field.php on line 42
+
+2019-04-08T04:24:45+00:00 CRITICAL Cannot redeclare render_field() (previously declared in C:\xampp\htdocs\travel\wp-content\plugins\acf\includes\api\api-template.php:1509) in C:\xampp\htdocs\travel\wp-content\themes\travel\inc\acf\random-field.php on line 42
+
+2019-04-08T04:24:57+00:00 CRITICAL Cannot redeclare render_field() (previously declared in C:\xampp\htdocs\travel\wp-content\plugins\acf\includes\api\api-template.php:1509) in C:\xampp\htdocs\travel\wp-content\themes\travel\inc\acf\random-field.php on line 42
+
+2019-04-08T04:25:44+00:00 CRITICAL Cannot redeclare render_field() (previously declared in C:\xampp\htdocs\travel\wp-content\plugins\acf\includes\api\api-template.php:1509) in C:\xampp\htdocs\travel\wp-content\themes\travel\inc\acf\random-field.php on line 42
+
+2019-04-08T04:26:13+00:00 CRITICAL Cannot redeclare render_field() (previously declared in C:\xampp\htdocs\travel\wp-content\plugins\acf\includes\api\api-template.php:1509) in C:\xampp\htdocs\travel\wp-content\themes\travel\inc\acf\random-field.php on line 42
+
+2019-04-08T04:26:43+00:00 CRITICAL Cannot redeclare render_field() (previously declared in C:\xampp\htdocs\travel\wp-content\plugins\acf\includes\api\api-template.php:1509) in C:\xampp\htdocs\travel\wp-content\themes\travel\inc\acf\random-field.php on line 42
+
+2019-04-08T04:26:44+00:00 CRITICAL Cannot redeclare render_field() (previously declared in C:\xampp\htdocs\travel\wp-content\plugins\acf\includes\api\api-template.php:1509) in C:\xampp\htdocs\travel\wp-content\themes\travel\inc\acf\random-field.php on line 42
+
+2019-04-08T04:32:03+00:00 CRITICAL syntax error, unexpected ',' in C:\xampp\htdocs\travel\wp-content\plugins\acf-random-string-field-master\acf-random-string-field-v5.php on line 445
+
+2019-04-08T06:07:39+00:00 CRITICAL syntax error, unexpected end of file, expecting elseif (T_ELSEIF) or else (T_ELSE) or endif (T_ENDIF) in C:\xampp\htdocs\travel\wp-content\themes\travel\template-parts\sua_giao_dich.php on line 82
+
+2019-04-08T06:14:49+00:00 CRITICAL syntax error, unexpected ':' in C:\xampp\htdocs\travel\wp-content\themes\travel\template-parts\sua_giao_dich.php on line 68
+
+2019-04-08T06:15:33+00:00 CRITICAL syntax error, unexpected '}', expecting elseif (T_ELSEIF) or else (T_ELSE) or endif (T_ENDIF) in C:\xampp\htdocs\travel\wp-content\themes\travel\template-parts\sua_giao_dich.php on line 67
+
