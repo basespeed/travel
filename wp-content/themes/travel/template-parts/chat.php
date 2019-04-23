@@ -101,31 +101,73 @@ if($_SESSION['sucess'] == "sucess") {
                             </tr>
                             </tbody>
                         </table>
+
+                        <div class="form_chat">
+                            <h2>Bạn đang chat với : <span>tất cả</span></h2>
+                            <div class="cmt_chat">
+                                <textarea type="text" class="mess_cmt" placeholder="Nhập tin nhắn chat ..."></textarea>
+                                <button class="send_mess">Gửi tin nhắn</button>
+                            </div>
+                        </div>
+
+                        <div class="setting_chat">
+                            <h2>Thiết lập</h2>
+                        </div>
                     </div>
 
                     <div class="my_friend">
                         <h2>Mọi người đang online</h2>
                         <ul>
+                            <li data-name="Tất cả"><span>Tất cả</span> <span style="background: green !important;"></span></li>
                             <?php
-                                $query = new WP_Query(array(
-                                   'post_type' => 'tai_khoan',
-                                   'posts_per_page' => 5 ,
-                                ));
+                            $query = new WP_Query(array(
+                                'post_type' => 'tai_khoan',
+                                'posts_per_page' => 5 ,
+                                'order' => 'ASC',
+                            ));
 
-                                if($query->have_posts()) : while ($query->have_posts()) : $query->the_post();
-                                ?>
-                                    <li><span><?php echo get_field('ten_biet_danh_tai_khoan'); ?></span> <?php
-                                        if(get_field('check_online') == "off"){
-                                            ?><span class="off"></span><?php
-                                        }else{
-                                            ?><span></span><?php
-                                        }
-                                    ?></li>
-                                <?php
-                                endwhile;
-                                endif;
+                            if($query->have_posts()) : while ($query->have_posts()) : $query->the_post();
+                                if(get_field('ten_biet_danh_tai_khoan') != $_SESSION['name']) {
+                                    if(get_field('check_online') == "on"){
+                                        ?>
+                                        <li data-name="<?php echo get_field("ten_biet_danh_tai_khoan"); ?>">
+                                            <span><?php echo get_field('ten_biet_danh_tai_khoan'); ?></span>
+                                            <?php
+                                            if (get_field('check_online') == "off" || get_field('check_online') == "") {
+                                                ?>
+                                                <span class='off'></span>
+                                                <?php
+                                            } else {
+                                                ?>
+                                                <span style='background-color: green !important;'></span>
+                                                <?php
+                                            }
+                                            ?>
+                                        </li>
+                                        <?php
+                                    }else{
+                                        ?>
+                                        <li data-name="<?php echo get_field("ten_biet_danh_tai_khoan"); ?>">
+                                            <span><?php echo get_field('ten_biet_danh_tai_khoan'); ?></span>
+                                            <?php
+                                            if (get_field('check_online') == "off" || get_field('check_online') == "") {
+                                                ?>
+                                                <span class='off'></span>
+                                                <?php
+                                            } else {
+                                                ?>
+                                                <span style='background-color: green !important;'></span>
+                                                <?php
+                                            }
+                                            ?>
+                                        </li>
+                                        <?php
+                                    }
+                                }
+                            endwhile;
+                            endif;
+                            wp_reset_postdata();
                             ?>
-
                         </ul>
                     </div>
                 </div>

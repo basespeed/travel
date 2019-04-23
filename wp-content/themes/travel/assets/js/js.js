@@ -478,10 +478,18 @@
                 url: my_ajax_object.ajax_url,
                 data: {action: "check_online"},
                 success: function(response){
-                    console.log(response.data);
+                    $('.my_friend ul').html(response.data);
+                    //console.log(response);
+
+                    $('.chatbox .my_friend ul li').on('click', function (e) {
+                        e.preventDefault();
+                        var data_name = $(this).attr('data-name');
+
+                        $('.form_chat h2 span').text(data_name);
+                    });
                 }
             });
-        },500);
+        },3000);
 
         window.addEventListener('beforeunload', function (e) {
             // Cancel the event
@@ -493,7 +501,7 @@
                 url: my_ajax_object.ajax_url,
                 data: {action: "check_offline"},
                 success: function(response){
-                    console.log(response.data);
+                    e.returnValue = '';
                 }
             });
         });

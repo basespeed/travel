@@ -51,18 +51,24 @@ if($_SESSION['sucess'] == "sucess") {
                         if ($the_query->have_posts()) :
                             ?>
                             <tr>
+                                <td></td>
                                 <td><strong>Mã NV</strong></td>
                                 <td><strong>Tên NV</strong></td>
                                 <td><strong>Email NV</strong></td>
                                 <td><strong>SĐT NV</strong></td>
                                 <td><strong>Liên kết tài khoản</strong></td>
-                                <td></td>
                             </tr>
                             <?php
 
                             while ($the_query->have_posts()) : $the_query->the_post();
                                 ?>
                                 <tr>
+                                    <td>
+                                        <a class="edit" href="<?php the_permalink(); ?>"><i
+                                                    class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        <a onclick="return confirm('Bạn có chắc muốn xóa nó');" class="delete" href="<?php echo get_delete_post_link(get_the_ID()); ?>"><i
+                                                    class="fa fa-times-circle" aria-hidden="true"></i></a>
+                                    </td>
                                     <td><?php echo get_field('ma_nv'); ?></td>
                                     <td><a class="title"
                                            href="<?php the_permalink(); ?>"><?php echo get_field('ten_nv'); ?></a></td>
@@ -71,29 +77,19 @@ if($_SESSION['sucess'] == "sucess") {
                                     <td><?php
                                         $lien_ket_tai_khoan_nv = get_field('lien_ket_tai_khoan');
 
-                                        $query = new WP_Query(array(
+                                        $query_check = new WP_Query(array(
                                             'post_type' => 'tai_khoan',
                                             "s" => get_the_title()
                                         ));
 
-                                        if($query->have_posts()) {
-                                            while ($query->have_posts()) : $query->the_post();
-                                                if (get_field('lien_ket_tai_khoan') != $lien_ket_tai_khoan_nv) {
-                                                    echo '<span class="hide_active"></span>';
-                                                } else {
-                                                    echo '<span class="show_active"></span>';
-                                                }
-                                            endwhile;
-                                        }else{
-                                            echo '<span class="hide_active"></span>';
-                                        }
-
-                                        ?></td>
-                                    <td>
-                                        <a class="edit" href="<?php the_permalink(); ?>"><i
-                                                    class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                        <a onclick="return confirm('Bạn có chắc muốn xóa nó');" class="delete" href="<?php echo get_delete_post_link(get_the_ID()); ?>"><i
-                                                    class="fa fa-times-circle" aria-hidden="true"></i></a>
+                                        while ($query_check->have_posts()) : $query_check->the_post();
+                                            if (get_field('lien_ket_tai_khoan') != $lien_ket_tai_khoan_nv) {
+                                                echo '<span class="hide_active"></span>';
+                                            } else {
+                                                echo '<span class="show_active"></span>';
+                                            }
+                                        endwhile;
+                                        ?>
                                     </td>
                                 </tr>
                             <?php

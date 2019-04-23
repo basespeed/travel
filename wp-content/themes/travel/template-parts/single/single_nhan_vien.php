@@ -92,7 +92,7 @@ get_header();
         ?>
         <div class="content_admin">
             <div class="giao_dich_moi add_user add_khach_san edit_nv">
-                <h1>Sửa khách sạn</h1>
+                <h1>Sửa nhân viên</h1>
                 <form action="<?php echo get_permalink(); ?>" method="post" enctype="multipart/form-data">
                     <ul>
                         <li>

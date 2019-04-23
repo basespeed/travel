@@ -76,7 +76,7 @@ function travel_scripts() {
     wp_enqueue_script( 'iframehelper-js', get_template_directory_uri() . '/assets/js/jquery.nicescroll.iframehelper.min.js', array(), false, true );
 	wp_enqueue_script( 'travel-js', get_template_directory_uri() . '/assets/js/js.js', array(), false, true );
 
-    wp_localize_script( 'travel-js', 'my_ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
+    wp_localize_script( 'travel-js', 'my_ajax_object', array( 'ajax_url' => get_template_directory_uri().'/inc/ajax/admin-ajax.php' ) ); //admin_url( 'admin-ajax.php' )
 
 	//wp_enqueue_script( 'travel-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
 
