@@ -82,13 +82,17 @@ if($_SESSION['sucess'] == "sucess") {
                                             "s" => get_the_title()
                                         ));
 
-                                        while ($query_check->have_posts()) : $query_check->the_post();
-                                            if (get_field('lien_ket_tai_khoan') != $lien_ket_tai_khoan_nv) {
-                                                echo '<span class="hide_active"></span>';
-                                            } else {
-                                                echo '<span class="show_active"></span>';
-                                            }
-                                        endwhile;
+                                        if($query_check->have_posts()){
+                                            while ($query_check->have_posts()) : $query_check->the_post();
+                                                if (get_field('lien_ket_tai_khoan') != $lien_ket_tai_khoan_nv) {
+                                                    echo '<span class="hide_active"></span>';
+                                                } else {
+                                                    echo '<span class="show_active"></span>';
+                                                }
+                                            endwhile;
+                                        }else{
+                                            echo '<span class="hide_active"></span>';
+                                        }
                                         ?>
                                     </td>
                                 </tr>

@@ -97,7 +97,7 @@ get_header();
                         </li>
                         <li>
                             <label>Mã DT</label>
-                            <input type="text" name="ma_dt" class="ma_dt" value="<?php echo get_field('ma_dt'); ?>" required>
+                            <input type="email" name="ma_dt" class="ma_dt" value="<?php echo get_field('ma_dt'); ?>" required>
                         </li>
                         <li>
                             <label>Tên DT</label>

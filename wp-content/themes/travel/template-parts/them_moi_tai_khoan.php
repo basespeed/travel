@@ -55,6 +55,7 @@ if($_SESSION['sucess'] == "sucess") {
                         add_post_meta($post_id, 'ho_va_ten_tai_khoan', $_POST['ho_va_ten_tai_khoan'], true);
                         add_post_meta($post_id, 'sdt_tai_khoan', $_POST['sdt_tai_khoan'], true);
                         add_post_meta($post_id, 'cmt_tai_khoan', $_POST['cmt_tai_khoan'], true);
+                        add_post_meta($post_id, 'bo_phan_tai_khoan', $_POST['bo_phan_tai_khoan'], true);
                         add_post_meta($post_id, 'loai_quyen_tai_khoan', $_POST['loai_quyen_tai_khoan'], true);
                         add_post_meta($post_id, 'dia_chi_tai_khoan', $_POST['dia_chi_tai_khoan'], true);
                         add_post_meta($post_id, 'hinh_anh_tai_khoan', $location_img, true);
@@ -108,24 +109,27 @@ if($_SESSION['sucess'] == "sucess") {
                       enctype="multipart/form-data">
                     <ul>
                         <li>
-                            <label>Email</label>
+                            <label>Tìm kiếm Email</label>
                             <input type="text" class="search_email" placeholder="Tìm kiếm email..">
+                        </li>
+                        <li>
+                            <label>Email</label>
                             <select name="email_tai_khoan" class="email_tai_khoan">
                                 <option value="" selected disabled hidden>Chọn Email</option>
                                 <?php
-                                    $array = array(
-                                        'post_type' => 'nhan_vien',
-                                    );
+                                $array = array(
+                                    'post_type' => 'nhan_vien',
+                                );
 
-                                    $query = new WP_Query($array);
+                                $query = new WP_Query($array);
 
-                                    if($query->have_posts()) : while ($query->have_posts()) : $query->the_post();
-                                ?>
-                                <option value="<?php echo get_field('email_nv'); ?>"><?php echo get_field('email_nv'); ?></option>
+                                if($query->have_posts()) : while ($query->have_posts()) : $query->the_post();
+                                    ?>
+                                    <option value="<?php echo get_field('email_nv'); ?>"><?php echo get_field('email_nv'); ?></option>
                                 <?php
-                                    endwhile;
-                                    endif;
-                                    wp_reset_postdata();
+                                endwhile;
+                                endif;
+                                wp_reset_postdata();
                                 ?>
                             </select>
                         </li>
@@ -149,6 +153,13 @@ if($_SESSION['sucess'] == "sucess") {
                             <label>Số chứng minh thư</label>
                             <input type="number" name="cmt_tai_khoan" class="cmt_tai_khoan" required>
                         </li>
+                        <label>Bộ phận</label>
+                        <select name="bo_phan_tai_khoan" class="bo_phan_tai_khoan" data-check="<?php echo get_field('bo_phan_tai_khoan'); ?>">
+                            <option value="Quản lý">Quản lý</option>
+                            <option value="Sales">Sales</option>
+                            <option value="Booking">Booking</option>
+                            <option value="Kế toán">Kế toán</option>
+                        </select>
                         <li>
                             <label>Loại quyền</label>
                             <select name="loai_quyen_tai_khoan" class="loai_quyen_tai_khoan" required>

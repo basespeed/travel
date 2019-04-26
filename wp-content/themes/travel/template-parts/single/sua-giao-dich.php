@@ -95,7 +95,7 @@
 
                             //lịch sử giao dịch
                             $add_lich_su_giao_dich = array(
-                                'post_title' => $_POST['ten_khach_san_gd'],
+                                'post_title' => $_POST['ma_gd'],
                                 'post_status' => 'publish',
                                 'post_type' => 'history_giao_dich',
                             );

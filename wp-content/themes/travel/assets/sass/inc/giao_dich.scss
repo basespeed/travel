@@ -46,3 +46,54 @@
     margin-top: -15px;
   }
 }
+
+.add_hotel{
+  display: flex;
+  .item:nth-child(2){
+    width: 500px;
+    margin-left: 15px;
+    li{
+      width: 100%;
+      .loai_phong{
+        display: flex;
+        flex-wrap: wrap;
+        .rom{
+          background: #2A7AFE;
+          color: #FFF;
+          border-radius: 25px;
+          margin-right: 10px;
+          padding: 5px 10px;
+          margin-bottom: 10px;
+          i{
+            color: #eae9e9;
+            cursor: pointer;
+            transition: 0.5s;
+            &:hover{
+              color: #000;
+            }
+          }
+        }
+      }
+      strong{
+        text-transform: uppercase;
+        margin-bottom: 15px;
+        margin-top: 15px;
+        display: block;
+      }
+      .add_rom{
+        background: green;
+        color: #FFF;
+        text-transform: uppercase;
+        border-radius: 0px;
+        border:none;
+        outline: none;
+        cursor: pointer;
+        padding: 8px 25px;
+        margin-top: 15px;
+      }
+    }
+    li:last-child{
+      width: 100% !important;
+    }
+  }
+}

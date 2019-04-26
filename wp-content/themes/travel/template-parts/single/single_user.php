@@ -62,6 +62,7 @@ if(isset($_POST['sub_update_user'])){
                     update_field( 'ho_va_ten_tai_khoan', $_POST['ho_va_ten_tai_khoan'], $post_id );
                     update_field( 'sdt_tai_khoan', $_POST['sdt_tai_khoan'], $post_id );
                     update_field( 'cmt_tai_khoan', $_POST['cmt_tai_khoan'], $post_id );
+                    update_field( 'bo_phan_tai_khoan', $_POST['bo_phan_tai_khoan'], $post_id );
                     update_field( 'loai_quyen_tai_khoan', $_POST['loai_quyen_tai_khoan'], $post_id );
                     update_field( 'dia_chi_tai_khoan', $_POST['dia_chi_tai_khoan'], $post_id );
                     update_field( 'hinh_anh_tai_khoan', $location_img, $post_id );
@@ -88,6 +89,7 @@ if(isset($_POST['sub_update_user'])){
             update_field( 'ho_va_ten_tai_khoan', $_POST['ho_va_ten_tai_khoan'], $post_id );
             update_field( 'sdt_tai_khoan', $_POST['sdt_tai_khoan'], $post_id );
             update_field( 'cmt_tai_khoan', $_POST['cmt_tai_khoan'], $post_id );
+            update_field( 'bo_phan_tai_khoan', $_POST['bo_phan_tai_khoan'], $post_id );
             update_field( 'loai_quyen_tai_khoan', $_POST['loai_quyen_tai_khoan'], $post_id );
             update_field( 'dia_chi_tai_khoan', $_POST['dia_chi_tai_khoan'], $post_id );
             add_post_meta($post_id, 'ten_anh_tai_khoan', $file_name, true);
@@ -133,8 +135,11 @@ if(isset($_POST['sub_update_user'])){
             <form action="<?php echo get_permalink(); ?>" method="post" enctype="multipart/form-data">
                 <ul>
                     <li>
-                        <label>Email</label>
+                        <label>Tìm kiếm Email</label>
                         <input type="text" class="search_email" placeholder="Tìm kiếm email..">
+                    </li>
+                    <li>
+                        <label>Email</label>
                         <select name="email_tai_khoan" class="email_tai_khoan" data-check="<?php echo get_field('email_tai_khoan'); ?>">
                             <option value="" selected disabled hidden>Chọn Email</option>
                             <?php
@@ -173,6 +178,15 @@ if(isset($_POST['sub_update_user'])){
                     <li>
                         <label>Số chứng minh thư</label>
                         <input type="number" name="cmt_tai_khoan" class="cmt_tai_khoan" value="<?php echo get_field('cmt_tai_khoan'); ?>" required>
+                    </li>
+                    <li>
+                        <label>Bộ phận</label>
+                        <select name="bo_phan_tai_khoan" class="bo_phan_tai_khoan" data-check="<?php echo get_field('bo_phan_tai_khoan'); ?>">
+                            <option value="Quản lý">Quản lý</option>
+                            <option value="Sales">Sales</option>
+                            <option value="Booking">Booking</option>
+                            <option value="Kế toán">Kế toán</option>
+                        </select>
                     </li>
                     <li>
                         <label>Loại quyền</label>

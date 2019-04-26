@@ -74,6 +74,7 @@ function travel_scripts() {
 	wp_enqueue_script( 'parallax-js', get_template_directory_uri() . '/assets/js/parallax.js', array(), false, true );
 	wp_enqueue_script( 'nicescroll-js', get_template_directory_uri() . '/assets/js/jquery.nicescroll.min.js', array(), false, true );
     wp_enqueue_script( 'iframehelper-js', get_template_directory_uri() . '/assets/js/jquery.nicescroll.iframehelper.min.js', array(), false, true );
+    wp_enqueue_script( 'select2-js', get_template_directory_uri() . '/assets/js/select2.full.min.js', array(), false, true );
 	wp_enqueue_script( 'travel-js', get_template_directory_uri() . '/assets/js/js.js', array(), false, true );
 
     wp_localize_script( 'travel-js', 'my_ajax_object', array( 'ajax_url' => get_template_directory_uri().'/inc/ajax/admin-ajax.php' ) ); //admin_url( 'admin-ajax.php' )
@@ -145,6 +146,8 @@ require get_template_directory() . '/inc/ajax/ajax-delete-tai-khoan.php';
 require get_template_directory() . '/inc/ajax/ajax-login.php';
 require get_template_directory() . '/inc/ajax/ajax-logout.php';
 require get_template_directory() . '/inc/ajax/ajax_join_user_nv.php';
+require get_template_directory() . '/inc/ajax/ajax-chat.php';
+require get_template_directory() . '/inc/ajax/ajax-send-mess.php';
 
 /**
  * ACF.
@@ -227,7 +230,7 @@ echo $localIP;*/
 echo get_mac();*/
 
 //create table mysql
-function jal_install () {
+/*function jal_install () {
     global $wpdb;
 
     $table_name = $wpdb->prefix . "chat_online";
@@ -244,5 +247,5 @@ function jal_install () {
     dbDelta( $sql );
 }
 
-add_action('init','jal_install');
+add_action('init','jal_install');*/
 

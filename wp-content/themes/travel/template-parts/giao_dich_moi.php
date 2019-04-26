@@ -71,7 +71,7 @@ if($_SESSION['sucess'] == "sucess") {
 
                                 if(! isset($alert)){
                                     $add_new_giao_dich = array(
-                                        'post_title' => $_POST['ten_khach_san_gd'],
+                                        'post_title' => $_POST['ma_gd'],
                                         'post_status' => 'publish',
                                         'post_type' => 'giao_dich',
                                     );
@@ -88,7 +88,7 @@ if($_SESSION['sucess'] == "sucess") {
 
                                     //lịch sử giao dịch
                                     $add_lich_su_giao_dich = array(
-                                        'post_title' => $_POST['ten_khach_san_gd'],
+                                        'post_title' => $_POST['ma_gd'],
                                         'post_status' => 'publish',
                                         'post_type' => 'history_giao_dich',
                                     );
@@ -138,7 +138,7 @@ if($_SESSION['sucess'] == "sucess") {
 
                                                         if($query->have_posts()) : while ($query->have_posts()) : $query->the_post();
                                                     ?>
-                                                    <option value="<?php echo get_field('ten_ks'); ?>" data-id="<?php echo get_field('ma_ks'); ?>"><?php echo get_field('ten_ks'); ?></option>
+                                                    <option value="<?php echo get_field('ten_ks'); ?>" data-id="<?php echo get_field('ma_ks'); ?>" data-room="<?php echo get_field('loai_phong_ks'); ?>"><?php echo get_field('ten_ks'); ?></option>
                                                     <?php
                                                         endwhile;
                                                         endif;
@@ -178,7 +178,24 @@ if($_SESSION['sucess'] == "sucess") {
                                             <td>Mã ĐT</td>
                                         </tr>
                                         <tr>
-                                            <td width="80%"><input type="text" name="ten_dt_gui_book_dt" class="ten_dt_gui_book_dt" required /></td>
+                                            <td width="80%">
+                                                <select name="ten_dt_gui_book_dt" class="ten_dt_gui_book_dt" required>
+                                                    <option value="" selected disabled hidden>Chọn đối tác</option>
+                                                    <?php
+                                                    $query = new WP_Query(array(
+                                                        'post_type' => 'doi_tac',
+                                                    ));
+
+                                                    if($query->have_posts()) : while ($query->have_posts()) : $query->the_post();
+                                                        ?>
+                                                        <option value="<?php echo get_field('ten_dt'); ?>" data-id="<?php echo get_field('ma_dt'); ?>"><?php echo get_field('ten_dt'); ?></option>
+                                                    <?php
+                                                    endwhile;
+                                                    endif;
+                                                    wp_reset_postdata();
+                                                    ?>
+                                                </select>
+                                            </td>
                                             <td><input type="text" name="ma_dt" class="ma_dt" value="" required /></td>
                                         </tr>
                                         </tbody>
@@ -215,7 +232,7 @@ if($_SESSION['sucess'] == "sucess") {
                                                     <?php
                                                         $arr = array(
                                                             'post_type' => 'trang_thai',
-                                                            'order' => 'ASC',
+                                                            'order' => 'DESC',
                                                             'posts_per_page' => 20,
                                                         );
 
@@ -252,7 +269,7 @@ if($_SESSION['sucess'] == "sucess") {
                                                     <?php
                                                     $arr = array(
                                                         'post_type' => 'trang_thai',
-                                                        'order' => 'ASC',
+                                                        'order' => 'DESC',
                                                         'posts_per_page' => 20,
                                                     );
 
@@ -338,7 +355,7 @@ if($_SESSION['sucess'] == "sucess") {
                                                 </select>
                                             </td>
                                             <td width="10%"><input type="number" name="sl_gd" class="sl_gd" required /></td>
-                                            <td width="20%"><input type="number" name="don_gia_ban_gd" class="don_gia_ban_gd" required /></td>
+                                            <td width="20%"><input type="number" name="don_gia_ban_gd" class="don_gia_ban_gd" required autocomplete="off"/></td>
                                             <td width="10%">
                                                 <select name="don_vi_dt" class="don_vi_gd" required>
                                                     <option value="" selected disabled hidden>Chọn đơn vị</option>
@@ -377,7 +394,7 @@ if($_SESSION['sucess'] == "sucess") {
                                 </td>
                                 <td align="center">
                                     Mã xác nhận
-                                    <input type="text" name="ma_xac_nhan" class="ma_xac_nhan" value="MXN_<?php echo abs( crc32( uniqid() ) ); ?>">
+                                    <input type="text" name="ma_xac_nhan" class="ma_xac_nhan" value="">
                                 </td>
                                 <td>
                                     <table width="100%" border="1">
@@ -829,7 +846,7 @@ if($_SESSION['sucess'] == "sucess") {
                                             <td width="25%"><input type="number" name="tk_kh_1" class="tk_kh_1" required /></td>
                                             <td width="25%"><input type="number" name="so_tien_hoan_1" class="so_tien_hoan_1" required /></td>
                                             <td width="25%"><input type="text" name="ngay_hoan_tien_1" data-date-format="dd/mm/yyyy" class="ngay_hoan_tien_1 datepicker-here" data-language='en' required /></td>
-                                            <td><input type="text" name="ma_gd_hoan_tien_1" class="ma_gd_hoan_tien_1" value="MGDHT_<?php echo abs( crc32( uniqid() ) ); ?>" required /></td>
+                                            <td><input type="text" name="ma_gd_hoan_tien_1" class="ma_gd_hoan_tien_1" value="" required /></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -848,7 +865,7 @@ if($_SESSION['sucess'] == "sucess") {
                                             <td width="25%"><input type="number" name="tk_doi_tac_2" class="tk_doi_tac_2" required /></td>
                                             <td width="25%"><input type="number" name="so_tien_hoan_2" class="so_tien_hoan_2" required /></td>
                                             <td width="25%"><input type="text" name="ngay_hoan_tien_2" data-date-format="dd/mm/yyyy" class="ngay_hoan_tien_2 datepicker-here" data-language='en' required /></td>
-                                            <td><input type="text" name="ma_gd_hoan_tien_2" class="ma_gd_hoan_tien_2" value="MGDHT_<?php echo abs( crc32( uniqid() ) ); ?>" required /></td>
+                                            <td><input type="text" name="ma_gd_hoan_tien_2" class="ma_gd_hoan_tien_2" value="" required /></td>
                                         </tr>
                                         </tbody>
                                     </table>

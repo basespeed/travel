@@ -73,6 +73,7 @@ if($_SESSION['sucess'] == "sucess") {
                 add_post_meta($post_id, 'email_dat_phong', $_POST['email_dat_phong'], true);
                 add_post_meta($post_id, 'sdt_dat_phong', $_POST['sdt_dat_phong'], true);
                 add_post_meta($post_id, 'link_hd_goc', $_POST['link_hd_goc'], true);
+                add_post_meta($post_id, 'loai_phong_ks', $_POST['loai_phong_ks'], true);
 
                 $alert = "<p class='alert_tk_sucess'>Thêm khách sạn thành công !</p>";
             }
@@ -80,66 +81,90 @@ if($_SESSION['sucess'] == "sucess") {
         ?>
         <div class="content_admin">
             <div class="giao_dich_moi add_user add_khach_san">
-                <h1>Thêm mới khách sạn</h1>
-                <form action="<?php echo home_url('/'); ?>them-moi-khach-san" method="post"
-                      enctype="multipart/form-data">
-                    <ul>
-                        <li>
-                            <label>ID Khách sạn</label>
-                            <input type="text" name="id_khach_sạn" class="id_khach_sạn" required>
-                        </li>
-                        <li>
-                            <label>Mã Khách sạn</label>
-                            <input type="text" name="ma_ks" class="ma_ks" required>
-                        </li>
-                        <li>
-                            <label>Tên Khách sạn</label>
-                            <input type="text" name="ten_ks" class="ten_ks" required>
-                        </li>
-                        <li>
-                            <label>MST Khách sạn</label>
-                            <input type="text" name="mst_ks" class="mst_ks" required>
-                        </li>
-                        <li>
-                            <label>STK Khách sạn</label>
-                            <input type="number" name="stk_ks" class="stk_ks" required>
-                        </li>
-                        <li>
-                            <label>Khu vực Khách sạn</label>
-                            <input type="text" name="khu_vuc_ks" class="khu_vuc_ks" required>
-                        </li>
-                        <li>
-                            <label>Địa chỉ</label>
-                            <input type="text" name="dia_chi_ks" class="dia_chi_ks" required>
-                        </li>
-                        <li>
-                            <label>Email sale Khách sạn</label>
-                            <input type="email" name="email_sale_ks" class="email_sale_ks" required>
-                        </li>
-                        <li>
-                            <label>SĐT sale Khách sạn</label>
-                            <input type="text" name="sdt_sale_ks" class="sdt_sale_ks" required>
-                        </li>
-                        <li>
-                            <label>Email đặt phòng</label>
-                            <input type="email" name="email_dat_phong" class="email_dat_phong" required>
-                        </li>
-                        <li>
-                            <label>SĐT đặt phòng</label>
-                            <input type="number" name="sdt_dat_phong" class="sdt_dat_phong" required>
-                        </li>
-                        <li>
-                            <label>Link HĐ gốc</label>
-                            <input type="text" name="link_hd_goc" class="link_hd_goc" required>
-                        </li>
-                        <div class="get_alert" style="text-align: center;"></div>
-                        <?php if ($alert) {
-                            echo $alert;
-                        } ?>
-                    </ul>
-                    <div class="acf-form-submit">
-                        <input type="submit" name="sub_new_khach_san" value="Thêm mới">
+                <form action="<?php echo home_url('/'); ?>them-moi-khach-san" method="post" enctype="multipart/form-data">
+                <div class="add_hotel">
+                    <div class="item">
+                        <h1>Thêm mới khách sạn</h1>
+                        <ul>
+                            <li>
+                                <label>ID Khách sạn</label>
+                                <input type="text" name="id_khach_sạn" class="id_khach_sạn" required>
+                            </li>
+                            <li>
+                                <label>Mã Khách sạn</label>
+                                <input type="email" name="ma_ks" class="ma_ks" required>
+                            </li>
+                            <li>
+                                <label>Tên Khách sạn</label>
+                                <input type="text" name="ten_ks" class="ten_ks" required>
+                            </li>
+                            <li>
+                                <label>MST Khách sạn</label>
+                                <input type="text" name="mst_ks" class="mst_ks" required>
+                            </li>
+                            <li>
+                                <label>STK Khách sạn</label>
+                                <input type="number" name="stk_ks" class="stk_ks" required>
+                            </li>
+                            <li>
+                                <label>Khu vực Khách sạn</label>
+                                <input type="text" name="khu_vuc_ks" class="khu_vuc_ks" required>
+                            </li>
+                            <li>
+                                <label>Địa chỉ</label>
+                                <input type="text" name="dia_chi_ks" class="dia_chi_ks" required>
+                            </li>
+                            <li>
+                                <label>Email sale Khách sạn</label>
+                                <input type="email" name="email_sale_ks" class="email_sale_ks" required>
+                            </li>
+                            <li>
+                                <label>SĐT sale Khách sạn</label>
+                                <input type="text" name="sdt_sale_ks" class="sdt_sale_ks" required>
+                            </li>
+                            <li>
+                                <label>Email đặt phòng</label>
+                                <input type="email" name="email_dat_phong" class="email_dat_phong" required>
+                            </li>
+                            <li>
+                                <label>SĐT đặt phòng</label>
+                                <input type="number" name="sdt_dat_phong" class="sdt_dat_phong" required>
+                            </li>
+                            <li>
+                                <label>Link HĐ gốc</label>
+                                <input type="text" name="link_hd_goc" class="link_hd_goc" required>
+                            </li>
+                            <div class="get_alert" style="text-align: center;"></div>
+                            <?php if ($alert) {
+                                echo $alert;
+                            } ?>
+                        </ul>
+                        <div class="acf-form-submit">
+                            <input type="submit" name="sub_new_khach_san" value="Thêm mới">
+                        </div>
                     </div>
+
+                    <div class="item">
+                        <h1>Giá phòng và loại phòng</h1>
+
+                        <ul>
+                            <li>
+                                <label>Tên phòng : </label>
+                                <input type="text" class="ten_phong_ks">
+                            </li>
+                            <li>
+                                <label>Giá phòng : </label>
+                                <input type="text" class="gia_phong_ks">
+                                <button type="button" class="add_rom">Thêm</button>
+                            </li>
+                            <li>
+                                <strong>Danh sách loại phòng</strong>
+                                <div class="loai_phong"></div>
+                                <input type="hidden" name="loai_phong_ks" class="loai_phong_ks">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
                 </form>
             </div>
         </div>

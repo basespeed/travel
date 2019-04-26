@@ -81,6 +81,7 @@ get_header();
                 update_field( 'email_nv', $_POST['email_nv'], $post_id );
                 update_field( 'sdt_nv', $_POST['sdt_nv'], $post_id );
                 update_field( 'muc_do_uu_tien', $_POST['muc_do_uu_tien'], $post_id );
+                update_field( 'bo_phan_nv', $_POST['bo_phan_nv'], $post_id );
                 update_field( 'nick_nv', $_POST['nick_nv'], $post_id );
                 update_field( 'link_fb_nv', $_POST['link_fb_nv'], $post_id );
                 update_field( 'uidfb_nv', $_POST['uidfb_nv'], $post_id );
@@ -101,7 +102,7 @@ get_header();
                         </li>
                         <li>
                             <label>Mã NV</label>
-                            <input type="text" name="ma_nv" class="ma_nv" value="<?php echo get_field('ma_nv'); ?>" required>
+                            <input type="email" name="ma_nv" class="ma_nv" value="<?php echo get_field('ma_nv'); ?>" required>
                         </li>
                         <li>
                             <label>Tên NV</label>
@@ -114,6 +115,15 @@ get_header();
                         <li>
                             <label>SĐT NV</label>
                             <input type="number" name="sdt_nv" class="sdt_nv" value="<?php echo get_field('sdt_nv'); ?>" required>
+                        </li>
+                        <li>
+                            <label>Bộ phận NV</label>
+                            <select name="bo_phan_nv" class="bo_phan_nv" data-check="<?php echo get_field('bo_phan_nv'); ?>" required>
+                                <option value="Quản lý">Quản lý</option>
+                                <option value="Sales">Sales</option>
+                                <option value="Booking">Booking</option>
+                                <option value="Kế toán">Kế toán</option>
+                            </select>
                         </li>
                         <li>
                             <label>Nick NV</label>

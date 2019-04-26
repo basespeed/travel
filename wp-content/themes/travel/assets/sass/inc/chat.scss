@@ -9,6 +9,18 @@
     flex-wrap: wrap;
     table{
       width: 100%;
+      td{
+        text-align: center;
+      }
+      tr:first-child td:first-child{
+        text-align: center;
+      }
+      tr td:first-child{
+        text-align: justify;
+      }
+      span{
+        font-size: 14px;
+      }
     }
   }
   .my_friend{
@@ -28,24 +40,10 @@
       padding: 10px 0px;
       text-align: center;
     }
-    ul{
-      padding: 0;
-      margin: 0;
-      list-style: none;
-      background: #FFF;
-      li{
-        padding: 10px;
-        border-bottom:1px solid #eaeaea;
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-        transition: 0.5s;
-        font-weight: bold;
-        &:hover{
-          color: green;
-          span:nth-child(2){
-            background: #FFF;
-          }
+    ul:nth-child(1){
+      li:first-child{
+        i{
+          margin-right: 5px;
         }
         span:nth-child(1){
           flex-grow: 1;
@@ -58,13 +56,57 @@
           border-radius: 50%;
           margin-left: 5px;
           transition: 0.5s;
-        }
-        span:nth-child(2).off{
-          background: #666;
+          flex-grow: unset;
         }
       }
-      li:last-child{
-        border-bottom:0px;
+    }
+    ul{
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      background: #FFF;
+      li{
+        padding: 10px;
+        border-top:1px solid #eaeaea;
+        display: flex;
+        font-size: 14px;
+        align-items: center;
+        cursor: pointer;
+        transition: 0.5s;
+        text-transform: capitalize;
+        &:hover{
+          color: green;
+          span:nth-child(3){
+            background: #FFF;
+          }
+        }
+        span:nth-child(2){
+          flex-grow: 1;
+        }
+        span:nth-child(3){
+          width: 12px;
+          height: 12px;
+          display: block;
+          background: green;
+          border-radius: 50%;
+          margin-left: 5px;
+          transition: 0.5s;
+        }
+        span.off{
+          background: #666 !important;
+        }
+        .img{
+          width: 40px;
+          height: 40px;
+          overflow: hidden;
+          border-radius: 50%;
+          margin-right: 15px;
+          img{
+            width: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+          }
+        }
       }
     }
   }
@@ -89,6 +131,9 @@
   }
   .cmt_chat{
     width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     textarea{
       width: 100%;
       border-radius: 0px;
@@ -109,10 +154,69 @@
       cursor: pointer;
       margin-top: 3px;
       transition: 0.5s;
+      margin-top: 15px;
       &:hover{
         background: green;
       }
     }
+  }
+  input{
+    outline: none !important;
+  }
+}
+
+.more{
+  margin-top: 15px;
+  ul{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    margin-top: -5px;
+    li{
+      width: 50%;
+      margin-bottom: 10px;
+    }
+    li:nth-child(odd){
+      padding-right: 10px;
+    }
+  }
+  input{
+    width: 100%;
+    height: 35px;
+    border-radius: 0px;
+    border:1px solid #eaeaea;
+    outline: none;
+    font-size: 16px;
+    color: #666;
+  }
+  select{
+    width: 100%;
+    height: 35px;
+    border-radius: 0px;
+    border:1px solid #eaeaea;
+    outline: none;
+    font-size: 16px;
+    color: #666;
+  }
+}
+
+.search_user_chat{
+  width: 90%;
+  border-radius: 0px !important;
+  border:1px solid #eaeaea !important;
+  outline: none;
+  height: 35px;
+  margin-left: 5%;
+  font-size: 14px;
+  color: #888888;
+  position: absolute;
+  bottom: 10px;
+  right: 5%;
+  &::placeholder{
+    color: #888888;
   }
 }
 

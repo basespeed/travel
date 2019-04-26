@@ -1,6 +1,15 @@
 ( function( $ ) {
     "use strict";
 
+    var at = function( test ) {
+        try {
+            if(typeof test === "function") return test();
+            else return test || null;
+        } catch (e) {
+            return null;
+        }
+    };
+
     var testMobile;
     var isMobile = {
         Android: function() {
@@ -56,7 +65,7 @@
 
 
     }
-    
+
     function datePicker() {
         $('.datepicker').data('datepicker');
     }
@@ -150,6 +159,7 @@
     function checkSelect() {
         var ClassSelect = [
             'ten_khach_san_gd',
+            'ten_dt_gui_book_dt',
             'trang_thai_bkk_voi_kh_gd',
             'trang_thai_bkk_voi_dt',
             'loai_phong_ban_gd',
@@ -160,73 +170,133 @@
             'don_vi_gd',
             'don_vi_dt',
             'email_tai_khoan',
+            'bo_phan_tai_khoan',
+            'bo_phan_nv',
+            'muc_do_uu_tien_chat',
         ];
 
         $.each(ClassSelect , function(index, val) {
             $('.'+val).val($('.'+val).attr('data-check'));
         });
 
-        $('.ten_khach_san_gd').change(function(){
+        $('.ten_khach_san_gd').change(function(e){
+            e.preventDefault();
             var element = $(this).find('option:selected');
             var myID = element.attr("data-id");
+            var data_room = element.attr('data-room');
+            var loai_phong_ban_gd = $('.loai_phong_ban_gd');
+            var loai_phong_ban_dt = $('.loai_phong_ban_dt');
 
             $('.ma_dich_vu_gd').val(myID);
+
+            var array_room = data_room.split(",");
+
+            loai_phong_ban_gd.empty();
+            loai_phong_ban_dt.empty();
+
+            loai_phong_ban_gd.append(' <option value="" selected disabled hidden>Chọn loại phòng</option>');
+            loai_phong_ban_dt.append(' <option value="" selected disabled hidden>Chọn loại phòng</option>');
+
+            $.each(array_room , function(index, val) {
+                var array_room_data  = val.split(":");
+                loai_phong_ban_gd.append('<option value="'+array_room_data[0]+'" data-price="'+array_room_data[1]+'">'+array_room_data[0]+'</option>');
+                loai_phong_ban_dt.append('<option value="'+array_room_data[0]+'" data-price="'+array_room_data[1]+'">'+array_room_data[0]+'</option>');
+            });
+
+        });
+
+        $('.loai_phong_ban_gd').on('change', function (e) {
+            e.preventDefault();
+            var element = $(this).find('option:selected');
+            var price = element.attr("data-price");
+
+            $('input.don_gia_ban_gd').attr('value', parseInt(price));
+        });
+
+        $('.loai_phong_ban_dt').on('change', function (e) {
+            e.preventDefault();
+            var element = $(this).find('option:selected');
+            var price = element.attr("data-price");
+
+            $('input.don_gia_ban_dt').attr('value', parseInt(price));
+        });
+
+        $('.sl_gd').attr('value', parseInt(1));
+        $('.sl_dt').attr('value', parseInt(1));
+
+        setInterval(function () {
+            var sl_gd = $('.sl_gd').val();
+            var don_gia_ban_gd = $('.don_gia_ban_gd').val();
+            var sl_dt = $('.sl_dt').val();
+            var don_gia_ban_dt = $('.don_gia_ban_dt').val();
+
+            $('.tong_gd').val(sl_gd * don_gia_ban_gd);
+            $('.tong_dt').val(sl_dt * don_gia_ban_dt);
+        },1000);
+
+        $('.ten_dt_gui_book_dt').change(function(){
+            var element = $(this).find('option:selected');
+            var myID_DT = element.attr("data-id");
+
+            $('.ma_dt').val(myID_DT);
         });
     }
 
     function CountGetData(){
-        setInterval(function () {
-            var date_in = $('.ci_gd').val();
-            if(typeof date_in !== 'undefined') {
-                date_in = date_in.replace('/', "");
-                date_in = date_in.replace('/', "");
-                var d_in = date_in.slice(0, 2);
-                var m_in = date_in.slice(2, 4);
-                var y_in = date_in.slice(4, 8);
-                var join_string_in = parseInt(y_in + m_in + d_in);
+        if($('.datepicker-here').hasClass('ci_gd')){
+            setInterval(function () {
+                var date_in = $('.ci_gd').val();
+                if(typeof date_in !== 'undefined' || date_in != "") {
+                    date_in = date_in.replace('/', "");
+                    date_in = date_in.replace('/', "");
+                    var d_in = date_in.slice(0, 2);
+                    var m_in = date_in.slice(2, 4);
+                    var y_in = date_in.slice(4, 8);
+                    var join_string_in = parseInt(y_in + m_in + d_in);
 
 
-                var date_out = $('.co_gd').val();
-                date_out = date_out.replace('/', "");
-                date_out = date_out.replace('/', "");
-                var d_out = date_out.slice(0, 2);
-                var m_out = date_out.slice(2, 4);
-                var y_out = date_out.slice(4, 8);
-                var join_string_out = parseInt(y_out + m_out + d_out);
+                    var date_out = $('.co_gd').val();
+                    date_out = date_out.replace('/', "");
+                    date_out = date_out.replace('/', "");
+                    var d_out = date_out.slice(0, 2);
+                    var m_out = date_out.slice(2, 4);
+                    var y_out = date_out.slice(4, 8);
+                    var join_string_out = parseInt(y_out + m_out + d_out);
 
-                if (date_out != "" && date_in != "") {
-                    $('.so_dem_gd').attr('value', join_string_out - join_string_in);
-                }
+                    if (date_out != "" && date_in != "") {
+                        $('.so_dem_gd').attr('value', join_string_out - join_string_in);
+                    }
 
-                var now = new Date();
-                var year = now.getFullYear();
-                var month = now.getMonth() + 1;
-                var day = now.getDate();
-                var hour = now.getHours();
-                var minute = now.getMinutes();
-                var second = now.getSeconds();
-                if (month.toString().length == 1) {
-                    var month = '0' + month;
-                }
-                if (day.toString().length == 1) {
-                    var day = '0' + day;
-                }
-                if (hour.toString().length == 1) {
-                    var hour = '0' + hour;
-                }
-                if (minute.toString().length == 1) {
-                    var minute = '0' + minute;
-                }
-                if (second.toString().length == 1) {
-                    var second = '0' + second;
-                }
-                var datetime = year + '/' + month + '/' + day;
-                datetime = datetime.replace('/', "");
-                datetime = datetime.replace('/', "");
+                    var now = new Date();
+                    var year = now.getFullYear();
+                    var month = now.getMonth() + 1;
+                    var day = now.getDate();
+                    var hour = now.getHours();
+                    var minute = now.getMinutes();
+                    var second = now.getSeconds();
+                    if (month.toString().length == 1) {
+                        var month = '0' + month;
+                    }
+                    if (day.toString().length == 1) {
+                        var day = '0' + day;
+                    }
+                    if (hour.toString().length == 1) {
+                        var hour = '0' + hour;
+                    }
+                    if (minute.toString().length == 1) {
+                        var minute = '0' + minute;
+                    }
+                    if (second.toString().length == 1) {
+                        var second = '0' + second;
+                    }
+                    var datetime = year + '/' + month + '/' + day;
+                    datetime = datetime.replace('/', "");
+                    datetime = datetime.replace('/', "");
 
-                $('.con_ngay_gd').attr('value', parseInt(join_string_in) - parseInt(datetime));
-            }
-        },1);
+                    $('.con_ngay_gd').attr('value', parseInt(join_string_in) - parseInt(datetime));
+                }
+            },1);
+        }
     }
 
     function uploadFileImage() {
@@ -423,6 +493,14 @@
             cursorborder: "1px solid #23262B",
             scrollspeed: 60,
         });
+        $(".select2-results__options").niceScroll({
+            cursorcolor:"#23262B",
+            cursorwidth: "10px",
+            cursorborderradius: "5px",
+            cursorminheight: 32,
+            cursorborder: "1px solid #23262B",
+            scrollspeed: 60,
+        });
     }
 
     function search_email() {
@@ -447,6 +525,7 @@
                         $('.ho_va_ten_tai_khoan').val(response.data[0]);
                         $('.sdt_tai_khoan').val(response.data[1]);
                         $('.lien_ket_tai_khoan').val(response.data[2]);
+                        $('.bo_phan_tai_khoan').val(response.data[3]);
                     }
                 });
             }
@@ -464,6 +543,7 @@
                         $('.ho_va_ten_tai_khoan').val(response.data[0]);
                         $('.sdt_tai_khoan').val(response.data[1]);
                         $('.lien_ket_tai_khoan').val(response.data[2]);
+                        $('.bo_phan_tai_khoan').val(response.data[3]);
                     }
                 });
             }
@@ -472,24 +552,48 @@
 
     function checkOnline() {
         setInterval(function () {
-            $.ajax({
-                type: "post",
-                dataType: "json",
-                url: my_ajax_object.ajax_url,
-                data: {action: "check_online"},
-                success: function(response){
-                    $('.my_friend ul').html(response.data);
-                    //console.log(response);
+            var search_user_chat = $('.search_user_chat');
+            if(search_user_chat.val() == ""){
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: my_ajax_object.ajax_url,
+                    data: {action: "check_online"},
+                    success: function(response){
+                        var input_gd = $('input.search_gd');
+                        var slt_search_giao_dich = $(".slt_search_giao_dich");
 
-                    $('.chatbox .my_friend ul li').on('click', function (e) {
-                        e.preventDefault();
-                        var data_name = $(this).attr('data-name');
+                        $('.my_friend .list_user_on').html(response.data);
+                        //console.log(response);
 
-                        $('.form_chat h2 span').text(data_name);
-                    });
-                }
-            });
-        },3000);
+                        $('.chatbox .my_friend ul li').on('click', function (e) {
+                            e.preventDefault();
+                            var data_name = $(this).attr('data-name');
+
+                            $('.form_chat h2 span').text(data_name);
+                        });
+                    }
+                });
+            }else{
+                var val_user_on = search_user_chat.val();
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: my_ajax_object.ajax_url,
+                    data: {action: "search_user_online",val_user_on:val_user_on},
+                    success: function(response){
+                        $('.my_friend .list_user_on').html(response.data);
+
+                        $('.chatbox .my_friend ul li').on('click', function (e) {
+                            e.preventDefault();
+                            var data_name = $(this).attr('data-name');
+
+                            $('.form_chat h2 span').text(data_name);
+                        });
+                    }
+                });
+            }
+        },1500);
 
         window.addEventListener('beforeunload', function (e) {
             // Cancel the event
@@ -507,6 +611,80 @@
         });
     }
 
+    function SendMessage() {
+        var send_mess = $('.send_mess');
+
+        send_mess.on('click',function (e) {
+           e.preventDefault();
+
+        });
+    }
+
+    function SelectSearch() {
+
+    }
+    
+    function AddTypeRoom() {
+        var btn_add_rom = $('.add_rom');
+        var ten_phong_ks = $('.ten_phong_ks');
+        var gia_phong_ks = $('.gia_phong_ks');
+        var loai_phong = $('.add_hotel .item:nth-child(2) li .loai_phong');
+        var remove_rom = $('.add_hotel .item:nth-child(2) li .loai_phong .rom i');
+        var loai_phong_ks = $('.loai_phong_ks');
+
+        btn_add_rom.on('click',function (e) {
+            var lenght = $('.loai_phong').find(".rom").length;
+
+            e.preventDefault();
+
+            if(ten_phong_ks.val() == ""){
+                alert('Tên phòng trống !');
+            }else if(gia_phong_ks.val() == ""){
+                alert('Giá phòng trống !');
+            }else{
+                loai_phong.append('<div class="rom">'+ten_phong_ks.val()+':'+gia_phong_ks.val()+' <i class="fa fa-times-circle" aria-hidden="true"></i></div>');
+                if(lenght > 0){
+                    for (var i = 0; i <= lenght+1; i++){
+                        var add_data = $('.add_hotel .item:nth-child(2) li .loai_phong .rom:nth-child('+i+')').text();
+                    }
+                    loai_phong_ks.val(loai_phong_ks.val()+','+add_data);
+
+                }else{
+                    for (var i = 0; i <= lenght+1; i++){
+                        var add_data = $('.add_hotel .item:nth-child(2) li .loai_phong .rom:nth-child('+i+')').text();
+
+                    }
+                    loai_phong_ks.val(add_data);
+
+                }
+            }
+        });
+
+        $(document).on('click', ".rom i", function() {
+            $(this).parent().remove();
+
+        });
+
+        setInterval(function () {
+            var lenght = $('.loai_phong').find(".rom").length;
+            loai_phong_ks.val('');
+            if(lenght > 0){
+                for (var i = 1; i <= lenght; i++){
+                    if(i == 1){
+                        var add_data = $('.add_hotel .item:nth-child(2) li .loai_phong .rom:nth-child('+i+')').text();
+                        loai_phong_ks.val(loai_phong_ks.val()+add_data);
+                    }else{
+                        var add_data = $('.add_hotel .item:nth-child(2) li .loai_phong .rom:nth-child('+i+')').text();
+                        loai_phong_ks.val(loai_phong_ks.val()+','+add_data);
+                    }
+
+                }
+            }
+
+
+        },1000);
+    }
+
     function _init() {
         base();
         Isotope();
@@ -521,6 +699,9 @@
         NiceScroll();
         search_email();
         checkOnline();
+        SendMessage();
+        SelectSearch();
+        AddTypeRoom();
     }
 
     _init();

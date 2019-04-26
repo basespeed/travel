@@ -76,6 +76,7 @@ if($_SESSION['sucess'] == "sucess") {
                 add_post_meta($post_id, 'sdt_nv', $_POST['sdt_nv'], true);
                 add_post_meta($post_id, 'muc_do_uu_tien', $_POST['muc_do_uu_tien'], true);
                 add_post_meta($post_id, 'nick_nv', $_POST['nick_nv'], true);
+                add_post_meta($post_id, 'bo_phan_nv', $_POST['bo_phan_nv'], true);
                 add_post_meta($post_id, 'link_fb_nv', $_POST['link_fb_nv'], true);
                 add_post_meta($post_id, 'uidfb_nv', $_POST['uidfb_nv'], true);
                 add_post_meta($post_id, 'lien_ket_tai_khoan', abs( crc32( uniqid() ) ), true);
@@ -96,7 +97,7 @@ if($_SESSION['sucess'] == "sucess") {
                         </li>
                         <li>
                             <label>Mã NV</label>
-                            <input type="text" name="ma_nv" class="ma_nv" required>
+                            <input type="email" name="ma_nv" class="ma_nv" required>
                         </li>
                         <li>
                             <label>Tên NV</label>
@@ -109,6 +110,15 @@ if($_SESSION['sucess'] == "sucess") {
                         <li>
                             <label>SĐT NV</label>
                             <input type="number" name="sdt_nv" class="sdt_nv" required>
+                        </li>
+                        <li>
+                            <label>Bộ phận NV</label>
+                            <select name="bo_phan_nv" class="bo_phan_nv" required>
+                                <option value="Quản lý">Quản lý</option>
+                                <option value="Sales">Sales</option>
+                                <option value="Booking">Booking</option>
+                                <option value="Kế toán">Kế toán</option>
+                            </select>
                         </li>
                         <li>
                             <label>Nick NV</label>

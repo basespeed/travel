@@ -24,6 +24,7 @@ function join_user_nv() {
         array_push($data, get_field('ten_nv'));
         array_push($data, get_field('sdt_nv'));
         array_push($data, get_field('lien_ket_tai_khoan'));
+        array_push($data, get_field('bo_phan_nv'));
     endwhile;
     endif;
     wp_reset_postdata();
