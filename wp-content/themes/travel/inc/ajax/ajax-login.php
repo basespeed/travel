@@ -36,6 +36,7 @@ function check_login() {
                 $_SESSION['lien_ket_tai_khoan'] = get_field('lien_ket_tai_khoan');
                 $_SESSION['bo_phan_tai_khoan'] = get_field('bo_phan_tai_khoan');
                 $_SESSION['user_id'] = get_the_ID();
+                $_SESSION['mnv'] = get_field('email_tai_khoan');
                 $alert = $_SESSION['sucess'];
             }else{
                 $alert = "fail";

@@ -1,15 +1,6 @@
 ( function( $ ) {
     "use strict";
 
-    var at = function( test ) {
-        try {
-            if(typeof test === "function") return test();
-            else return test || null;
-        } catch (e) {
-            return null;
-        }
-    };
-
     var testMobile;
     var isMobile = {
         Android: function() {
@@ -173,6 +164,8 @@
             'bo_phan_tai_khoan',
             'bo_phan_nv',
             'muc_do_uu_tien_chat',
+            'muc_do_uu_tien_chat_mess',
+            'bo_phan_chat_mess'
         ];
 
         $.each(ClassSelect , function(index, val) {
@@ -243,59 +236,61 @@
     }
 
     function CountGetData(){
-        if($('.datepicker-here').hasClass('ci_gd')){
-            setInterval(function () {
-                var date_in = $('.ci_gd').val();
-                if(typeof date_in !== 'undefined' || date_in != "") {
-                    date_in = date_in.replace('/', "");
-                    date_in = date_in.replace('/', "");
-                    var d_in = date_in.slice(0, 2);
-                    var m_in = date_in.slice(2, 4);
-                    var y_in = date_in.slice(4, 8);
-                    var join_string_in = parseInt(y_in + m_in + d_in);
+        if(! $('.them_giao_dich').hasClass('sua_giao_dich')){
+            if($('.datepicker-here').hasClass('ci_gd')){
+                setInterval(function () {
+                    var date_in = $('.ci_gd').val();
+                    if(typeof date_in !== 'undefined' || date_in != "") {
+                        date_in = date_in.replace('/', "");
+                        date_in = date_in.replace('/', "");
+                        var d_in = date_in.slice(0, 2);
+                        var m_in = date_in.slice(2, 4);
+                        var y_in = date_in.slice(4, 8);
+                        var join_string_in = parseInt(y_in + m_in + d_in);
 
 
-                    var date_out = $('.co_gd').val();
-                    date_out = date_out.replace('/', "");
-                    date_out = date_out.replace('/', "");
-                    var d_out = date_out.slice(0, 2);
-                    var m_out = date_out.slice(2, 4);
-                    var y_out = date_out.slice(4, 8);
-                    var join_string_out = parseInt(y_out + m_out + d_out);
+                        var date_out = $('.co_gd').val();
+                        date_out = date_out.replace('/', "");
+                        date_out = date_out.replace('/', "");
+                        var d_out = date_out.slice(0, 2);
+                        var m_out = date_out.slice(2, 4);
+                        var y_out = date_out.slice(4, 8);
+                        var join_string_out = parseInt(y_out + m_out + d_out);
 
-                    if (date_out != "" && date_in != "") {
-                        $('.so_dem_gd').attr('value', join_string_out - join_string_in);
-                    }
+                        if (date_out != "" && date_in != "") {
+                            $('.so_dem_gd').attr('value', join_string_out - join_string_in);
+                        }
 
-                    var now = new Date();
-                    var year = now.getFullYear();
-                    var month = now.getMonth() + 1;
-                    var day = now.getDate();
-                    var hour = now.getHours();
-                    var minute = now.getMinutes();
-                    var second = now.getSeconds();
-                    if (month.toString().length == 1) {
-                        var month = '0' + month;
-                    }
-                    if (day.toString().length == 1) {
-                        var day = '0' + day;
-                    }
-                    if (hour.toString().length == 1) {
-                        var hour = '0' + hour;
-                    }
-                    if (minute.toString().length == 1) {
-                        var minute = '0' + minute;
-                    }
-                    if (second.toString().length == 1) {
-                        var second = '0' + second;
-                    }
-                    var datetime = year + '/' + month + '/' + day;
-                    datetime = datetime.replace('/', "");
-                    datetime = datetime.replace('/', "");
+                        var now = new Date();
+                        var year = now.getFullYear();
+                        var month = now.getMonth() + 1;
+                        var day = now.getDate();
+                        var hour = now.getHours();
+                        var minute = now.getMinutes();
+                        var second = now.getSeconds();
+                        if (month.toString().length == 1) {
+                            var month = '0' + month;
+                        }
+                        if (day.toString().length == 1) {
+                            var day = '0' + day;
+                        }
+                        if (hour.toString().length == 1) {
+                            var hour = '0' + hour;
+                        }
+                        if (minute.toString().length == 1) {
+                            var minute = '0' + minute;
+                        }
+                        if (second.toString().length == 1) {
+                            var second = '0' + second;
+                        }
+                        var datetime = year + '/' + month + '/' + day;
+                        datetime = datetime.replace('/', "");
+                        datetime = datetime.replace('/', "");
 
-                    $('.con_ngay_gd').attr('value', parseInt(join_string_in) - parseInt(datetime));
-                }
-            },1);
+                        $('.con_ngay_gd').attr('value', parseInt(join_string_in) - parseInt(datetime));
+                    }
+                },1);
+            }
         }
     }
 
@@ -612,16 +607,203 @@
     }
 
     function SendMessage() {
-        var send_mess = $('.send_mess');
+        var btn_send_chat = $('.btn_send_chat');
 
-        send_mess.on('click',function (e) {
+        btn_send_chat.on('click',function (e) {
            e.preventDefault();
+            var tin_nhan_chat = $('.tin_nhan_chat').val();
+            var bo_phan_chat = $('.bo_phan_chat').val();
+            var muc_do_uu_tien_chat = $('.muc_do_uu_tien_chat').val();
+            var trang_thai_chat = $('.trang_thai_chat').val();
+            var ngay_can_nhac_lai_chat = $('.ngay_can_nhac_lai_chat').val();
+            var ma_nhan_vien_chat = $('.ma_nhan_vien_chat').val();
+            var id_chat_gd = $('.id_chat_gd').val();
 
+            if(tin_nhan_chat == ""){
+                alert('Nhập lời nhắn trống !');
+            }else if(bo_phan_chat == ""){
+                alert('Bộ phận trống !');
+            }else if(muc_do_uu_tien_chat == ""){
+                alert('Mức độ ưu tiên trống !');
+            }else if(ngay_can_nhac_lai_chat == ""){
+                alert('Ngày cần nhắc lại trống !');
+            }else if(ma_nhan_vien_chat == ""){
+                alert('Mã nhân viên trống !');
+            }else{
+                var count_chat = parseInt($('.count_chat').attr('data-count'));
+
+                count_chat += 1;
+
+                alert(count_chat);
+
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: my_ajax_object.ajax_url,
+                    data: {
+                        action: "send_mess",
+                        tin_nhan_chat:tin_nhan_chat,
+                        bo_phan_chat:bo_phan_chat,
+                        muc_do_uu_tien_chat:muc_do_uu_tien_chat,
+                        trang_thai_chat:trang_thai_chat,
+                        ngay_can_nhac_lai_chat:ngay_can_nhac_lai_chat,
+                        ma_nhan_vien_chat:ma_nhan_vien_chat,
+                        id_chat_gd:id_chat_gd,
+                        count_chat:count_chat
+                    },
+                    success: function(response){
+
+                    }
+                });
+            }
         });
-    }
 
-    function SelectSearch() {
+        if($('.them_giao_dich').hasClass('sua_giao_dich')) {
+            var loadListMess = setInterval(function () {
+                var show_chat_id = $('.them_giao_dich.sua_giao_dich .show_chat_table').attr('data-id');
+                var count_chat = parseInt($('table.show_chat_table tbody .count_chat').attr('data-count'));
 
+                $.ajax({
+                    type: "post",
+                    dataType: "html",
+                    url: my_ajax_object.ajax_url,
+                    data: {
+                        action: "load_chat_real_time",
+                        show_chat_id:show_chat_id,
+                        count_chat:count_chat
+                    },
+                    success: function (response) {
+                        if(response != "stop"){
+                            $('.them_giao_dich.sua_giao_dich .show_chat_table tbody').html(response);
+                            $('.muc_do_uu_tien_chat_mess').filter(function () {
+                                $(this).val($(this).attr('data-check'));
+                            });
+                            $('select.bo_phan_chat_mess').filter(function () {
+                                $(this).val($(this).attr('data-check'));
+                            });
+                        }
+                    }
+                });
+            }, 3000);
+        }
+
+        //edit send mess
+        /*$(document).on('hover','.btn_edit_chat',function (e) {
+            e.preventDefault();
+            //$(this).parent().html('<button type="button" class="btn_update_chat"><i class="fa fa-floppy-o" aria-hidden="true"></i> Update</button>');
+            clearInterval(loadListMess);
+        });*/
+
+        $(document).on('click','.btn_edit_chat',function (e) {
+            e.preventDefault();
+            $(this).parent().html('<button type="button" class="btn_update_chat"><i class="fa fa-floppy-o" aria-hidden="true"></i> Update</button>');
+            clearInterval(loadListMess);
+        });
+
+        $(document).on('click','.btn_update_chat',function (e) {
+            e.preventDefault();
+            $(this).parent().html('<button type="button" class="btn_edit_chat"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>');
+            loadListMess = setInterval(function () {
+                var show_chat_id = $('.them_giao_dich.sua_giao_dich .show_chat_table').attr('data-id');
+                var count_chat = parseInt($('table.show_chat_table tbody .count_chat').attr('data-count'));
+
+                $.ajax({
+                    type: "post",
+                    dataType: "html",
+                    url: my_ajax_object.ajax_url,
+                    data: {
+                        action: "load_chat_real_time",
+                        show_chat_id:show_chat_id,
+                        count_chat:count_chat
+                    },
+                    success: function (response) {
+                        if(response != "stop"){
+                            $('.them_giao_dich.sua_giao_dich .show_chat_table tbody').html(response);
+                            $('.muc_do_uu_tien_chat_mess').filter(function () {
+                                $(this).val($(this).attr('data-check'));
+                            });
+                            $('select.bo_phan_chat_mess').filter(function () {
+                                $(this).val($(this).attr('data-check'));
+                            });
+                        }
+                    }
+                });
+            }, 3000);
+        });
+
+        $(document).on('click','.show_chat',function (e) {
+            e.preventDefault();
+            var target = $( e.target );
+            if ( target.is( "button.btn_edit_chat" ) || target.is( "button.btn_edit_chat i" ) ) {
+                $(this).find('td input').prop('disabled', false);
+                $(this).find('td select').prop('disabled', false);
+                $(this).find('td textarea.tn').prop('disabled', false);
+                $(this).find('td textarea.tn').slideDown();
+                $(this).find('td input').addClass('border_edit');
+                $(this).find('td select').addClass('border_edit');
+                $(this).find('td textarea').addClass('border_edit');
+                $(this).find('td input.trang_thai_chat_mess').prop('disabled', true);
+            }
+        });
+
+        $(document).on('click','.show_chat',function (e) {
+            e.preventDefault();
+            var target = $( e.target );
+            if ( target.is( "button.btn_update_chat" ) || target.is( "button.btn_update_chat i" ) ) {
+                var chat_mess = $(this).find('textarea.tn').val();
+                var bo_phan_chat_mess = $(this).find('.bo_phan_chat_mess').val();
+                var muc_do_uu_tien_chat_mess  = $(this).find('.muc_do_uu_tien_chat_mess').val();
+                var ngay_can_nhac_lai_chat_mess = $(this).find('.ngay_can_nhac_lai_chat_mess').val();
+                var id_chat = $(this).find('.change_update_send_mess').attr('data-id');
+                var name_chat = $(this).find('.change_update_send_mess').attr('data-name');
+
+                $(this).find('td input').prop('disabled', true);
+                $(this).find('td select').prop('disabled', true);
+                $(this).find('td textarea.tn').prop('disabled', true);
+                $(this).find('td textarea.tn').slideUp();
+                $(this).find('td input').removeClass('border_edit');
+                $(this).find('td select').removeClass('border_edit');
+                $(this).find('td textarea').removeClass('border_edit');
+                $(this).find('span.tn').text(chat_mess);
+
+                //update post chat
+                $.ajax({
+                    type: "post",
+                    dataType: "html",
+                    url: my_ajax_object.ajax_url,
+                    data: {
+                        action: "update_mess",
+                        id_chat:id_chat,
+                        name_chat:name_chat,
+                        chat_mess:chat_mess,
+                        bo_phan_chat_mess:bo_phan_chat_mess,
+                        muc_do_uu_tien_chat_mess:muc_do_uu_tien_chat_mess,
+                        ngay_can_nhac_lai_chat_mess:ngay_can_nhac_lai_chat_mess,
+                    },
+                    success: function (response) {
+
+                    }
+                });
+            }
+            $(this).find('.ngay_can_nhac_lai_chat_mess').datepicker({
+                language: 'en',
+                minDate: new Date() // Now can select only dates, which goes after today
+            })
+        });
+
+        $('.show_chat').filter(function () {
+            $('select.muc_do_uu_tien_chat_mess').on('change', function () {
+                $(this).attr('data-check',$(this).val());
+            });
+            $('select.bo_phan_chat_mess').on('change', function () {
+                $(this).attr('data-check',$(this).val());
+            });
+            $(this).find('p.edit_mess_tn textarea.tn').on('keyup',function () {
+                var txt_tn = $(this).val();
+                $(this).parent().siblings('span.tn').text(txt_tn);
+            });
+            $(this).find('.bo_phan_chat_mess').val($(this).find('.bo_phan_chat_mess').attr('data-check'));
+        });
     }
     
     function AddTypeRoom() {
@@ -683,6 +865,44 @@
 
 
         },1000);
+
+        var at = function( test ) {
+            try {
+                if(typeof test === "function") return test();
+                else return test || null;
+            } catch (e) {
+                return null;
+            }
+        };
+
+        function showNotifaication() {
+            if (!("Notification" in window)) {
+                alert("Desktop notifications is not supported by this browser. Try another.");
+                return;
+            } else if (Notification.permission === "granted") {
+                var myNotification = new Notification("How to parse nested JSON object in Java", {
+                    icon: "https://www.websparrow.org/images/java-logo.png",
+                    body: "In this Java tutorial we are going to parse/read the nested JSON object using JSON.simple library."
+                });
+                myNotification.onclick = function () {
+                    window.open("https://www.websparrow.org/java/how-to-parse-nested-json-object-in-java");
+                };
+
+            } else if (Notification.permission !== 'denied') {
+                Notification.requestPermission(function (userPermission) {
+                    if (userPermission === "granted") {
+                        var myNotification = new Notification("Spring Tutorials", {
+                            icon: "https://www.websparrow.org/images/spring-logo.png",
+                            body: "Welcome to Spring Framework tutorials on websparrow.org. Before starting all the other things, first we need to configure/install framework."
+                        });
+                        myNotification.onclick = function () {
+                            window.open("https://www.websparrow.org/spring/");
+                        };
+                        // setTimeout(myNotification.close.bind(myNotification), 5000);
+                    }
+                });
+            }
+        }
     }
 
     function _init() {
@@ -690,7 +910,6 @@
         Isotope();
         datePicker();
         ajaxDel();
-        checkSelect();
         CountGetData();
         uploadFileImage();
         checkLogin();
@@ -700,8 +919,8 @@
         search_email();
         checkOnline();
         SendMessage();
-        SelectSearch();
         AddTypeRoom();
+        checkSelect();
     }
 
     _init();

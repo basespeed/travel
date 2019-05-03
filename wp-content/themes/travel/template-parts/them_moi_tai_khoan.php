@@ -153,13 +153,15 @@ if($_SESSION['sucess'] == "sucess") {
                             <label>Số chứng minh thư</label>
                             <input type="number" name="cmt_tai_khoan" class="cmt_tai_khoan" required>
                         </li>
-                        <label>Bộ phận</label>
-                        <select name="bo_phan_tai_khoan" class="bo_phan_tai_khoan" data-check="<?php echo get_field('bo_phan_tai_khoan'); ?>">
-                            <option value="Quản lý">Quản lý</option>
-                            <option value="Sales">Sales</option>
-                            <option value="Booking">Booking</option>
-                            <option value="Kế toán">Kế toán</option>
-                        </select>
+                        <li>
+                            <label>Bộ phận</label>
+                            <select name="bo_phan_tai_khoan" class="bo_phan_tai_khoan" data-check="<?php echo get_field('bo_phan_tai_khoan'); ?>">
+                                <option value="Quản lý">Quản lý</option>
+                                <option value="Sales">Sales</option>
+                                <option value="Booking">Booking</option>
+                                <option value="Kế toán">Kế toán</option>
+                            </select>
+                        </li>
                         <li>
                             <label>Loại quyền</label>
                             <select name="loai_quyen_tai_khoan" class="loai_quyen_tai_khoan" required>

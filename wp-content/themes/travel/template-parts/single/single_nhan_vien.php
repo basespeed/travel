@@ -119,10 +119,20 @@ get_header();
                         <li>
                             <label>Bộ phận NV</label>
                             <select name="bo_phan_nv" class="bo_phan_nv" data-check="<?php echo get_field('bo_phan_nv'); ?>" required>
-                                <option value="Quản lý">Quản lý</option>
-                                <option value="Sales">Sales</option>
-                                <option value="Booking">Booking</option>
-                                <option value="Kế toán">Kế toán</option>
+                                <option value="" selected disabled hidden>Chọn bộ phận</option>
+                                <?php
+                                $query_bp = new WP_Query(array(
+                                    'post_type' => 'bo_phan',
+                                ));
+
+                                if($query_bp->have_posts()) : while ($query_bp->have_posts()) : $query_bp->the_post();
+                                    ?>
+                                    <option value="<?php echo get_the_title(); ?>"><?php echo get_the_title(); ?></option>
+                                <?php
+                                endwhile;
+                                endif;
+                                wp_reset_postdata();
+                                ?>
                             </select>
                         </li>
                         <li>

@@ -149,7 +149,7 @@ if($_SESSION['sucess'] == "sucess") {
 
                         <ul>
                             <li>
-                                <label>Tên phòng : </label>
+                                <label>Loại phòng : </label>
                                 <input type="text" class="ten_phong_ks">
                             </li>
                             <li>

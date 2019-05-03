@@ -138,6 +138,7 @@ require get_template_directory() . '/inc/custom-post-types/giao_dich_tien.php';
 require get_template_directory() . '/inc/custom-post-types/km.php';
 require get_template_directory() . '/inc/custom-post-types/trang_thai.php';
 require get_template_directory() . '/inc/custom-post-types/chat.php';
+require get_template_directory() . '/inc/custom-post-types/bo_phan.php';
 /**
  * Ajax
  */

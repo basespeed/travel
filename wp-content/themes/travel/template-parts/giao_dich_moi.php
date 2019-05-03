@@ -671,42 +671,6 @@ if($_SESSION['sucess'] == "sucess") {
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <table width="100%" border="1">
-                                        <tbody>
-                                        <tr>
-                                            <td width="40%" align="center" bgcolor="#EAF8FF">Ô nhập lời nhắn</td>
-                                            <td align="center" bgcolor="#EAF8FF">Bộ phận</td>
-                                            <td align="center" bgcolor="#EAF8FF">Mức độ ưu tiên</td>
-                                            <td align="center" bgcolor="#EAF8FF">Trạng thái</td>
-                                            <td align="center" bgcolor="#EAF8FF">Ngày cần nhắc lại</td>
-                                            <td align="center" bgcolor="#EAF8FF">Nhập</td>
-                                        </tr>
-                                        <tr>
-                                            <td bgcolor="#EAF8FF">Ngày nhập vào # Mã NV # Lời nhắn mới nhất</td>
-                                            <td bgcolor="#EAF8FF">Bộ phận</td>
-                                            <td bgcolor="#EAF8FF">Mức độ ưu tiên</td>
-                                            <td bgcolor="#EAF8FF">Đang xử lý</td>
-                                            <td bgcolor="#EAF8FF">Ngày cần nhắc lại</td>
-                                            <td bgcolor="#EAF8FF"><p>Update</p></td>
-                                        </tr>
-                                        <tr>
-                                            <td bgcolor="#EAF8FF">...</td>
-                                            <td bgcolor="#EAF8FF">...</td>
-                                            <td bgcolor="#EAF8FF">...</td>
-                                            <td bgcolor="#EAF8FF">...</td>
-                                            <td bgcolor="#EAF8FF">...</td>
-                                            <td bgcolor="#EAF8FF">Update</td>
-                                        </tr>
-                                        <tr>
-                                            <td bgcolor="#EAF8FF">Ngày nhập vào # Mã NV # Lời nhắn cũ nhất</td>
-                                            <td bgcolor="#EAF8FF">Bộ phận</td>
-                                            <td bgcolor="#EAF8FF">Mức độ ưu tiên</td>
-                                            <td bgcolor="#EAF8FF">Đã chờ</td>
-                                            <td bgcolor="#EAF8FF">Ngày cần nhắc lại</td>
-                                            <td bgcolor="#EAF8FF">Update</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
                                 </td>
                             </tr>
                             <tr>

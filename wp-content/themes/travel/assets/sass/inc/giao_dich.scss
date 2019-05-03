@@ -97,3 +97,107 @@
     }
   }
 }
+
+.send_chat{
+  background: #76ea8f;
+  .btn_send_chat{
+    width: 150px;
+    height: 35px;
+    display: block;
+    outline: none;
+    border:none !important;
+    color: #FFF !important;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    background: #2A7AFE;
+    transition: 0.5s;
+    &:hover{
+      cursor: pointer;
+      background: green;
+    }
+  }
+  .tin_nhan_chat{
+    padding: 5px 10px;
+    margin-top: 10px !important;
+  }
+  .trang_thai_chat{
+    background: #FFF;
+  }
+  textarea,input,select{
+     border:none;
+  }
+}
+
+.show_chat{
+  td{
+    border:1px solid #dedede !important;
+    text-align: center;
+    p{
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      margin: 0px;
+    }
+  }
+  span{
+    color: red;
+    font-weight: 500;
+  }
+  span.tn{
+    color: #333;
+    font-weight: 500;
+  }
+  td:first-child{
+    text-align: justify;
+    padding: 10px 10px;
+    font-weight: bold;
+    textarea{
+      height: 80px;
+      padding: 10px;
+      border:none;
+      display: none;
+    }
+  }
+  .btn_update_chat{
+    width: 80px;
+    height: 31px;
+    display: block;
+    margin: auto;
+    text-align: center;
+    outline: none;
+    border:none;
+    color: #FFF !important;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    background: green;
+    transition: 0.5s;
+    &:hover{
+      cursor: pointer;
+      background: #2A7AFE;
+    }
+  }
+  .btn_edit_chat{
+    @extend .btn_update_chat;
+    background: red;
+  }
+  .empy{
+    padding: 10px !important;
+    text-align: center !important;
+  }
+
+  thead{
+    td:first-child{
+      text-align: center !important;
+    }
+  }
+  input,select,textarea{
+    background: #FFF;
+    border-color: transparent;
+  }
+}
+
+.border_edit{
+  border:1px solid red !important;
+}

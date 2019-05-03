@@ -131,12 +131,24 @@
                                         <tr>
                                             <td width="80%">
                                                 <select name="ten_khach_san_gd" class="ten_khach_san_gd" data-check="<?php echo get_field('ten_khach_san_gd'); ?>" required>
-                                                    <option value="Vinepearl nam Hội An">Vinepearl nam Hội An</option>
-                                                    <option value="FLC Sầm Sơn">FLC Sầm Sơn</option>
+                                                    <option value="" selected disabled hidden>Chọn tên khách sạn</option>
+                                                    <?php
+                                                    $query = new WP_Query(array(
+                                                        'post_type' => 'khach_san',
+                                                    ));
+
+                                                    if($query->have_posts()) : while ($query->have_posts()) : $query->the_post();
+                                                        ?>
+                                                        <option value="<?php echo get_field('ten_ks'); ?>" data-id="<?php echo get_field('ma_ks'); ?>"><?php echo get_field('ten_ks'); ?></option>
+                                                    <?php
+                                                    endwhile;
+                                                    endif;
+                                                    wp_reset_postdata();
+                                                    ?>
                                                 </select>
                                             </td>
                                             <td>
-                                                <input type="text" name="ma_dich_vu_gd" value="<?php echo get_field('ma_dich_vu_gd'); ?>" required/>
+                                                <input type="text" name="ma_dich_vu_gd" class="ma_dich_vu_gd" value="<?php echo get_field('ma_dich_vu_gd'); ?>" required/>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -167,7 +179,24 @@
                                             <td>Mã ĐT</td>
                                         </tr>
                                         <tr>
-                                            <td width="80%"><input type="text" name="ten_dt_gui_book_dt" class="ten_dt_gui_book_dt" value="<?php echo get_field('ten_dt_gui_book_dt'); ?>" required /></td>
+                                            <td width="80%">
+                                                <select name="ten_dt_gui_book_dt" class="ten_dt_gui_book_dt" data-check="<?php echo get_field('ten_dt_gui_book_dt'); ?>" required/>
+                                                    <option value="" selected disabled hidden>Chọn đối tác</option>
+                                                    <?php
+                                                    $query = new WP_Query(array(
+                                                        'post_type' => 'doi_tac',
+                                                    ));
+
+                                                    if($query->have_posts()) : while ($query->have_posts()) : $query->the_post();
+                                                        ?>
+                                                        <option value="<?php echo get_field('ten_dt'); ?>" data-id="<?php echo get_field('ma_dt'); ?>"><?php echo get_field('ten_dt'); ?></option>
+                                                    <?php
+                                                    endwhile;
+                                                    endif;
+                                                    wp_reset_postdata();
+                                                    ?>
+                                                </select>
+                                            </td>
                                             <td><input type="text" name="ma_dt" class="ma_dt" value="<?php echo get_field('ma_dt'); ?>" required /></td>
                                         </tr>
                                         </tbody>
