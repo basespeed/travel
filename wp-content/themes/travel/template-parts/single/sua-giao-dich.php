@@ -669,7 +669,7 @@
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <table width="100%" border="1" class="show_chat_table" data-id="<?php echo get_the_ID(); ?>">
+                                    <table width="100%" border="1" id="show_chat" class="show_chat_table" data-id="<?php echo get_the_ID(); ?>">
                                         <thead>
                                             <tr class="show_chat">
                                                 <td width="40%" align="center" bgcolor="#EAF8FF">Ô nhập lời nhắn</td>

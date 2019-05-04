@@ -33,6 +33,8 @@ function send_mess() {
     add_post_meta($post_id, 'ngay_can_nhac_lai_chat', $ngay_can_nhac_lai_chat, true);
     add_post_meta($post_id, 'ma_nhan_vien_chat', $ma_nhan_vien_chat, true);
     add_post_meta($post_id, 'count_chat', $count_chat);
+    add_post_meta($post_id, 'new_chat_id', $_POST['ma_nhan_vien_chat']);
+    add_post_meta($post_id, 'curren_url_chat', $_POST['curren_url_chat']);
 
     //add_post_meta($post_id, 'count_chat', $count_chat, true);
 
@@ -49,14 +51,6 @@ function send_mess() {
     endwhile;
     endif;
     wp_reset_postdata();
-
-    $html = '';
-
-    if($count_chat > $count_chat_check){
-        //$html .= 'abc';
-    }
-
-    wp_send_json_success($html);
 
     die();
 }
@@ -247,6 +241,49 @@ function load_chat_real_time() {
     die();
 }
 
+
+//notifications chat
+add_action("wp_ajax_load_chat_notifications", "load_chat_notifications");
+add_action("wp_ajax_nopriv_load_chat_notifications", "load_chat_notifications");
+
+function load_chat_notifications()
+{
+    $show_chat_id = $_POST['show_chat_id'];
+    $count_chat = $_POST['count_chat'];
+    $this_user = $_POST['ma_nhan_vien_chat'];
+
+    $arr_chat_check = array(
+        'post_type' => 'chat',
+        'posts_per_page' => 1,
+        'order' => 'DESC',
+        'meta_key' => 'id_chat_gd',
+        'meta_value' => '^' . preg_quote($show_chat_id),
+        'meta_compare' => 'RLIKE',
+    );
+    $query_chat_check = new WP_Query($arr_chat_check);
+
+    $array = array();
+
+    if ($query_chat_check->have_posts()) : while ($query_chat_check->have_posts()) : $query_chat_check->the_post();
+        if(get_field('count_chat') > $count_chat){
+            $array[] = $_SESSION['avatar'];
+            $array[] = get_field('new_chat_id');
+            $array[] = get_field('tin_nhan_chat');
+            $array[] = get_field('curren_url_chat');
+        }else{
+            $array[] = 'stop';
+        }
+    endwhile;
+    else :
+        $array[] = 'stop';
+    endif;
+    wp_reset_postdata();
+
+    wp_send_json_success($array);
+}
+
+
+//update chat
 add_action("wp_ajax_update_mess", "update_mess");
 add_action("wp_ajax_nopriv_update_mess", "update_mess");
 

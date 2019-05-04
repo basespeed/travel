@@ -618,6 +618,7 @@
             var ngay_can_nhac_lai_chat = $('.ngay_can_nhac_lai_chat').val();
             var ma_nhan_vien_chat = $('.ma_nhan_vien_chat').val();
             var id_chat_gd = $('.id_chat_gd').val();
+            var curren_url_chat = $(location).attr("href");
 
             if(tin_nhan_chat == ""){
                 alert('Nhập lời nhắn trống !');
@@ -649,7 +650,8 @@
                         ngay_can_nhac_lai_chat:ngay_can_nhac_lai_chat,
                         ma_nhan_vien_chat:ma_nhan_vien_chat,
                         id_chat_gd:id_chat_gd,
-                        count_chat:count_chat
+                        count_chat:count_chat,
+                        curren_url_chat:curren_url_chat
                     },
                     success: function(response){
 
@@ -662,6 +664,7 @@
             var loadListMess = setInterval(function () {
                 var show_chat_id = $('.them_giao_dich.sua_giao_dich .show_chat_table').attr('data-id');
                 var count_chat = parseInt($('table.show_chat_table tbody .count_chat').attr('data-count'));
+                var ma_nhan_vien_chat = $('.ma_nhan_vien_chat').val();
 
                 $.ajax({
                     type: "post",
@@ -685,14 +688,52 @@
                     }
                 });
             }, 3000);
-        }
 
-        //edit send mess
-        /*$(document).on('hover','.btn_edit_chat',function (e) {
-            e.preventDefault();
-            //$(this).parent().html('<button type="button" class="btn_update_chat"><i class="fa fa-floppy-o" aria-hidden="true"></i> Update</button>');
-            clearInterval(loadListMess);
-        });*/
+            setInterval(function () {
+                var show_chat_id = $('.them_giao_dich.sua_giao_dich .show_chat_table').attr('data-id');
+                var count_chat = parseInt($('table.show_chat_table tbody .count_chat').attr('data-count'));
+                var ma_nhan_vien_chat = $('.ma_nhan_vien_chat').val();
+
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: my_ajax_object.ajax_url,
+                    data: {
+                        action: "load_chat_notifications",
+                        show_chat_id:show_chat_id,
+                        count_chat:count_chat,
+                        ma_nhan_vien_chat:ma_nhan_vien_chat
+                    },
+                    success: function (response) {
+                        //console.log(response.data[1] + '--' + ma_nhan_vien_chat);
+                        if(response.data[0] != 'stop'){
+                            if(response.data[1] == ma_nhan_vien_chat){
+
+                            }else{
+                                let notify;
+                                if(Notification.permission === 'default'){
+                                    //alert('Please allow notification before doing this');
+                                }else {
+                                    notify = new Notification('Tin nhắn mới của '+response.data[1], {
+                                        body: response.data[2],
+                                        icon: response.data[0],
+                                    });
+
+                                    notify.onclick = function (ev) {
+                                        //console.log(this);
+                                        var url_current = response.data[3]+'#show_chat';
+                                        window.open(url_current, '_blank');
+                                    }
+                                }
+                                //console.log(response.data[0] + '---' + response.data[1] + '---' + ma_nhan_vien_chat);
+                            }
+                        }else{
+                            //console.log(response.data[0] + '---' + ma_nhan_vien_chat);
+                        }
+                    }
+                });
+            },3000);
+        }
 
         $(document).on('click','.btn_edit_chat',function (e) {
             e.preventDefault();
@@ -874,35 +915,6 @@
                 return null;
             }
         };
-
-        function showNotifaication() {
-            if (!("Notification" in window)) {
-                alert("Desktop notifications is not supported by this browser. Try another.");
-                return;
-            } else if (Notification.permission === "granted") {
-                var myNotification = new Notification("How to parse nested JSON object in Java", {
-                    icon: "https://www.websparrow.org/images/java-logo.png",
-                    body: "In this Java tutorial we are going to parse/read the nested JSON object using JSON.simple library."
-                });
-                myNotification.onclick = function () {
-                    window.open("https://www.websparrow.org/java/how-to-parse-nested-json-object-in-java");
-                };
-
-            } else if (Notification.permission !== 'denied') {
-                Notification.requestPermission(function (userPermission) {
-                    if (userPermission === "granted") {
-                        var myNotification = new Notification("Spring Tutorials", {
-                            icon: "https://www.websparrow.org/images/spring-logo.png",
-                            body: "Welcome to Spring Framework tutorials on websparrow.org. Before starting all the other things, first we need to configure/install framework."
-                        });
-                        myNotification.onclick = function () {
-                            window.open("https://www.websparrow.org/spring/");
-                        };
-                        // setTimeout(myNotification.close.bind(myNotification), 5000);
-                    }
-                });
-            }
-        }
     }
 
     function _init() {
