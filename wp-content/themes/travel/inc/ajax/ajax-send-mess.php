@@ -124,7 +124,7 @@ function load_chat_real_time() {
                         </select>
                     </td>
                     <td bgcolor="#EAF8FF"><input type="text" class="trang_thai_chat_mess" value="<?php echo get_field('trang_thai_chat'); ?>" disabled></td>
-                    <td bgcolor="#EAF8FF"><input type="text" data-date-format="dd/mm/yyyy" class="datepicker-here ngay_can_nhac_lai_chat_mess" value="<?php echo get_field('ngay_can_nhac_lai_chat'); ?>" data-language='en' disabled></td>
+                    <td bgcolor="#EAF8FF"><input type="text" data-date-format="dd/mm/yyyy" data-position='top left' class="datepicker-here ngay_can_nhac_lai_chat_mess" value="<?php echo get_field('ngay_can_nhac_lai_chat'); ?>" data-language='en' disabled></td>
                     <td bgcolor="#EAF8FF"><p class="change_update_send_mess" data-id="<?php echo get_the_ID(); ?>" data-name="<?php echo get_field('ma_nhan_vien_chat'); ?>">
                             <?php
                             if($this_user == get_field('ma_nhan_vien_chat')){
@@ -203,7 +203,7 @@ function load_chat_real_time() {
                                     </select>
                                 </td>
                                 <td bgcolor="#EAF8FF"><input type="text" class="trang_thai_chat_mess" value="<?php echo get_field('trang_thai_chat'); ?>" disabled></td>
-                                <td bgcolor="#EAF8FF"><input type="text" data-date-format="dd/mm/yyyy" class="datepicker-here ngay_can_nhac_lai_chat_mess" value="<?php echo get_field('ngay_can_nhac_lai_chat'); ?>" data-language='en' disabled></td>
+                                <td bgcolor="#EAF8FF"><input type="text" data-date-format="dd/mm/yyyy" data-position='top left' class="datepicker-here ngay_can_nhac_lai_chat_mess" value="<?php echo get_field('ngay_can_nhac_lai_chat'); ?>" data-language='en' disabled></td>
                                 <td bgcolor="#EAF8FF"><p class="change_update_send_mess" data-id="<?php echo get_the_ID(); ?>" data-name="<?php echo get_field('ma_nhan_vien_chat'); ?>">
                                         <?php
                                         if($this_user == get_field('ma_nhan_vien_chat')){
@@ -241,6 +241,93 @@ function load_chat_real_time() {
     die();
 }
 
+
+//notifications chat
+add_action("wp_ajax_notifications_edit_chat", "notifications_edit_chat");
+add_action("wp_ajax_nopriv_notifications_edit_chat", "notifications_edit_chat");
+
+function notifications_edit_chat(){
+    $id_chat = $_POST['id_chat'];
+    $name_chat = $_POST['name_chat'];
+    $chat_mess = $_POST['chat_mess'];
+    $image_avatar = $_POST['avatar'];
+    $url_current = $_POST['currentURL'];
+
+    //add new chat
+    $add_edit_chat = array(
+        'post_title' => $name_chat,
+        'post_status' => 'publish',
+        'post_type' => 'note_chat',
+    );
+
+    $post_id = wp_insert_post($add_edit_chat);
+
+    add_post_meta($post_id, 'email', $name_chat, true);
+    add_post_meta($post_id, 'mess', $chat_mess, true);
+    add_post_meta($post_id, 'url', $url_current, true);
+    add_post_meta($post_id, 'image', $image_avatar, true);
+
+    $query = new WP_Query(array(
+        'post_type' => 'note_chat',
+        'posts_per_page' => 1,
+        'order' => 'DESC'
+    ));
+
+    $data = array();
+    $data[] = $post_id;
+    if($query->have_posts()) : while ($query->have_posts()) : $query->the_post();
+        $data[] = get_field('email');
+        $data[] = get_field('mess');
+        $data[] = get_field('url');
+        $data[] = get_field('image');
+    endwhile;
+    endif;
+    wp_reset_postdata();
+
+    wp_send_json_success($data);
+}
+
+add_action("wp_ajax_notifications_edit_chat_del", "notifications_edit_chat_del");
+add_action("wp_ajax_nopriv_notifications_edit_chat_del", "notifications_edit_chat_del");
+
+//delete notifications
+function notifications_edit_chat_del(){
+    $id_del = $_POST['id_del'];
+
+    $allposts= get_posts( array('post_type'=>'note_chat','numberposts'=>-1) );
+    foreach ($allposts as $eachpost) {
+        wp_delete_post( $eachpost->ID, true );
+    }
+
+    wp_send_json_success('Đã xóa id : '.$id_del);
+}
+
+//Check isset notifications in showing
+add_action("wp_ajax_notifications_edit_chat_showing", "notifications_edit_chat_showing");
+add_action("wp_ajax_nopriv_notifications_edit_chat_showing", "notifications_edit_chat_showing");
+
+function notifications_edit_chat_showing(){
+    $query = new WP_Query(array(
+        'post_type' => 'note_chat',
+        'posts_per_page' => 1,
+        'order' => 'DESC'
+    ));
+
+    $data = array();
+
+    if($query->have_posts()) : while ($query->have_posts()) : $query->the_post();
+        $data[] = get_field('email');
+        $data[] = get_field('mess');
+        $data[] = get_field('url');
+        $data[] = get_field('image');
+    endwhile;
+    else :
+        $data = "stop";
+    endif;
+    wp_reset_postdata();
+
+    wp_send_json_success($data);
+}
 
 //notifications chat
 add_action("wp_ajax_load_chat_notifications", "load_chat_notifications");

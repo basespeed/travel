@@ -797,6 +797,8 @@
                 var ngay_can_nhac_lai_chat_mess = $(this).find('.ngay_can_nhac_lai_chat_mess').val();
                 var id_chat = $(this).find('.change_update_send_mess').attr('data-id');
                 var name_chat = $(this).find('.change_update_send_mess').attr('data-name');
+                var avatar = $('.info_user .avatar img').attr('src');
+                var currentURL = window.location.href+'#show_chat';
 
                 $(this).find('td input').prop('disabled', true);
                 $(this).find('td select').prop('disabled', true);
@@ -825,12 +827,74 @@
 
                     }
                 });
+
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: my_ajax_object.ajax_url,
+                    data: {
+                        action: "notifications_edit_chat",
+                        name_chat:name_chat,
+                        chat_mess:chat_mess,
+                        avatar:avatar,
+                        currentURL:currentURL,
+                    },
+                    success: function (response) {
+                        var id_del = response.data[0];
+                        console.log(response.data);
+
+                        setTimeout(function () {
+                            $.ajax({
+                                type: "post",
+                                dataType: "json",
+                                url: my_ajax_object.ajax_url,
+                                data: {
+                                    action: "notifications_edit_chat_del",
+                                    id_del:id_del,
+                                },
+                                success: function (response) {
+                                    console.log(response.data);
+                                }
+                            });
+                        },500);
+                    }
+                });
             }
             $(this).find('.ngay_can_nhac_lai_chat_mess').datepicker({
                 language: 'en',
                 minDate: new Date() // Now can select only dates, which goes after today
-            })
+            });
         });
+
+        setInterval(function () {
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: my_ajax_object.ajax_url,
+                data: {
+                    action: "notifications_edit_chat_showing",
+                },
+                success: function (response) {
+                    if(response.data != 'stop'){
+                        let notify;
+                        if(Notification.permission === 'default'){
+                            //alert('Please allow notification before doing this');
+                        }else {
+                            notify = new Notification(response.data[0]+' đã sửa tin nhắn', {
+                                body: response.data[1],
+                                icon: response.data[3]
+                            });
+
+                            notify.onclick = function (ev) {
+                                //console.log(this);
+                                var url_current = response.data[2];
+                                window.open(url_current, '_blank');
+                            }
+                        }
+                    }
+                }
+            });
+        },1000);
 
         $('.show_chat').filter(function () {
             $('select.muc_do_uu_tien_chat_mess').on('change', function () {
