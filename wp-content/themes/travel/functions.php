@@ -93,6 +93,8 @@ function wp_style() {
     wp_enqueue_style( 'Roboto' );
     wp_register_style( 'datepicker', get_template_directory_uri() .'/assets/css/datepicker.min.css', array(), false);
     wp_enqueue_style( 'datepicker' );
+    wp_register_style( 'animate', get_template_directory_uri() .'/assets/css/animate.css', array(), false);
+    wp_enqueue_style( 'animate' );
     wp_register_style( 'awesome', get_template_directory_uri() .'/assets/css/font-awesome.min.css', array(), false);
     wp_enqueue_style( 'awesome' );
     wp_register_style( 'style', get_template_directory_uri() .'/assets/css/style.css', array(), false);

@@ -165,7 +165,8 @@
             'bo_phan_nv',
             'muc_do_uu_tien_chat',
             'muc_do_uu_tien_chat_mess',
-            'bo_phan_chat_mess'
+            'bo_phan_chat_mess',
+            'loai_quyen_tai_khoan'
         ];
 
         $.each(ClassSelect , function(index, val) {
@@ -588,7 +589,7 @@
                     }
                 });
             }
-        },1500);
+        },3000);
 
         window.addEventListener('beforeunload', function (e) {
             // Cancel the event
@@ -619,6 +620,8 @@
             var ma_nhan_vien_chat = $('.ma_nhan_vien_chat').val();
             var id_chat_gd = $('.id_chat_gd').val();
             var curren_url_chat = $(location).attr("href");
+            var reply_chat = $('input.reply_chat').val();
+            var id_reply = $('.id_reply').val();
 
             if(tin_nhan_chat == ""){
                 alert('Nhập lời nhắn trống !');
@@ -635,7 +638,7 @@
 
                 count_chat += 1;
 
-                alert(count_chat);
+                //alert(reply_chat);
 
                 $.ajax({
                     type: "post",
@@ -651,10 +654,12 @@
                         ma_nhan_vien_chat:ma_nhan_vien_chat,
                         id_chat_gd:id_chat_gd,
                         count_chat:count_chat,
-                        curren_url_chat:curren_url_chat
+                        curren_url_chat:curren_url_chat,
+                        reply_chat:reply_chat,
+                        id_reply:id_reply
                     },
                     success: function(response){
-
+                        $('.send_chat td textarea').val();
                     }
                 });
             }
@@ -689,6 +694,15 @@
                 });
             }, 3000);
 
+            var selectCheck = setInterval(function () {
+                $('.muc_do_uu_tien_chat_mess').filter(function () {
+                    $(this).val($(this).attr('data-check'));
+                });
+                $('select.bo_phan_chat_mess').filter(function () {
+                    $(this).val($(this).attr('data-check'));
+                });
+            },500);
+
             setInterval(function () {
                 var show_chat_id = $('.them_giao_dich.sua_giao_dich .show_chat_table').attr('data-id');
                 var count_chat = parseInt($('table.show_chat_table tbody .count_chat').attr('data-count'));
@@ -710,22 +724,25 @@
                             if(response.data[1] == ma_nhan_vien_chat){
 
                             }else{
-                                let notify;
-                                if(Notification.permission === 'default'){
-                                    //alert('Please allow notification before doing this');
-                                }else {
-                                    notify = new Notification('Tin nhắn mới của '+response.data[1], {
-                                        body: response.data[2],
-                                        icon: response.data[0],
-                                    });
 
-                                    notify.onclick = function (ev) {
-                                        //console.log(this);
-                                        var url_current = response.data[3]+'#show_chat';
-                                        window.open(url_current, '_blank');
-                                    }
-                                }
                                 //console.log(response.data[0] + '---' + response.data[1] + '---' + ma_nhan_vien_chat);
+                            }
+
+                            let notify;
+                            if(Notification.permission === 'default'){
+                                //alert('Please allow notification before doing this');
+                            }else {
+                                notify = new Notification('Tin nhắn mới của '+response.data[1], {
+                                    body: response.data[2],
+                                    icon: response.data[0],
+                                    image: $('.acf-form-submit').attr('data-img'),
+                                });
+
+                                notify.onclick = function (ev) {
+                                    //console.log(this);
+                                    var url_current = response.data[3]+'#show_chat';
+                                    window.open(url_current, '_blank');
+                                }
                             }
                         }else{
                             //console.log(response.data[0] + '---' + ma_nhan_vien_chat);
@@ -739,6 +756,45 @@
             e.preventDefault();
             $(this).parent().html('<button type="button" class="btn_update_chat"><i class="fa fa-floppy-o" aria-hidden="true"></i> Update</button>');
             clearInterval(loadListMess);
+            clearInterval(selectCheck);
+        });
+
+        $(document).on('click','.show_chat',function (e) {
+            e.preventDefault();
+            var target = $( e.target );
+            if ( target.is( "button.reply" ) || target.is( "button.reply i" ) ) {
+                var chat_mess = $(this).find('textarea.tn').val();
+                var bo_phan_chat_mess = $(this).find('.bo_phan_chat_mess').val();
+                var muc_do_uu_tien_chat_mess = $(this).find('.muc_do_uu_tien_chat_mess').val();
+                var ngay_chat = $(this).find('td:nth-child(1) span:nth-child(1)').text();
+                var name_chat = $(this).find('.change_update_send_mess').attr('data-name');
+                var data_id = $(this).attr('data-id');
+
+                $('.trang_thai_chat').val('Đang xử lý');
+                $('table tfoot tr.send_chat td:nth-child(1) span').html("<span>Trả lời : "+"Ngày nhập vào : "+ngay_chat+" # Mã nhân viên : "+name_chat+" # Lời nhắn : "+chat_mess+"</span> <i class=\"fa fa-times\" aria-hidden=\"true\"></i>");
+                $('.reply_chat').val("Trả lời : "+"Ngày nhập vào : "+ngay_chat+" # Mã nhân viên : "+name_chat+" # Lời nhắn : "+chat_mess);
+                $('.send_chat td:first-child span i').on('click',function () {
+                    $('.send_chat td:first-child span').empty();
+                    $('.trang_thai_chat').val('Đã chờ');
+                });
+                $('.id_reply').val(data_id);
+
+                $.ajax({
+                    type: "post",
+                    dataType: "html",
+                    url: my_ajax_object.ajax_url,
+                    data: {
+                        action: "check_button_reply",
+                        data_id:data_id,
+                    },
+                    success: function (response) {
+
+                    }
+                });
+
+                //alert('Trả lời: "'+ngay_chat +'---'+ name_chat +'---'+ chat_mess+'"');
+
+            }
         });
 
         $(document).on('click','.btn_update_chat',function (e) {
@@ -770,6 +826,15 @@
                     }
                 });
             }, 3000);
+
+            selectCheck = setInterval(function () {
+                $('.muc_do_uu_tien_chat_mess').filter(function () {
+                    $(this).val($(this).attr('data-check'));
+                });
+                $('select.bo_phan_chat_mess').filter(function () {
+                    $(this).val($(this).attr('data-check'));
+                });
+            },500);
         });
 
         $(document).on('click','.show_chat',function (e) {
@@ -841,7 +906,7 @@
                     },
                     success: function (response) {
                         var id_del = response.data[0];
-                        console.log(response.data);
+                        //console.log(response.data);
 
                         setTimeout(function () {
                             $.ajax({
@@ -853,7 +918,7 @@
                                     id_del:id_del,
                                 },
                                 success: function (response) {
-                                    console.log(response.data);
+                                    //console.log(response.data);
                                 }
                             });
                         },500);
@@ -882,6 +947,7 @@
                         }else {
                             notify = new Notification(response.data[0]+' đã sửa tin nhắn', {
                                 body: response.data[1],
+                                image: $('.acf-form-submit').attr('data-img'),
                                 icon: response.data[3]
                             });
 
@@ -894,7 +960,7 @@
                     }
                 }
             });
-        },1000);
+        },1500);
 
         $('.show_chat').filter(function () {
             $('select.muc_do_uu_tien_chat_mess').on('change', function () {

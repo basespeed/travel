@@ -24,6 +24,7 @@ if($_SESSION['sucess'] == "sucess") {
                     <button class="logout">Logout</button>
                 </div>
             </div>
+            <a href="<?php echo home_url('/') ?>ho-so" class="ho_so"><span class="dashicons dashicons-id"></span> Hồ sơ</a>
             <?php
             wp_nav_menu(array(
                 'theme_location' => 'menu-1',

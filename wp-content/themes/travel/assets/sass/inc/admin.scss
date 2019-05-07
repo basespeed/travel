@@ -677,3 +677,35 @@ input{
     }
   }
 }
+
+.check_nhan_vien{
+  .quantri_admin .menu_admin ul li.menu-item-230{
+      display: none;
+  }
+  .quantri_admin .menu_admin ul li.menu-item-250{
+      display: none;
+  }
+  .quantri_admin .menu_admin ul li.menu-item-261{
+      display: none;
+  }
+  .quantri_admin .menu_admin ul li.menu-item-272{
+    display: none;
+  }
+}
+
+a.ho_so{
+  display: flex;
+  padding: 15px;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #FFF;
+  text-decoration: none;
+  border-bottom: 1px solid #5B5F63;
+  span{
+    margin-right: 5px;
+  }
+}
+
+.list_ho_so li:nth-child(7){
+  width: 100%
+}

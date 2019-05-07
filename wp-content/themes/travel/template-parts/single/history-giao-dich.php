@@ -17,6 +17,7 @@
                     <button class="logout">Logout</button>
                 </div>
             </div>
+            <a href="<?php echo home_url('/') ?>ho-so" class="ho_so"><span class="dashicons dashicons-id"></span> Hồ sơ</a>
             <?php
             wp_nav_menu(array(
                 'theme_location' => 'menu-1',
@@ -669,42 +670,6 @@
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <table width="100%" border="1">
-                                        <tbody>
-                                        <tr>
-                                            <td width="40%" align="center" bgcolor="#EAF8FF">Ô nhập lời nhắn</td>
-                                            <td align="center" bgcolor="#EAF8FF">Bộ phận</td>
-                                            <td align="center" bgcolor="#EAF8FF">Mức độ ưu tiên</td>
-                                            <td align="center" bgcolor="#EAF8FF">Trạng thái</td>
-                                            <td align="center" bgcolor="#EAF8FF">Ngày cần nhắc lại</td>
-                                            <td align="center" bgcolor="#EAF8FF">Nhập</td>
-                                        </tr>
-                                        <tr>
-                                            <td bgcolor="#EAF8FF">Ngày nhập vào # Mã NV # Lời nhắn mới nhất</td>
-                                            <td bgcolor="#EAF8FF">Bộ phận</td>
-                                            <td bgcolor="#EAF8FF">Mức độ ưu tiên</td>
-                                            <td bgcolor="#EAF8FF">Đang xử lý</td>
-                                            <td bgcolor="#EAF8FF">Ngày cần nhắc lại</td>
-                                            <td bgcolor="#EAF8FF"><p>Update</p></td>
-                                        </tr>
-                                        <tr>
-                                            <td bgcolor="#EAF8FF">...</td>
-                                            <td bgcolor="#EAF8FF">...</td>
-                                            <td bgcolor="#EAF8FF">...</td>
-                                            <td bgcolor="#EAF8FF">...</td>
-                                            <td bgcolor="#EAF8FF">...</td>
-                                            <td bgcolor="#EAF8FF">Update</td>
-                                        </tr>
-                                        <tr>
-                                            <td bgcolor="#EAF8FF">Ngày nhập vào # Mã NV # Lời nhắn cũ nhất</td>
-                                            <td bgcolor="#EAF8FF">Bộ phận</td>
-                                            <td bgcolor="#EAF8FF">Mức độ ưu tiên</td>
-                                            <td bgcolor="#EAF8FF">Đã chờ</td>
-                                            <td bgcolor="#EAF8FF">Ngày cần nhắc lại</td>
-                                            <td bgcolor="#EAF8FF">Update</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
                                 </td>
                             </tr>
                             <tr>
@@ -879,11 +844,6 @@
                                     Ghi chú thanh toán
                                     <textarea name="ghi_chu_thanh_toan_2" class="ghi_chu_thanh_toan_2"><?php echo get_field('ghi_chu_thanh_toan_2'); ?></textarea>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td>Nút chia nhỏ một booking để tạo 1 booking mới từ booking gốc</td>
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
                             </tr>
                             </tbody>
                         </table>

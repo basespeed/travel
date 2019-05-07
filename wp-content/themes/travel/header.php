@@ -30,4 +30,14 @@
         </div>
 	</header><!-- #masthead -->
 
-	<div id="content" class="site-content">
+	<div id="content" class="site-content <?php
+        if(isset($_SESSION['loai_quyen_tai_khoan'])){
+            if($_SESSION['loai_quyen_tai_khoan'] == "Admin"){
+                echo 'check_admin';
+            }elseif($_SESSION['loai_quyen_tai_khoan'] == "Quản lý"){
+                echo 'check_quan_ly';
+            }elseif($_SESSION['loai_quyen_tai_khoan'] == "Nhân viên"){
+                echo 'check_nhan_vien';
+            }
+        }
+    ?>">

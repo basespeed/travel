@@ -11,6 +11,16 @@ function send_mess() {
     $ma_nhan_vien_chat = $_POST['ma_nhan_vien_chat'];
     $id_chat_gd = $_POST['id_chat_gd'];
     $count_chat = $_POST['count_chat'];
+    $reply_chat = $_POST['reply_chat'];
+    $id_reply = $_POST['id_reply'];
+
+    $update_mess = array(
+        'ID'           => $id_reply,
+    );
+
+    $post_id_mess = wp_update_post($update_mess);
+
+    update_field( 'trang_thai_chat', 'Đã xử lý', $post_id_mess );
 
     date_default_timezone_set('Asia/Ho_Chi_Minh');
     $date = date('d-m-Y H:i:s');
@@ -29,13 +39,20 @@ function send_mess() {
     add_post_meta($post_id, 'ngay_nhap_vao_chat', $date, true);
     add_post_meta($post_id, 'bo_phan_chat', $bo_phan_chat, true);
     add_post_meta($post_id, 'muc_do_uu_tien_chat', $muc_do_uu_tien_chat, true);
-    add_post_meta($post_id, 'trang_thai_chat', $trang_thai_chat, true);
+    add_post_meta($post_id, 'button', 'true', true);
+    add_post_meta($post_id, 'anh_dai_dien', $_SESSION['avatar'], true);
+    if(empty($reply_chat)){
+        add_post_meta($post_id, 'trang_thai_chat', $trang_thai_chat, true);
+    }else{
+        add_post_meta($post_id, 'trang_thai_chat', 'Đã xử lý', true);
+    }
+
     add_post_meta($post_id, 'ngay_can_nhac_lai_chat', $ngay_can_nhac_lai_chat, true);
     add_post_meta($post_id, 'ma_nhan_vien_chat', $ma_nhan_vien_chat, true);
     add_post_meta($post_id, 'count_chat', $count_chat);
     add_post_meta($post_id, 'new_chat_id', $_POST['ma_nhan_vien_chat']);
     add_post_meta($post_id, 'curren_url_chat', $_POST['curren_url_chat']);
-
+    add_post_meta($post_id, 'reply_chat', $reply_chat);
     //add_post_meta($post_id, 'count_chat', $count_chat, true);
 
     $arr_chat = array(
@@ -53,6 +70,23 @@ function send_mess() {
     wp_reset_postdata();
 
     die();
+}
+
+
+add_action("wp_ajax_check_button_reply", "check_button_reply");
+add_action("wp_ajax_nopriv_check_button_reply", "check_button_reply");
+
+function check_button_reply() {
+    $data_id = $_POST['data_id'];
+
+    $update_mess = array(
+        'ID'           => $data_id,
+    );
+
+    $post_id = wp_update_post($update_mess);
+
+    update_field( 'button', 'false', $post_id );
+    update_field( 'trang_thai_chat', 'Đang xử lý', $post_id );
 }
 
 
@@ -83,7 +117,7 @@ function load_chat_real_time() {
         }*/
         $arr_chat = array(
             'post_type' => 'chat',
-            'posts_per_page' => 3,
+            'posts_per_page' => 5,
             'meta_key'		=> 'id_chat_gd',
             'meta_value' => '^' . preg_quote( $show_chat_id ),
             'meta_compare' => 'RLIKE',
@@ -95,9 +129,33 @@ function load_chat_real_time() {
         if($query_chat->have_posts()) : while ($query_chat->have_posts()) : $query_chat->the_post();
             if($this_ID == get_field('id_chat_gd')){
                 ?>
-                <tr class="show_chat count_chat" data-count="<?php if(empty(get_field('count_chat'))){echo 0;}else{echo get_field('count_chat');} ?>">
-                    <td bgcolor="#EAF8FF">Ngày nhập vào : <span><?php echo get_field('ngay_nhap_vao_chat'); ?></span> # Mã NV :  <span><?php echo get_field('ma_nhan_vien_chat'); ?></span> # Lời nhắn mới nhất : <span class="tn"><?php echo get_field('tin_nhan_chat'); ?></span>
-                        <p class="edit_mess_tn"><textarea class="tn" cols="1" rows="1" disabled><?php echo get_field('tin_nhan_chat'); ?></textarea></p>
+                <tr class="show_chat count_chat <?php
+                if(get_field('ma_nhan_vien_chat') == $_SESSION['mnv']){
+                    echo 'check_color';
+                }
+                ?>" data-id="<?php echo get_the_ID(); ?>" data-count="<?php if(empty(get_field('count_chat'))){echo 0;}else{echo get_field('count_chat');} ?>">
+                    <td bgcolor="#EAF8FF">
+                        <?php
+                            if(!empty(get_field('reply_chat'))){
+                                ?>
+                                <span class="reply_chat"><span><?php echo get_field('reply_chat'); ?></span></span>
+                                <?php
+                            }
+                        ?>
+                        <div class="cmt">
+                            <?php
+                            if(!empty(get_field('anh_dai_dien'))){
+                                ?><div class="img"><img class="animated pulse infinite" src="<?php echo get_field('anh_dai_dien'); ?>" alt="avatar"></div><?php
+                            }?>
+                            <div class="content">Ngày nhập vào :
+                                <span><?php echo get_field('ngay_nhap_vao_chat'); ?></span> # Mã NV :
+                                <span><?php echo get_field('ma_nhan_vien_chat'); ?></span> # Lời nhắn :
+                                <span class="tn"><?php echo get_field('tin_nhan_chat'); ?></span>
+                            </div>
+                        </div>
+                        <p class="edit_mess_tn">
+                            <textarea class="tn" cols="1" rows="1" disabled><?php echo get_field('tin_nhan_chat'); ?></textarea>
+                        </p>
                     </td>
                     <td bgcolor="#EAF8FF">
                         <select class="bo_phan_chat_mess" data-check="<?php echo get_field('bo_phan_chat'); ?>" disabled>
@@ -127,10 +185,15 @@ function load_chat_real_time() {
                     <td bgcolor="#EAF8FF"><input type="text" data-date-format="dd/mm/yyyy" data-position='top left' class="datepicker-here ngay_can_nhac_lai_chat_mess" value="<?php echo get_field('ngay_can_nhac_lai_chat'); ?>" data-language='en' disabled></td>
                     <td bgcolor="#EAF8FF"><p class="change_update_send_mess" data-id="<?php echo get_the_ID(); ?>" data-name="<?php echo get_field('ma_nhan_vien_chat'); ?>">
                             <?php
-                            if($this_user == get_field('ma_nhan_vien_chat')){
+                            if($this_user == get_field('ma_nhan_vien_chat') && get_field('button') == 'true'){
                                 ?>
                                 <button type="button" class="btn_edit_chat"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>
                                 <?php
+                            }
+                            ?>
+                            <?php
+                            if(empty(get_field('reply_chat'))){
+                                ?><button type="button" class="reply"><i class="fa fa-reply" aria-hidden="true"></i> Trả lời</button><?php
                             }
                             ?>
                         </p></td>
@@ -149,7 +212,7 @@ function load_chat_real_time() {
             );
             $query_chat_count = new WP_Query($arr_chat_count);
             if($query_chat_count->have_posts()) : while ($query_chat_count->have_posts()) : $query_chat_count->the_post();
-                if(get_field('count_chat') > 3){
+                if(get_field('count_chat') > 5){
                     ?>
                     <tr class="show_chat">
                         <td bgcolor="#EAF8FF">...</td>
@@ -174,9 +237,33 @@ function load_chat_real_time() {
                     if($query_chat_late->have_posts()) : while ($query_chat_late->have_posts()) : $query_chat_late->the_post();
                         if($this_ID == get_field('id_chat_gd')){
                             ?>
-                            <tr class="show_chat count_chat" data-count="<?php if(empty(get_field('count_chat'))){echo 0;}else{echo get_field('count_chat');} ?>">
-                                <td bgcolor="#EAF8FF">Ngày nhập vào : <span><?php echo get_field('ngay_nhap_vao_chat'); ?></span> # Mã NV :  <span><?php echo get_field('ma_nhan_vien_chat'); ?></span> # Lời nhắn cũ nhất : <span class="tn"><?php echo get_field('tin_nhan_chat'); ?></span>
-                                    <p class="edit_mess_tn"><textarea class="tn" cols="1" rows="1" disabled><?php echo get_field('tin_nhan_chat'); ?></textarea></p>
+                            <tr class="show_chat count_chat <?php
+                            if(get_field('ma_nhan_vien_chat') == $_SESSION['mnv']){
+                                echo 'check_color';
+                            }
+                            ?>" data-id="<?php echo get_the_ID(); ?>" data-count="<?php if(empty(get_field('count_chat'))){echo 0;}else{echo get_field('count_chat');} ?>">
+                                <td bgcolor="#EAF8FF">
+                                    <?php
+                                    if(!empty(get_field('reply_chat'))){
+                                        ?>
+                                        <span class="reply_chat"><span><?php echo get_field('reply_chat'); ?></span></span>
+                                        <?php
+                                    }
+                                    ?>
+                                    <div class="cmt">
+                                        <?php
+                                        if(!empty(get_field('anh_dai_dien'))){
+                                            ?><div class="img"><img class="animated pulse infinite" src="<?php echo get_field('anh_dai_dien'); ?>" alt="avatar"></div><?php
+                                        }?>
+                                        <div class="content">Ngày nhập vào :
+                                            <span><?php echo get_field('ngay_nhap_vao_chat'); ?></span> # Mã NV :
+                                            <span><?php echo get_field('ma_nhan_vien_chat'); ?></span> # Lời nhắn :
+                                            <span class="tn"><?php echo get_field('tin_nhan_chat'); ?></span>
+                                        </div>
+                                    </div>
+                                    <p class="edit_mess_tn">
+                                        <textarea class="tn" cols="1" rows="1" disabled><?php echo get_field('tin_nhan_chat'); ?></textarea>
+                                    </p>
                                 </td>
                                 <td bgcolor="#EAF8FF">
                                     <select class="bo_phan_chat_mess" data-check="<?php echo get_field('bo_phan_chat'); ?>" disabled>
@@ -206,11 +293,16 @@ function load_chat_real_time() {
                                 <td bgcolor="#EAF8FF"><input type="text" data-date-format="dd/mm/yyyy" data-position='top left' class="datepicker-here ngay_can_nhac_lai_chat_mess" value="<?php echo get_field('ngay_can_nhac_lai_chat'); ?>" data-language='en' disabled></td>
                                 <td bgcolor="#EAF8FF"><p class="change_update_send_mess" data-id="<?php echo get_the_ID(); ?>" data-name="<?php echo get_field('ma_nhan_vien_chat'); ?>">
                                         <?php
-                                        if($this_user == get_field('ma_nhan_vien_chat')){
+                                        if($this_user == get_field('ma_nhan_vien_chat') && get_field('button') == 'true'){
                                             ?>
                                             <button type="button" class="btn_edit_chat"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>
                                             <?php
                                         }
+                                        ?>
+                                        <?php
+                                            if(empty(get_field('reply_chat'))){
+                                                ?><button type="button" class="reply"><i class="fa fa-reply" aria-hidden="true"></i> Trả lời</button><?php
+                                            }
                                         ?>
                                     </p></td>
                             </tr>
