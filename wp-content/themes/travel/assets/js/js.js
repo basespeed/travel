@@ -166,7 +166,9 @@
             'muc_do_uu_tien_chat',
             'muc_do_uu_tien_chat_mess',
             'bo_phan_chat_mess',
-            'loai_quyen_tai_khoan'
+            'loai_quyen_tai_khoan',
+            'noi_di_gd',
+            'noi_den_gd'
         ];
 
         $.each(ClassSelect , function(index, val) {
@@ -873,6 +875,13 @@
                 $(this).find('td select').removeClass('border_edit');
                 $(this).find('td textarea').removeClass('border_edit');
                 $(this).find('span.tn').text(chat_mess);
+
+                $('.muc_do_uu_tien_chat_mess').filter(function () {
+                    $(this).val($(this).attr('data-check'));
+                });
+                $('select.bo_phan_chat_mess').filter(function () {
+                    $(this).val($(this).attr('data-check'));
+                });
 
                 //update post chat
                 $.ajax({

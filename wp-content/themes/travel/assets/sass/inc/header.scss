@@ -2,7 +2,7 @@ header{
   background: #23272C;
   position: fixed;
   width: 100%;
-  height: 150px;
+  height: 50px;
   z-index: 999999;
   h1{
     color: #FFF;
@@ -13,6 +13,7 @@ header{
     text-transform: uppercase;
     position: relative;
     z-index: 10;
+    font-size: 20px;
   }
   .insider{
     background-size: cover !important;

@@ -136,11 +136,13 @@ require get_template_directory() . '/inc/custom-post-types/nhan_vien.php';
 require get_template_directory() . '/inc/custom-post-types/ctv.php';
 require get_template_directory() . '/inc/custom-post-types/user.php';
 require get_template_directory() . '/inc/custom-post-types/doi_tac.php';
+require get_template_directory() . '/inc/custom-post-types/khach_hang.php';
 require get_template_directory() . '/inc/custom-post-types/giao_dich_tien.php';
 require get_template_directory() . '/inc/custom-post-types/km.php';
 require get_template_directory() . '/inc/custom-post-types/trang_thai.php';
 require get_template_directory() . '/inc/custom-post-types/chat.php';
 require get_template_directory() . '/inc/custom-post-types/bo_phan.php';
+require get_template_directory() . '/inc/custom-post-types/dia_diem.php';
 require get_template_directory() . '/inc/custom-post-types/note_chat.php';
 /**
  * Ajax

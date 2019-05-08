@@ -117,7 +117,7 @@ function load_chat_real_time() {
         }*/
         $arr_chat = array(
             'post_type' => 'chat',
-            'posts_per_page' => 5,
+            'posts_per_page' => 6,
             'meta_key'		=> 'id_chat_gd',
             'meta_value' => '^' . preg_quote( $show_chat_id ),
             'meta_compare' => 'RLIKE',
@@ -212,7 +212,7 @@ function load_chat_real_time() {
             );
             $query_chat_count = new WP_Query($arr_chat_count);
             if($query_chat_count->have_posts()) : while ($query_chat_count->have_posts()) : $query_chat_count->the_post();
-                if(get_field('count_chat') > 5){
+                if(get_field('count_chat') > 6){
                     ?>
                     <tr class="show_chat">
                         <td bgcolor="#EAF8FF">...</td>
@@ -257,7 +257,7 @@ function load_chat_real_time() {
                                         }?>
                                         <div class="content">Ngày nhập vào :
                                             <span><?php echo get_field('ngay_nhap_vao_chat'); ?></span> # Mã NV :
-                                            <span><?php echo get_field('ma_nhan_vien_chat'); ?></span> # Lời nhắn :
+                                            <span><?php echo get_field('ma_nhan_vien_chat'); ?></span> # Lời nhắn cũ nhất :
                                             <span class="tn"><?php echo get_field('tin_nhan_chat'); ?></span>
                                         </div>
                                     </div>

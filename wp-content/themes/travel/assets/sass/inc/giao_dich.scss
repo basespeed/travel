@@ -112,9 +112,9 @@ span.reply_chat{
   span{
     display: block;
     width: 100%;
-    background: #ff5f66;
+    background: #F1F0F0;
     padding: 5px 15px;
-    color: #FFF !important;
+    color: #828282 !important;
   }
   i{
     font-size: 18px;
@@ -128,7 +128,7 @@ span.reply_chat{
 }
 
 .send_chat{
-  background: #ff7b5d85;
+  background: #F1B254;
   td:first-child{
     span{
       display: block;
@@ -178,8 +178,12 @@ span.reply_chat{
   .trang_thai_chat{
     background: #FFF;
   }
-  textarea,input,select{
+  input,select{
      border:none;
+    height: 30px !important;
+  }
+  textarea{
+    border: none;
   }
 }
 
@@ -256,7 +260,14 @@ span.reply_chat{
     }
   }
   input,select,textarea{
-    background: #FFF;
+    background: #FFF !important;
+    border-color: transparent;
+  }
+}
+
+.send_chat{
+  input,select,textarea{
+    background: #FFF !important;
     border-color: transparent;
   }
 }
@@ -269,6 +280,7 @@ table#show_chat {
   margin-bottom: 0px;
   td{
     align-items: center;
+    padding: 5px 5px;
   }
   .cmt{
     display: flex;
@@ -303,5 +315,22 @@ table#show_chat {
   td{
     background: #D1E2FF;
     border:1px solid #FFF !important;
+  }
+  td:first-child{
+    border-left:1px solid #D1E2FF !important;
+  }
+  td:last-child{
+    border-right:1px solid #D1E2FF !important;
+  }
+}
+
+ul.price_count{
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+  li{
+    width: 50%;
   }
 }

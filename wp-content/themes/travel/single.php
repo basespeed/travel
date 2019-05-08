@@ -22,6 +22,8 @@ if($_SESSION['sucess'] == "sucess") {
         get_template_part('template-parts/single/single_giao_dich_tien');
     }elseif (is_singular('km') && is_single()) {
         get_template_part('template-parts/single/single_khuyen_mai');
+    }elseif (is_singular('khach_hang') && is_single()) {
+        get_template_part('template-parts/single/single_khach_hang');
     }
     ?>
     <?php

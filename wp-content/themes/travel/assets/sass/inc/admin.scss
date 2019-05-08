@@ -1,9 +1,9 @@
 .quantri_admin{
   display: flex;
   flex-wrap: wrap;
-  margin-top: 150px;
+  margin-top: 50px;
   .menu_admin{
-    width: 200px;
+    width: 166px;
     position: fixed;
     border-top:1px solid rgba(255,255,255,0.5);
     ul{
@@ -13,7 +13,7 @@
       a{
         color: #fff;
         padding: 15px;
-        font-size: 14px;
+        font-size: 12px;
         text-transform: uppercase;
         display: flex;
         align-items: center;
@@ -28,7 +28,7 @@
         background: #32373C;
         display: none;
         overflow-y: hidden !important;
-        max-height: 125px !important;
+        max-height: 116px !important;
         li{
           a{
             background: #32373C !important;
@@ -36,7 +36,7 @@
           }
         }
         a{
-          padding: 10px 30px;
+          padding: 10px 15px;
           color: rgba(240,245,250,.7);
           &:hover{
             color: rgba(240,245,250,1);
@@ -46,7 +46,7 @@
           background: none;
           a{
             background: #000 !important;
-            color: #fff;
+            color: #fff !important;
           }
         }
       }
@@ -114,12 +114,12 @@
     }
   }
   .content_admin{
-    width: calc(100% - 200px);
-    height: calc(100vh - 150px);
+    width: calc(100% - 166px);
+    height: calc(100vh - 50px);
     overflow-y: scroll;
     background: #eae9e9;
-    margin-left: 200px;
-    padding:15px;
+    margin-left: 166px;
+    padding:5px;
     table{
       background: #FFF;
       -webkit-box-shadow: 2px 2px 10px 2px rgba(0,0,0,0.1);
@@ -220,13 +220,24 @@
   .them_giao_dich{
     td{
       border:1px solid #eaeaea;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 500;
       color: #000;
+      padding: 0px;
+      margin-top: -1px;
+    }
+    table {
+      table{
+        padding: 0 5px;
+        margin: 0px;
+        td{
+          border: 1px solid transparent;
+        }
+      }
     }
     input{
       width: 100%;
-      height: 35px;
+      height: 20px;
       border-radius: 0px;
       outline: none;
       border:1px solid #eaeaea;
@@ -238,7 +249,7 @@
     }
     select{
       width: 100%;
-      height: 35px;
+      height: 20px;
       border-radius: 0px;
       font-size: 13px;
       outline: none;
@@ -258,13 +269,35 @@
       color: #333;
       margin-top: 5px;
       margin-bottom: 5px;
-      height: 80px;
+      height: 60px;
+    }
+    input,select,textarea{
+      background: #eaeaea;
+      width: 100% !important;
+      margin:0px 5px;
+      margin-top: 5px;
+    }
+
+    tr:last-child{
+      tr{
+        input,select,textarea{
+          background: #FFF;
+        }
+      }
+    }
+    .btn_send_chat{
+      background: #2A7AFE !important;
+    }
+    #show_chat{
+      input,select,textarea{
+        border:none;
+      }
     }
     .acf-form-submit {
       text-align: center;
       position: fixed;
       bottom: 15px;
-      left: 40px;
+      left: 26px;
       z-index: 100;
     }
     .acf-form-submit input {
@@ -354,6 +387,10 @@ a.edit{
 a.delete{
   color: red;
   font-size: 20px;
+}
+
+.menu-item i._mi{
+  font-size: 20px !important;
 }
 
 a.view{
@@ -708,4 +745,44 @@ a.ho_so{
 
 .list_ho_so li:nth-child(7){
   width: 100%
+}
+
+.single-khach_hang{
+  .acf-form-submit {
+    text-align: center;
+    position: fixed;
+    bottom: 15px;
+    left: 40px;
+    z-index: 100;
+  }
+  .acf-form-submit input {
+    padding: 0px;
+    width: 120px;
+    height: 40px;
+    border: none;
+    font-size: 14px;
+    text-transform: uppercase;
+    background: #007bff;
+    color: #FFF;
+    border-radius: 0px;
+    cursor: pointer;
+    transition: 0.5s;
+  }
+
+  .quantri_admin .menu_admin ul li:nth-child(7) {
+    a{
+      background: #1A56B2 !important;
+    }
+    ul{
+      display: block !important;
+      a{
+        background: #32373C !important;
+      }
+      li:last-child{
+        a{
+          background: #000 !important;
+        }
+      }
+    }
+  }
 }
