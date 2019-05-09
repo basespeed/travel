@@ -84,6 +84,7 @@ get_header();
                 update_field('ten_ctv', $_POST['ten_ctv'], $post_id);
                 update_field('email_ctv', $_POST['email_ctv'], $post_id);
                 update_field('sdt_ctv', $_POST['sdt_ctv'], $post_id);
+                update_field('don_vi_cong_tac_ctv', $_POST['don_vi_cong_tac_ctv'], $post_id);
                 update_field('nick_kh_ctv', $_POST['nick_kh_ctv'], $post_id);
                 update_field('link_fb_kh_ctv', $_POST['link_fb_kh_ctv'], $post_id);
                 update_field('uidfb_kh_ctv', $_POST['uidfb_kh_ctv'], $post_id);
@@ -122,6 +123,11 @@ get_header();
                             <label>SĐT CTV</label>
                             <input type="number" name="sdt_ctv" class="sdt_ctv"
                                    value="<?php echo get_field('sdt_ctv'); ?>" required>
+                        </li>
+                        <li>
+                            <label>Đơn vị công tác</label>
+                            <input type="number" name="don_vi_cong_tac_ctv" class="don_vi_cong_tac_ctv"
+                                   value="<?php echo get_field('don_vi_cong_tac_ctv'); ?>" required>
                         </li>
                         <li>
                             <label>Nick KH CTV</label>

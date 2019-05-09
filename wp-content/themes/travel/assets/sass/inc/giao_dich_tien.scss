@@ -19,7 +19,9 @@
     cursor: pointer;
     transition: 0.5s;
   }
+}
 
+.single-khach_hang{
   .quantri_admin .menu_admin ul li:nth-child(7) {
     a{
       background: #1A56B2 !important;
@@ -29,7 +31,7 @@
       a{
         background: #32373C !important;
       }
-      li:last-child{
+      li:nth-child(2){
         a{
           background: #000 !important;
         }

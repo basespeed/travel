@@ -56,10 +56,8 @@ if($_SESSION['sucess'] == "sucess") {
                                 <td><strong>Tên khách giao dịch</strong></td>
                                 <td><strong>SĐT Khách giao dịch</strong></td>
                                 <td><strong>Email khách giao dịch</strong></td>
-                                <td><strong>Nơi đi</strong></td>
-                                <td><strong>Nơi đến</strong></td>
-                                <td><strong>Check-in</strong></td>
-                                <td><strong>Check-out</strong></td>
+                                <td><strong>TK khách giao dịch</strong></td>
+                                <td><strong>Loại tài khoản</strong></td>
                                 <td></td>
                             </tr>
                             <?php
@@ -71,10 +69,8 @@ if($_SESSION['sucess'] == "sucess") {
                                     <td><?php echo get_field('ten_kgd'); ?></td>
                                     <td><?php echo get_field('sdt_kgd'); ?></td>
                                     <td><?php echo get_field('email_kgd_duy_nhat'); ?></td>
-                                    <td><?php echo get_field('noi_di_gd'); ?></td>
-                                    <td><?php echo get_field('noi_den_gd'); ?></td>
-                                    <td><?php echo get_field('ci_gd'); ?></td>
-                                    <td><?php echo get_field('co_gd'); ?></td>
+                                    <td><?php echo get_field('tk_kgd'); ?></td>
+                                    <td><?php echo get_field('loai_tai_khoan_khach_gd'); ?></td>
                                     <td>
                                         <a class="edit" href="<?php the_permalink(); ?>"><i
                                                 class="fa fa-pencil-square-o" aria-hidden="true"></i></a>

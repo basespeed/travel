@@ -154,6 +154,7 @@ require get_template_directory() . '/inc/ajax/ajax-logout.php';
 require get_template_directory() . '/inc/ajax/ajax_join_user_nv.php';
 require get_template_directory() . '/inc/ajax/ajax-chat.php';
 require get_template_directory() . '/inc/ajax/ajax-send-mess.php';
+require get_template_directory() . '/inc/ajax/ajax-khach-hang.php';
 
 /**
  * ACF.

@@ -778,11 +778,22 @@ a.ho_so{
       a{
         background: #32373C !important;
       }
-      li:last-child{
-        a{
-          background: #000 !important;
-        }
-      }
     }
   }
+}
+
+.single-giao_dich .them_giao_dich .alert_tk_sucess{
+  margin-bottom: 5px !important;
+}
+
+.acf-form-submit{
+  left: 26px !important;
+}
+
+.quantri_admin .them_giao_dich table table td{
+  padding: 0 4px;
+}
+
+.quantri_admin .them_giao_dich td{
+  padding: 0 4px;
 }

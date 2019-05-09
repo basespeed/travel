@@ -76,6 +76,7 @@ if($_SESSION['sucess'] == "sucess") {
                     add_post_meta($post_id, 'ten_dt', $_POST['ten_dt'], true);
                     add_post_meta($post_id, 'email_dt', $_POST['email_dt'], true);
                     add_post_meta($post_id, 'stk_dt', $_POST['stk_dt'], true);
+                    add_post_meta($post_id, 'don_vi_cong_tac_dt', $_POST['don_vi_cong_tac_dt'], true);
                     add_post_meta($post_id, 'khu_vuc_dt', $_POST['khu_vuc_dt'], true);
                     add_post_meta($post_id, 'mieu_ta_dt', $_POST['mieu_ta_dt'], true);
                     add_post_meta($post_id, 'cap_bac_dt', $_POST['cap_bac_dt'], true);
@@ -112,6 +113,10 @@ if($_SESSION['sucess'] == "sucess") {
                             <li>
                                 <label>STK DT</label>
                                 <input type="number" name="stk_dt" class="stk_dt" required>
+                            </li>
+                            <li>
+                                <label>Đơn vị công tác</label>
+                                <input type="text" name="don_vi_cong_tac_dt" class="don_vi_cong_tac_dt" required>
                             </li>
                             <li>
                                 <label>Khu vực DT</label>

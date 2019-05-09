@@ -25,7 +25,7 @@ function cw_post_type_news_bo_phan() {
         'rewrite' => true,
         'has_archive' => true,
         'hierarchical' => false,
-        'menu_icon' => 'dashicons-chart-bar'
+        'menu_icon' => 'dashicons-groups'
     );
     register_post_type('bo_phan', $args);
 }

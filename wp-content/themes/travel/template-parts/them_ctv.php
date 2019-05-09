@@ -80,6 +80,7 @@ if($_SESSION['sucess'] == "sucess") {
                     add_post_meta($post_id, 'ten_ctv', $_POST['ten_ctv'], true);
                     add_post_meta($post_id, 'email_ctv', $_POST['email_ctv'], true);
                     add_post_meta($post_id, 'sdt_ctv', $_POST['sdt_ctv'], true);
+                    add_post_meta($post_id, 'don_vi_cong_tac_ctv', $_POST['don_vi_cong_tac_ctv'], true);
                     add_post_meta($post_id, 'nick_kh_ctv', $_POST['nick_kh_ctv'], true);
                     add_post_meta($post_id, 'link_fb_kh_ctv', $_POST['link_fb_kh_ctv'], true);
                     add_post_meta($post_id, 'uidfb_kh_ctv', $_POST['uidfb_kh_ctv'], true);
@@ -113,6 +114,10 @@ if($_SESSION['sucess'] == "sucess") {
                             <li>
                                 <label>SĐT CTV</label>
                                 <input type="number" name="sdt_ctv" class="sdt_ctv" required>
+                            </li>
+                            <li>
+                                <label>Đơn vị công tác</label>
+                                <input type="text" name="don_vi_cong_tac_ctv" class="don_vi_cong_tac_ctv" required>
                             </li>
                             <li>
                                 <label>Nick KH CTV</label>

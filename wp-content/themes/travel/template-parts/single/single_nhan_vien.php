@@ -83,6 +83,7 @@ get_header();
                 update_field( 'sdt_nv', $_POST['sdt_nv'], $post_id );
                 update_field( 'muc_do_uu_tien', $_POST['muc_do_uu_tien'], $post_id );
                 update_field( 'bo_phan_nv', $_POST['bo_phan_nv'], $post_id );
+                update_field( 'don_vi_cong_tac_nv', $_POST['don_vi_cong_tac_nv'], $post_id );
                 update_field( 'nick_nv', $_POST['nick_nv'], $post_id );
                 update_field( 'link_fb_nv', $_POST['link_fb_nv'], $post_id );
                 update_field( 'uidfb_nv', $_POST['uidfb_nv'], $post_id );
@@ -139,6 +140,10 @@ get_header();
                         <li>
                             <label>Nick NV</label>
                             <input type="text" name="nick_nv" class="nick_nv" value="<?php echo get_field('nick_nv'); ?>" required>
+                        </li>
+                        <li>
+                            <label>Đơn vị công tác</label>
+                            <input type="text" name="don_vi_cong_tac_nv" class="don_vi_cong_tac_nv" value="<?php echo get_field('don_vi_cong_tac_nv'); ?>" required>
                         </li>
                         <li>
                             <label>Link FB NV</label>

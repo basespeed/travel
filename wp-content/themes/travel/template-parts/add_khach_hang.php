@@ -96,10 +96,6 @@ if($_SESSION['sucess'] == "sucess") {
                                     <input type="text" name="ten_kgd" class="ten_kgd" required>
                                 </li>
                                 <li>
-                                    <label>Nick khách giao dịch</label>
-                                    <input type="text" name="nick_kgd" class="nick_kgd" required>
-                                </li>
-                                <li>
                                     <label>SĐT Khách giao dịch</label>
                                     <input type="number" name="sdt_kgd" class="sdt_kgd" required>
                                 </li>
@@ -112,101 +108,24 @@ if($_SESSION['sucess'] == "sucess") {
                                     <input type="number" name="tk_kgd" class="tk_kgd" required>
                                 </li>
                                 <li>
-                                    <label>Nơi đi</label>
-                                    <select name="noi_di_gd" class="noi_di_gd" required>
-                                        <option value="Hà Nội">Hà Nội</option>
-                                        <?php
-                                        $query_khach_san = new WP_Query(array(
-                                            'post_type' => 'dia_diem_local',
-                                            'posts_type' => 15,
-                                        ));
-                                        if($query_khach_san->have_posts()) : while ($query_khach_san->have_posts()) : $query_khach_san->the_post();
-                                            ?><option value="<?php the_title(); ?>"><?php the_title(); ?></option><?php
-                                        endwhile;
-                                        endif;
-                                        wp_reset_postdata();
-                                        ?>
+                                    <label>Đơn vị công tác</label>
+                                    <input type="text" name="don_vi_cong_tac_kh" class="don_vi_cong_tac_kh" required>
+                                </li>
+                                <li>
+                                    <label>Loại tài khoản</label>
+                                    <select name="loai_tai_khoan_khach_gd" class="loai_tai_khoan_khach_gd" required>
+                                        <option value="" selected disabled hidden>Chọn loại tài khoản</option>
+                                        <option value="Thường">Thường</option>
+                                        <option value="Vip">Vip</option>
                                     </select>
                                 </li>
                                 <li>
-                                    <label>Nơi đến</label>
-                                    <select name="noi_den_gd" class="noi_den_gd" required>
-                                        <?php
-                                        $query_khach_san = new WP_Query(array(
-                                            'post_type' => 'dia_diem_local',
-                                            'posts_type' => 15,
-                                        ));
-                                        if($query_khach_san->have_posts()) : while ($query_khach_san->have_posts()) : $query_khach_san->the_post();
-                                            ?><option value="<?php the_title(); ?>"><?php the_title(); ?></option><?php
-                                        endwhile;
-                                        endif;
-                                        wp_reset_postdata();
-                                        ?>
-                                    </select>
+                                    <label>Nick khách giao dịch</label>
+                                    <input type="text" name="nick_kgd" class="nick_kgd" required>
                                 </li>
                                 <li>
-                                    <label>Check-in</label>
-                                    <input type="text" name="ci_gd" data-date-format="dd/mm/yyyy" class="ci_gd datepicker-here" data-language='en' required>
-                                </li>
-                                <li>
-                                    <label>Check-out</label>
-                                    <input type="text" name="co_gd" class="co_gd datepicker-here" data-date-format="dd/mm/yyyy" data-language='en' required>
-                                </li>
-                                <li>
-                                    <label>Số đêm</label>
-                                    <input type="number" name="so_dem_gd" class="so_dem_gd" disabled required>
-                                </li>
-                                <li>
-                                    <label>Còn lại ?</label>
-                                    <input type="number" name="con_ngay_gd" class="con_ngay_gd" disabled required>
-                                </li>
-                                <li>
-                                    <label>Loại phòng</label>
-                                    <select name="loai_phong_ban_gd" class="loai_phong_ban_gd">
-                                        <option value="" selected disabled hidden>Chọn loại phòng</option>
-                                        <?php
-                                        $query_khach_san = new WP_Query(array(
-                                            'post_type' => 'khach_san',
-                                            'posts_type' => 15,
-                                        ));
-                                        if($query_khach_san->have_posts()) : while ($query_khach_san->have_posts()) : $query_khach_san->the_post();
-                                        $str = get_field('loai_phong_ks');
-                                        $arr_lists = explode(",",$str);
-                                        foreach ($arr_lists as $list){
-                                            $list_explode  = $list;
-                                            $list_explode = explode(":", $list_explode);
-                                            echo '<option value="'.$list_explode[0].'" data-price="'.preg_replace('/\s+/', '', $list_explode[1]).'">'.$list_explode[0].'</option>';
-                                        }
-                                        endwhile;
-                                        endif;
-                                        wp_reset_postdata();
-                                        ?>
-                                    </select>
-                                </li>
-                                <li>
-                                    <label>Số lượng</label>
-                                    <input type="number" name="sl_gd" class="sl_gd">
-                                </li>
-                                <li>
-                                    <label>Đơn giá bán</label>
-                                    <input type="text" name="don_gia_ban_gd" class="don_gia_ban_gd">
-                                </li>
-                                <li>
-                                    <label>Đơn vị bán</label>
-                                    <select name="don_vi_gd" class="don_vi_gd" data-check="<?php echo get_field('don_vi_gd'); ?>" required>
-                                        <option value="" selected disabled hidden>Chọn đơn vị</option>
-                                        <option value="vnđ/phòng/đêm">vnđ/phòng/đêm</option>
-                                        <option value="vnđ/căn/đêm">vnđ/căn/đêm</option>
-                                        <option value="vnđ/villa/đêm">vnđ/villa/đêm</option>
-                                    </select>
-                                </li>
-                                <li>
-                                    <label>Tổng</label>
-                                    <input type="text" name="tong_gd" class="tong_gd">
-                                </li>
-                                <li>
-                                    <label>Mã pro</label>
-                                    <input type="text" name="ma_pro_gd" class="ma_pro_gd">
+                                    <label>Link facebook</label>
+                                    <input type="text" name="link_facebook_khach_gd" class="link_facebook_khach_gd" required>
                                 </li>
                                 <div class="get_alert" style="text-align: center;"></div>
                                 <?php if ($alert) {

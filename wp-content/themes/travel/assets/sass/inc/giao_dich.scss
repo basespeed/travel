@@ -334,3 +334,77 @@ ul.price_count{
     width: 50%;
   }
 }
+
+.quantri_admin .them_giao_dich table table td{
+  position: relative;
+  .popup_get_data_list{
+    position: absolute;
+    width: 713px;
+    display: none;
+    left: 4px;
+    top: 20px;
+    background: #fff;
+    z-index: 1000;
+    padding: 10px;
+    box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.1);
+    ul{
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0;
+      padding: 0;
+      li{
+        width: 20%;
+        border:1px solid #eaeaea;
+        margin-left: -1px;
+        margin-top: -1px;
+        padding: 5px;
+        transition: 0.5s;
+        display: flex;
+        align-items: center;
+      }
+      li:nth-child(2){
+        width: 12%;
+      }
+      li:nth-child(5){
+        width: 28%;
+      }
+      li:nth-child(4){
+        width: 15%;
+      }
+      li:nth-child(3){
+        width: 25%;
+      }
+    }
+    .list_show{
+      ul{
+        &:hover{
+          cursor: pointer;
+          li{
+            background: #BECF90;
+          }
+        }
+      }
+      li{
+        font-size: 12px;
+        input{
+          background: transparent;
+          border:none;
+          padding: 0 !important;
+          &:hover{
+            cursor: pointer;
+          }
+        }
+      }
+    }
+    p{
+      width: calc(100% - 5px);
+      margin: 0px;
+      margin-top: -1px;
+      text-align: center;
+      border:1px solid #eaeaea;
+      padding: 10px;
+    }
+  }
+}
+

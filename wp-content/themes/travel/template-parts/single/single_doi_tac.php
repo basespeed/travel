@@ -78,6 +78,7 @@ get_header();
                 update_field('ten_dt', $_POST['ten_dt'], $post_id);
                 update_field('email_dt', $_POST['email_dt'], $post_id);
                 update_field('stk_dt', $_POST['stk_dt'], $post_id);
+                update_field('don_vi_cong_tac_dt', $_POST['don_vi_cong_tac_dt'], $post_id);
                 update_field('khu_vuc_dt', $_POST['khu_vuc_dt'], $post_id);
                 update_field('mieu_ta_dt', $_POST['mieu_ta_dt'], $post_id);
                 update_field('cap_bac_dt', $_POST['cap_bac_dt'], $post_id);
@@ -92,7 +93,7 @@ get_header();
         ?>
         <div class="content_admin">
             <div class="giao_dich_moi add_user add_khach_san edit_nv">
-                <h1>Sửa khách sạn</h1>
+                <h1>Sửa đối tác</h1>
                 <form action="<?php echo get_permalink(); ?>" method="post" enctype="multipart/form-data">
                     <ul>
                         <li>
@@ -118,6 +119,11 @@ get_header();
                         <li>
                             <label>STK DT</label>
                             <input type="number" name="stk_dt" class="stk_dt" value="<?php echo get_field('stk_dt'); ?>"
+                                   required>
+                        </li>
+                        <li>
+                            <label>Đơn vị công tác</label>
+                            <input type="text" name="don_vi_cong_tac_dt" class="don_vi_cong_tac_dt" value="<?php echo get_field('don_vi_cong_tac_dt'); ?>"
                                    required>
                         </li>
                         <li>

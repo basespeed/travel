@@ -25,7 +25,7 @@ function cw_post_type_news_dia_diem_local() {
         'rewrite' => true,
         'has_archive' => true,
         'hierarchical' => false,
-        'menu_icon' => 'dashicons-chart-bar'
+        'menu_icon' => 'dashicons-location-alt'
     );
     register_post_type('dia_diem_local', $args);
 }

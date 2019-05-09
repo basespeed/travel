@@ -81,6 +81,7 @@ if($_SESSION['sucess'] == "sucess") {
                     add_post_meta($post_id, 'muc_do_uu_tien', $_POST['muc_do_uu_tien'], true);
                     add_post_meta($post_id, 'nick_nv', $_POST['nick_nv'], true);
                     add_post_meta($post_id, 'bo_phan_nv', $_POST['bo_phan_nv'], true);
+                    add_post_meta($post_id, 'don_vi_cong_tac_nv', $_POST['don_vi_cong_tac_nv'], true);
                     add_post_meta($post_id, 'link_fb_nv', $_POST['link_fb_nv'], true);
                     add_post_meta($post_id, 'uidfb_nv', $_POST['uidfb_nv'], true);
                     add_post_meta($post_id, 'lien_ket_tai_khoan', abs(crc32(uniqid())), true);
@@ -133,6 +134,10 @@ if($_SESSION['sucess'] == "sucess") {
                                     wp_reset_postdata();
                                     ?>
                                 </select>
+                            </li>
+                            <li>
+                                <label>Đơn vị công tác</label>
+                                <input type="text" name="don_vi_cong_tac_nv" class="don_vi_cong_tac_nv" required>
                             </li>
                             <li>
                                 <label>Nick NV</label>

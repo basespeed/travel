@@ -168,7 +168,10 @@
             'bo_phan_chat_mess',
             'loai_quyen_tai_khoan',
             'noi_di_gd',
-            'noi_den_gd'
+            'noi_den_gd',
+            'noi_di_dt',
+            'noi_den_dt',
+            'loai_tai_khoan_khach_gd'
         ];
 
         $.each(ClassSelect , function(index, val) {
@@ -186,6 +189,7 @@
             $('.ma_dich_vu_gd').val(myID);
 
             var array_room = data_room.split(",");
+
 
             loai_phong_ban_gd.empty();
             loai_phong_ban_dt.empty();
@@ -226,8 +230,14 @@
             var sl_dt = $('.sl_dt').val();
             var don_gia_ban_dt = $('.don_gia_ban_dt').val();
 
-            $('.tong_gd').val(sl_gd * don_gia_ban_gd);
-            $('.tong_dt').val(sl_dt * don_gia_ban_dt);
+            var tong_room_gd = sl_gd * don_gia_ban_gd;
+            var so_dem_gd = $('.so_dem_gd').val();
+            $('.tong_gd').val(tong_room_gd * so_dem_gd);
+
+
+            var tong_room_dt = sl_dt * don_gia_ban_dt;
+            var so_dem_dt = $('.so_dem_gd').val();
+            $('.tong_dt').val(tong_room_dt * so_dem_dt);
         },1000);
 
         $('.ten_dt_gui_book_dt').change(function(){
@@ -239,7 +249,15 @@
     }
 
     function CountGetData(){
-        if(! $('.them_giao_dich').hasClass('sua_giao_dich')){
+        $('.so_dem_gd').prop('disabled', true);
+        $('.con_ngay_gd').prop('disabled', true);
+        //$('.don_gia_ban_gd').prop('disabled', true);
+        $('.tong_gd').prop('disabled', true);
+        //$('.don_gia_ban_dt').prop('disabled', true);
+        $('.tong_dt').prop('disabled', true);
+        $('.con_ngay_dt').prop('disabled', true);
+        $('.con_ngay_thay_doi_dt').prop('disabled', true);
+        if(! $('.page-template-them_giao_dich .them_giao_dich').hasClass('sua_giao_dich')){
             if($('.datepicker-here').hasClass('ci_gd')){
                 setInterval(function () {
                     var date_in = $('.ci_gd').val();
@@ -1055,6 +1073,208 @@
             }
         };
     }
+    
+    function getDataClient() {
+        $('.khach_dai_dien_gd').on('keyup', function () {
+            var keyword = $(this).val();
+            if(keyword != ""){
+                $.ajax({
+                    type: "post",
+                    dataType: "html",
+                    url: my_ajax_object.ajax_url,
+                    data: {
+                        action: "setKhachDaiDien",
+                        keyword:keyword
+                    },
+                    success: function (response) {
+                        if(response == 'empty'){
+                            $('.pop_ten').hide();
+                        }else{
+                            $('.pop_ten').show();
+                            $('.pop_ten .list_show').empty();
+                            $('.pop_ten .list_show').html(response);
+                        }
+
+                    }
+                });
+            }
+        });
+
+        $('.sdt_gd').on('keyup', function () {
+            var keyword = $(this).val();
+            $.ajax({
+                type: "post",
+                dataType: "html",
+                url: my_ajax_object.ajax_url,
+                data: {
+                    action: "setKhachDaiDienSDT",
+                    keyword:keyword
+                },
+                success: function (response) {
+                    if(response == 'empty'){
+                        $('.popup_get_data_list.pop_sdt').hide();
+                    }else{
+                        $('.popup_get_data_list.pop_sdt').show();
+                        $('.popup_get_data_list.pop_sdt .list_show').empty();
+                        $('.popup_get_data_list.pop_sdt .list_show').html(response);
+                    }
+                }
+            });
+        });
+
+        $('.ten_kgd').on('keyup', function () {
+            var keyword = $(this).val();
+            $.ajax({
+                type: "post",
+                dataType: "html",
+                url: my_ajax_object.ajax_url,
+                data: {
+                    action: "setKhachDaiDienTenKgd",
+                    keyword:keyword
+                },
+                success: function (response) {
+                    if(response == 'empty'){
+                        $('.popup_get_data_list.pop_tenkgd').hide();
+                    }else{
+                        $('.popup_get_data_list.pop_tenkgd').show();
+                        $('.popup_get_data_list.pop_tenkgd .list_show').empty();
+                        $('.popup_get_data_list.pop_tenkgd .list_show').html(response);
+                    }
+                }
+            });
+        });
+
+        $('.nick_kgd').on('keyup', function () {
+            var keyword = $(this).val();
+            $.ajax({
+                type: "post",
+                dataType: "html",
+                url: my_ajax_object.ajax_url,
+                data: {
+                    action: "setNickKgd",
+                    keyword:keyword
+                },
+                success: function (response) {
+                    if(response == 'empty'){
+                        $('.popup_get_data_list.pop_nick_kgd').hide();
+                    }else{
+                        $('.popup_get_data_list.pop_nick_kgd').show();
+                        $('.popup_get_data_list.pop_nick_kgd .list_show').empty();
+                        $('.popup_get_data_list.pop_nick_kgd .list_show').html(response);
+                    }
+                }
+            });
+        });
+
+        $('.sdt_kgd').on('keyup', function () {
+            var keyword = $(this).val();
+            $.ajax({
+                type: "post",
+                dataType: "html",
+                url: my_ajax_object.ajax_url,
+                data: {
+                    action: "setSdtKgd",
+                    keyword:keyword
+                },
+                success: function (response) {
+                    if(response == 'empty'){
+                        $('.popup_get_data_list.pop_sdt_kgd').hide();
+                    }else{
+                        $('.popup_get_data_list.pop_sdt_kgd').show();
+                        $('.popup_get_data_list.pop_sdt_kgd .list_show').empty();
+                        $('.popup_get_data_list.pop_sdt_kgd .list_show').html(response);
+                    }
+                }
+            });
+        });
+
+        $('.email_kgd_duy_nhat').on('keyup', function () {
+            var keyword = $(this).val();
+            $.ajax({
+                type: "post",
+                dataType: "html",
+                url: my_ajax_object.ajax_url,
+                data: {
+                    action: "setEmail_kgd_duy_nhat",
+                    keyword:keyword
+                },
+                success: function (response) {
+                    if(response == 'empty'){
+                        $('.popup_get_data_list.pop_email_kgd_duy_nhat').hide();
+                    }else{
+                        $('.popup_get_data_list.pop_email_kgd_duy_nhat').show();
+                        $('.popup_get_data_list.pop_email_kgd_duy_nhat .list_show').empty();
+                        $('.popup_get_data_list.pop_email_kgd_duy_nhat .list_show').html(response);
+                    }
+                }
+            });
+        });
+
+        $('.tk_kgd').on('keyup', function () {
+            var keyword = $(this).val();
+            $.ajax({
+                type: "post",
+                dataType: "html",
+                url: my_ajax_object.ajax_url,
+                data: {
+                    action: "setTk_kgd",
+                    keyword:keyword
+                },
+                success: function (response) {
+                    if(response == 'empty'){
+                        $('.popup_get_data_list.pop_tk_kgd').hide();
+                    }else{
+                        $('.popup_get_data_list.pop_tk_kgd').show();
+                        $('.popup_get_data_list.pop_tk_kgd .list_show').empty();
+                        $('.popup_get_data_list.pop_tk_kgd .list_show').html(response);
+                    }
+                }
+            });
+        });
+
+        $('.ma_kgd').on('keyup', function () {
+            var keyword = $(this).val();
+            $.ajax({
+                type: "post",
+                dataType: "html",
+                url: my_ajax_object.ajax_url,
+                data: {
+                    action: "setMa_kgd",
+                    keyword:keyword
+                },
+                success: function (response) {
+                    if(response == 'empty'){
+                        $('.popup_get_data_list.pop_ma_kgd').hide();
+                    }else{
+                        $('.popup_get_data_list.pop_ma_kgd').show();
+                        $('.popup_get_data_list.pop_ma_kgd .list_show').empty();
+                        $('.popup_get_data_list.pop_ma_kgd .list_show').html(response);
+                    }
+                }
+            });
+        });
+
+        $(document).on('click','.popup_get_data_list .list_show ul', function () {
+            var ma_kgd = $(this).find('.ma_kgd').val();
+            var ten = $(this).find('.ten').val();
+            var sdt = $(this).find('.sdt').val();
+            var email = $(this).find('.email').val();
+            var tk = $(this).find('.tk').val();
+            var nick = $(this).find('.nick').val();
+            var link = $(this).find('.link').val();
+
+            $('.khach_dai_dien_gd').val(ten);
+            $('.sdt_gd').val(sdt);
+            $('.email_kgd_duy_nhat').val(email);
+            $('.sdt_kgd').val(sdt);
+            $('.nick_kgd').val(nick);
+            $('.ten_kgd').val(ten);
+            $('.tk_kgd').val(tk);
+            $('.ma_kgd').val(ma_kgd);
+
+            $('.popup_get_data_list').hide();
+        });
+    }
 
     function _init() {
         base();
@@ -1072,6 +1292,7 @@
         SendMessage();
         AddTypeRoom();
         checkSelect();
+        getDataClient();
     }
 
     _init();
