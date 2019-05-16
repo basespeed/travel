@@ -937,7 +937,7 @@
                                         </tr>
                                         <tr>
                                             <td>Ngày yêu cầu KH hoàn tất TT</td>
-                                            <td><input type="text" style="height:24px;" name="ngay_yeu_cau_kh_hoan_tat_tt_khac" data-date-format="dd/mm/yyyy" class="ngay_yeu_cau_kh_hoan_tat_tt_khac datepicker-here" data-language='en' value="<?php echo get_field('ngay_yeu_cau_kh_hoan_tat_tt_khac'); ?>" required /></td>
+                                            <td><input type="text" style="height:24px;" name="ngay_yeu_cau_kh_hoan_tat_tt_khac" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_yeu_cau_kh_hoan_tat_tt_khac datepicker-here" data-language='en' value="<?php echo get_field('ngay_yeu_cau_kh_hoan_tat_tt_khac'); ?>" required /></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -1028,7 +1028,7 @@
                                             <td>BCT còn nợ</td>
                                         </tr>
                                         <tr>
-                                            <td><input type="text" name="ngay_phai_hoan_tat_tt_cho_ks_khac2" style="height:24px;" data-date-format="dd/mm/yyyy" class="ngay_phai_hoan_tat_tt_cho_ks_khac2 datepicker-here" data-language='en' value="<?php echo get_field('ngay_phai_hoan_tat_tt_cho_ks_khac2'); ?>" required ></td>
+                                            <td><input type="text" name="ngay_phai_hoan_tat_tt_cho_ks_khac2" style="height:24px;" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_phai_hoan_tat_tt_cho_ks_khac2 datepicker-here" data-language='en' value="<?php echo get_field('ngay_phai_hoan_tat_tt_cho_ks_khac2'); ?>" required ></td>
                                             <td>Ngày phải hoàn tất TT cho KS</td>
                                         </tr>
                                         </tbody>
@@ -1347,7 +1347,7 @@
                                                                     </select>
                                                                 </td>
                                                                 <td bgcolor="#EAF8FF"><input type="text" class="trang_thai_chat_mess" value="<?php echo $trang_thai_chat; ?>" disabled></td>
-                                                                <td bgcolor="#EAF8FF"><input type="text" data-date-format="dd/mm/yyyy" class="datepicker-here ngay_can_nhac_lai_chat_mess" value="<?php echo $ngay_can_nhac_lai_chat; ?>" data-language='en' disabled></td>
+                                                                <td bgcolor="#EAF8FF"><input type="text" data-date-format="dd/mm/yyyy" data-position="top left" class="datepicker-here ngay_can_nhac_lai_chat_mess" value="<?php echo $ngay_can_nhac_lai_chat; ?>" data-language='en' disabled></td>
                                                                 <td bgcolor="#EAF8FF"><p class="change_update_send_mess" data-id="<?php echo get_the_ID(); ?>" data-name="<?php echo $ma_nhan_vien_chat; ?>">
                                                                         <?php
                                                                         if($this_user == $ma_nhan_vien_chat && $button == 'true'){
@@ -1519,7 +1519,7 @@
                                         <tr>
                                             <td width="25%"><input type="text" name="ma_gd_coc_1" class="ma_gd_coc_1" value="<?php echo $ma_gd_coc_1; ?>"  /></td>
                                             <td width="25%"><input type="number" name="tien_coc_1" class="tien_coc_1" value="<?php echo $tien_coc_1; ?>"  /></td>
-                                            <td width="25%"><input type="text" name="ngay_coc_1" data-date-format="dd/mm/yyyy" class="ngay_coc_1 datepicker-here" data-language='en' value="<?php echo $ngay_coc_1; ?>"  /></td>
+                                            <td width="25%"><input type="text" name="ngay_coc_1" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_coc_1 datepicker-here" data-language='en' value="<?php echo $ngay_coc_1; ?>"  /></td>
                                             <td><input type="number" name="tk_coc_1" class="tk_coc_1" value="<?php echo $tk_coc_1; ?>"  /></td>
                                         </tr>
                                         </tbody>
@@ -1541,7 +1541,7 @@
                                         <tr>
                                             <td width="25%"><input type="text" name="ma_gd_coc_di_2" class="ma_gd_coc_di_2" value="<?php echo $ma_gd_coc_di_2; ?>"  /></td>
                                             <td width="25%"><input type="number" name="tien_coc_di_2" class="tien_coc_di_2" value="<?php echo $tien_coc_di_2; ?>"  /></td>
-                                            <td width="25%"><input type="text" name="ngay_phai_coc_di_2" data-date-format="dd/mm/yyyy" class="ngay_phai_coc_di_2 datepicker-here" data-language='en' value="<?php echo $ngay_phai_coc_di_2; ?>"  /></td>
+                                            <td width="25%"><input type="text" name="ngay_phai_coc_di_2" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_phai_coc_di_2 datepicker-here" data-language='en' value="<?php echo $ngay_phai_coc_di_2; ?>"  /></td>
                                             <td><input type="number" name="tk_coc_di_2" class="tk_coc_di_2" value="<?php echo $tk_coc_di_2; ?>"  /></td>
                                         </tr>
                                         </tbody>
@@ -1561,7 +1561,7 @@
                                         <tr>
                                             <td width="25%"><input type="text" name="ma_gd_tt_lan_2_1" class="ma_gd_tt_lan_2_1" value="<?php echo $ma_gd_tt_lan_2_1; ?>"  /></td>
                                             <td width="25%"><input type="number" name="tien_tt_lan_2_1" class="tien_tt_lan_2_1" value="<?php echo $tien_tt_lan_2_1; ?>"  /></td>
-                                            <td width="25%"><input type="text" name="ngay_tt_lan_2_1" data-date-format="dd/mm/yyyy" class="ngay_tt_lan_2_1 datepicker-here" data-language='en' value="<?php echo $ngay_tt_lan_2_1; ?>"  /></td>
+                                            <td width="25%"><input type="text" name="ngay_tt_lan_2_1" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_tt_lan_2_1 datepicker-here" data-language='en' value="<?php echo $ngay_tt_lan_2_1; ?>"  /></td>
                                             <td><input type="number" name="tk_tt_lan_2_1" class="tk_tt_lan_2_1" value="<?php echo $tk_tt_lan_2_1; ?>"  /></td>
                                         </tr>
                                         </tbody>
@@ -1583,7 +1583,7 @@
                                         <tr>
                                             <td width="25%"><input type="text" name="ma_gd_di_lan_2_2" class="ma_gd_di_lan_2_2" value="<?php echo $ma_gd_di_lan_2_2; ?>"  /></td>
                                             <td width="25%"><input type="number" name="tien_di_lan_2_2" class="tien_di_lan_2_2" value="<?php echo $tien_di_lan_2_2; ?>"  /></td>
-                                            <td width="25%"><input type="text" name="ngay_phai_di_lan_2_2" data-date-format="dd/mm/yyyy" class="ngay_phai_di_lan_2_2 datepicker-here" data-language='en' value="<?php echo $ngay_phai_di_lan_2_2; ?>"  /></td>
+                                            <td width="25%"><input type="text" name="ngay_phai_di_lan_2_2" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_phai_di_lan_2_2 datepicker-here" data-language='en' value="<?php echo $ngay_phai_di_lan_2_2; ?>"  /></td>
                                             <td><input type="number" name="tk_di_lan_2_2" class="tk_di_lan_2_2" value="<?php echo $tk_di_lan_2_2; ?>"  /></td>
                                         </tr>
                                         </tbody>
@@ -1603,7 +1603,7 @@
                                         <tr>
                                             <td width="25%"><input type="text" name="ma_gd_tt_lan_3_1" class="ma_gd_tt_lan_3_1" value="<?php echo $ma_gd_tt_lan_3_1; ?>"  /></td>
                                             <td width="25%"><input type="number" name="tien_tt_lan_3_1" class="tien_tt_lan_3_1" value="<?php echo $tien_tt_lan_3_1; ?>"  /></td>
-                                            <td width="25%"><input type="text" name="ngay_tt_lan_3_1" data-date-format="dd/mm/yyyy" class="ngay_tt_lan_3_1 datepicker-here" data-language='en' value="<?php echo $ngay_tt_lan_3_1; ?>"  /></td>
+                                            <td width="25%"><input type="text" name="ngay_tt_lan_3_1" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_tt_lan_3_1 datepicker-here" data-language='en' value="<?php echo $ngay_tt_lan_3_1; ?>"  /></td>
                                             <td><input type="number" name="tk_tt_lan_3_1" class="tk_tt_lan_3_1" value="<?php echo $tk_tt_lan_3_1; ?>" /></td>
                                         </tr>
                                         </tbody>
@@ -1622,7 +1622,7 @@
                                         <tr>
                                             <td width="25%"><input type="text" name="ma_gd_di_lan_3_2" class="ma_gd_di_lan_3_2" value="<?php echo $ma_gd_di_lan_3_2; ?>"  /></td>
                                             <td width="25%"><input type="number" name="tien_di_lan_3_2" class="tien_di_lan_3_2" value="<?php echo $tien_di_lan_3_2; ?>"  /></td>
-                                            <td width="25%"><input type="text" name="ngay_phai_di_lan_3_2" data-date-format="dd/mm/yyyy" class="ngay_phai_di_lan_3_2 datepicker-here" data-language='en' value="<?php echo $ngay_phai_di_lan_3_2; ?>"  /></td>
+                                            <td width="25%"><input type="text" name="ngay_phai_di_lan_3_2" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_phai_di_lan_3_2 datepicker-here" data-language='en' value="<?php echo $ngay_phai_di_lan_3_2; ?>"  /></td>
                                             <td><input type="number" name="tk_di_lan_3_2" class="tk_di_lan_3_2" value="<?php echo $tk_di_lan_3_2; ?>"  /></td>
                                         </tr>
                                         </tbody>
@@ -1642,7 +1642,7 @@
                                         <tr>
                                             <td width="25%"><input type="number" name="tk_kh_1" class="tk_kh_1" value="<?php echo $tk_kh_1; ?>"  /></td>
                                             <td width="25%"><input type="number" name="so_tien_hoan_1" class="so_tien_hoan_1" value="<?php echo $so_tien_hoan_1; ?>"  /></td>
-                                            <td width="25%"><input type="text" name="ngay_hoan_tien_1" data-date-format="dd/mm/yyyy" class="ngay_hoan_tien_1 datepicker-here" data-language='en' value="<?php echo $ngay_hoan_tien_1; ?>"  /></td>
+                                            <td width="25%"><input type="text" name="ngay_hoan_tien_1" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_hoan_tien_1 datepicker-here" data-language='en' value="<?php echo $ngay_hoan_tien_1; ?>"  /></td>
                                             <td><input type="text" name="ma_gd_hoan_tien_1" class="ma_gd_hoan_tien_1" value="<?php echo $ma_gd_hoan_tien_1; ?>"  /></td>
                                         </tr>
                                         </tbody>
@@ -1661,7 +1661,7 @@
                                         <tr>
                                             <td width="25%"><input type="number" name="tk_doi_tac_2" class="tk_doi_tac_2" value="<?php echo $tk_doi_tac_2; ?>"  /></td>
                                             <td width="25%"><input type="number" name="so_tien_hoan_2" class="so_tien_hoan_2" value="<?php echo $so_tien_hoan_2; ?>"  /></td>
-                                            <td width="25%"><input type="text" name="ngay_hoan_tien_2" data-date-format="dd/mm/yyyy" class="ngay_hoan_tien_2 datepicker-here" data-language='en' value="<?php echo $ngay_hoan_tien_2; ?>"  /></td>
+                                            <td width="25%"><input type="text" name="ngay_hoan_tien_2" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_hoan_tien_2 datepicker-here" data-language='en' value="<?php echo $ngay_hoan_tien_2; ?>"  /></td>
                                             <td><input type="text" name="ma_gd_hoan_tien_2" class="ma_gd_hoan_tien_2" value="<?php echo $ma_gd_hoan_tien_2; ?>"  /></td>
                                         </tr>
                                         </tbody>

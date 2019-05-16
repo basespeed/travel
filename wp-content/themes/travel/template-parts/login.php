@@ -19,6 +19,7 @@ if(! isset($_SESSION['sucess'])) {
                 </li>
             </ul>
             <button type="submit" class="sub_login">Đăng nhập</button>
+            <a class="forget_password" href="<?php echo get_home_url(); ?>/forget-password">* Quên mật khẩu</a>
         </div>
     </div>
 

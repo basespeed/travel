@@ -58,14 +58,6 @@ get_header();
                         $alert = "<p class='alert_tk_fail'>Email đã tồn tại !</p>";
                     }elseif(get_field('sdt_nv') == $_POST['sdt_nv'] and $this_sdt_nv != $_POST['sdt_nv']){
                         $alert = "<p class='alert_tk_fail'>Số điện thoại đã tồn tại !</p>";
-                    }elseif(get_field('nick_nv') == $_POST['nick_nv'] and $this_nick_nv != $_POST['nick_nv']){
-                        $alert = "<p class='alert_tk_fail'>Nick đã tồn tại !</p>";
-                    }elseif(get_field('link_fb_nv') == $_POST['link_fb_nv'] and $this_link_fb_nv != $_POST['link_fb_nv']){
-                        $alert = "<p class='alert_tk_fail'>Link đã tồn tại !</p>";
-                    }elseif(get_field('uidfb_nv') == $_POST['uidfb_nv'] and $this_uidfb_nv != $_POST['uidfb_nv']){
-                        $alert = "<p class='alert_tk_fail'>Uidfb đã tồn tại !</p>";
-                    }elseif(get_field('tk_nv') == $_POST['tk_nv'] and $tk_nv != $_POST['tk_nv']){
-                        $alert = "<p class='alert_tk_fail'>Số tài khoản đã tồn tại !</p>";
                     }
                 endwhile;
                 wp_reset_postdata();
@@ -109,7 +101,7 @@ get_header();
                         </li>
                         <li>
                             <label>Mã NV</label>
-                            <input type="email" name="ma_nv" class="ma_nv" value="<?php echo get_field('ma_nv'); ?>" required>
+                            <input type="text" name="ma_nv" class="ma_nv" value="<?php echo get_field('ma_nv'); ?>" required>
                         </li>
                         <li>
                             <label>Tên NV</label>

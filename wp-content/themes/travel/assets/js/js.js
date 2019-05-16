@@ -1346,6 +1346,84 @@
         });
     }
 
+    function forget_email() {
+        var sub_forget = $('.sub_forget');
+        var sub_pass_forget = $('.sub_pass_forget');
+        var sub_code = $('.sub_code');
+        var load_forget = $('.load_forget');
+        var sub_not_code = $('.sub_not_code');
+
+        sub_forget.on('click', function (e) {
+           e.preventDefault();
+            var email_forget = $('.email_forget').val();
+            var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+            if(email_forget != "") {
+                if(regex.test(email_forget)) {
+                    $(this).hide();
+                    $('button.load_forget').show();
+                    $.ajax({
+                        type: "post",
+                        dataType: "json",
+                        url: my_ajax_object.ajax_url,
+                        data: {
+                            action: "forget_email",
+                            email_forget: email_forget
+                        },
+                        success: function (response) {
+                            sub_forget.show();
+                            $('button.load_forget').hide();
+                            $('.get_forget_token').hide();
+                            $('.form_forget_password').show();
+                        }
+                    });
+                    //return false;
+                }else{
+                    alert('Nhập địa chỉ email không chính xác !');
+                }
+            }
+        });
+
+        sub_pass_forget.on('click', function (e) {
+             e.preventDefault();
+             var code_forget = $('.code_forget').val();
+             var pass_forget = $('.pass_forget').val();
+
+            $(this).hide();
+            $('button.load_forget').show();
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: my_ajax_object.ajax_url,
+                data: {
+                    action: "forget_pass",
+                    code_forget: code_forget,
+                    pass_forget: pass_forget,
+                },
+                success: function (response) {
+                    console.log(response.data);
+                    sub_pass_forget.show();
+                    $('button.load_forget').hide();
+                    if(response.data == 'false'){
+                        $('.form_forget_password .alert').html('<span style="color: red;">Mã bị sai !</span>');
+                    }else{
+                        $('.form_forget_password .alert').html('<span style="color: green;">Lấy lại mật khẩu thành công !</span>');
+                    }
+                }
+            });
+        });
+
+        sub_code.on('click', function () {
+            $('.get_forget_token').hide();
+            $('.form_forget_password').show();
+        });
+
+        sub_not_code.on('click', function () {
+            $('.get_forget_token').show();
+            $('.form_forget_password').hide();
+        });
+    }
+
     function _init() {
         base();
         Isotope();
@@ -1363,6 +1441,7 @@
         AddTypeRoom();
         checkSelect();
         getDataClient();
+        forget_email();
         //googleSheet();
     }
 

@@ -1,4 +1,4 @@
-.page-template-login{
+.page-template-login,.page-template-reset-pass{
   background: #fff;
   .site-header{
     display: none;
@@ -81,6 +81,7 @@
         padding: 10px 15px;
         cursor: pointer;
         transition: 0.5s;
+        float: left;
         &:hover{
           background: green;
         }
@@ -89,6 +90,34 @@
   }
 }
 
+.forget_password{
+  color: #000;
+  font-size: 14px;
+  float: right;
+  margin-top: 7px;
+  transition: 0.5s;
+  &:visited {
+    color: #000;
+  }
+  &:hover{
+    color: green;
+  }
+}
+
+.forget_button{
+  button{
+    i{
+      font-size: 16px;
+      -webkit-animation:spin 2s linear infinite;
+      -moz-animation:spin 2s linear infinite;
+      animation:spin 2s linear infinite;
+      margin-top: 6px !important;
+    }
+  }
+  @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+  @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+  @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+}
 .info_user{
   display: flex;
   padding: 10px;
@@ -143,4 +172,50 @@
 
 .parallax{
   transition: 0s !important;
+}
+
+.page-template-reset-pass{
+  button{
+    width: 100px;
+    height: 32px;
+    line-height: 32px;
+    display: block;
+    padding: 0px !important;
+  }
+}
+
+.sub_code{
+  margin-left: 5px;
+  background: green !important;
+  &:hover{
+    background: #ff9900 !important;
+  }
+}
+
+.sub_not_code{
+  @extend .sub_code;
+  background: #ef3838 !important;
+}
+
+button.load_forget{
+  display: none;
+}
+
+.get_forget_token{
+  display: block;
+}
+
+.form_forget_password{
+  display: none;
+  .alert{
+    color: green;
+    margin-top: -10px;
+    a{
+      color: red;
+      transition: 0.5s;
+      &:hover{
+        color: #0d84e3;
+      }
+    }
+  }
 }

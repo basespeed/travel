@@ -53,14 +53,6 @@ if($_SESSION['sucess'] == "sucess") {
                             $alert = "<p class='alert_tk_fail'>Email đã tồn tại !</p>";
                         } elseif (get_field('sdt_nv') == $_POST['sdt_nv']) {
                             $alert = "<p class='alert_tk_fail'>Số điện thoại đã tồn tại !</p>";
-                        } elseif (get_field('nick_nv') == $_POST['nick_nv']) {
-                            $alert = "<p class='alert_tk_fail'>Nick đã tồn tại !</p>";
-                        } elseif (get_field('link_fb_nv') == $_POST['link_fb_nv']) {
-                            $alert = "<p class='alert_tk_fail'>Link đã tồn tại !</p>";
-                        } elseif (get_field('uidfb_nv') == $_POST['uidfb_nv']) {
-                            $alert = "<p class='alert_tk_fail'>Uidfb đã tồn tại !</p>";
-                        }elseif (get_field('tk_nv') == $_POST['tk_nv']) {
-                            $alert = "<p class='alert_tk_fail'>Tài khoản ngân hàng đã tồn tại !</p>";
                         }
                     endwhile;
                     wp_reset_postdata();
@@ -106,7 +98,7 @@ if($_SESSION['sucess'] == "sucess") {
                             </li>
                             <li>
                                 <label>Mã NV</label>
-                                <input type="email" name="ma_nv" class="ma_nv" value="NV_<?php echo abs( crc32( uniqid() ) ); ?>" required>
+                                <input type="text" name="ma_nv" class="ma_nv" value="NV_<?php echo abs( crc32( uniqid() ) ); ?>" required>
                             </li>
                             <li>
                                 <label>Tên NV</label>

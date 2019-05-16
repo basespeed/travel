@@ -100,7 +100,7 @@ if($_SESSION['sucess'] == "sucess") {
                             </li>
                             <li>
                                 <label>Mã DT</label>
-                                <input type="email" name="ma_dt" class="ma_dt" value="MDT_<?php echo abs( crc32( uniqid() ) ); ?>" required>
+                                <input type="text" name="ma_dt" class="ma_dt" value="MDT_<?php echo abs( crc32( uniqid() ) ); ?>" required>
                             </li>
                             <li>
                                 <label>Tên DT</label>

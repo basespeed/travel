@@ -67,6 +67,7 @@ if($_SESSION['sucess'] == "sucess") {
                                 <?php
 
                                 while ($the_query->have_posts()) : $the_query->the_post();
+                                    if(get_field('email_tai_khoan') != 'admin@gmail.com') :
                                     $del = get_delete_post_link(get_the_ID());
                                     ?>
                                     <tr>
@@ -83,17 +84,24 @@ if($_SESSION['sucess'] == "sucess") {
                                                 }
                                                 ?>
                                         <td>
-                                            <a class="edit" href="<?php the_permalink(); ?>"><i
-                                                        class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                            <a class="delete del_user"
-                                               href="<?php echo $del; ?>"
-                                               data-id="<?php echo get_the_ID(); ?>"
-                                               data-email="<?php echo get_field('email_tai_khoan'); ?>"
-                                               data-img="<?php echo get_field('ten_anh_tai_khoan'); ?>"><i
-                                                        class="fa fa-times-circle" aria-hidden="true"></i></a>
+                                            <?php
+                                                if(get_field('email_tai_khoan') != 'admin@gmail.com'){
+                                                    ?>
+                                                    <a class="edit" href="<?php the_permalink(); ?>"><i
+                                                                class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                                    <a class="delete del_user"
+                                                       href="<?php echo $del; ?>"
+                                                       data-id="<?php echo get_the_ID(); ?>"
+                                                       data-email="<?php echo get_field('email_tai_khoan'); ?>"
+                                                       data-img="<?php echo get_field('ten_anh_tai_khoan'); ?>"><i
+                                                                class="fa fa-times-circle" aria-hidden="true"></i></a>
+                                                    <?php
+                                                }
+                                            ?>
                                         </td>
                                     </tr>
                                 <?php
+                                endif;
                                 endwhile;
                                 $total_pages = $the_query->max_num_pages;
                                 $current_page = max(1, get_query_var('paged'));

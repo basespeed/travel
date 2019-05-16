@@ -86,7 +86,7 @@ if($_SESSION['sucess'] == "sucess") {
                             update_field('ho_va_ten_tai_khoan', $_POST['ho_va_ten_tai_khoan'], $post_id);
                             update_field('sdt_tai_khoan', $_POST['sdt_tai_khoan'], $post_id);
                             update_field('cmt_tai_khoan', $_POST['cmt_tai_khoan'], $post_id);
-                            update_field('bo_phan_tai_khoan', $_POST['bo_phan_tai_khoan'], $post_id);
+                            //update_field('bo_phan_tai_khoan', $_POST['bo_phan_tai_khoan'], $post_id);
                             update_field('dia_chi_tai_khoan', $_POST['dia_chi_tai_khoan'], $post_id);
                             update_field('hinh_anh_tai_khoan', $location_img, $post_id);
                             update_field('ten_anh_tai_khoan', $check_file_name, $post_id);
@@ -202,7 +202,7 @@ if($_SESSION['sucess'] == "sucess") {
                             <li>
                                 <label>Bộ phận</label>
                                 <select name="bo_phan_tai_khoan" class="bo_phan_tai_khoan"
-                                        data-check="<?php echo $bo_phan_tai_khoan; ?>">
+                                        data-check="<?php echo $bo_phan_tai_khoan; ?>" disabled>
                                     <option value="Quản lý">Quản lý</option>
                                     <option value="Sales">Sales</option>
                                     <option value="Booking">Booking</option>

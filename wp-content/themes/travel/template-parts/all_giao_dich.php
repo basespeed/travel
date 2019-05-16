@@ -140,14 +140,6 @@ if($_SESSION['sucess'] == "sucess") {
                                 $meta_key = 'tong_gia_tri_khac';
                                 $meta_value_num = 'meta_value_num';
                                 $order = 'DESC';
-                            }elseif($_GET['sort'] == 'gc'){
-                                $meta_key = $tin_nhan_chat;
-                                $meta_value_num = 'meta_value';
-                                $order = 'ASC';
-                            }elseif($_GET['sort'] == 'gc_desc'){
-                                $meta_key = $tin_nhan_chat;
-                                $meta_value_num = 'meta_value';
-                                $order = 'DESC';
                             }
 
                             $arr = array(

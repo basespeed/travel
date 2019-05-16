@@ -71,7 +71,9 @@ if (isset($_POST['sub_update_user'])) {
                     update_field('hinh_anh_tai_khoan', $location_img, $post_id);
                     update_field('ten_anh_tai_khoan', $check_file_name, $post_id);
 
-                    $_SESSION['avatar'] = $location_img;
+                    if($_SESSION['mnv'] == $this_email){
+                        $_SESSION['avatar'] = $location_img;
+                    }
 
                     //update lại ảnh avatar được thay đổi
                     $query_avatar = new WP_Query(array(

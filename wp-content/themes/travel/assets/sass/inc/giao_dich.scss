@@ -584,3 +584,33 @@ table#show_chat {
 .add_edit_giao_dich{
   background: green !important;
 }
+
+.page-template-tach-booking,.page-template-them-booking{
+  .menu_admin ul li:nth-child(2) .sub-menu li:nth-child(2) a {
+    background: #000 !important;
+    color: #FFF !important;
+  }
+  .quantri_admin .menu_admin ul li:nth-child(2) .sub-menu{
+    display: block !important;
+  }
+  .quantri_admin .menu_admin ul li:nth-child(2) {
+    background: #1A56B2 !important;
+  }
+}
+
+.page-template-ho_so{
+  .ho_so {
+    background: #1A56B2;
+  }
+}
+
+.page .giao_dich_moi table tr:first-child td a{
+  position: relative;
+  z-index: 9999999999999;
+}
+
+@media screen and (max-width: 1620px){
+  .quantri_admin .content_admin table tr:first-child table tbody tr td:first-child{
+    width: 60% !important;
+  }
+}
