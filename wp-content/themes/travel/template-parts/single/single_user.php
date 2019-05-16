@@ -73,6 +73,22 @@ if (isset($_POST['sub_update_user'])) {
 
                     $_SESSION['avatar'] = $location_img;
 
+                    //update lại ảnh avatar được thay đổi
+                    $query_avatar = new WP_Query(array(
+                        'post_type' => 'tai_khoan',
+                        'meta_key'		=> 'sdt_tai_khoan',
+                        'meta_value' => '^' . preg_quote( $_POST['sdt_tai_khoan'] ),
+                        'meta_compare' => 'RLIKE',
+                    ));
+
+                    if($query->have_posts()) : while ($query->have_posts()) : $query->the_post();
+                        $avatar_id = get_the_ID();
+                    endwhile;
+                    endif;
+                    wp_reset_postdata();
+
+                    update_field('hinh_anh_tai_khoan', $location_img, $avatar_id);
+
                     $alert = "<p class='alert_tk_sucess'>Cập nhập tài khoản thành công !</p>";
                 }
             } else {

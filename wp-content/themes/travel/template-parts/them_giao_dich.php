@@ -42,7 +42,7 @@ if($_SESSION['sucess'] == "sucess") {
                         <?php
                             if (isset($_POST['sub_new_giao_dich'])) {
                                 date_default_timezone_set('Asia/Ho_Chi_Minh');
-                                $date = date('d-m-Y H:i:s');
+                                $date_check = date('d-m-Y H:i:s');
 
                                 $array_gd = array(
                                     'post_type' => 'giao_dich',
@@ -55,17 +55,15 @@ if($_SESSION['sucess'] == "sucess") {
                                     while ($query->have_posts()) : $query->the_post();
                                         if (get_field('ma_xac_nhan') == $_POST['ma_xac_nhan']) {
                                             $alert = "<p class='alert_tk_fail'>Mã xác nhận đã tồn tại !</p>";
-                                        }elseif (get_field('ma_pro_dt') == $_POST['ma_pro_dt']) {
-                                            $alert = "<p class='alert_tk_fail'>Mã pro đã tồn tại !</p>";
                                         }elseif (get_field('ma_gd') == $_POST['ma_gd']) {
                                             $alert = "<p class='alert_tk_fail'>Mã giao dịch đã tồn tại !</p>";
-                                        }elseif (get_field('ma_kgd') == $_POST['ma_kgd']) {
-                                            $alert = "<p class='alert_tk_fail'>Mã khách giao dịch đã tồn tại !</p>";
-                                        }elseif (get_field('ma_gd_hoan_tien_1') == $_POST['ma_gd_hoan_tien_1']) {
+                                        }elseif ($_POST['sl_dt'] != $_POST['sl_gd']) {
+                                            $alert = "<p class='alert_tk_fail'>Số lượng phòng khách hàng và đối tác phải bằng nhau !</p>";
+                                        }/*elseif (get_field('ma_gd_hoan_tien_1') == $_POST['ma_gd_hoan_tien_1']) {
                                             $alert = "<p class='alert_tk_fail'>Mã giao dịch hoàn tiền khách đã tồn tại !</p>";
                                         }elseif (get_field('ma_gd_hoan_tien_2') == $_POST['ma_gd_hoan_tien_2']) {
                                             $alert = "<p class='alert_tk_fail'>Mã giao dịch hoàn tiền đối tác đã tồn tại !</p>";
-                                        }
+                                        }*/
                                     endwhile;
                                     wp_reset_postdata();
                                 }
@@ -82,9 +80,110 @@ if($_SESSION['sucess'] == "sucess") {
                                     $group_ID = '6';
                                     $fields = acf_get_fields($group_ID);
                                     foreach ($fields as $field){
-                                        if($field['name'] != ""){
-                                            add_post_meta($post_id, $field['name'], $_POST[$field['name']], true);
+                                        if($field['name'] == 'ci_gd'){
+                                            $dob_str = $_POST['ci_gd'];
+                                            if(!empty($dob_str)){
+                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                                $date = $date->format('Ymd');
+                                                update_field('ci_gd', $date, $post_id);
+                                            }
+                                        }elseif($field['name'] == 'co_gd'){
+                                            $dob_str = $_POST['co_gd'];
+                                            if(!empty($dob_str)){
+                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                                $date = $date->format('Ymd');
+                                                update_field('co_gd', $date, $post_id);
+                                            }
+                                        }elseif($field['name'] == 'ngay_duoc_huy'){
+                                            $dob_str = $_POST['ngay_duoc_huy'];
+                                            if(!empty($dob_str)){
+                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                                $date = $date->format('Ymd');
+                                                update_field('ngay_duoc_huy', $date, $post_id);
+                                            }
+                                        }elseif($field['name'] == 'ngay_duoc_thay_doi'){
+                                            $dob_str = $_POST['ngay_duoc_thay_doi'];
+                                            if(!empty($dob_str)){
+                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                                $date = $date->format('Ymd');
+                                                update_field('ngay_duoc_thay_doi', $date, $post_id);
+                                            }
+                                        }elseif($field['name'] == 'ngay_yeu_cau_kh_hoan_tat_tt_khac'){
+                                            $dob_str = $_POST['ngay_yeu_cau_kh_hoan_tat_tt_khac'];
+                                            if(!empty($dob_str)){
+                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                                $date = $date->format('Ymd');
+                                                update_field('ngay_yeu_cau_kh_hoan_tat_tt_khac', $date, $post_id);
+                                            }
+                                        }elseif($field['name'] == 'ngay_phai_hoan_tat_tt_cho_ks_khac2'){
+                                            if(!empty($dob_str)){
+                                                $dob_str = $_POST['ngay_phai_hoan_tat_tt_cho_ks_khac2'];
+                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                                $date = $date->format('Ymd');
+                                                update_field('ngay_phai_hoan_tat_tt_cho_ks_khac2', $date, $post_id);
+                                            }
+                                        }elseif($field['name'] == 'ngay_coc_1'){
+                                            $dob_str = $_POST['ngay_coc_1'];
+                                            if(!empty($dob_str)){
+                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                                $date = $date->format('Ymd');
+                                                update_field('ngay_coc_1', $date, $post_id);
+                                            }
+                                        }elseif($field['name'] == 'ngay_tt_lan_2_1'){
+                                            $dob_str = $_POST['ngay_tt_lan_2_1'];
+                                            if(!empty($dob_str)){
+                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                                $date = $date->format('Ymd');
+                                                update_field('ngay_tt_lan_2_1', $date, $post_id);
+                                            }
+                                        }elseif($field['name'] == 'ngay_tt_lan_3_1'){
+                                            $dob_str = $_POST['ngay_tt_lan_3_1'];
+                                            if(!empty($dob_str)){
+                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                                $date = $date->format('Ymd');
+                                                update_field('ngay_tt_lan_3_1', $date, $post_id);
+                                            }
+                                        }elseif($field['name'] == 'ngay_hoan_tien_1'){
+                                            $dob_str = $_POST['ngay_hoan_tien_1'];
+                                            if(!empty($dob_str)){
+                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                                $date = $date->format('Ymd');
+                                                update_field('ngay_hoan_tien_1', $date, $post_id);
+                                            }
+                                        }elseif($field['name'] == 'ngay_phai_coc_di_2'){
+                                            $dob_str = $_POST['ngay_phai_coc_di_2'];
+                                            if(!empty($dob_str)){
+                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                                $date = $date->format('Ymd');
+                                                update_field('ngay_phai_coc_di_2', $date, $post_id);
+                                            }
+                                        }elseif($field['name'] == 'ngay_phai_di_lan_2_2'){
+                                            $dob_str = $_POST['ngay_phai_di_lan_2_2'];
+                                            if(!empty($dob_str)){
+                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                                $date = $date->format('Ymd');
+                                                update_field('ngay_phai_di_lan_2_2', $date, $post_id);
+                                            }
+                                        }elseif($field['name'] == 'ngay_phai_di_lan_3_2'){
+                                            $dob_str = $_POST['ngay_phai_di_lan_3_2'];
+                                            if(!empty($dob_str)){
+                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                                $date = $date->format('Ymd');
+                                                update_field('ngay_phai_di_lan_3_2', $date, $post_id);
+                                            }
+                                        }elseif($field['name'] == 'ngay_hoan_tien_2'){
+                                            $dob_str = $_POST['ngay_hoan_tien_2'];
+                                            if(!empty($dob_str)){
+                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                                $date = $date->format('Ymd');
+                                                update_field('ngay_hoan_tien_2', $date, $post_id);
+                                            }
+                                        }else{
+                                            if($field['name'] != ""){
+                                                add_post_meta($post_id, $field['name'], $_POST[$field['name']], true);
+                                            }
                                         }
+
                                     }
 
                                     //lịch sử giao dịch
@@ -99,14 +198,114 @@ if($_SESSION['sucess'] == "sucess") {
                                     $group_ID_ls = '6';
                                     $fields_ls = acf_get_fields($group_ID_ls);
                                     foreach ($fields_ls as $field){
-                                        if($field['name'] != ""){
-                                            add_post_meta($post_lich_su_gd, $field['name'], $_POST[$field['name']], true);
+                                        if($field['name'] == 'ci_gd'){
+                                            $dob_str = $_POST['ci_gd'];
+                                            if(!empty($dob_str)){
+                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                                $date = $date->format('Ymd');
+                                                update_field('ci_gd', $date, $post_lich_su_gd);
+                                            }
+                                        }elseif($field['name'] == 'co_gd'){
+                                            $dob_str = $_POST['co_gd'];
+                                            if(!empty($dob_str)){
+                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                                $date = $date->format('Ymd');
+                                                update_field('co_gd', $date, $post_lich_su_gd);
+                                            }
+                                        }elseif($field['name'] == 'ngay_duoc_huy'){
+                                            $dob_str = $_POST['ngay_duoc_huy'];
+                                            if(!empty($dob_str)){
+                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                                $date = $date->format('Ymd');
+                                                update_field('ngay_duoc_huy', $date, $post_lich_su_gd);
+                                            }
+                                        }elseif($field['name'] == 'ngay_duoc_thay_doi'){
+                                            $dob_str = $_POST['ngay_duoc_thay_doi'];
+                                            if(!empty($dob_str)){
+                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                                $date = $date->format('Ymd');
+                                                update_field('ngay_duoc_thay_doi', $date, $post_lich_su_gd);
+                                            }
+                                        }elseif($field['name'] == 'ngay_yeu_cau_kh_hoan_tat_tt_khac'){
+                                            $dob_str = $_POST['ngay_yeu_cau_kh_hoan_tat_tt_khac'];
+                                            if(!empty($dob_str)){
+                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                                $date = $date->format('Ymd');
+                                                update_field('ngay_yeu_cau_kh_hoan_tat_tt_khac', $date, $post_lich_su_gd);
+                                            }
+                                        }elseif($field['name'] == 'ngay_phai_hoan_tat_tt_cho_ks_khac2'){
+                                            $dob_str = $_POST['ngay_phai_hoan_tat_tt_cho_ks_khac2'];
+                                            if(!empty($dob_str)){
+                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                                $date = $date->format('Ymd');
+                                                update_field('ngay_phai_hoan_tat_tt_cho_ks_khac2', $date, $post_lich_su_gd);
+                                            }
+                                        }elseif($field['name'] == 'ngay_coc_1'){
+                                            $dob_str = $_POST['ngay_coc_1'];
+                                            if(!empty($dob_str)){
+                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                                $date = $date->format('Ymd');
+                                                update_field('ngay_coc_1', $date, $post_lich_su_gd);
+                                            }
+                                        }elseif($field['name'] == 'ngay_tt_lan_2_1'){
+                                            $dob_str = $_POST['ngay_tt_lan_2_1'];
+                                            if(!empty($dob_str)){
+                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                                $date = $date->format('Ymd');
+                                                update_field('ngay_tt_lan_2_1', $date, $post_lich_su_gd);
+                                            }
+                                        }elseif($field['name'] == 'ngay_tt_lan_3_1'){
+                                            $dob_str = $_POST['ngay_tt_lan_3_1'];
+                                            if(!empty($dob_str)){
+                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                                $date = $date->format('Ymd');
+                                                update_field('ngay_tt_lan_3_1', $date, $post_lich_su_gd);
+                                            }
+                                        }elseif($field['name'] == 'ngay_hoan_tien_1'){
+                                            $dob_str = $_POST['ngay_hoan_tien_1'];
+                                            if(!empty($dob_str)){
+                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                                $date = $date->format('Ymd');
+                                                update_field('ngay_hoan_tien_1', $date, $post_lich_su_gd);
+                                            }
+                                        }elseif($field['name'] == 'ngay_phai_coc_di_2'){
+                                            $dob_str = $_POST['ngay_phai_coc_di_2'];
+                                            if(!empty($dob_str)){
+                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                                $date = $date->format('Ymd');
+                                                update_field('ngay_phai_coc_di_2', $date, $post_lich_su_gd);
+                                            }
+                                        }elseif($field['name'] == 'ngay_phai_di_lan_2_2'){
+                                            $dob_str = $_POST['ngay_phai_di_lan_2_2'];
+                                            if(!empty($dob_str)){
+                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                                $date = $date->format('Ymd');
+                                                update_field('ngay_phai_di_lan_2_2', $date, $post_lich_su_gd);
+                                            }
+                                        }elseif($field['name'] == 'ngay_phai_di_lan_3_2'){
+                                            $dob_str = $_POST['ngay_phai_di_lan_3_2'];
+                                            if(!empty($dob_str)){
+                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                                $date = $date->format('Ymd');
+                                                update_field('ngay_phai_di_lan_3_2', $date, $post_lich_su_gd);
+                                            }
+                                        }elseif($field['name'] == 'ngay_hoan_tien_2'){
+                                            $dob_str = $_POST['ngay_hoan_tien_2'];
+                                            if(!empty($dob_str)){
+                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                                $date = $date->format('Ymd');
+                                                update_field('ngay_hoan_tien_2', $date, $post_lich_su_gd);
+                                            }
+                                        }else{
+                                            if($field['name'] != ""){
+                                                add_post_meta($post_lich_su_gd, $field['name'], $_POST[$field['name']], true);
+                                            }
                                         }
                                     }
 
                                     add_post_meta($post_lich_su_gd, 'nguoi_sua', $_SESSION['name'], true);
                                     add_post_meta($post_lich_su_gd, 'hanh_dong', 'Thêm giao dịch', true);
-                                    add_post_meta($post_lich_su_gd, 'thoi_gian_sua', $date, true);
+                                    add_post_meta($post_lich_su_gd, 'thoi_gian_sua', $date_check, true);
                                 }
 
                                 if(isset($alert)){
@@ -125,12 +324,12 @@ if($_SESSION['sucess'] == "sucess") {
                                     <table width="100%" border="1">
                                         <tbody>
                                         <tr>
-                                            <td width="80%">Tên Khách sạn - Tên dịch vụ</td>
+                                            <td width="50%">Tên Khách sạn - Tên dịch vụ</td>
                                             <td>Mã dịch vụ</td>
                                         </tr>
                                         <td align="center"></td>
                                         <tr>
-                                            <td width="80%">
+                                            <td width="50%">
                                                 <select name="ten_khach_san_gd" class="ten_khach_san_gd" data-check="<?php echo get_field('ten_khach_san_gd'); ?>" required>
                                                     <option value="" selected disabled hidden>Chọn tên khách sạn</option>
                                                     <?php
@@ -199,7 +398,9 @@ if($_SESSION['sucess'] == "sucess") {
                                 </td>
                                 <td align="center" style="background-color: #f19315b3;">
                                     MGD LK
-                                    <input name="ma_gd_con" class="ma_gd_con" style="background: #FFF;"><?php echo get_field('ma_gd_con'); ?></input>
+                                    <input name="ma_gd_con" class="ma_gd_con" style="background: #FFF;" value="<?php echo 'MGDLK_'.get_the_ID(); ?>" />
+                                    Mã giao dịch
+                                    <input name="ma_gd_them_booking" class="ma_gd_them_booking" style="background: #FFF;" value="<?php echo 'BTC_'.get_the_ID(); ?>" />
                                 </td>
                                 <td width="42%">
                                     <table width="100%" border="1">
@@ -342,8 +543,8 @@ if($_SESSION['sucess'] == "sucess") {
                                     </table>
                                 </td>
                                 <td align="center" style="background-color: #f19315b3;">
-                                    <strong>Mã GD</strong>
-                                    <input type="text" name="ma_gd" class="ma_gd" style="background: #FFF;" value="<?php echo get_field('ma_gd'); ?>" required />
+                                    <strong>Mã Booking</strong>
+                                    <input type="text" name="ma_gd" class="ma_gd" style="background: #FFF;" value="<?php echo 'MBK_'.get_the_ID(); ?>" required />
                                 </td>
                                 <td>
                                     <table width="100%" border="1">
@@ -375,7 +576,9 @@ if($_SESSION['sucess'] == "sucess") {
                                                 </select>
                                             </td>
                                             <td width="20%"><input type="text" name="nick_dt" class="nick_dt" value="<?php echo get_field('nick_dt'); ?>" required /></td>
-                                            <td><input type="text" name="ten_nv_dat_phong_dt" class="ten_nv_dat_phong_dt" value="<?php echo get_field('ten_nv_dat_phong_dt'); ?>" required /></td>
+                                            <td>
+                                                <input type="text" name="ten_nv_dat_phong_dt" class="ten_nv_dat_phong_dt" value="<?php echo get_field('ten_nv_dat_phong_dt'); ?>" required />
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -468,7 +671,7 @@ if($_SESSION['sucess'] == "sucess") {
                                                     <option value="FBVS - Ăn 3 bữa + Vui chơi + Safari">FBVS - Ăn 3 bữa + Vui chơi + Safari</option>
                                                 </select>
                                             </td>
-                                            <td colspan="2" align="center"><input type="text" name="ma_pro_gd" class="ma_pro_gd" value="<?php echo get_field('ma_pro_gd'); ?>" required /></td>
+                                            <td colspan="2" align="center"><input type="text" name="ma_pro_gd" class="ma_pro_gd" value="<?php echo get_field('ma_pro_gd'); ?>" /></td>
                                         </tr>
                                         <tr>
                                             <td colspan="5" align="center">Dịch vụ đi kèm</td>
@@ -529,7 +732,7 @@ if($_SESSION['sucess'] == "sucess") {
                                                     <option value="FBVS - Ăn 3 bữa + Vui chơi + Safari">FBVS - Ăn 3 bữa + Vui chơi + Safari</option>
                                                 </select>
                                             </td>
-                                            <td colspan="2" align="center"><input type="text" name="ma_pro_dt" class="ma_pro_dt" value="<?php echo get_field('ma_pro_dt'); ?>" required /></td>
+                                            <td colspan="2" align="center"><input type="text" name="ma_pro_dt" class="ma_pro_dt" value="<?php echo get_field('ma_pro_dt'); ?>" /></td>
                                         </tr>
                                         <tr>
                                             <td colspan="5" align="center">Dịch vụ đi kèm</td>
@@ -870,7 +1073,7 @@ if($_SESSION['sucess'] == "sucess") {
                                                 </div>
                                             </td>
                                             <td width="10%">
-                                                <select name="xep_hang_kgd" class="xep_hang_kgd" style="background: #FFF;" data-check="<?php echo $xep_hang_kgd; ?>" required>
+                                                <select name="xep_hang_kgd" class="xep_hang_kgd" style="background: #FFF;" data-check="<?php echo $xep_hang_kgd; ?>" >
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                 </select>
@@ -893,17 +1096,17 @@ if($_SESSION['sucess'] == "sucess") {
                                             <td>TK cọc</td>
                                         </tr>
                                         <tr>
-                                            <td width="25%"><input type="text" name="ma_gd_coc_1" class="ma_gd_coc_1" value="<?php echo $ma_gd_coc_1; ?>" required /></td>
-                                            <td width="25%"><input type="number" name="tien_coc_1" class="tien_coc_1" value="<?php echo $tien_coc_1; ?>" required /></td>
-                                            <td width="25%"><input type="text" name="ngay_coc_1" data-date-format="dd/mm/yyyy" class="ngay_coc_1 datepicker-here" data-language='en' value="<?php echo $ngay_coc_1; ?>" required /></td>
-                                            <td><input type="number" name="tk_coc_1" class="tk_coc_1" value="<?php echo $tk_coc_1; ?>" required /></td>
+                                            <td width="25%"><input type="text" name="ma_gd_coc_1" class="ma_gd_coc_1" value="<?php echo $ma_gd_coc_1; ?>"  /></td>
+                                            <td width="25%"><input type="number" name="tien_coc_1" class="tien_coc_1" value="<?php echo $tien_coc_1; ?>"  /></td>
+                                            <td width="25%"><input type="text" name="ngay_coc_1" data-date-format="dd/mm/yyyy" class="ngay_coc_1 datepicker-here" data-language='en' value="<?php echo $ngay_coc_1; ?>"  /></td>
+                                            <td><input type="number" name="tk_coc_1" class="tk_coc_1" value="<?php echo $tk_coc_1; ?>"  /></td>
                                         </tr>
                                         </tbody>
                                     </table>
                                 </td>
                                 <td align="center" style="background-color: #f19315b3;padding-top: 5px;">
                                     Mã Kho (popup thông tin kho)
-                                    <input type="text" style="background: #FFF;" name="ma_kho_popup_thong_tin_kho" class="ma_kho_popup_thong_tin_kho" value="<?php echo $ma_kho_popup_thong_tin_kho; ?>" required />
+                                    <input type="text" style="background: #FFF;" name="ma_kho_popup_thong_tin_kho" class="ma_kho_popup_thong_tin_kho" value="<?php echo $ma_kho_popup_thong_tin_kho; ?>"  />
                                 </td>
                                 <td>
                                     <table width="100%" border="1">
@@ -915,10 +1118,10 @@ if($_SESSION['sucess'] == "sucess") {
                                             <td>TK cọc đi</td>
                                         </tr>
                                         <tr>
-                                            <td width="25%"><input type="text" name="ma_gd_coc_di_2" class="ma_gd_coc_di_2" value="<?php echo $ma_gd_coc_di_2; ?>" required /></td>
-                                            <td width="25%"><input type="number" name="tien_coc_di_2" class="tien_coc_di_2" value="<?php echo $tien_coc_di_2; ?>" required /></td>
-                                            <td width="25%"><input type="text" name="ngay_phai_coc_di_2" data-date-format="dd/mm/yyyy" class="ngay_phai_coc_di_2 datepicker-here" data-language='en' value="<?php echo $ngay_phai_coc_di_2; ?>" required /></td>
-                                            <td><input type="number" name="tk_coc_di_2" class="tk_coc_di_2" value="<?php echo $tk_coc_di_2; ?>" required /></td>
+                                            <td width="25%"><input type="text" name="ma_gd_coc_di_2" class="ma_gd_coc_di_2" value="<?php echo $ma_gd_coc_di_2; ?>"  /></td>
+                                            <td width="25%"><input type="number" name="tien_coc_di_2" class="tien_coc_di_2" value="<?php echo $tien_coc_di_2; ?>"  /></td>
+                                            <td width="25%"><input type="text" name="ngay_phai_coc_di_2" data-date-format="dd/mm/yyyy" class="ngay_phai_coc_di_2 datepicker-here" data-language='en' value="<?php echo $ngay_phai_coc_di_2; ?>"  /></td>
+                                            <td><input type="number" name="tk_coc_di_2" class="tk_coc_di_2" value="<?php echo $tk_coc_di_2; ?>"  /></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -935,17 +1138,17 @@ if($_SESSION['sucess'] == "sucess") {
                                             <td>TK TT lần 2</td>
                                         </tr>
                                         <tr>
-                                            <td width="25%"><input type="text" name="ma_gd_tt_lan_2_1" class="ma_gd_tt_lan_2_1" value="<?php echo $ma_gd_tt_lan_2_1; ?>" required /></td>
-                                            <td width="25%"><input type="number" name="tien_tt_lan_2_1" class="tien_tt_lan_2_1" value="<?php echo $tien_tt_lan_2_1; ?>" required /></td>
-                                            <td width="25%"><input type="text" name="ngay_tt_lan_2_1" data-date-format="dd/mm/yyyy" class="ngay_tt_lan_2_1 datepicker-here" data-language='en' value="<?php echo $ngay_tt_lan_2_1; ?>" required /></td>
-                                            <td><input type="number" name="tk_tt_lan_2_1" class="tk_tt_lan_2_1" value="<?php echo $tk_tt_lan_2_1; ?>" required /></td>
+                                            <td width="25%"><input type="text" name="ma_gd_tt_lan_2_1" class="ma_gd_tt_lan_2_1" value="<?php echo $ma_gd_tt_lan_2_1; ?>"  /></td>
+                                            <td width="25%"><input type="number" name="tien_tt_lan_2_1" class="tien_tt_lan_2_1" value="<?php echo $tien_tt_lan_2_1; ?>"  /></td>
+                                            <td width="25%"><input type="text" name="ngay_tt_lan_2_1" data-date-format="dd/mm/yyyy" class="ngay_tt_lan_2_1 datepicker-here" data-language='en' value="<?php echo $ngay_tt_lan_2_1; ?>"  /></td>
+                                            <td><input type="number" name="tk_tt_lan_2_1" class="tk_tt_lan_2_1" value="<?php echo $tk_tt_lan_2_1; ?>"  /></td>
                                         </tr>
                                         </tbody>
                                     </table>
                                 </td>
                                 <td align="center" style="background-color: #f19315b3;padding-top: 5px;">
                                     SL lấy từ kho
-                                    <input type="number" style="background: #FFF;" name="sl_lay_tu_kho" class="sl_lay_tu_kho" value="<?php echo $sl_lay_tu_kho; ?>" required />
+                                    <input type="number" style="background: #FFF;" name="sl_lay_tu_kho" class="sl_lay_tu_kho" value="<?php echo $sl_lay_tu_kho; ?>"  />
                                 </td>
                                 <td>
                                     <table width="100%" border="1">
@@ -957,10 +1160,10 @@ if($_SESSION['sucess'] == "sucess") {
                                             <td>TK đi lần 2</td>
                                         </tr>
                                         <tr>
-                                            <td width="25%"><input type="text" name="ma_gd_di_lan_2_2" class="ma_gd_di_lan_2_2" value="<?php echo $ma_gd_di_lan_2_2; ?>" required /></td>
-                                            <td width="25%"><input type="number" name="tien_di_lan_2_2" class="tien_di_lan_2_2" value="<?php echo $tien_di_lan_2_2; ?>" required /></td>
-                                            <td width="25%"><input type="text" name="ngay_phai_di_lan_2_2" data-date-format="dd/mm/yyyy" class="ngay_phai_di_lan_2_2 datepicker-here" data-language='en' value="<?php echo $ngay_phai_di_lan_2_2; ?>" required /></td>
-                                            <td><input type="number" name="tk_di_lan_2_2" class="tk_di_lan_2_2" value="<?php echo $tk_di_lan_2_2; ?>" required /></td>
+                                            <td width="25%"><input type="text" name="ma_gd_di_lan_2_2" class="ma_gd_di_lan_2_2" value="<?php echo $ma_gd_di_lan_2_2; ?>"  /></td>
+                                            <td width="25%"><input type="number" name="tien_di_lan_2_2" class="tien_di_lan_2_2" value="<?php echo $tien_di_lan_2_2; ?>"  /></td>
+                                            <td width="25%"><input type="text" name="ngay_phai_di_lan_2_2" data-date-format="dd/mm/yyyy" class="ngay_phai_di_lan_2_2 datepicker-here" data-language='en' value="<?php echo $ngay_phai_di_lan_2_2; ?>"  /></td>
+                                            <td><input type="number" name="tk_di_lan_2_2" class="tk_di_lan_2_2" value="<?php echo $tk_di_lan_2_2; ?>"  /></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -977,10 +1180,10 @@ if($_SESSION['sucess'] == "sucess") {
                                             <td>TK TT lần 3</td>
                                         </tr>
                                         <tr>
-                                            <td width="25%"><input type="text" name="ma_gd_tt_lan_3_1" class="ma_gd_tt_lan_3_1" value="<?php echo $ma_gd_tt_lan_3_1; ?>" required /></td>
-                                            <td width="25%"><input type="number" name="tien_tt_lan_3_1" class="tien_tt_lan_3_1" value="<?php echo $tien_tt_lan_3_1; ?>" required /></td>
-                                            <td width="25%"><input type="text" name="ngay_tt_lan_3_1" data-date-format="dd/mm/yyyy" class="ngay_tt_lan_3_1 datepicker-here" data-language='en' value="<?php echo $ngay_tt_lan_3_1; ?>" required /></td>
-                                            <td><input type="number" name="tk_tt_lan_3_1" class="tk_tt_lan_3_1" value="<?php echo $tk_tt_lan_3_1; ?>" required/></td>
+                                            <td width="25%"><input type="text" name="ma_gd_tt_lan_3_1" class="ma_gd_tt_lan_3_1" value="<?php echo $ma_gd_tt_lan_3_1; ?>"  /></td>
+                                            <td width="25%"><input type="number" name="tien_tt_lan_3_1" class="tien_tt_lan_3_1" value="<?php echo $tien_tt_lan_3_1; ?>"  /></td>
+                                            <td width="25%"><input type="text" name="ngay_tt_lan_3_1" data-date-format="dd/mm/yyyy" class="ngay_tt_lan_3_1 datepicker-here" data-language='en' value="<?php echo $ngay_tt_lan_3_1; ?>"  /></td>
+                                            <td><input type="number" name="tk_tt_lan_3_1" class="tk_tt_lan_3_1" value="<?php echo $tk_tt_lan_3_1; ?>" /></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -996,10 +1199,10 @@ if($_SESSION['sucess'] == "sucess") {
                                             <td>TK đi lần 3</td>
                                         </tr>
                                         <tr>
-                                            <td width="25%"><input type="text" name="ma_gd_di_lan_3_2" class="ma_gd_di_lan_3_2" value="<?php echo $ma_gd_di_lan_3_2; ?>" required /></td>
-                                            <td width="25%"><input type="number" name="tien_di_lan_3_2" class="tien_di_lan_3_2" value="<?php echo $tien_di_lan_3_2; ?>" required /></td>
-                                            <td width="25%"><input type="text" name="ngay_phai_di_lan_3_2" data-date-format="dd/mm/yyyy" class="ngay_phai_di_lan_3_2 datepicker-here" data-language='en' value="<?php echo $ngay_phai_di_lan_3_2; ?>" required /></td>
-                                            <td><input type="number" name="tk_di_lan_3_2" class="tk_di_lan_3_2" value="<?php echo $tk_di_lan_3_2; ?>" required /></td>
+                                            <td width="25%"><input type="text" name="ma_gd_di_lan_3_2" class="ma_gd_di_lan_3_2" value="<?php echo $ma_gd_di_lan_3_2; ?>"  /></td>
+                                            <td width="25%"><input type="number" name="tien_di_lan_3_2" class="tien_di_lan_3_2" value="<?php echo $tien_di_lan_3_2; ?>"  /></td>
+                                            <td width="25%"><input type="text" name="ngay_phai_di_lan_3_2" data-date-format="dd/mm/yyyy" class="ngay_phai_di_lan_3_2 datepicker-here" data-language='en' value="<?php echo $ngay_phai_di_lan_3_2; ?>"  /></td>
+                                            <td><input type="number" name="tk_di_lan_3_2" class="tk_di_lan_3_2" value="<?php echo $tk_di_lan_3_2; ?>"  /></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -1016,10 +1219,10 @@ if($_SESSION['sucess'] == "sucess") {
                                             <td>Mã GD hoàn tiền</td>
                                         </tr>
                                         <tr>
-                                            <td width="25%"><input type="number" name="tk_kh_1" class="tk_kh_1" value="<?php echo $tk_kh_1; ?>" required /></td>
-                                            <td width="25%"><input type="number" name="so_tien_hoan_1" class="so_tien_hoan_1" value="<?php echo $so_tien_hoan_1; ?>" required /></td>
-                                            <td width="25%"><input type="text" name="ngay_hoan_tien_1" data-date-format="dd/mm/yyyy" class="ngay_hoan_tien_1 datepicker-here" data-language='en' value="<?php echo $ngay_hoan_tien_1; ?>" required /></td>
-                                            <td><input type="text" name="ma_gd_hoan_tien_1" class="ma_gd_hoan_tien_1" value="<?php echo $ma_gd_hoan_tien_1; ?>" required /></td>
+                                            <td width="25%"><input type="number" name="tk_kh_1" class="tk_kh_1" value="<?php echo $tk_kh_1; ?>"  /></td>
+                                            <td width="25%"><input type="number" name="so_tien_hoan_1" class="so_tien_hoan_1" value="<?php echo $so_tien_hoan_1; ?>"  /></td>
+                                            <td width="25%"><input type="text" name="ngay_hoan_tien_1" data-date-format="dd/mm/yyyy" class="ngay_hoan_tien_1 datepicker-here" data-language='en' value="<?php echo $ngay_hoan_tien_1; ?>"  /></td>
+                                            <td><input type="text" name="ma_gd_hoan_tien_1" class="ma_gd_hoan_tien_1" value="<?php echo $ma_gd_hoan_tien_1; ?>"  /></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -1035,10 +1238,10 @@ if($_SESSION['sucess'] == "sucess") {
                                             <td>Mã GD hoàn tiền</td>
                                         </tr>
                                         <tr>
-                                            <td width="25%"><input type="number" name="tk_doi_tac_2" class="tk_doi_tac_2" value="<?php echo $tk_doi_tac_2; ?>" required /></td>
-                                            <td width="25%"><input type="number" name="so_tien_hoan_2" class="so_tien_hoan_2" value="<?php echo $so_tien_hoan_2; ?>" required /></td>
-                                            <td width="25%"><input type="text" name="ngay_hoan_tien_2" data-date-format="dd/mm/yyyy" class="ngay_hoan_tien_2 datepicker-here" data-language='en' value="<?php echo $ngay_hoan_tien_2; ?>" required /></td>
-                                            <td><input type="text" name="ma_gd_hoan_tien_2" class="ma_gd_hoan_tien_2" value="<?php echo $ma_gd_hoan_tien_2; ?>" required /></td>
+                                            <td width="25%"><input type="number" name="tk_doi_tac_2" class="tk_doi_tac_2" value="<?php echo $tk_doi_tac_2; ?>"  /></td>
+                                            <td width="25%"><input type="number" name="so_tien_hoan_2" class="so_tien_hoan_2" value="<?php echo $so_tien_hoan_2; ?>"  /></td>
+                                            <td width="25%"><input type="text" name="ngay_hoan_tien_2" data-date-format="dd/mm/yyyy" class="ngay_hoan_tien_2 datepicker-here" data-language='en' value="<?php echo $ngay_hoan_tien_2; ?>"  /></td>
+                                            <td><input type="text" name="ma_gd_hoan_tien_2" class="ma_gd_hoan_tien_2" value="<?php echo $ma_gd_hoan_tien_2; ?>"  /></td>
                                         </tr>
                                         </tbody>
                                     </table>

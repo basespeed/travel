@@ -59,6 +59,8 @@ if($_SESSION['sucess'] == "sucess") {
                             $alert = "<p class='alert_tk_fail'>Link đã tồn tại !</p>";
                         } elseif (get_field('uidfb_nv') == $_POST['uidfb_nv']) {
                             $alert = "<p class='alert_tk_fail'>Uidfb đã tồn tại !</p>";
+                        }elseif (get_field('tk_nv') == $_POST['tk_nv']) {
+                            $alert = "<p class='alert_tk_fail'>Tài khoản ngân hàng đã tồn tại !</p>";
                         }
                     endwhile;
                     wp_reset_postdata();
@@ -80,6 +82,8 @@ if($_SESSION['sucess'] == "sucess") {
                     add_post_meta($post_id, 'sdt_nv', $_POST['sdt_nv'], true);
                     add_post_meta($post_id, 'muc_do_uu_tien', $_POST['muc_do_uu_tien'], true);
                     add_post_meta($post_id, 'nick_nv', $_POST['nick_nv'], true);
+                    add_post_meta($post_id, 'ten_ngan_hang_nv', $_POST['ten_ngan_hang_nv'], true);
+                    add_post_meta($post_id, 'tk_nv', $_POST['tk_nv'], true);
                     add_post_meta($post_id, 'bo_phan_nv', $_POST['bo_phan_nv'], true);
                     add_post_meta($post_id, 'don_vi_cong_tac_nv', $_POST['don_vi_cong_tac_nv'], true);
                     add_post_meta($post_id, 'link_fb_nv', $_POST['link_fb_nv'], true);
@@ -98,11 +102,11 @@ if($_SESSION['sucess'] == "sucess") {
                         <ul>
                             <li>
                                 <label>ID Nhân viên</label>
-                                <input type="text" name="id_nhan_vien" class="id_nhan_vien" required>
+                                <input type="text" name="id_nhan_vien" class="id_nhan_vien" value="<?php echo get_the_ID(); ?>" required>
                             </li>
                             <li>
                                 <label>Mã NV</label>
-                                <input type="email" name="ma_nv" class="ma_nv" required>
+                                <input type="email" name="ma_nv" class="ma_nv" value="NV_<?php echo abs( crc32( uniqid() ) ); ?>" required>
                             </li>
                             <li>
                                 <label>Tên NV</label>
@@ -114,7 +118,7 @@ if($_SESSION['sucess'] == "sucess") {
                             </li>
                             <li>
                                 <label>SĐT NV</label>
-                                <input type="number" name="sdt_nv" class="sdt_nv" required>
+                                <input type="number" name="sdt_nv" class="sdt_nv">
                             </li>
                             <li>
                                 <label>Bộ phận NV</label>
@@ -136,20 +140,28 @@ if($_SESSION['sucess'] == "sucess") {
                                 </select>
                             </li>
                             <li>
+                                <label>Tên ngân hàng</label>
+                                <input type="text" name="ten_ngan_hang_nv" class="ten_ngan_hang_nv">
+                            </li>
+                            <li>
+                                <label>STK NV</label>
+                                <input type="text" name="tk_nv" class="tk_nv">
+                            </li>
+                            <li>
                                 <label>Đơn vị công tác</label>
-                                <input type="text" name="don_vi_cong_tac_nv" class="don_vi_cong_tac_nv" required>
+                                <input type="text" name="don_vi_cong_tac_nv" class="don_vi_cong_tac_nv">
                             </li>
                             <li>
                                 <label>Nick NV</label>
-                                <input type="text" name="nick_nv" class="nick_nv" required>
+                                <input type="text" name="nick_nv" class="nick_nv">
                             </li>
                             <li>
                                 <label>Link FB NV</label>
-                                <input type="text" name="link_fb_nv" class="link_fb_nv" required>
+                                <input type="text" name="link_fb_nv" class="link_fb_nv">
                             </li>
                             <li>
                                 <label>UIDFB NV</label>
-                                <input type="text" name="uidfb_nv" class="uidfb_nv" required>
+                                <input type="text" name="uidfb_nv" class="uidfb_nv">
                             </li>
                             <div class="get_alert" style="text-align: center;"></div>
                             <?php if ($alert) {

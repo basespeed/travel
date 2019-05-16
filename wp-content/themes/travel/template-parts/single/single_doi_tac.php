@@ -119,42 +119,105 @@ get_header();
                         <li>
                             <label>STK DT</label>
                             <input type="number" name="stk_dt" class="stk_dt" value="<?php echo get_field('stk_dt'); ?>"
-                                   required>
+                                   >
                         </li>
                         <li>
                             <label>Đơn vị công tác</label>
                             <input type="text" name="don_vi_cong_tac_dt" class="don_vi_cong_tac_dt" value="<?php echo get_field('don_vi_cong_tac_dt'); ?>"
-                                   required>
+                                   >
                         </li>
                         <li>
                             <label>Khu vực DT</label>
-                            <input type="text" name="khu_vuc_dt" class="khu_vuc_dt"
-                                   value="<?php echo get_field('khu_vuc_dt'); ?>" required>
+                            <select name= "khu_vuc_dt" class="khu_vuc_dt" data-check="<?php echo get_field('khu_vuc_dt'); ?>">
+                                <option value="An Giang">An Giang
+                                <option value="Bà Rịa - Vũng Tàu">Bà Rịa - Vũng Tàu
+                                <option value="Bắc Giang">Bắc Giang
+                                <option value="Bắc Kạn">Bắc Kạn
+                                <option value="Bạc Liêu">Bạc Liêu
+                                <option value="Bắc Ninh">Bắc Ninh
+                                <option value="Bến Tre">Bến Tre
+                                <option value="Bình Định">Quy Nhơn - Bình Định
+                                <option value="Bình Dương">Bình Dương
+                                <option value="Bình Phước">Bình Phước
+                                <option value="Bình Thuận">Mũi Né - Bình Thuận
+                                <option value="Cà Mau">Cà Mau
+                                <option value="Cao Bằng">Cao Bằng
+                                <option value="Đắk Lắk">Đắk Lắk
+                                <option value="Đắk Nông">Đắk Nông
+                                <option value="Điện Biên">Điện Biên
+                                <option value="Đồng Nai">Đồng Nai
+                                <option value="Đồng Tháp">Đồng Tháp
+                                <option value="Gia Lai">Gia Lai
+                                <option value="Hà Giang">Hà Giang
+                                <option value="Hà Nam">Hà Nam
+                                <option value="Hà Tĩnh">Hà Tĩnh
+                                <option value="Hải Dương">Hải Dương
+                                <option value="Hậu Giang">Hậu Giang
+                                <option value="Hòa Bình">Hòa Bình
+                                <option value="Hưng Yên">Hưng Yên
+                                <option value="Khánh Hòa">Khánh Hòa
+                                <option value="Kiên Giang">Kiên Giang
+                                <option value="Kon Tum">Kon Tum
+                                <option value="Lai Châu">Lai Châu
+                                <option value="Lâm Đồng">Lâm Đồng
+                                <option value="Lạng Sơn">Lạng Sơn
+                                <option value="Lào Cai">Lào Cai
+                                <option value="Long An">Long An
+                                <option value="Nam Định">Nam Định
+                                <option value="Nghệ An">Cửa Lò - Nghệ An
+                                <option value="Ninh Bình">Ninh Bình
+                                <option value="Ninh Thuận">Ninh Thuận
+                                <option value="Phú Thọ">Phú Thọ
+                                <option value="Quảng Bình">Quảng Bình
+                                <option value="Quảng Nam">Hội An - Quảng Nam
+                                <option value="Quảng Ngãi">Quảng Ngãi
+                                <option value="Quảng Ninh">Hạ Long - Quảng Ninh
+                                <option value="Quảng Trị">Quảng Trị
+                                <option value="Sóc Trăng">Sóc Trăng
+                                <option value="Sơn La">Sơn La
+                                <option value="Tây Ninh">Tây Ninh
+                                <option value="Thái Bình">Thái Bình
+                                <option value="Thái Nguyên">Thái Nguyên
+                                <option value="Thanh Hóa">Sầm Sơn - Thanh Hóa
+                                <option value="Thừa Thiên Huế">Thừa Thiên Huế
+                                <option value="Tiền Giang">Tiền Giang
+                                <option value="Trà Vinh">Trà Vinh
+                                <option value="Tuyên Quang">Tuyên Quang
+                                <option value="Vĩnh Long">Vĩnh Long
+                                <option value="Vĩnh Phúc">Vĩnh Phúc
+                                <option value="Yên Bái">Yên Bái
+                                <option value="Phú Yên">Phú Yên
+                                <option value="Cần Thơ">Cần Thơ
+                                <option value="Đà Nẵng">Đà Nẵng
+                                <option value="Hải Phòng">Hải Phòng
+                                <option value="Hà Nội">Hà Nội
+                                <option value="HCM">HCM
+                            </select>
                         </li>
                         <li>
                             <label>Miêu tả DT</label>
                             <input type="text" name="mieu_ta_dt" class="mieu_ta_dt"
-                                   value="<?php echo get_field('mieu_ta_dt'); ?>" required>
+                                   value="<?php echo get_field('mieu_ta_dt'); ?>" >
                         </li>
                         <li>
                             <label>Cấp bậc DT</label>
                             <input type="text" name="cap_bac_dt" class="cap_bac_dt"
-                                   value="<?php echo get_field('cap_bac_dt'); ?>" required>
+                                   value="<?php echo get_field('cap_bac_dt'); ?>" >
                         </li>
                         <li>
                             <label>MST DT</label>
                             <input type="text" name="mst_dt" class="mst_dt" value="<?php echo get_field('mst_dt'); ?>"
-                                   required>
+                                   >
                         </li>
                         <li>
                             <label>SĐT DT</label>
                             <input type="number" name="sdt_dt" class="sdt_dt" value="<?php echo get_field('sdt_dt'); ?>"
-                                   required>
+                                   >
                         </li>
                         <li>
                             <label>Địa chỉ DT</label>
                             <input type="text" name="dia_chi_dt" class="dia_chi_dt"
-                                   value="<?php echo get_field('dia_chi_dt'); ?>" required>
+                                   value="<?php echo get_field('dia_chi_dt'); ?>" >
                         </li>
                         <div class="get_alert" style="text-align: center;"></div>
                         <?php if ($alert) {

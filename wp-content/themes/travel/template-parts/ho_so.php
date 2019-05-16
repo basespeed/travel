@@ -37,7 +37,7 @@ if($_SESSION['sucess'] == "sucess") {
             $this_cmt = get_field('cmt_tai_khoan');
             $this_ten_biet_danh_tai_khoan = get_field('ten_biet_danh_tai_khoan');
             $this_ID = get_the_ID();
-
+            //Hiển thị lỗi
             if ($query->have_posts()) {
                 while ($query->have_posts()) : $query->the_post();
                     if (get_field('sdt_tai_khoan') == $_POST['sdt_tai_khoan'] and $this_tel != $_POST['sdt_tai_khoan']) {
@@ -51,7 +51,7 @@ if($_SESSION['sucess'] == "sucess") {
                 wp_reset_postdata();
             }
 
-
+            //Check có lỗi ko thì cho update dữ liệu
             if (!isset($alert)) {
                 if ($_FILES['anh_dai_dien']['name'] != '') {
 
@@ -92,6 +92,20 @@ if($_SESSION['sucess'] == "sucess") {
                             update_field('ten_anh_tai_khoan', $check_file_name, $post_id);
 
                             $_SESSION['avatar'] = $location_img;
+
+                            //update lại ảnh avatar được thay đổi
+                            $query_avatar = new WP_Query(array(
+                                'post_type' => 'tai_khoan',
+                                'meta_key'		=> 'sdt_tai_khoan',
+                                'meta_value' => '^' . preg_quote( $sdt_tai_khoan ),
+                                'meta_compare' => 'RLIKE',
+                            ));
+
+                            if($query->have_posts()) : while ($query->have_posts()) : $query->the_post();
+                                $avatar_id = get_the_ID();
+                            endwhile;
+                            endif;
+                            wp_reset_postdata();
 
                             $alert = "<p class='alert_tk_sucess'>Cập nhập tài khoản thành công !</p>";
                             echo '<meta http-equiv="refresh" content="0">';

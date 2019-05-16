@@ -59,7 +59,7 @@ if($_SESSION['sucess'] == "sucess") {
                                     <td><strong>Tên CTV</strong></td>
                                     <td><strong>Email CTV</strong></td>
                                     <td><strong>SĐT CTV</strong></td>
-                                    <td><strong>Mức độ ưu tiên</strong></td>
+                                    <td><strong>Bộ phận</strong></td>
                                     <td></td>
                                 </tr>
                                 <?php
@@ -73,7 +73,7 @@ if($_SESSION['sucess'] == "sucess") {
                                         </td>
                                         <td><?php echo get_field('email_ctv'); ?></td>
                                         <td><?php echo get_field('sdt_ctv'); ?></td>
-                                        <td><?php echo get_field('muc_do_uu_tien_ctv'); ?></td>
+                                        <td><?php echo get_field('bo_phan_ctv'); ?></td>
                                         <td>
                                             <a class="edit" href="<?php the_permalink(); ?>"><i
                                                         class="fa fa-pencil-square-o" aria-hidden="true"></i></a>

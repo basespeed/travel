@@ -387,3 +387,52 @@ function setMa_kgd() {
     die();
 }
 
+add_action("wp_ajax_setMGDLK", "setMGDLK");
+add_action("wp_ajax_nopriv_setMGDLK", "setMGDLK");
+
+function setMGDLK() {
+    $keyword = $_POST['keyword'];
+
+    $query = new WP_Query(array(
+        'post_type' => 'giao_dich',
+        'posts_per_page' => 5,
+        'order' => 'DESC',
+        'meta_key'		=> 'ma_gd_con',
+        'meta_value' => '^' . preg_quote( $keyword ),
+        'meta_compare' => 'RLIKE',
+    ));
+
+    $data = array();
+
+    if($query->have_posts()) : while ($query->have_posts()) : $query->the_post();
+        ?>
+        <ul>
+            <li><?php echo get_field('ten_kgd'); ?></li>
+            <li><input type="text" value="<?php echo get_field('sdt_kgd'); ?>"></li>
+            <li><input type="email" value="<?php echo get_field('email_kgd_duy_nhat'); ?>"></li>
+            <li><input type="text" value="<?php echo get_field('tk_kgd'); ?>"></li>
+            <li>
+                <input type="text" value="<?php echo get_field('link_facebook_khach_gd'); ?>">
+                <input type="hidden" class="ma_kgd" value="<?php echo get_field('ma_kgd'); ?>">
+                <input type="hidden" class="ten" value="<?php echo get_field('ten_kgd'); ?>">
+                <input type="hidden" class="sdt" value="<?php echo get_field('sdt_kgd'); ?>">
+                <input type="hidden" class="email" value="<?php echo get_field('email_kgd_duy_nhat'); ?>">
+                <input type="hidden" class="tk" value="<?php echo get_field('tk_kgd'); ?>">
+                <input type="hidden" class="nick" value="<?php echo get_field('nick_kgd'); ?>">
+                <input type="hidden" class="link" value="<?php echo get_field('link_facebook_khach_gd'); ?>">
+            </li>
+        </ul>
+    <?php
+    endwhile;
+    else :
+    echo 'empty';
+    endif;
+    wp_reset_postdata();
+
+    //wp_send_json_success('ajax');
+
+
+    die();
+}
+
+

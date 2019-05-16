@@ -1,6 +1,6 @@
 <?php
 /*
- * Template Name: Sửa tài khoản*/
+ * Template Name: Tài khoản*/
 
 if($_SESSION['sucess'] == "sucess") {
     if($_SESSION['loai_quyen_tai_khoan'] == 'Admin') {
@@ -82,26 +82,14 @@ if($_SESSION['sucess'] == "sucess") {
                                                 }
                                                 ?>
                                         <td>
-                                            <?php
-                                            if ($_SESSION['avatar'] != get_field('hinh_anh_tai_khoan')) {
-                                                ?>
-                                                <a class="edit" href="<?php the_permalink(); ?>"><i
-                                                            class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                                <a class="delete del_user"
-                                                   href="<?php echo get_delete_post_link(get_the_ID()); ?>"
-                                                   data-id="<?php echo get_the_ID(); ?>"
-                                                   data-email="<?php echo get_field('email_tai_khoan'); ?>"
-                                                   data-img="<?php echo get_field('ten_anh_tai_khoan'); ?>"><i
-                                                            class="fa fa-times-circle" aria-hidden="true"></i>
-                                                </a>
-                                                <?php
-                                            } else {
-                                                ?>
-                                                <a class="edit" href="<?php the_permalink(); ?>"><i
-                                                            class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                                <?php
-                                            }
-                                            ?>
+                                            <a class="edit" href="<?php the_permalink(); ?>"><i
+                                                        class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                            <a class="delete del_user"
+                                               href="<?php echo get_delete_post_link(get_the_ID()); ?>"
+                                               data-id="<?php echo get_the_ID(); ?>"
+                                               data-email="<?php echo get_field('email_tai_khoan'); ?>"
+                                               data-img="<?php echo get_field('ten_anh_tai_khoan'); ?>"><i
+                                                        class="fa fa-times-circle" aria-hidden="true"></i></a>
                                         </td>
                                     </tr>
                                 <?php
@@ -158,4 +146,3 @@ if($_SESSION['sucess'] == "sucess") {
     header("Location: ".home_url('/'));
     exit();
 }
-?>

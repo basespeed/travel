@@ -100,7 +100,7 @@ get_header();
                                 </li>
                                 <li>
                                     <label>SĐT Khách giao dịch</label>
-                                    <input type="number" name="sdt_kgd" class="sdt_kgd" value="<?php echo get_field('sdt_kgd'); ?>" required/>
+                                    <input type="number" name="sdt_kgd" class="sdt_kgd" value="<?php echo get_field('sdt_kgd'); ?>"/>
                                 </li>
                                 <li>
                                     <label>Email khách giao dịch</label>
@@ -108,15 +108,15 @@ get_header();
                                 </li>
                                 <li>
                                     <label>TK khách giao dịch</label>
-                                    <input type="number" name="tk_kgd" class="tk_kgd" value="<?php echo get_field('tk_kgd'); ?>" required/>
+                                    <input type="number" name="tk_kgd" class="tk_kgd" value="<?php echo get_field('tk_kgd'); ?>"/>
                                 </li>
                                 <li>
                                     <label>Đơn vị công tác</label>
-                                    <input type="text" name="don_vi_cong_tac_kh" class="don_vi_cong_tac_kh" value="<?php echo get_field('don_vi_cong_tac_kh'); ?>" required/>
+                                    <input type="text" name="don_vi_cong_tac_kh" class="don_vi_cong_tac_kh" value="<?php echo get_field('don_vi_cong_tac_kh'); ?>"/>
                                 </li>
                                 <li>
                                     <label>Loại tài khoản</label>
-                                    <select name="loai_tai_khoan_khach_gd" class="loai_tai_khoan_khach_gd" data-check="<?php echo get_field('loai_tai_khoan_khach_gd'); ?>" required>
+                                    <select name="loai_tai_khoan_khach_gd" class="loai_tai_khoan_khach_gd" data-check="<?php echo get_field('loai_tai_khoan_khach_gd'); ?>">
                                         <option value="" selected disabled hidden>Chọn loại tài khoản</option>
                                         <option value="Thường">Thường</option>
                                         <option value="Vip">Vip</option>
@@ -124,11 +124,11 @@ get_header();
                                 </li>
                                 <li>
                                     <label>Nick khách giao dịch</label>
-                                    <input type="text" name="nick_kgd" class="nick_kgd" value="<?php echo get_field('nick_kgd'); ?>" required/>
+                                    <input type="text" name="nick_kgd" class="nick_kgd" value="<?php echo get_field('nick_kgd'); ?>"/>
                                 </li>
                                 <li>
                                     <label>Link facebook</label>
-                                    <input type="text" name="link_facebook_khach_gd" class="link_facebook_khach_gd" value="<?php echo get_field('link_facebook_khach_gd'); ?>" required>
+                                    <input type="text" name="link_facebook_khach_gd" class="link_facebook_khach_gd" value="<?php echo get_field('link_facebook_khach_gd'); ?>">
                                 </li>
                                 <div class="get_alert" style="text-align: center;"></div>
                                 <?php if ($alert) {

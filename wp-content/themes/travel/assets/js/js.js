@@ -50,11 +50,17 @@
         disable_edit_giao_dich2_view.prop( "disabled", true );
         disable_edit_giao_dich3_view.prop( "disabled", true );
 
+
         /*$('.ngay_cập_nhập_giao_dịch_cuối_cung').prop( "disabled", true );
         $('.so_dem_gd').prop( "disabled", true );
         $('.con_ngay_gd').prop( "disabled", true );*/
 
-
+        //enter login ajax
+        $(document).keypress(function(e) {
+            if(e.which == 13) {
+                $('.sub_login').click();
+            }
+        });
     }
 
     function datePicker() {
@@ -171,7 +177,10 @@
             'noi_den_gd',
             'noi_di_dt',
             'noi_den_dt',
-            'loai_tai_khoan_khach_gd'
+            'loai_tai_khoan_khach_gd',
+            'bo_phan_ctv',
+            'khu_vuc_ks',
+            'khu_vuc_dt',
         ];
 
         $.each(ClassSelect , function(index, val) {
@@ -221,9 +230,6 @@
             $('input.don_gia_ban_dt').attr('value', parseInt(price));
         });
 
-        $('.sl_gd').attr('value', parseInt(1));
-        $('.sl_dt').attr('value', parseInt(1));
-
         setInterval(function () {
             var sl_gd = $('.sl_gd').val();
             var don_gia_ban_gd = $('.don_gia_ban_gd').val();
@@ -238,6 +244,9 @@
             var tong_room_dt = sl_dt * don_gia_ban_dt;
             var so_dem_dt = $('.so_dem_gd').val();
             $('.tong_dt').val(tong_room_dt * so_dem_dt);
+
+            var mgdc = $('.ma_gd_con').val();
+            $('.ma_gd_con_t').val(mgdc);
         },1000);
 
         $('.ten_dt_gui_book_dt').change(function(){
@@ -262,14 +271,16 @@
                 setInterval(function () {
                     var date_in = $('.ci_gd').val();
                     if(typeof date_in !== 'undefined' || date_in != "") {
+                        //Ngày check-in
                         date_in = date_in.replace('/', "");
                         date_in = date_in.replace('/', "");
                         var d_in = date_in.slice(0, 2);
                         var m_in = date_in.slice(2, 4);
                         var y_in = date_in.slice(4, 8);
                         var join_string_in = parseInt(y_in + m_in + d_in);
+                        var date_checkin = new Date(y_in+'-'+m_in+'-'+d_in);
 
-
+                        //Check out
                         var date_out = $('.co_gd').val();
                         date_out = date_out.replace('/', "");
                         date_out = date_out.replace('/', "");
@@ -277,9 +288,33 @@
                         var m_out = date_out.slice(2, 4);
                         var y_out = date_out.slice(4, 8);
                         var join_string_out = parseInt(y_out + m_out + d_out);
+                        var date_checkout = new Date(y_out+'-'+m_out+'-'+d_out);
 
+                        //Ngày được hủy
+                        var date_del = $('.ngay_duoc_huy').val();
+                        date_del = date_del.replace('/', "");
+                        date_del = date_del.replace('/', "");
+                        var d_del = date_del.slice(0, 2);
+                        var m_del = date_del.slice(2, 4);
+                        var y_del = date_del.slice(4, 8);
+                        var join_string_del = parseInt(y_del + m_del + d_del);
+                        var date_huy = new Date(y_del+'-'+m_del+'-'+d_del);
+
+                        //Ngày được thay đổi
+                        var date_change = $('.ngay_duoc_thay_doi').val();
+                        date_change = date_change.replace('/', "");
+                        date_change = date_change.replace('/', "");
+                        var d_change = date_change.slice(0, 2);
+                        var m_change = date_change.slice(2, 4);
+                        var y_change = date_change.slice(4, 8);
+                        var join_string_change = parseInt(y_change + m_change + d_change);
+                        var date_thay_doi = new Date(y_change+'-'+m_change+'-'+d_change);
+
+
+                        var diff  = new Date(date_checkout - date_checkin);
+                        var days  = diff/1000/60/60/24;
                         if (date_out != "" && date_in != "") {
-                            $('.so_dem_gd').attr('value', join_string_out - join_string_in);
+                            $('.so_dem_gd').attr('value', Math.floor(days));
                         }
 
                         var now = new Date();
@@ -304,11 +339,23 @@
                         if (second.toString().length == 1) {
                             var second = '0' + second;
                         }
-                        var datetime = year + '/' + month + '/' + day;
-                        datetime = datetime.replace('/', "");
-                        datetime = datetime.replace('/', "");
+                        //Ngày hiện tại
+                        var datetime = year + '-' + month + '-' + day;
+                        var datetime = new Date(year+'-'+month+'-'+day);
 
-                        $('.con_ngay_gd').attr('value', parseInt(join_string_in) - parseInt(datetime));
+                        //Đến ngày checkin
+                        var diff_con_ngay = new Date(date_checkin - datetime);
+                        var days_con_ngay = diff_con_ngay/1000/60/60/24;
+                        $('.con_ngay_gd').attr('value', Math.floor(days_con_ngay));
+
+                        //Ngày được hủy
+                        var diff_con_ngay = new Date(date_huy - datetime);
+                        var days_ngay_huy = diff_con_ngay/1000/60/60/24;
+                        $('.con_ngay_dt').attr('value', days_ngay_huy);
+                        //Ngày được thay đổi
+                        var diff_change = new Date(date_thay_doi - datetime);
+                        var days_change = diff_change/1000/60/60/24;
+                        $('.con_ngay_thay_doi_dt').attr('value', Math.floor(days_change));
                     }
                 },1);
             }
@@ -790,12 +837,12 @@
                 var name_chat = $(this).find('.change_update_send_mess').attr('data-name');
                 var data_id = $(this).attr('data-id');
 
-                $('.trang_thai_chat').val('Đang xử lý');
+                $('.trang_thai_chat').val('Đang trả lời');
                 $('table tfoot tr.send_chat td:nth-child(1) span').html("<span>Trả lời : "+"Ngày nhập vào : "+ngay_chat+" # Mã nhân viên : "+name_chat+" # Lời nhắn : "+chat_mess+"</span> <i class=\"fa fa-times\" aria-hidden=\"true\"></i>");
                 $('.reply_chat').val("Trả lời : "+"Ngày nhập vào : "+ngay_chat+" # Mã nhân viên : "+name_chat+" # Lời nhắn : "+chat_mess);
                 $('.send_chat td:first-child span i').on('click',function () {
                     $('.send_chat td:first-child span').empty();
-                    $('.trang_thai_chat').val('Đã chờ');
+                    $('.trang_thai_chat').val('Đang chờ');
                 });
                 $('.id_reply').val(data_id);
 
@@ -811,9 +858,7 @@
 
                     }
                 });
-
                 //alert('Trả lời: "'+ngay_chat +'---'+ name_chat +'---'+ chat_mess+'"');
-
             }
         });
 
@@ -1276,6 +1321,31 @@
         });
     }
 
+    function googleSheet() {
+        var submit = $("#submit-form");
+        submit.click(function()
+        {
+            var data = $('form#test-form').serialize();
+            $.ajax({
+                type : 'GET',
+                url : 'https://script.google.com/macros/s/AKfycbwWHOx8dLoZTrkVaKXvpYMihR1vJoTqKT3zHrWL9BeNYgtctaFZ/exec',
+                dataType:'json',
+                crossDomain : true,
+                data : data,
+                success : function(data)
+                {
+                    if(data == 'false')
+                    {
+                        alert('Thêm không thành công, bạn cũng có thể sử dụng để hiển thị Popup hoặc điều hướng');
+                    }else{
+                        alert('Đã thêm dữ liệu vào Form');
+                    }
+                }
+            });
+            return false;
+        });
+    }
+
     function _init() {
         base();
         Isotope();
@@ -1293,6 +1363,7 @@
         AddTypeRoom();
         checkSelect();
         getDataClient();
+        //googleSheet();
     }
 
     _init();

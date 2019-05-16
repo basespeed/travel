@@ -67,6 +67,7 @@ if($_SESSION['sucess'] == "sucess") {
                                 <?php
 
                                 while ($the_query->have_posts()) : $the_query->the_post();
+                                    $del = get_delete_post_link(get_the_ID());
                                     ?>
                                     <tr>
                                         <td><?php echo get_the_ID(); ?></td>
@@ -82,20 +83,14 @@ if($_SESSION['sucess'] == "sucess") {
                                                 }
                                                 ?>
                                         <td>
-                                            <?php
-                                            if ($_SESSION['avatar'] != get_field('hinh_anh_tai_khoan')) {
-                                                ?>
-                                                <a class="edit" href="<?php the_permalink(); ?>"><i
-                                                            class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                                <a class="delete del_user"
-                                                   href="<?php echo get_delete_post_link(get_the_ID()); ?>"
-                                                   data-id="<?php echo get_the_ID(); ?>"
-                                                   data-email="<?php echo get_field('email_tai_khoan'); ?>"
-                                                   data-img="<?php echo get_field('ten_anh_tai_khoan'); ?>"><i
-                                                            class="fa fa-times-circle" aria-hidden="true"></i></a>
-                                                <?php
-                                            }
-                                            ?>
+                                            <a class="edit" href="<?php the_permalink(); ?>"><i
+                                                        class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                            <a class="delete del_user"
+                                               href="<?php echo $del; ?>"
+                                               data-id="<?php echo get_the_ID(); ?>"
+                                               data-email="<?php echo get_field('email_tai_khoan'); ?>"
+                                               data-img="<?php echo get_field('ten_anh_tai_khoan'); ?>"><i
+                                                        class="fa fa-times-circle" aria-hidden="true"></i></a>
                                         </td>
                                     </tr>
                                 <?php

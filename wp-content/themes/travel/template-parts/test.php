@@ -4,7 +4,7 @@
 */
 
 ?>
-
+<!--
 <button id="request">request</button>
 <button id="click">click</button>
 
@@ -54,3 +54,22 @@
         }
     })
 </script>
+-->
+
+
+<?php
+get_header();
+
+?>
+<h1>saddsaads</h1>
+<h1>saddsaads</h1>
+<h1>saddsaads</h1>
+    <form id="test-form" method="GET" action="https://script.google.com/macros/s/AKfycbwWHOx8dLoZTrkVaKXvpYMihR1vJoTqKT3zHrWL9BeNYgtctaFZ/exec">
+        <input type="text" name="Truong_so_1" placeholder="Trường số 1"/>
+        <input type="text" name="Truong_so_2" placeholder="Trường số 2"/>
+        <input type="text" name="Truong_so_3" placeholder="Trường số 3"/>
+        <button type="submit"id="submit-form">Gửi</button>
+    </form>
+<?php
+
+get_footer();

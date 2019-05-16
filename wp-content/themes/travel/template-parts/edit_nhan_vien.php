@@ -56,10 +56,11 @@ if($_SESSION['sucess'] == "sucess") {
                                 ?>
                                 <tr>
                                     <td></td>
-                                    <td><strong>Mã NV</strong></td>
                                     <td><strong>Tên NV</strong></td>
                                     <td><strong>Email NV</strong></td>
                                     <td><strong>SĐT NV</strong></td>
+                                    <td><strong>Tên ngân hàng</strong></td>
+                                    <td><strong>STK NV</strong></td>
                                     <td><strong>Liên kết tài khoản</strong></td>
                                 </tr>
                                 <?php
@@ -74,12 +75,13 @@ if($_SESSION['sucess'] == "sucess") {
                                                href="<?php echo get_delete_post_link(get_the_ID()); ?>"><i
                                                         class="fa fa-times-circle" aria-hidden="true"></i></a>
                                         </td>
-                                        <td><?php echo get_field('ma_nv'); ?></td>
                                         <td><a class="title"
                                                href="<?php the_permalink(); ?>"><?php echo get_field('ten_nv'); ?></a>
                                         </td>
                                         <td><?php echo get_field('email_nv'); ?></td>
                                         <td><?php echo get_field('sdt_nv'); ?></td>
+                                        <td><?php echo get_field('ten_ngan_hang_nv'); ?></td>
+                                        <td><?php echo get_field('tk_nv'); ?></td>
                                         <td><?php
                                             $lien_ket_tai_khoan_nv = get_field('lien_ket_tai_khoan');
 

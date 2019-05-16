@@ -80,7 +80,7 @@ if($_SESSION['sucess'] == "sucess") {
                     <ul>
                         <li>
                             <label>ID KM</label>
-                            <input type="text" name="id_km" class="id_km" required>
+                            <input type="text" name="id_km" class="id_km" value="KM_<?php echo abs( crc32( uniqid() ) ); ?>" required>
                         </li>
                         <li>
                             <label>Tên KM</label>

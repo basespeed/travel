@@ -8,14 +8,9 @@ function join_user_nv() {
     $posts = array(
         'numberposts'	=> -1,
         'post_type'		=> 'nhan_vien',
-        'meta_query'	=> array(
-            'relation'		=> 'AND',
-            array(
-                'key'	 	=> 'email_nv',
-                'value'	  	=> $email_tk,
-                'compare' 	=> '=',
-            ),
-        ),
+        'meta_key'		=> 'email_nv',
+        'meta_value' => '^' . preg_quote( $email_tk ),
+        'meta_compare' => 'RLIKE',
     );
 
     $query = new WP_Query($posts);

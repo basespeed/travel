@@ -337,7 +337,7 @@ ul.price_count{
 
 .quantri_admin .them_giao_dich table table td{
   position: relative;
-  .popup_get_data_list{
+  .popup_get_data_list,.popup_get_data_list_nv{
     position: absolute;
     width: 713px;
     display: none;
@@ -408,3 +408,179 @@ ul.price_count{
   }
 }
 
+
+.quantri_admin .them_giao_dich td{
+  position: relative;
+}
+.popup_get_list_mgdlk{
+  position: absolute;
+  width: 713px;
+  //display: none;
+  left: 4px;
+  top: 20px;
+  background: #fff;
+  z-index: 1000;
+  padding: 10px;
+  box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.1);
+  ul{
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    li{
+      width: 20%;
+      border:1px solid #eaeaea;
+      margin-left: -1px;
+      margin-top: -1px;
+      padding: 5px;
+      transition: 0.5s;
+      display: flex;
+      align-items: center;
+    }
+    li:nth-child(2){
+      width: 12%;
+    }
+    li:nth-child(5){
+      width: 28%;
+    }
+    li:nth-child(4){
+      width: 15%;
+    }
+    li:nth-child(3){
+      width: 25%;
+    }
+  }
+  .list_show{
+    ul{
+      &:hover{
+        cursor: pointer;
+        li{
+          background: #BECF90;
+        }
+      }
+    }
+    li{
+      font-size: 12px;
+      input{
+        background: transparent;
+        border:none;
+        padding: 0 !important;
+        &:hover{
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  p{
+    width: calc(100% - 5px);
+    margin: 0px;
+    margin-top: -1px;
+    text-align: center;
+    border:1px solid #eaeaea;
+    padding: 10px;
+  }
+}
+
+.popup_get_data_list.pop_ten_nv_dat_phong_dt {
+  left: -293px !important;
+}
+
+.page .giao_dich_moi table td{
+  font-size: 12px;
+  padding:0px;
+}
+
+.page .giao_dich_moi table tr:first-child td{
+  padding:5px 0px;
+  a{
+    color: #FFF;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    .fa.fa-long-arrow-up{
+      color: #64ff64;
+      margin-left: 5px;
+    }
+    .fa.fa-long-arrow-down{
+      color: #ff8349;
+      margin-left: 5px;
+    }
+  }
+}
+
+.page-template-all_giao_dich,.page-template-all_giao_dich{
+  .giao_dich_moi{
+    position: relative;
+    z-index: 1000000;
+  }
+}
+
+.single-giao_dich .quantri_admin .them_giao_dich .acf-form-submit {
+  text-align: center;
+  position: fixed;
+  width: 140px;
+  bottom: 15px;
+  left: 6px !important;
+  z-index: 100;
+  .sub_tach_giao_dich{
+    background: #ECB254;
+    color: #000;
+    margin-top: -30px;
+  }
+}
+
+.page-template-tach-booking{
+  .acf-form-submit {
+    left: 35px !important;
+  }
+}
+
+.them_giao_dich .alert_tk_sucess {
+  margin-bottom: 5px;
+}
+
+button.sub_new_giao_dich{
+  padding: 0px;
+  width: 120px;
+  height: 40px;
+  border: none;
+  font-size: 14px;
+  text-transform: uppercase;
+  background: #007bff;
+  color: #FFF;
+  border-radius: 0px;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.page-template-tach-booking .phuc_hoi{
+  margin-top: 4px;
+  margin-bottom: 10px;
+}
+
+.single-giao_dich{
+  .alert_tk_fail{
+    margin-bottom: -10px;
+  }
+}
+
+.fix_tach_gd{
+  bottom: 15px !important;
+}
+
+.page-template-edit_nhan_vien{
+  .giao_dich_moi table tr td{
+    span:nth-child(2){
+      display: none;
+    }
+  }
+}
+
+table#show_chat {
+  border: 2px solid #049fce;
+}
+
+.add_edit_giao_dich{
+  background: green !important;
+}

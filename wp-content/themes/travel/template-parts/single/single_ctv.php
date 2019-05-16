@@ -41,6 +41,7 @@ get_header();
         $this_nick_ctv = get_field('nick_ctv');
         $this_link_fb_ctv = get_field('link_fb_ctv');
         $this_uidfb_ctv = get_field('uidfb_ctv');
+        $stk_ctv = get_field('stk_ctv');
 
         if (isset($_POST['sub_edit_ctv'])) {
             $array_user = array(
@@ -60,12 +61,8 @@ get_header();
                         $alert = "<p class='alert_tk_fail'>Email CTV đã tồn tại !</p>";
                     } elseif (get_field('sdt_ctv') == $_POST['sdt_ctv'] and $this_sdt_ctv != $_POST['sdt_ctv']) {
                         $alert = "<p class='alert_tk_fail'>Số điện thoại đã tồn tại !</p>";
-                    } elseif (get_field('nick_kh_ctv') == $_POST['nick_kh_ctv'] and $this_nick_ctv != $_POST['nick_kh_ctv']) {
-                        $alert = "<p class='alert_tk_fail'>Nick đã tồn tại !</p>";
-                    } elseif (get_field('link_fb_kh_ctv') == $_POST['link_fb_kh_ctv'] and $this_link_fb_ctv != $_POST['link_fb_kh_ctv']) {
-                        $alert = "<p class='alert_tk_fail'>Link đã tồn tại !</p>";
-                    } elseif (get_field('uidfb_kh_ctv') == $_POST['uidfb_kh_ctv'] and $this_uidfb_ctv != $_POST['uidfb_kh_ctv']) {
-                        $alert = "<p class='alert_tk_fail'>Uidfb đã tồn tại !</p>";
+                    }elseif (get_field('stk_ctv') == $_POST['stk_ctv'] and $stk_ctv != $_POST['stk_ctv']) {
+                        $alert = "<p class='alert_tk_fail'>STK đã tồn tại !</p>";
                     }
                 endwhile;
                 wp_reset_postdata();
@@ -88,6 +85,9 @@ get_header();
                 update_field('nick_kh_ctv', $_POST['nick_kh_ctv'], $post_id);
                 update_field('link_fb_kh_ctv', $_POST['link_fb_kh_ctv'], $post_id);
                 update_field('uidfb_kh_ctv', $_POST['uidfb_kh_ctv'], $post_id);
+                update_field('bo_phan_ctv', $_POST['bo_phan_ctv'], $post_id);
+                update_field('ten_ngan_hang_ctv', $_POST['ten_ngan_hang_ctv'], $post_id);
+                update_field('stk_ctv', $_POST['stk_ctv'], $post_id);
 
 
                 $alert = "<p class='alert_tk_sucess'>Cập nhập cộng tác viên thành công !</p>";
@@ -122,27 +122,56 @@ get_header();
                         <li>
                             <label>SĐT CTV</label>
                             <input type="number" name="sdt_ctv" class="sdt_ctv"
-                                   value="<?php echo get_field('sdt_ctv'); ?>" required>
+                                   value="<?php echo get_field('sdt_ctv'); ?>">
+                        </li>
+                        <li>
+                            <label>Bộ phận NV</label>
+                            <select name="bo_phan_ctv" class="bo_phan_ctv" data-check="<?php echo get_field('bo_phan_ctv'); ?>">
+                                <option value="" selected disabled hidden>Chọn bộ phận</option>
+                                <?php
+                                $query_bp = new WP_Query(array(
+                                    'post_type' => 'bo_phan',
+                                ));
+
+                                if($query_bp->have_posts()) : while ($query_bp->have_posts()) : $query_bp->the_post();
+                                    ?>
+                                    <option value="<?php echo get_the_title(); ?>"><?php echo get_the_title(); ?></option>
+                                <?php
+                                endwhile;
+                                endif;
+                                wp_reset_postdata();
+                                ?>
+                            </select>
+                        </li>
+                        <li>
+                            <label>Tên ngân hàng CTV</label>
+                            <input type="text" name="ten_ngan_hang_ctv" class="ten_ngan_hang_ctv"
+                                   value="<?php echo get_field('ten_ngan_hang_ctv'); ?>">
+                        </li>
+                        <li>
+                            <label>STK CTV</label>
+                            <input type="number" name="stk_ctv" class="stk_ctv"
+                                   value="<?php echo get_field('stk_ctv'); ?>">
                         </li>
                         <li>
                             <label>Đơn vị công tác</label>
-                            <input type="number" name="don_vi_cong_tac_ctv" class="don_vi_cong_tac_ctv"
-                                   value="<?php echo get_field('don_vi_cong_tac_ctv'); ?>" required>
+                            <input type="text" name="don_vi_cong_tac_ctv" class="don_vi_cong_tac_ctv"
+                                   value="<?php echo get_field('don_vi_cong_tac_ctv'); ?>">
                         </li>
                         <li>
                             <label>Nick KH CTV</label>
                             <input type="text" name="nick_kh_ctv" class="nick_kh_ctv"
-                                   value="<?php echo get_field('nick_kh_ctv'); ?>" required>
+                                   value="<?php echo get_field('nick_kh_ctv'); ?>">
                         </li>
                         <li>
                             <label>Link FB KH CTV</label>
                             <input type="text" name="link_fb_kh_ctv" class="link_fb_kh_ctv"
-                                   value="<?php echo get_field('link_fb_kh_ctv'); ?>" required>
+                                   value="<?php echo get_field('link_fb_kh_ctv'); ?>">
                         </li>
                         <li>
                             <label>UIDFB KH CTV</label>
                             <input type="text" name="uidfb_kh_ctv" class="uidfb_kh_ctv"
-                                   value="<?php echo get_field('uidfb_kh_ctv'); ?>" required>
+                                   value="<?php echo get_field('uidfb_kh_ctv'); ?>">
                         </li>
                         <div class="get_alert" style="text-align: center;"></div>
                         <?php if ($alert) {

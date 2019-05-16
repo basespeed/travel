@@ -59,6 +59,7 @@ if($_SESSION['sucess'] == "sucess") {
                                     <td><strong>Tên NV</strong></td>
                                     <td><strong>Email NV</strong></td>
                                     <td><strong>SĐT NV</strong></td>
+                                    <td><strong>TK NV</strong></td>
                                     <td><strong>Liên kết tài khoản</strong></td>
                                     <td></td>
                                 </tr>
@@ -73,6 +74,7 @@ if($_SESSION['sucess'] == "sucess") {
                                         </td>
                                         <td><?php echo get_field('email_nv'); ?></td>
                                         <td><?php echo get_field('sdt_nv'); ?></td>
+                                        <td><?php echo get_field('tk_nv'); ?></td>
                                         <td><?php
                                             $lien_ket_tai_khoan_nv = get_field('lien_ket_tai_khoan');
 

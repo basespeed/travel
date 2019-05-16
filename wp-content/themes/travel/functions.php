@@ -256,3 +256,5 @@ echo get_mac();*/
 
 add_action('init','jal_install');*/
 
+if ( !current_user_can( $post_type_object->cap->delete_post, $post->ID ) )
+    return;

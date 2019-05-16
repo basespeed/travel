@@ -177,12 +177,13 @@
     text-transform: initial !important;
   }
   img{
-    width: 50px;
+    width: 40px;
   }
   .img{
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 5px;
   }
 }
 

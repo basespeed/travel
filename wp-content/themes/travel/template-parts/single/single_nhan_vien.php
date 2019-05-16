@@ -38,6 +38,7 @@ get_header();
         $this_nick_nv = get_field('nick_nv');
         $this_link_fb_nv = get_field('link_fb_nv');
         $this_uidfb_nv = get_field('uidfb_nv');
+        $tk_nv = get_field('tk_nv');
 
         if(isset($_POST['sub_edit_nhan_vien'])){
             $array_user = array(
@@ -63,6 +64,8 @@ get_header();
                         $alert = "<p class='alert_tk_fail'>Link đã tồn tại !</p>";
                     }elseif(get_field('uidfb_nv') == $_POST['uidfb_nv'] and $this_uidfb_nv != $_POST['uidfb_nv']){
                         $alert = "<p class='alert_tk_fail'>Uidfb đã tồn tại !</p>";
+                    }elseif(get_field('tk_nv') == $_POST['tk_nv'] and $tk_nv != $_POST['tk_nv']){
+                        $alert = "<p class='alert_tk_fail'>Số tài khoản đã tồn tại !</p>";
                     }
                 endwhile;
                 wp_reset_postdata();
@@ -83,6 +86,8 @@ get_header();
                 update_field( 'sdt_nv', $_POST['sdt_nv'], $post_id );
                 update_field( 'muc_do_uu_tien', $_POST['muc_do_uu_tien'], $post_id );
                 update_field( 'bo_phan_nv', $_POST['bo_phan_nv'], $post_id );
+                update_field( 'ten_ngan_hang_nv', $_POST['ten_ngan_hang_nv'], $post_id );
+                update_field( 'tk_nv', $_POST['tk_nv'], $post_id );
                 update_field( 'don_vi_cong_tac_nv', $_POST['don_vi_cong_tac_nv'], $post_id );
                 update_field( 'nick_nv', $_POST['nick_nv'], $post_id );
                 update_field( 'link_fb_nv', $_POST['link_fb_nv'], $post_id );
@@ -116,7 +121,7 @@ get_header();
                         </li>
                         <li>
                             <label>SĐT NV</label>
-                            <input type="number" name="sdt_nv" class="sdt_nv" value="<?php echo get_field('sdt_nv'); ?>" required>
+                            <input type="number" name="sdt_nv" class="sdt_nv" value="<?php echo get_field('sdt_nv'); ?>">
                         </li>
                         <li>
                             <label>Bộ phận NV</label>
@@ -138,20 +143,28 @@ get_header();
                             </select>
                         </li>
                         <li>
+                            <label>Tên ngân hàng</label>
+                            <input type="text" name="ten_ngan_hang_nv" class="ten_ngan_hang_nv" value="<?php echo get_field('ten_ngan_hang_nv'); ?>">
+                        </li>
+                        <li>
+                            <label>STK NV</label>
+                            <input type="text" name="tk_nv" class="tk_nv" value="<?php echo get_field('tk_nv'); ?>">
+                        </li>
+                        <li>
                             <label>Nick NV</label>
-                            <input type="text" name="nick_nv" class="nick_nv" value="<?php echo get_field('nick_nv'); ?>" required>
+                            <input type="text" name="nick_nv" class="nick_nv" value="<?php echo get_field('nick_nv'); ?>">
                         </li>
                         <li>
                             <label>Đơn vị công tác</label>
-                            <input type="text" name="don_vi_cong_tac_nv" class="don_vi_cong_tac_nv" value="<?php echo get_field('don_vi_cong_tac_nv'); ?>" required>
+                            <input type="text" name="don_vi_cong_tac_nv" class="don_vi_cong_tac_nv" value="<?php echo get_field('don_vi_cong_tac_nv'); ?>">
                         </li>
                         <li>
                             <label>Link FB NV</label>
-                            <input type="text" name="link_fb_nv" class="link_fb_nv" value="<?php echo get_field('link_fb_nv'); ?>" required>
+                            <input type="text" name="link_fb_nv" class="link_fb_nv" value="<?php echo get_field('link_fb_nv'); ?>">
                         </li>
                         <li>
                             <label>UIDFB NV</label>
-                            <input type="text" name="uidfb_nv" class="uidfb_nv" value="<?php echo get_field('uidfb_nv'); ?>" required>
+                            <input type="text" name="uidfb_nv" class="uidfb_nv" value="<?php echo get_field('uidfb_nv'); ?>">
                         </li>
                         <div class="get_alert" style="text-align: center;"></div>
                         <?php if($alert){echo $alert;} ?>
