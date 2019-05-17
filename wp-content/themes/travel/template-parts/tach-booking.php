@@ -49,12 +49,6 @@ if($_SESSION['sucess'] == "sucess") {
                             $so_phong_goc = $_POST['so_phong_goc'];
                             $slp_tach = (int)$_POST['so_phong_goc'] - (int)$_POST['sl_gd'];
 
-                            $update_trang_thai_tach_booking = array(
-                                'ID'           => $_POST['id_gd_goc'],
-                            );
-                            $post_update_trang_thai_tach_booking = wp_update_post($update_trang_thai_tach_booking);
-                            update_field( 'trang_thai_tach_booking', 'true', $post_update_trang_thai_tach_booking );
-
                             date_default_timezone_set('Asia/Ho_Chi_Minh');
                             $date_check = date('d-m-Y H:i:s');
 
@@ -69,8 +63,6 @@ if($_SESSION['sucess'] == "sucess") {
                                 while ($query->have_posts()) : $query->the_post();
                                     if (get_field('ma_xac_nhan') == $_POST['ma_xac_nhan']) {
                                         $alert = "<p class='alert_tk_fail'>Mã xác nhận đã tồn tại !</p>";
-                                    }elseif (get_field('ma_gd') == $_POST['ma_gd']) {
-                                        $alert = "<p class='alert_tk_fail'>Mã giao dịch đã tồn tại !</p>";
                                     }elseif($_POST['sl_gd'] < 1){
                                         $alert = "<p class='alert_tk_fail'>Số phòng không được nhỏ hơn 0 !</p>";
                                     }elseif($_POST['sl_gd'] > $so_phong_goc){
@@ -91,6 +83,12 @@ if($_SESSION['sucess'] == "sucess") {
                             }
 
                             if(! isset($alert)){
+                                $update_trang_thai_tach_booking = array(
+                                    'ID'           => $_POST['id_gd_goc'],
+                                );
+                                $post_update_trang_thai_tach_booking = wp_update_post($update_trang_thai_tach_booking);
+                                update_field( 'trang_thai_tach_booking', 'true', $post_update_trang_thai_tach_booking );
+
                                 $add_new_giao_dich = array(
                                     'post_title' => $_POST['ma_gd'],
                                     'post_status' => 'publish',
@@ -943,7 +941,7 @@ if($_SESSION['sucess'] == "sucess") {
                                         </tr>
                                         <tr>
                                             <td colspan="3" align="center">Gói DV - KM bán</td>
-                                            <td colspan="2" align="center">Mã PRO</td>
+                                            <td colspan="2" align="center">Mã KM</td>
                                         </tr>
                                         <tr>
                                             <td colspan="3" align="center">
@@ -1004,7 +1002,7 @@ if($_SESSION['sucess'] == "sucess") {
                                         </tr>
                                         <tr>
                                             <td colspan="3" align="center">Gói DV - KM bán</td>
-                                            <td colspan="2" align="center">Mã PRO</td>
+                                            <td colspan="2" align="center">Mã KM</td>
                                         </tr>
                                         <tr>
                                             <td colspan="3" align="center">

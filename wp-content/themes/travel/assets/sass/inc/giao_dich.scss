@@ -609,6 +609,27 @@ table#show_chat {
   z-index: 9999999999999;
 }
 
+.ly_giai_pt{
+  background: #9bb552a6 !important;
+}
+
+.don_gia_ban_gd,.tong_gd,.don_gia_ban_dt,.tong_dt,.pt_nguoi,
+.pt_giai_doan,.pt_cuoi_tuan,.tong_pt,.tien_chua_pt_khac,
+.tong_phu_thu_khac,.giam_gia_cho_kh_khac,.tong_gia_tri_khac,
+.da_thanh_toan_khac,.kh_con_no_khac,.tien_chua_pt_khac2,
+.tong_phu_thu_khac2,.giam_gia_cua_dt_khac2,.tong_gia_tri_khac2,
+.da_thanh_toan_khac2,.bct_con_no_khac2,.lai_lo_khac,.thue_vat_khac,
+.thue_tndn_khac,.cp_marketing_khac,.cp_hau_can_khac,.cp_hau_mai_khac,
+.cp_co_dinh_khac,.tien_coc_1,.tien_tt_lan_2_1,.tien_tt_lan_3_1,
+.so_tien_hoan_1,.tien_coc_di_2,.tien_di_lan_2_2,.tien_di_lan_3_2,
+.so_tien_hoan_2{
+  text-align: right;
+}
+.so_dem_gd,.con_ngay_gd,.sl_gd,.con_ngay_dt,.con_ngay_thay_doi_dt,
+.sl_dt,.sl_nl,.gp,.sl02,.sl24,.sl46,.sl612{
+  text-align: center;
+}
+
 @media screen and (max-width: 1620px){
   .quantri_admin .content_admin table tr:first-child table tbody tr td:first-child{
     width: 60% !important;

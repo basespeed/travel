@@ -13,6 +13,7 @@ function send_mess() {
     $count_chat = $_POST['count_chat'];
     $reply_chat = $_POST['reply_chat'];
     $id_reply = $_POST['id_reply'];
+    $curren_url_chat = $_POST['curren_url_chat'].'#show_chat';
 
     $update_mess = array(
         'ID'           => $id_reply,
@@ -68,6 +69,45 @@ function send_mess() {
     endwhile;
     endif;
     wp_reset_postdata();
+
+    //add new chat
+    $add_edit_chat = array(
+        'post_title' => $ma_nhan_vien_chat,
+        'post_status' => 'publish',
+        'post_type' => 'note_chat',
+    );
+
+    $post_id_note = wp_insert_post($add_edit_chat);
+
+    $url_current = $curren_url_chat;
+
+    $arr_avatar = array(
+        'post_type' => 'tai_khoan',
+        'posts_per_page' => 6,
+        'meta_query'	=> array(
+            'relation'		=> 'AND',
+            array(
+                'key'	 	=> 'email_tai_khoan',
+                'value'	  	=> $ma_nhan_vien_chat,
+                'compare' 	=> '=',
+            ),
+        ),
+    );
+
+    $query_avatar = new WP_Query($arr_avatar);
+
+    if($query_avatar->have_posts()) : while ($query_avatar->have_posts()) : $query_avatar->the_post();
+        $image_avatar = get_field('hinh_anh_tai_khoan');
+    endwhile;
+    endif;
+    wp_reset_postdata();
+
+    add_post_meta($post_id_note, 'email', $ma_nhan_vien_chat, true);
+    add_post_meta($post_id_note, 'mess', $tin_nhan_chat, true);
+    add_post_meta($post_id_note, 'url', $url_current, true);
+    add_post_meta($post_id_note, 'image', $image_avatar, true);
+
+    wp_send_json_success($post_id_note);
 
     die();
 }
@@ -206,7 +246,7 @@ function load_chat_real_time() {
                     </td>
                     <td bgcolor="#EAF8FF">
                         <select class="muc_do_uu_tien_chat_mess" data-check="<?php echo $muc_do_uu_tien_chat; ?>" disabled>
-                            <option value="" selected disabled hidden>Chọn mức độ ưu tiên</option>
+                            <option value="Thông thường" selected>Thông thường</option>
                             <option value="Luôn và ngay">Luôn và ngay</option>
                             <option value="Trong ngày">Trong ngày</option>
                         </select>
@@ -343,7 +383,7 @@ function load_chat_real_time() {
                                 </td>
                                 <td bgcolor="#EAF8FF">
                                     <select class="muc_do_uu_tien_chat_mess" data-check="<?php echo $muc_do_uu_tien_chat; ?>" disabled>
-                                        <option value="" selected disabled hidden>Chọn mức độ ưu tiên</option>
+                                        <option value="Thông thường" selected>Thông thường</option>
                                         <option value="Luôn và ngay">Luôn và ngay</option>
                                         <option value="Trong ngày">Trong ngày</option>
                                     </select>
@@ -397,6 +437,8 @@ function load_chat_real_time() {
 add_action("wp_ajax_notifications_edit_chat", "notifications_edit_chat");
 add_action("wp_ajax_nopriv_notifications_edit_chat", "notifications_edit_chat");
 
+
+//Thông báo nếu sửa tin nhắn
 function notifications_edit_chat(){
     $id_chat = $_POST['id_chat'];
     $name_chat = $_POST['name_chat'];
@@ -486,38 +528,40 @@ add_action("wp_ajax_nopriv_load_chat_notifications", "load_chat_notifications");
 
 function load_chat_notifications()
 {
-    $show_chat_id = $_POST['show_chat_id'];
-    $count_chat = $_POST['count_chat'];
-    $this_user = $_POST['ma_nhan_vien_chat'];
+    if(isset($_SESSION['sucess'])){
+        $show_chat_id = $_POST['show_chat_id'];
+        $count_chat = $_POST['count_chat'];
+        $this_user = $_POST['ma_nhan_vien_chat'];
 
-    $arr_chat_check = array(
-        'post_type' => 'chat',
-        'posts_per_page' => 1,
-        'order' => 'DESC',
-        'meta_key' => 'id_chat_gd',
-        'meta_value' => '^' . preg_quote($show_chat_id),
-        'meta_compare' => 'RLIKE',
-    );
-    $query_chat_check = new WP_Query($arr_chat_check);
+        $arr_chat_check = array(
+            'post_type' => 'chat',
+            'posts_per_page' => 1,
+            'order' => 'DESC',
+            'meta_key' => 'id_chat_gd',
+            'meta_value' => '^' . preg_quote($show_chat_id),
+            'meta_compare' => 'RLIKE',
+        );
+        $query_chat_check = new WP_Query($arr_chat_check);
 
-    $array = array();
+        $array = array();
 
-    if ($query_chat_check->have_posts()) : while ($query_chat_check->have_posts()) : $query_chat_check->the_post();
-        if(get_field('count_chat') > $count_chat){
-            $array[] = $_SESSION['avatar'];
-            $array[] = get_field('new_chat_id');
-            $array[] = get_field('tin_nhan_chat');
-            $array[] = get_field('curren_url_chat');
-        }else{
+        if ($query_chat_check->have_posts()) : while ($query_chat_check->have_posts()) : $query_chat_check->the_post();
+            if(get_field('count_chat') > $count_chat){
+                $array[] = $_SESSION['avatar'];
+                $array[] = get_field('new_chat_id');
+                $array[] = get_field('tin_nhan_chat');
+                $array[] = get_field('curren_url_chat');
+            }else{
+                $array[] = 'stop';
+            }
+        endwhile;
+        else :
             $array[] = 'stop';
-        }
-    endwhile;
-    else :
-        $array[] = 'stop';
-    endif;
-    wp_reset_postdata();
+        endif;
+        wp_reset_postdata();
 
-    wp_send_json_success($array);
+        wp_send_json_success($array);
+    }
 }
 
 

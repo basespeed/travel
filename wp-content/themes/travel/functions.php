@@ -132,6 +132,7 @@ require get_template_directory() . '/inc/customizer.php';
 require get_template_directory() . '/inc/custom-post-types/giao_dich.php';
 require get_template_directory() . '/inc/custom-post-types/history_giao_dich.php';
 require get_template_directory() . '/inc/custom-post-types/khach_san.php';
+require get_template_directory() . '/inc/custom-post-types/room.php';
 require get_template_directory() . '/inc/custom-post-types/nhan_vien.php';
 require get_template_directory() . '/inc/custom-post-types/ctv.php';
 require get_template_directory() . '/inc/custom-post-types/user.php';
@@ -168,7 +169,6 @@ require get_template_directory() . '/inc/acf/random-field.php';
 if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
-
 
 //paginate
 function Pagination(){

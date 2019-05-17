@@ -70,7 +70,7 @@
                     if($trang_thai_tach_booking != 'true'){
                         if($booking_lk != 'true'){
                             ?>
-                            <form action="<?php echo get_home_url('/'); ?>/them-booking" method="post">
+                            <form action="<?php echo get_home_url('/'); ?>/add-booking" method="post">
                                 <div class="acf-form-submit" style="bottom: 60px;">
                                     <?php
                                     $group_ID = '6';
@@ -754,7 +754,7 @@
                                         </tr>
                                         <tr>
                                             <td colspan="3" align="center">Gói DV - KM bán</td>
-                                            <td colspan="2" align="center">Mã PRO</td>
+                                            <td colspan="2" align="center">Mã KM</td>
                                         </tr>
                                         <tr>
                                             <td colspan="3" align="center">
@@ -836,7 +836,7 @@
                                         </tr>
                                         <tr>
                                             <td colspan="3" align="center">Gói DV - KM bán</td>
-                                            <td colspan="2" align="center">Mã PRO</td>
+                                            <td colspan="2" align="center">Mã KM</td>
                                         </tr>
                                         <tr>
                                             <td colspan="3" align="center">
@@ -1195,7 +1195,7 @@
                                                     </td>
                                                     <td bgcolor="#EAF8FF">
                                                         <select class="muc_do_uu_tien_chat_mess" data-check="<?php echo $muc_do_uu_tien_chat; ?>" disabled>
-                                                            <option value="" selected disabled hidden>Chọn mức độ ưu tiên</option>
+                                                            <option value="Thông thường" selected>Thông thường</option>
                                                             <option value="Luôn và ngay">Luôn và ngay</option>
                                                             <option value="Trong ngày">Trong ngày</option>
                                                         </select>
@@ -1341,7 +1341,7 @@
                                                                 </td>
                                                                 <td bgcolor="#EAF8FF">
                                                                     <select class="muc_do_uu_tien_chat_mess" data-check="<?php echo $muc_do_uu_tien_chat; ?>" disabled>
-                                                                        <option value="" selected disabled hidden>Chọn mức độ ưu tiên</option>
+                                                                        <option value="Thông thường" selected>Thông thường</option>
                                                                         <option value="Luôn và ngay">Luôn và ngay</option>
                                                                         <option value="Trong ngày">Trong ngày</option>
                                                                     </select>
@@ -1387,8 +1387,7 @@
                                             </td>
                                             <td>
                                                 <label>Bộ phận</label>
-                                                <select class="bo_phan_chat">
-                                                    <option value="" selected disabled hidden>Chọn bộ phận</option>
+                                                <select class="bo_phan_chat" data-check="Booking">
                                                     <?php
                                                     $query_bp = new WP_Query(array(
                                                         'post_type' => 'bo_phan',
@@ -1404,8 +1403,8 @@
                                             </td>
                                             <td>
                                                 <label>Mức độ ưu tiên</label>
-                                                <select class="muc_do_uu_tien_chat">
-                                                    <option value="" selected disabled hidden>Chọn mức độ ưu tiên</option>
+                                                <select class="muc_do_uu_tien_chat" data-check="Thông thường">
+                                                    <option value="Thông thường" selected>Thông thường</option>
                                                     <option value="Luôn và ngay">Luôn và ngay</option>
                                                     <option value="Trong ngày">Trong ngày</option>
                                                 </select>

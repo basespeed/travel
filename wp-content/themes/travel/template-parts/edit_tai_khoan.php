@@ -67,7 +67,7 @@ if($_SESSION['sucess'] == "sucess") {
                                 <?php
 
                                 while ($the_query->have_posts()) : $the_query->the_post();
-                                    if(get_field('email_tai_khoan') != 'admin@gmail.com') :
+                                    if(get_field('email_tai_khoan') != 'it.bachchitravel@gmail.com') :
                                         $del = get_delete_post_link(get_the_ID());
                                         ?>
                                         <tr>
@@ -85,7 +85,8 @@ if($_SESSION['sucess'] == "sucess") {
                                                     ?>
                                             <td>
                                                 <?php
-                                                if(get_field('email_tai_khoan') != 'admin@gmail.com'){
+                                                if(get_field('email_tai_khoan') != $_SESSION['mnv']){
+
                                                     ?>
                                                     <a class="edit" href="<?php the_permalink(); ?>"><i
                                                                 class="fa fa-pencil-square-o" aria-hidden="true"></i></a>

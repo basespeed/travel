@@ -43,13 +43,22 @@ if($_SESSION['sucess'] == "sucess") {
                         $this_user = $_SESSION['mnv'];
 
                         $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+                        //Sắp sắp giao dịch
                         if(isset($_GET['sort'])){
-                            if($_GET['sort'] == 'nick'){
-                                $meta_key = 'nick_kgd';
+                            if($_GET['sort'] == 'mgd'){
+                                $meta_key = 'ma_gd_them_booking';
                                 $meta_value_num = 'meta_value';
                                 $order = 'ASC';
-                            }elseif($_GET['sort'] == 'nick_desc'){
-                                $meta_key = 'nick_kgd';
+                            }elseif($_GET['sort'] == 'mgd_desc'){
+                                $meta_key = 'ma_gd_them_booking';
+                                $meta_value_num = 'meta_value';
+                                $order = 'DESC';
+                            }elseif($_GET['sort'] == 'mbk'){
+                                $meta_key = 'ma_gd';
+                                $meta_value_num = 'meta_value';
+                                $order = 'ASC';
+                            }elseif($_GET['sort'] == 'mbk_desc'){
+                                $meta_key = 'ma_gd';
                                 $meta_value_num = 'meta_value';
                                 $order = 'DESC';
                             }elseif($_GET['sort'] == 'kdd'){
@@ -159,31 +168,36 @@ if($_SESSION['sucess'] == "sucess") {
                             );
                         }
 
-
-
                         $the_query = new WP_Query($arr);
                         $n = 1;
                         if ($the_query->have_posts()) :
                             ?>
                             <tr>
-                                <td><strong><a href="<?php echo get_home_url('/'); ?>/giao-dich/?sort=<?php if($_GET['sort'] == 'nick'){echo 'nick_desc'; }else{echo 'nick';}?>">Nick <?php
-                                   if(isset($_GET['sort']) && $_GET['sort'] == 'nick'){
-                                       echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
-                                   }elseif(isset($_GET['sort']) && $_GET['sort'] == 'nick_desc'){
-                                       echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
-                                   }
+                                <td><strong><a href="<?php echo get_home_url('/'); ?>/giao-dich/?sort=<?php if($_GET['sort'] == 'code'){echo 'code_desc'; }else{echo 'code';}?>">CODE <?php
+                                            if(isset($_GET['sort']) && $_GET['sort'] == 'code'){
+                                                echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
+                                            }elseif(isset($_GET['sort']) && $_GET['sort'] == 'code_desc'){
+                                                echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
+                                            }
+                                ?></a></strong></td>
+                                <td><strong><a href="<?php echo get_home_url('/'); ?>/giao-dich/?sort=<?php if($_GET['sort'] == 'mgd'){echo 'mgd_desc'; }else{echo 'mgd';}?>">MGD <?php
+                                            if(isset($_GET['sort']) && $_GET['sort'] == 'mgd'){
+                                                echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
+                                            }elseif(isset($_GET['sort']) && $_GET['sort'] == 'mgd_desc'){
+                                                echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
+                                            }
+                                ?></a></strong></td>
+                                <td><strong><a href="<?php echo get_home_url('/'); ?>/giao-dich/?sort=<?php if($_GET['sort'] == 'mbk'){echo 'mbk_desc'; }else{echo 'mbk';}?>">MBK <?php
+                                            if(isset($_GET['sort']) && $_GET['sort'] == 'mbk'){
+                                                echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
+                                            }elseif(isset($_GET['sort']) && $_GET['sort'] == 'mbk_desc'){
+                                                echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
+                                            }
                                 ?></a></strong></td>
                                 <td><strong><a href="<?php echo get_home_url('/'); ?>/giao-dich/?sort=<?php if($_GET['sort'] == 'kdd'){echo 'kdd_desc'; }else{echo 'kdd';}?>">Khách đại diện <?php
                                     if(isset($_GET['sort']) && $_GET['sort'] == 'kdd'){
                                         echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
                                     }elseif(isset($_GET['sort']) && $_GET['sort'] == 'kdd_desc'){
-                                        echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
-                                    }
-                                ?></a></strong></td>
-                                <td><strong><a href="<?php echo get_home_url('/'); ?>/giao-dich/?sort=<?php if($_GET['sort'] == 'code'){echo 'code_desc'; }else{echo 'code';}?>">CODE <?php
-                                    if(isset($_GET['sort']) && $_GET['sort'] == 'code'){
-                                        echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
-                                    }elseif(isset($_GET['sort']) && $_GET['sort'] == 'code_desc'){
                                         echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
                                     }
                                 ?></a></strong></td>
@@ -260,9 +274,10 @@ if($_SESSION['sucess'] == "sucess") {
                                 $the_permalink = get_permalink();
                                 ?>
                                 <tr>
-                                    <td><?php echo get_field('nick_kgd'); ?></td>
-                                    <td><?php echo get_field('khach_dai_dien_gd'); ?></td>
                                     <td><?php echo get_field('ma_xac_nhan'); ?></td>
+                                    <td><?php echo get_field('ma_gd_them_booking'); ?></td>
+                                    <td><?php echo get_field('ma_gd'); ?></td>
+                                    <td><?php echo get_field('khach_dai_dien_gd'); ?></td>
                                     <td><?php echo get_field('ten_khach_san_gd'); ?></td>
                                     <td><?php
                                         echo get_field('ci_gd');

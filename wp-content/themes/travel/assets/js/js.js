@@ -1,6 +1,7 @@
 ( function( $ ) {
     "use strict";
 
+    //Thêm thư viện parallax
     var testMobile;
     var isMobile = {
         Android: function() {
@@ -67,45 +68,7 @@
         $('.datepicker').data('datepicker');
     }
 
-    function Isotope() {
-        $('.giao_dich_news .khach_hang').isotope({
-            // set itemSelector so .grid-sizer is not used in layout
-            itemSelector: '.item',
-            percentPosition: true,
-            masonry: {
-                // use element for option
-                columnWidth: '.item-sizer'
-            }
-        });
-        $('.giao_dich_news .doi_tac').isotope({
-            // set itemSelector so .grid-sizer is not used in layout
-            itemSelector: '.item',
-            percentPosition: true,
-            masonry: {
-                // use element for option
-                columnWidth: '.item-sizer'
-            }
-        });
-        $('.giao_dich_edits .khach_hang').isotope({
-            // set itemSelector so .grid-sizer is not used in layout
-            itemSelector: '.item',
-            percentPosition: true,
-            masonry: {
-                // use element for option
-                columnWidth: '.item-sizer'
-            }
-        });
-        $('.giao_dich_edits .doi_tac').isotope({
-            // set itemSelector so .grid-sizer is not used in layout
-            itemSelector: '.item',
-            percentPosition: true,
-            masonry: {
-                // use element for option
-                columnWidth: '.item-sizer'
-            }
-        });
-    }
-
+    //Xóa giao dịch
     function ajaxDel() {
         var btn_del = $('.giao_dich_moi .del_edit');
 
@@ -153,6 +116,7 @@
         });
     }
 
+    //selected nếu đã có dữ liệu
     function checkSelect() {
         var ClassSelect = [
             'ten_khach_san_gd',
@@ -181,12 +145,14 @@
             'bo_phan_ctv',
             'khu_vuc_ks',
             'khu_vuc_dt',
+            'bo_phan_chat',
         ];
 
         $.each(ClassSelect , function(index, val) {
             $('.'+val).val($('.'+val).attr('data-check'));
         });
 
+        //Lấy dữ liệu tên và bảng giá phòng theo tên khách sạn
         $('.ten_khach_san_gd').change(function(e){
             e.preventDefault();
             var element = $(this).find('option:selected');
@@ -214,6 +180,7 @@
 
         });
 
+        //Chọn loại phòng thì sẽ hiện ra giá
         $('.loai_phong_ban_gd').on('change', function (e) {
             e.preventDefault();
             var element = $(this).find('option:selected');
@@ -230,6 +197,7 @@
             $('input.don_gia_ban_dt').attr('value', parseInt(price));
         });
 
+        //Auto load tổng giá phòng ở trong ? đêm
         setInterval(function () {
             var sl_gd = $('.sl_gd').val();
             var don_gia_ban_gd = $('.don_gia_ban_gd').val();
@@ -257,6 +225,7 @@
         });
     }
 
+    //Tính số đêm ở, ngày sắp đến check in, ngày được hủy, ngày đc thay đổi khi chọn lịch
     function CountGetData(){
         $('.so_dem_gd').prop('disabled', true);
         $('.con_ngay_gd').prop('disabled', true);
@@ -362,6 +331,7 @@
         }
     }
 
+    //Upload file ảnh đại diện
     function uploadFileImage() {
         var img_screen = $('.anh_dai_dien').val();
         if(typeof img_screen !== 'undefined'){
@@ -380,6 +350,7 @@
             });
         }
 
+        //Auto load thông tin tài khoản real time
         setInterval(function () {
             var email = $('.email_tai_khoan');
             var pass = $('.mat_khau_tai_khoan');
@@ -476,6 +447,7 @@
         },500);
     }
 
+    //Check login
     function checkLogin() {
         var btn_login = $('.sub_login');
 
@@ -508,6 +480,7 @@
         });
     }
 
+    //Check logout
     function checklogout() {
         var BtnLogout = $('.logout');
         BtnLogout.on('click',function () {
@@ -523,6 +496,7 @@
         });
     }
 
+    //edit thanh kéo trượt
     function NiceScroll() {
         $("body,html").niceScroll({
             cursorcolor:"#23262B",
@@ -566,6 +540,7 @@
         });
     }
 
+    //Filter email để thêm tài khoản cho nhân viên
     function search_email() {
         var options = $('.email_tai_khoan option').clone();
         //react on keyup in textbox
@@ -613,6 +588,7 @@
         });
     }
 
+    //Kiểm tra xem tài khoản nào đang online, offline
     function checkOnline() {
         setInterval(function () {
             var search_user_chat = $('.search_user_chat');
@@ -674,6 +650,7 @@
         });
     }
 
+    //Gửi tin nhắn giao dịch
     function SendMessage() {
         var btn_send_chat = $('.btn_send_chat');
 
@@ -727,12 +704,32 @@
                     },
                     success: function(response){
                         $('.send_chat td textarea').val();
+
+                        var id_del = response.data;
+
+                        console.log(response.data);
+
+                        setTimeout(function () {
+                            $.ajax({
+                                type: "post",
+                                dataType: "json",
+                                url: my_ajax_object.ajax_url,
+                                data: {
+                                    action: "notifications_edit_chat_del",
+                                    id_del:id_del,
+                                },
+                                success: function (response) {
+                                    //console.log(response.data);
+                                }
+                            });
+                        },600);
                     }
                 });
             }
         });
 
-        if($('.them_giao_dich').hasClass('sua_giao_dich')) {
+        //Hiện các tin nhắn ở phần giao dịch real time
+        //if($('.them_giao_dich').hasClass('sua_giao_dich')) {
             var loadListMess = setInterval(function () {
                 var show_chat_id = $('.them_giao_dich.sua_giao_dich .show_chat_table').attr('data-id');
                 var count_chat = parseInt($('table.show_chat_table tbody .count_chat').attr('data-count'));
@@ -760,7 +757,7 @@
                     }
                 });
             }, 3000);
-
+            
             var selectCheck = setInterval(function () {
                 $('.muc_do_uu_tien_chat_mess').filter(function () {
                     $(this).val($(this).attr('data-check'));
@@ -770,6 +767,8 @@
                 });
             },500);
 
+            
+            //Hiển thị thông báo thì có tin nhắn mới giao dịch
             setInterval(function () {
                 var show_chat_id = $('.them_giao_dich.sua_giao_dich .show_chat_table').attr('data-id');
                 var count_chat = parseInt($('table.show_chat_table tbody .count_chat').attr('data-count'));
@@ -788,14 +787,11 @@
                     success: function (response) {
                         //console.log(response.data[1] + '--' + ma_nhan_vien_chat);
                         if(response.data[0] != 'stop'){
-                            if(response.data[1] == ma_nhan_vien_chat){
-
+                            /*if(response.data[1] == ma_nhan_vien_chat){
                             }else{
+                            }*/
 
-                                //console.log(response.data[0] + '---' + response.data[1] + '---' + ma_nhan_vien_chat);
-                            }
-
-                            let notify;
+                           /* let notify;
                             if(Notification.permission === 'default'){
                                 //alert('Please allow notification before doing this');
                             }else {
@@ -810,15 +806,16 @@
                                     var url_current = response.data[3]+'#show_chat';
                                     window.open(url_current, '_blank');
                                 }
-                            }
+                            }*/
                         }else{
                             //console.log(response.data[0] + '---' + ma_nhan_vien_chat);
                         }
                     }
                 });
             },3000);
-        }
+        //}
 
+        //Click update tin nhắn sẽ tạm dừng real time tin nhắn
         $(document).on('click','.btn_edit_chat',function (e) {
             e.preventDefault();
             $(this).parent().html('<button type="button" class="btn_update_chat"><i class="fa fa-floppy-o" aria-hidden="true"></i> Update</button>');
@@ -826,6 +823,7 @@
             clearInterval(selectCheck);
         });
 
+        //Trả lời các tin nhắn mới
         $(document).on('click','.show_chat',function (e) {
             e.preventDefault();
             var target = $( e.target );
@@ -862,6 +860,7 @@
             }
         });
 
+        //Update tin nhắn giao dịch
         $(document).on('click','.btn_update_chat',function (e) {
             e.preventDefault();
             $(this).parent().html('<button type="button" class="btn_edit_chat"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>');
@@ -902,6 +901,7 @@
             },500);
         });
 
+        //Không cho nhập thông tin chat nếu người dùng ko ấn vào nút edit chat
         $(document).on('click','.show_chat',function (e) {
             e.preventDefault();
             var target = $( e.target );
@@ -917,6 +917,7 @@
             }
         });
 
+        //click vào edit chat để sửa phần chat
         $(document).on('click','.show_chat',function (e) {
             e.preventDefault();
             var target = $( e.target );
@@ -993,7 +994,7 @@
                                     //console.log(response.data);
                                 }
                             });
-                        },500);
+                        },600);
                     }
                 });
             }
@@ -1003,6 +1004,7 @@
             });
         });
 
+        //Thông báo đã sửa tin nhắn
         setInterval(function () {
             $.ajax({
                 type: "post",
@@ -1049,6 +1051,7 @@
         });
     }
     
+    //Thêm phòng và giá khách sạn
     function AddTypeRoom() {
         var btn_add_rom = $('.add_rom');
         var ten_phong_ks = $('.ten_phong_ks');
@@ -1109,6 +1112,7 @@
 
         },1000);
 
+        //Loại bỏ các cảnh báo
         var at = function( test ) {
             try {
                 if(typeof test === "function") return test();
@@ -1118,7 +1122,8 @@
             }
         };
     }
-    
+
+    //Lấy dữ liệu khách hàng khi nhập đúng tên khách vào phần nhập giao dịch
     function getDataClient() {
         $('.khach_dai_dien_gd').on('keyup', function () {
             var keyword = $(this).val();
@@ -1346,6 +1351,7 @@
         });
     }
 
+    //Gửi mã code vào email để lấy lại mật khẩu
     function forget_email() {
         var sub_forget = $('.sub_forget');
         var sub_pass_forget = $('.sub_pass_forget');
@@ -1426,7 +1432,6 @@
 
     function _init() {
         base();
-        Isotope();
         datePicker();
         ajaxDel();
         CountGetData();

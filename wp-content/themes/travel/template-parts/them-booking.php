@@ -1,6 +1,6 @@
 <?php
 /*
- * Template Name: Thêm booking*/
+ * Template Name: add booking*/
 
 if($_SESSION['sucess'] == "sucess") {
 
@@ -38,17 +38,11 @@ if($_SESSION['sucess'] == "sucess") {
 
             <div class="content_admin">
                 <div class="them_giao_dich">
-                    <form action="<?php echo home_url('/'); ?>them-booking" method="post">
+                    <form action="<?php echo home_url('/'); ?>add-booking" method="post">
                         <input type="hidden" name="id_gd_goc" value="<?php echo $_POST['id_gd_goc']; ?>">
                         <?php
                         $id_gd = $_POST['id_gd_goc'];
-                        if (isset($_POST['sub_new_giao_dich'])) {
-                            $update_trang_thai_tach_booking = array(
-                                'ID'           => $_POST['id_gd_goc'],
-                            );
-                            $post_update_trang_thai_tach_booking = wp_update_post($update_trang_thai_tach_booking);
-                            update_field( 'trang_thai_tach_booking', 'true', $post_update_trang_thai_tach_booking );
-
+                        if (isset($_POST['sub_new_booking'])) {
                             date_default_timezone_set('Asia/Ho_Chi_Minh');
                             $date_check = date('d-m-Y H:i:s');
 
@@ -63,23 +57,27 @@ if($_SESSION['sucess'] == "sucess") {
                                 while ($query->have_posts()) : $query->the_post();
                                     if (get_field('ma_xac_nhan') == $_POST['ma_xac_nhan']) {
                                         $alert = "<p class='alert_tk_fail'>Mã xác nhận đã tồn tại !</p>";
-                                    }elseif (get_field('ma_gd') == $_POST['ma_gd']) {
-                                        $alert = "<p class='alert_tk_fail'>Mã giao dịch đã tồn tại !</p>";
                                     }
                                 endwhile;
                                 wp_reset_postdata();
                             }
 
                             if(! isset($alert)){
-                                $add_new_giao_dich = array(
+                                /*$update_trang_thai_tach_booking = array(
+                                    'ID'           => $_POST['id_gd_goc'],
+                                );
+                                $post_update_trang_thai_tach_booking = wp_update_post($update_trang_thai_tach_booking);
+                                update_field( 'trang_thai_tach_booking', 'true', $post_update_trang_thai_tach_booking );*/
+
+                                $add_new_booking = array(
                                     'post_title' => $_POST['ma_gd'],
                                     'post_status' => 'publish',
                                     'post_type' => 'giao_dich',
                                 );
 
-                                $post_id = wp_insert_post($add_new_giao_dich);
+                                $post_id_add_booking = wp_insert_post($add_new_booking);
 
-                                add_post_meta($post_id, 'ma_gd_them_booking', $_POST['ma_gd_them_booking'], true);
+                                add_post_meta($post_id_add_booking, 'ma_gd_them_booking', $_POST['ma_gd_them_booking'], true);
 
                                 $group_ID = '6';
                                 $fields = acf_get_fields($group_ID);
@@ -89,113 +87,111 @@ if($_SESSION['sucess'] == "sucess") {
                                         if(!empty($dob_str)){
                                             $date = DateTime::createFromFormat('d/m/Y', $dob_str);
                                             $date = $date->format('Ymd');
-                                            update_field('ci_gd', $date, $post_id);
+                                            update_field('ci_gd', $date, $post_id_add_booking);
                                         }
                                     }elseif($field['name'] == 'co_gd'){
                                         $dob_str = $_POST['co_gd'];
                                         if(!empty($dob_str)){
                                             $date = DateTime::createFromFormat('d/m/Y', $dob_str);
                                             $date = $date->format('Ymd');
-                                            update_field('co_gd', $date, $post_id);
+                                            update_field('co_gd', $date, $post_id_add_booking);
                                         }
                                     }elseif($field['name'] == 'ngay_duoc_huy'){
                                         $dob_str = $_POST['ngay_duoc_huy'];
                                         if(!empty($dob_str)){
                                             $date = DateTime::createFromFormat('d/m/Y', $dob_str);
                                             $date = $date->format('Ymd');
-                                            update_field('ngay_duoc_huy', $date, $post_id);
+                                            update_field('ngay_duoc_huy', $date, $post_id_add_booking);
                                         }
                                     }elseif($field['name'] == 'ngay_duoc_thay_doi'){
                                         $dob_str = $_POST['ngay_duoc_thay_doi'];
                                         if(!empty($dob_str)){
                                             $date = DateTime::createFromFormat('d/m/Y', $dob_str);
                                             $date = $date->format('Ymd');
-                                            update_field('ngay_duoc_thay_doi', $date, $post_id);
+                                            update_field('ngay_duoc_thay_doi', $date, $post_id_add_booking);
                                         }
                                     }elseif($field['name'] == 'ngay_yeu_cau_kh_hoan_tat_tt_khac'){
                                         $dob_str = $_POST['ngay_yeu_cau_kh_hoan_tat_tt_khac'];
                                         if(!empty($dob_str)){
                                             $date = DateTime::createFromFormat('d/m/Y', $dob_str);
                                             $date = $date->format('Ymd');
-                                            update_field('ngay_yeu_cau_kh_hoan_tat_tt_khac', $date, $post_id);
+                                            update_field('ngay_yeu_cau_kh_hoan_tat_tt_khac', $date, $post_id_add_booking);
                                         }
                                     }elseif($field['name'] == 'ngay_phai_hoan_tat_tt_cho_ks_khac2'){
                                         $dob_str = $_POST['ngay_phai_hoan_tat_tt_cho_ks_khac2'];
                                         if(!empty($dob_str)){
                                             $date = DateTime::createFromFormat('d/m/Y', $dob_str);
                                             $date = $date->format('Ymd');
-                                            update_field('ngay_phai_hoan_tat_tt_cho_ks_khac2', $date, $post_id);
+                                            update_field('ngay_phai_hoan_tat_tt_cho_ks_khac2', $date, $post_id_add_booking);
                                         }
                                     }elseif($field['name'] == 'ngay_coc_1'){
                                         $dob_str = $_POST['ngay_coc_1'];
                                         if(!empty($dob_str)){
                                             $date = DateTime::createFromFormat('d/m/Y', $dob_str);
                                             $date = $date->format('Ymd');
-                                            update_field('ngay_coc_1', $date, $post_id);
+                                            update_field('ngay_coc_1', $date, $post_id_add_booking);
                                         }
                                     }elseif($field['name'] == 'ngay_tt_lan_2_1'){
                                         $dob_str = $_POST['ngay_tt_lan_2_1'];
                                         if(!empty($dob_str)){
                                             $date = DateTime::createFromFormat('d/m/Y', $dob_str);
                                             $date = $date->format('Ymd');
-                                            update_field('ngay_tt_lan_2_1', $date, $post_id);
+                                            update_field('ngay_tt_lan_2_1', $date, $post_id_add_booking);
                                         }
                                     }elseif($field['name'] == 'ngay_tt_lan_3_1'){
                                         $dob_str = $_POST['ngay_tt_lan_3_1'];
                                         if(!empty($dob_str)){
                                             $date = DateTime::createFromFormat('d/m/Y', $dob_str);
                                             $date = $date->format('Ymd');
-                                            update_field('ngay_tt_lan_3_1', $date, $post_id);
+                                            update_field('ngay_tt_lan_3_1', $date, $post_id_add_booking);
                                         }
                                     }elseif($field['name'] == 'ngay_hoan_tien_1'){
                                         $dob_str = $_POST['ngay_hoan_tien_1'];
                                         if(!empty($dob_str)){
                                             $date = DateTime::createFromFormat('d/m/Y', $dob_str);
                                             $date = $date->format('Ymd');
-                                            update_field('ngay_hoan_tien_1', $date, $post_id);
+                                            update_field('ngay_hoan_tien_1', $date, $post_id_add_booking);
                                         }
                                     }elseif($field['name'] == 'ngay_phai_coc_di_2'){
                                         $dob_str = $_POST['ngay_phai_coc_di_2'];
                                         if(!empty($dob_str)){
                                             $date = DateTime::createFromFormat('d/m/Y', $dob_str);
                                             $date = $date->format('Ymd');
-                                            update_field('ngay_phai_coc_di_2', $date, $post_id);
+                                            update_field('ngay_phai_coc_di_2', $date, $post_id_add_booking);
                                         }
                                     }elseif($field['name'] == 'ngay_phai_di_lan_2_2'){
                                         $dob_str = $_POST['ngay_phai_di_lan_2_2'];
                                         if(!empty($dob_str)){
                                             $date = DateTime::createFromFormat('d/m/Y', $dob_str);
                                             $date = $date->format('Ymd');
-                                            update_field('ngay_phai_di_lan_2_2', $date, $post_id);
+                                            update_field('ngay_phai_di_lan_2_2', $date, $post_id_add_booking);
                                         }
                                     }elseif($field['name'] == 'ngay_phai_di_lan_3_2'){
                                         $dob_str = $_POST['ngay_phai_di_lan_3_2'];
                                         if(!empty($dob_str)){
                                             $date = DateTime::createFromFormat('d/m/Y', $dob_str);
                                             $date = $date->format('Ymd');
-                                            update_field('ngay_phai_di_lan_3_2', $date, $post_id);
+                                            update_field('ngay_phai_di_lan_3_2', $date, $post_id_add_booking);
                                         }
                                     }elseif($field['name'] == 'ngay_hoan_tien_2'){
                                         $dob_str = $_POST['ngay_hoan_tien_2'];
                                         if(!empty($dob_str)){
                                             $date = DateTime::createFromFormat('d/m/Y', $dob_str);
                                             $date = $date->format('Ymd');
-                                            update_field('ngay_hoan_tien_2', $date, $post_id);
+                                            update_field('ngay_hoan_tien_2', $date, $post_id_add_booking);
                                         }
                                     }elseif($field['name'] == 'ma_gd_them_booking'){
 
                                     }else{
                                         if($field['name'] != ""){
-                                            add_post_meta($post_id, $field['name'], $_POST[$field['name']], true);
+                                            add_post_meta($post_id_add_booking, $field['name'], $_POST[$field['name']], true);
                                         }
                                     }
                                 }
 
-
                                 //lịch sử giao dịch
                                 $add_lich_su_giao_dich = array(
                                     'post_title' => $_POST['ma_gd'],
-                                    'post_status' => 'publish',
                                     'post_type' => 'history_giao_dich',
                                 );
 
@@ -675,7 +671,7 @@ if($_SESSION['sucess'] == "sucess") {
                                         </tr>
                                         <tr>
                                             <td colspan="3" align="center">Gói DV - KM bán</td>
-                                            <td colspan="2" align="center">Mã PRO</td>
+                                            <td colspan="2" align="center">Mã KM</td>
                                         </tr>
                                         <tr>
                                             <td colspan="3" align="center">
@@ -736,7 +732,7 @@ if($_SESSION['sucess'] == "sucess") {
                                         </tr>
                                         <tr>
                                             <td colspan="3" align="center">Gói DV - KM bán</td>
-                                            <td colspan="2" align="center">Mã PRO</td>
+                                            <td colspan="2" align="center">Mã KM</td>
                                         </tr>
                                         <tr>
                                             <td colspan="3" align="center">
@@ -1278,7 +1274,7 @@ if($_SESSION['sucess'] == "sucess") {
                         </table>
 
                         <div class="acf-form-submit">
-                            <input type="submit" name="sub_new_giao_dich" class="sub_new_giao_dich" value="Lưu lại">
+                            <input type="submit" name="sub_new_booking" class="sub_new_giao_dich" value="Lưu lại">
                         </div>
 
                     </form>
