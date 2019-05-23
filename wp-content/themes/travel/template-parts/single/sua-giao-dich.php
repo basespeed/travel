@@ -402,26 +402,67 @@
                                         <td align="center"></td>
                                         <tr>
                                             <td width="50%">
-                                                <select name="ten_khach_san_gd" class="ten_khach_san_gd" data-check="<?php echo get_field('ten_khach_san_gd'); ?>" required>
-                                                    <option value="" selected disabled hidden>Chọn tên khách sạn</option>
-                                                    <?php
-                                                    //list danh sách khách sạn
-                                                    $query = new WP_Query(array(
-                                                        'post_type' => 'khach_san',
-                                                    ));
+                                                <input type="text" name="ten_khach_san_gd_val" class="ten_khach_san_gd_val" value="<?php
+                                                    if(!empty(get_field('ten_khach_san_gd'))){
+                                                        $ten_khach_san_gd = get_field('ten_khach_san_gd');
+                                                        if ( (int)$ten_khach_san_gd == $ten_khach_san_gd ) {
+                                                            $query_name_hotel = new WP_Query(array(
+                                                                'post_type' => 'hotel',
+                                                                'p' => get_field('ten_khach_san_gd'),
+                                                                'posts_per_page' => 1,
+                                                            ));
 
-                                                    if($query->have_posts()) : while ($query->have_posts()) : $query->the_post();
-                                                        ?>
-                                                        <option value="<?php echo get_field('ten_ks'); ?>" data-room="<?php echo $str = get_field('loai_phong_ks');?>" data-id="<?php echo get_field('ma_ks'); ?>"><?php echo get_field('ten_ks'); ?></option>
-                                                    <?php
-                                                    endwhile;
-                                                    endif;
-                                                    wp_reset_postdata();
-                                                    ?>
-                                                </select>
+                                                            if($query_name_hotel->have_posts()) : while ($query_name_hotel->have_posts()) : $query_name_hotel->the_post();
+                                                                echo get_the_title();
+                                                            endwhile;
+                                                            else :
+                                                                echo get_field('ten_khach_san_gd');
+                                                            endif;
+                                                            wp_reset_postdata();
+                                                        }else{
+                                                            echo get_field('ten_khach_san_gd');
+                                                        }
+                                                    }
+                                                ?>" required>
+                                                <input type="hidden" name="ten_khach_san_gd" class="ten_khach_san_gd" value="<?php echo get_field('ten_khach_san_gd'); ?>">
+                                                <div class="pop_ten_khach_san_gd">
+                                                    <ul>
+                                                        <li>Hotel name</li>
+                                                        <li>Numberrooms</li>
+                                                        <li>City</li>
+                                                        <li>State</li>
+                                                        <li>Country</li>
+                                                    </ul>
+                                                    <div class="list_show">
+                                                        <p>Không tìm thấy dữ liệu !</p>
+                                                    </div>
+                                                </div>
                                             </td>
                                             <td>
-                                                <input type="text" name="ma_dich_vu_gd" class="ma_dich_vu_gd" value="<?php echo get_field('ma_dich_vu_gd'); ?>" required/>
+                                                <input type="text" name="ma_dich_vu_gd_val" class="ma_dich_vu_gd_val" value="<?php
+                                                if(!empty(get_field('ma_dich_vu_gd'))){
+                                                    $ma_dich_vu_gd = get_field('ma_dich_vu_gd');
+                                                    if ( (int)$ma_dich_vu_gd == $ma_dich_vu_gd ) {
+                                                        $query_name_hotel = new WP_Query(array(
+                                                            'post_type' => 'hotel',
+                                                            'p' => get_field('ma_dich_vu_gd'),
+                                                            'posts_per_page' => 1,
+                                                        ));
+
+                                                        if($query_name_hotel->have_posts()) : while ($query_name_hotel->have_posts()) : $query_name_hotel->the_post();
+                                                            //echo get_the_title();
+                                                            echo to_slug(get_the_title()).'-'.get_the_ID();
+                                                        endwhile;
+                                                        else :
+                                                            echo get_field('ma_dich_vu_gd');
+                                                        endif;
+                                                        wp_reset_postdata();
+                                                    }else{
+                                                        echo get_field('ma_dich_vu_gd');
+                                                    }
+                                                }
+                                                ?>" required/>
+                                                <input type="hidden" name="ma_dich_vu_gd" class="ma_dich_vu_gd" value="<?php echo get_field('ma_dich_vu_gd'); ?>" />
                                             </td>
                                         </tr>
                                         </tbody>
@@ -439,7 +480,7 @@
                                                     //List các địa điểm đi và đến
                                                     $query_khach_san = new WP_Query(array(
                                                         'post_type' => 'dia_diem_local',
-                                                        'posts_type' => 15,
+                                                        'posts_per_page' => 64,
                                                     ));
                                                     if($query_khach_san->have_posts()) : while ($query_khach_san->have_posts()) : $query_khach_san->the_post();
                                                         ?><option value="<?php the_title(); ?>"><?php the_title(); ?></option><?php
@@ -455,7 +496,7 @@
                                                     //List các địa điểm đi và đến
                                                     $query_khach_san = new WP_Query(array(
                                                         'post_type' => 'dia_diem_local',
-                                                        'posts_type' => 15,
+                                                        'posts_per_page' => 64,
                                                     ));
                                                     if($query_khach_san->have_posts()) : while ($query_khach_san->have_posts()) : $query_khach_san->the_post();
                                                         ?><option value="<?php the_title(); ?>"><?php the_title(); ?></option><?php
@@ -521,7 +562,7 @@
                                                     //List các địa điểm đi và đến
                                                     $query_khach_san = new WP_Query(array(
                                                         'post_type' => 'dia_diem_local',
-                                                        'posts_type' => 15,
+                                                        'posts_per_page' => 64,
                                                     ));
                                                     if($query_khach_san->have_posts()) : while ($query_khach_san->have_posts()) : $query_khach_san->the_post();
                                                         ?><option value="<?php the_title(); ?>"><?php the_title(); ?></option><?php
@@ -537,7 +578,7 @@
                                                     //List các địa điểm đi và đến
                                                     $query_khach_san = new WP_Query(array(
                                                         'post_type' => 'dia_diem_local',
-                                                        'posts_type' => 15,
+                                                        'posts_per_page' => 64,
                                                     ));
                                                     if($query_khach_san->have_posts()) : while ($query_khach_san->have_posts()) : $query_khach_san->the_post();
                                                         ?><option value="<?php the_title(); ?>"><?php the_title(); ?></option><?php
@@ -715,7 +756,7 @@
                                         </tr>
                                         <tr>
                                             <td width="35%">
-                                                <select name="loai_phong_ban_gd" class="loai_phong_ban_gd" data-check="<?php echo get_field('loai_phong_ban_gd'); ?>" required>
+                                                <select name="loai_phong_ban_gd" class="loai_phong_ban_gd" data-check="<?php echo get_field('loai_phong_ban_gd'); ?>">
                                                     <option value="" selected disabled hidden>Chọn loại phòng</option>
                                                     <?php
                                                     $query_khach_san = new WP_Query(array(
@@ -797,7 +838,7 @@
                                         </tr>
                                         <tr>
                                             <td width="35%">
-                                                <select name="loai_phong_ban_dt" class="loai_phong_ban_dt" data-check="<?php echo get_field('loai_phong_ban_dt'); ?>" required>
+                                                <select name="loai_phong_ban_dt" class="loai_phong_ban_dt" data-check="<?php echo get_field('loai_phong_ban_dt'); ?>">
                                                     <option value="" selected disabled hidden>Chọn loại phòng</option>
                                                     <?php
                                                     $query_khach_san = new WP_Query(array(
@@ -1161,8 +1202,15 @@
                                                                 $query_avatar = new WP_Query($arr_avatar);
 
                                                                 if($query_avatar->have_posts()) : while ($query_avatar->have_posts()) : $query_avatar->the_post();
-                                                                    echo $img_a = get_field('hinh_anh_tai_khoan');
+                                                                    $img_a = get_field('hinh_anh_tai_khoan');
+                                                                    if(!empty($img_a)){
+                                                                        echo $img_a;
+                                                                    }else{
+                                                                        echo get_template_directory_uri().'/assets/images/user.jpg';
+                                                                    }
                                                                 endwhile;
+                                                                else:
+                                                                    echo get_template_directory_uri().'/assets/images/user.jpg';
                                                                 endif;
                                                                 wp_reset_postdata();
                                                             ?>" alt="avatar"></div>
@@ -1306,8 +1354,15 @@
                                                                             $query_avatar = new WP_Query($arr_avatar);
 
                                                                             if($query_avatar->have_posts()) : while ($query_avatar->have_posts()) : $query_avatar->the_post();
-                                                                                echo $img_a = get_field('hinh_anh_tai_khoan');
+                                                                                $img_a = get_field('hinh_anh_tai_khoan');
+                                                                                if(!empty($img_a)){
+                                                                                    echo $img_a;
+                                                                                }else{
+                                                                                    echo get_template_directory_uri().'/assets/images/user.jpg';
+                                                                                }
                                                                             endwhile;
+                                                                            else:
+                                                                                echo get_template_directory_uri().'/assets/images/user.jpg';
                                                                             endif;
                                                                             wp_reset_postdata();
                                                                         ?>" alt="avatar"></div>

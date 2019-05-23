@@ -74,7 +74,11 @@ function travel_scripts() {
 	wp_enqueue_script( 'parallax-js', get_template_directory_uri() . '/assets/js/parallax.js', array(), false, true );
 	wp_enqueue_script( 'nicescroll-js', get_template_directory_uri() . '/assets/js/jquery.nicescroll.min.js', array(), false, true );
     wp_enqueue_script( 'iframehelper-js', get_template_directory_uri() . '/assets/js/jquery.nicescroll.iframehelper.min.js', array(), false, true );
-    wp_enqueue_script( 'select2-js', get_template_directory_uri() . '/assets/js/select2.full.min.js', array(), false, true );
+    wp_enqueue_script( 'jquery_form-js', get_template_directory_uri() . '/assets/js/jquery.form.js', array(), false, true );
+    wp_enqueue_script( 'picturefill-js', get_template_directory_uri() . '/assets/js/picturefill.min.js', array(), false, true );
+    wp_enqueue_script( 'lightgallery-js', get_template_directory_uri() . '/assets/js/lightgallery-all.min.js', array(), false, true );
+    wp_enqueue_script( 'mousewheel-js', get_template_directory_uri() . '/assets/js/jquery.mousewheel.min.js', array(), false, true );
+    //wp_enqueue_script( 'jquery-ui-js',  'https://code.jquery.com/ui/1.12.0/jquery-ui.js', array(), false, true );
 	wp_enqueue_script( 'travel-js', get_template_directory_uri() . '/assets/js/js.js', array(), false, true );
 
     wp_localize_script( 'travel-js', 'my_ajax_object', array( 'ajax_url' => get_template_directory_uri().'/inc/ajax/admin-ajax.php' ) ); //admin_url( 'admin-ajax.php' )
@@ -93,6 +97,8 @@ function wp_style() {
     wp_enqueue_style( 'Roboto' );
     wp_register_style( 'datepicker', get_template_directory_uri() .'/assets/css/datepicker.min.css', array(), false);
     wp_enqueue_style( 'datepicker' );
+    wp_register_style( 'lightgallery', get_template_directory_uri() .'/assets/css/lightgallery.min.css', array(), false);
+    wp_enqueue_style( 'lightgallery' );
     wp_register_style( 'animate', get_template_directory_uri() .'/assets/css/animate.css', array(), false);
     wp_enqueue_style( 'animate' );
     wp_register_style( 'awesome', get_template_directory_uri() .'/assets/css/font-awesome.min.css', array(), false);
@@ -157,6 +163,8 @@ require get_template_directory() . '/inc/ajax/ajax-chat.php';
 require get_template_directory() . '/inc/ajax/ajax-send-mess.php';
 require get_template_directory() . '/inc/ajax/ajax-khach-hang.php';
 require get_template_directory() . '/inc/ajax/ajax_email.php';
+require get_template_directory() . '/inc/ajax/excel_hotel.php';
+require get_template_directory() . '/inc/ajax/ajax-khach-san.php';
 
 /**
  * ACF.
@@ -259,3 +267,17 @@ add_action('init','jal_install');*/
 
 if ( !current_user_can( $post_type_object->cap->delete_post, $post->ID ) )
     return;
+
+function to_slug($str) {
+    $str = trim(mb_strtolower($str));
+    $str = preg_replace('/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/', 'a', $str);
+    $str = preg_replace('/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/', 'e', $str);
+    $str = preg_replace('/(ì|í|ị|ỉ|ĩ)/', 'i', $str);
+    $str = preg_replace('/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/', 'o', $str);
+    $str = preg_replace('/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/', 'u', $str);
+    $str = preg_replace('/(ỳ|ý|ỵ|ỷ|ỹ)/', 'y', $str);
+    $str = preg_replace('/(đ)/', 'd', $str);
+    $str = preg_replace('/[^a-z0-9-\s]/', '', $str);
+    $str = preg_replace('/([\s]+)/', '-', $str);
+    return $str;
+}

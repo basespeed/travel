@@ -52,9 +52,20 @@
 
 .add_hotel{
   display: flex;
-  .item:nth-child(2){
-    width: 500px;
-    margin-left: 15px;
+  flex-wrap: wrap;
+  h1{
+    text-align: left;
+    font-size: 16px;
+    width: 100%;
+    margin: 0px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }
+  .item{
+    width: 100%;
+    ul{
+      padding:10px 5px;
+    }
     li{
       width: 100%;
       .loai_phong{
@@ -98,6 +109,301 @@
     li:last-child{
       width: 100% !important;
     }
+    .show_list_ds{
+      margin-left: 15px;
+    }
+  }
+  .item:nth-child(1){
+    ul{
+      width: 100%;
+      padding:10px 5px;
+      li{
+        width: 16.66%;
+        input{
+          height: 25px;
+        }
+      }
+      li:last-child{
+        width: 16.66% !important;
+      }
+    }
+  }
+  .view_detail_hotel{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    button{
+      border: none;
+      height: 30px;
+      width: 100px;
+      margin: 0px;
+      border-radius: 25px;
+      padding: 0px;
+      outline: none;
+      line-height: 25px;
+      background: #F1B254;
+      text-transform: uppercase;
+      font-weight: bold;
+      color: #ffffff;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+    input{
+      height: 30px;
+      width: 400px;
+      border-radius: 0px;
+      outline: none;
+      margin-left: 10px;
+    }
+  }
+  .item.gallery{
+    ul{
+      width: calc(100% + 1px);
+      display: flex;
+      flex-wrap: wrap;
+      padding: 12px 0px;
+      padding-bottom: 0px;
+      min-height: 225px;
+      li{
+        width: 20%;
+        margin: 0px;
+        cursor: pointer;
+        margin-bottom: 15px;
+        position: relative;
+        &:hover{
+          cursor: zoom-in;
+        }
+        .btn_add_img{
+          cursor: pointer;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%,-50%);
+          z-index: 10;
+          button,input{
+            width: 100px;
+            height: 30px;
+            background: forestgreen;
+            color: #FFF;
+            font-weight: bold;
+            outline: none;
+            border: none;
+            border-radius: 25px;
+          }
+          input{
+            position: absolute;
+            top: -15px;
+            left: -50px;
+            opacity: 0;
+            z-index: 100;
+            &:hover{
+              cursor: pointer;
+            }
+          }
+        }
+        #upload_button input[type=file] {
+          display:none;
+        }
+        .img{
+          position: relative;
+          &:after{
+            content: "";
+            top: 0px;
+            right: 0px;
+            bottom: 0px;
+            left: 0px;
+            background: rgba(0,0,0,0.3);
+            position: absolute;
+            z-index: 10;
+            display: none;
+          }
+        }
+        .img.active{
+          &:after{
+            display: block;
+          }
+        }
+        i{
+          color: #FFF;
+          font-size: 24px;
+          position: absolute;
+          right: 12px;
+          top: 0px;
+          padding: 10px;
+          z-index: 20;
+          transition: 0.5s;
+          &:hover{
+            cursor: pointer;
+            color: darkred;
+          }
+        }
+        .fa-search{
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%,-50%);
+          text-align: center;
+        }
+        .img{
+          background-repeat: no-repeat !important;
+          background-position: center center !important;
+          background-size: cover !important;
+          padding:100px 5px;
+          box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.1);
+          //transform: perspective(200px);
+        }
+      }
+      li:last-child{
+        width: 20% !important;
+      }
+    }
+  }
+}
+.active-draggable{
+  .img{
+    transform: rotate(4deg) !important;
+  }
+
+}
+.scene {
+  width: 200px;
+  height: 200px;
+  //border: 1px solid #CCC;
+  margin: 80px;
+  perspective: 400px;
+  .cube {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: translateZ(-100px);
+    transition: transform 1s;
+    &:hover{
+      transform: translateZ(-100px) rotateY(-180deg);
+    }
+  }
+
+  .cube.show-front  { transform: translateZ(-100px) rotateY(   0deg); }
+  .cube.show-right  { transform: translateZ(-100px) rotateY( -90deg); }
+  .cube.show-back   { transform: translateZ(-100px) rotateY(-180deg); }
+  .cube.show-left   { transform: translateZ(-100px) rotateY(  90deg); }
+  .cube.show-top    { transform: translateZ(-100px) rotateX( -90deg); }
+  .cube.show-bottom { transform: translateZ(-100px) rotateX(  90deg); }
+
+  .cube__face {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border: 2px solid black;
+    line-height: 200px;
+    font-size: 40px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+  }
+
+  .cube__face--front  { background: rgba(  220,80,68, 0.9); }
+  .cube__face--right  { background: rgba( 236,178,84, 0.9); }
+  .cube__face--back   { background: rgba( 59,121,253, 0.9); }
+  .cube__face--left   { background: rgba(4,4,4, 0.9); }
+  .cube__face--top    { background: rgba(252,221,63, 0.9); }
+  .cube__face--bottom { background: rgba(50,55,60, 0.9); }
+
+  .cube__face--front  { transform: rotateY(  0deg) translateZ(100px); }
+  .cube__face--right  { transform: rotateY( 90deg) translateZ(100px); }
+  .cube__face--back   { transform: rotateY(180deg) translateZ(100px); }
+  .cube__face--left   { transform: rotateY(-90deg) translateZ(100px); }
+  .cube__face--top    { transform: rotateX( 90deg) translateZ(100px); }
+  .cube__face--bottom { transform: rotateX(-90deg) translateZ(100px); }
+}
+
+
+
+
+.ui-sortable-handle{
+  transform: rotate(0deg);
+}
+.hide{
+  display: none;
+}
+select{
+  max-height: 300px;
+  overflow-y: scroll;
+}
+.load_url_iframe{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 999999;
+  background: rgba(0,0,0,0.6);
+  top: 0px;
+  left: 0px;
+  display: none;
+  .screen{
+    width: 90%;
+    margin-left: 5%;
+    height: 90vh;
+    margin-top: 5vh;
+    background: #FFF;
+    border: 4px solid orange;
+    iframe{
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+#lightgallery{
+  position: relative;
+}
+
+.btn_close{
+  background: none;
+  color: red;
+  outline: none;
+  border: none;
+  position: fixed;
+  right: 3%;
+  top: 5vh;
+  font-size: 28px;
+  padding: 0px;
+  cursor: pointer;
+}
+
+.lg-outer{
+  z-index: 999999999999999;
+}
+
+.pop_ten_khach_san_gd{
+  ul{
+    li{
+      width: 13.33% !important;
+      justify-content: center;
+      input{
+        text-align: center;
+      }
+      span{
+        strong{
+          color: #2A7AFE;
+        }
+      }
+    }
+    li:nth-child(1){
+      width: 30% !important;
+      justify-content: start;
+    }
+    li:nth-child(4){
+      width: 30% !important;
+    }
+  }
+}
+
+.list_show{
+  li{
+    strong{
+      color: #2A7AFE;
+    }
+    overflow: hidden;
   }
 }
 
@@ -337,7 +643,7 @@ ul.price_count{
 
 .quantri_admin .them_giao_dich table table td{
   position: relative;
-  .popup_get_data_list,.popup_get_data_list_nv{
+  .popup_get_data_list,.popup_get_data_list_nv,.pop_ten_khach_san_gd{
     position: absolute;
     width: 713px;
     display: none;
@@ -628,6 +934,32 @@ table#show_chat {
 .so_dem_gd,.con_ngay_gd,.sl_gd,.con_ngay_dt,.con_ngay_thay_doi_dt,
 .sl_dt,.sl_nl,.gp,.sl02,.sl24,.sl46,.sl612{
   text-align: center;
+}
+
+.file_excel{
+  display: none;
+}
+
+.load_upload_excel{
+  display: none;
+    i{
+      font-size: 16px;
+      -webkit-animation:spin 2s linear infinite;
+      -moz-animation:spin 2s linear infinite;
+      animation:spin 2s linear infinite;
+      margin-top: 6px !important;
+    }
+  @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+  @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+  @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+}
+
+.page-template-edit_nhan_vien .giao_dich_moi table tr td span.hide_active{
+  display: none;
+}
+
+.page-template-edit_nhan_vien .giao_dich_moi table tr td span:first-child.hide_active{
+  display: block;
 }
 
 @media screen and (max-width: 1620px){

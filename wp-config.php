@@ -81,6 +81,9 @@ $table_prefix = 'traveler_';
  */
 define( 'WP_DEBUG', false );
 
+define( 'WP_MEMORY_LIMIT', '512M' );
+
+
 /* That's all, stop editing! Happy publishing. */
 
 /** Absolute path to the WordPress directory. */

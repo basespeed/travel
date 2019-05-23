@@ -212,8 +212,14 @@ function load_chat_real_time() {
 
                                     if($query_avatar->have_posts()) : while ($query_avatar->have_posts()) : $query_avatar->the_post();
                                         $img_a = get_field('hinh_anh_tai_khoan');
-                                        echo $img_a;
+                                        if(!empty($img_a)){
+                                            echo $img_a;
+                                        }else{
+                                            echo get_template_directory_uri().'/assets/images/user.jpg';
+                                        }
                                     endwhile;
+                                    else:
+                                        echo get_template_directory_uri().'/assets/images/user.jpg';
                                     endif;
                                     wp_reset_postdata();
                             ?>" alt="avatar"></div>
@@ -349,8 +355,15 @@ function load_chat_real_time() {
                                             $query_avatar = new WP_Query($arr_avatar);
 
                                             if($query_avatar->have_posts()) : while ($query_avatar->have_posts()) : $query_avatar->the_post();
-                                                echo $img_a = get_field('hinh_anh_tai_khoan');
+                                                $img_a = get_field('hinh_anh_tai_khoan');
+                                                if(!empty($img_a)){
+                                                    echo $img_a;
+                                                }else{
+                                                    echo get_template_directory_uri().'/assets/images/user.jpg';
+                                                }
                                             endwhile;
+                                            else:
+                                                echo get_template_directory_uri().'/assets/images/user.jpg';
                                             endif;
                                             wp_reset_postdata();
                                         ?>" alt="avatar"></div>

@@ -31,12 +31,14 @@ get_header();
         </div>
         <?php
 
-        $this_ten_ks = get_field('ten_ks');
-        $this_stk_ks = get_field('stk_ks');
+        $this_hotel_id = get_field('hotel_id');
+        $this_hotel_name = get_field('hotel_name');
+        $this_ID = get_the_ID();
+
 
         if(isset($_POST['sub_edit_khach_san'])){
             $array_user = array(
-                'post_type' => 'khach_san',
+                'post_type' => 'hotel',
                 'post_status' => 'publish'
             );
 
@@ -44,10 +46,10 @@ get_header();
 
             if($query->have_posts()) {
                 while ($query->have_posts()) : $query->the_post();
-                    if (get_the_title() == $_POST['ten_ks'] and $this_ten_ks != $_POST['ten_ks']) {
+                    if (get_field('hotel_id') == $_POST['hotel_id'] and $this_hotel_id != $_POST['hotel_id']) {
+                        $alert = "<p class='alert_tk_fail'>ID đã tồn tại !</p>";
+                    }elseif(get_field('hotel_name') == $_POST['hotel_name'] and $this_hotel_name != $_POST['hotel_name']){
                         $alert = "<p class='alert_tk_fail'>Tên khách sạn đã tồn tại !</p>";
-                    }elseif(get_field('stk_ks') == $_POST['stk_ks'] and $this_stk_ks != $_POST['stk_ks']){
-                        $alert = "<p class='alert_tk_fail'>Số tài khoản đã tồn tại !</p>";
                     }
                 endwhile;
                 wp_reset_postdata();
@@ -61,20 +63,177 @@ get_header();
 
                 $post_id = wp_update_post($update_user);
 
-                update_field( 'id_khach_sạn', $_POST['id_khach_sạn'], $post_id );
-                update_field( 'ma_ks', $_POST['ma_ks'], $post_id );
-                update_field( 'ten_ks', $_POST['ten_ks'], $post_id );
-                update_field( 'mst_ks', $_POST['mst_ks'], $post_id );
-                update_field( 'stk_ks', $_POST['stk_ks'], $post_id );
-                update_field( 'khu_vuc_ks', $_POST['khu_vuc_ks'], $post_id );
-                update_field( 'dia_chi_ks', $_POST['dia_chi_ks'], $post_id );
-                update_field( 'email_sale_ks', $_POST['email_sale_ks'], $post_id );
-                update_field( 'sdt_sale_ks', $_POST['sdt_sale_ks'], $post_id );
-                update_field( 'email_dat_phong', $_POST['email_dat_phong'], $post_id );
-                update_field( 'sdt_dat_phong', $_POST['sdt_dat_phong'], $post_id );
-                update_field( 'link_hd_goc', $_POST['link_hd_goc'], $post_id );
-                update_field( 'loai_phong_ks', $_POST['loai_phong_ks'], $post_id );
+                $group_ID = '1555';
+                $fields = acf_get_fields($group_ID);
+                foreach ($fields as $field){
+                    if(!empty($_POST[$field['name']])){
+                        if($field['name'] == "photo1"){
 
+                        }elseif ($field['name'] == "photo2"){
+
+                        }elseif ($field['name'] == "photo3"){
+
+                        }elseif ($field['name'] == "photo4"){
+
+                        }elseif ($field['name'] == "photo5"){
+
+                        }else{
+                            update_field( $field['name'], $_POST[$field['name']], $post_id );
+                        }
+                    }
+                }
+
+                if ($_FILES['photo1']['name'] != '') {
+                    $file_name = $_FILES['photo1']['name'];
+                    $array = explode(".", $file_name);
+                    $name = $array[0];
+                    $ext = $array[1];
+                    if ($ext == 'jpg' || $ext == 'png' || $ext == 'gif' || $ext == 'jpeg') {
+                        $dir_base = get_template_directory_uri() . '/template-parts/images/';
+                        $unlink_url_first = get_field('photo1');
+                        $unlink_name = str_replace($dir_base,"",$unlink_url_first);
+
+                        $dir_base_unfile = get_template_directory() . '/template-parts/images/';
+                        $unlink_url = $dir_base_unfile . $unlink_name;
+                        if(file_exists($unlink_url)){
+                            unlink($unlink_url);
+                        }
+
+                        $path = __DIR__ . './../images/';
+                        $file_name = "image_" . uniqid() . str_replace("image/", ".", $_FILES['photo1']['type']);
+                        $location = $path . $file_name;
+                        if (move_uploaded_file($_FILES['photo1']['tmp_name'], $location)) {
+
+                            $check_file_name = $file_name;
+                            $location_img = get_template_directory_uri() . '/template-parts/images/' . $check_file_name;
+                            update_field('photo1', $location_img, $post_id);
+
+                            $alert = "<p class='alert_tk_sucess'>Cập nhập tài khoản thành công !</p>";
+                        }
+                    } else {
+                        $alert = "<p class='alert_tk_fail'>Sai định dạng !</p>";
+                    }
+                }elseif ($_FILES['photo2']['name'] != '') {
+                    $file_name = $_FILES['photo2']['name'];
+                    $array = explode(".", $file_name);
+                    $name = $array[0];
+                    $ext = $array[1];
+                    if ($ext == 'jpg' || $ext == 'png' || $ext == 'gif' || $ext == 'jpeg') {
+                        $dir_base = get_template_directory_uri() . '/template-parts/images/';
+                        $unlink_url_first = get_field('photo2');
+                        $unlink_name = str_replace($dir_base,"",$unlink_url_first);
+
+                        $dir_base_unfile = get_template_directory() . '/template-parts/images/';
+                        $unlink_url = $dir_base_unfile . $unlink_name;
+                        if(file_exists($unlink_url)){
+                            unlink($unlink_url);
+                        }
+
+                        $path = __DIR__ . './../images/';
+                        $file_name = "image_" . uniqid() . str_replace("image/", ".", $_FILES['photo2']['type']);
+                        $location = $path . $file_name;
+                        if (move_uploaded_file($_FILES['photo2']['tmp_name'], $location)) {
+
+                            $check_file_name = $file_name;
+                            $location_img = get_template_directory_uri() . '/template-parts/images/' . $check_file_name;
+                            update_field('photo2', $location_img, $post_id);
+
+                            $alert = "<p class='alert_tk_sucess'>Cập nhập tài khoản thành công !</p>";
+                        }
+                    } else {
+                        $alert = "<p class='alert_tk_fail'>Sai định dạng !</p>";
+                    }
+                }elseif ($_FILES['photo3']['name'] != '') {
+                    $file_name = $_FILES['photo3']['name'];
+                    $array = explode(".", $file_name);
+                    $name = $array[0];
+                    $ext = $array[1];
+                    if ($ext == 'jpg' || $ext == 'png' || $ext == 'gif' || $ext == 'jpeg') {
+                        $dir_base = get_template_directory_uri() . '/template-parts/images/';
+                        $unlink_url_first = get_field('photo3');
+                        $unlink_name = str_replace($dir_base,"",$unlink_url_first);
+
+                        $dir_base_unfile = get_template_directory() . '/template-parts/images/';
+                        $unlink_url = $dir_base_unfile . $unlink_name;
+                        if(file_exists($unlink_url)){
+                            unlink($unlink_url);
+                        }
+
+                        $path = __DIR__ . './../images/';
+                        $file_name = "image_" . uniqid() . str_replace("image/", ".", $_FILES['photo3']['type']);
+                        $location = $path . $file_name;
+                        if (move_uploaded_file($_FILES['photo3']['tmp_name'], $location)) {
+
+                            $check_file_name = $file_name;
+                            $location_img = get_template_directory_uri() . '/template-parts/images/' . $check_file_name;
+                            update_field('photo3', $location_img, $post_id);
+
+                            $alert = "<p class='alert_tk_sucess'>Cập nhập tài khoản thành công !</p>";
+                        }
+                    } else {
+                        $alert = "<p class='alert_tk_fail'>Sai định dạng !</p>";
+                    }
+                }elseif ($_FILES['photo4']['name'] != '') {
+                    $file_name = $_FILES['photo4']['name'];
+                    $array = explode(".", $file_name);
+                    $name = $array[0];
+                    $ext = $array[1];
+                    if ($ext == 'jpg' || $ext == 'png' || $ext == 'gif' || $ext == 'jpeg') {
+                        $dir_base = get_template_directory_uri() . '/template-parts/images/';
+                        $unlink_url_first = get_field('photo4');
+                        $unlink_name = str_replace($dir_base,"",$unlink_url_first);
+
+                        $dir_base_unfile = get_template_directory() . '/template-parts/images/';
+                        $unlink_url = $dir_base_unfile . $unlink_name;
+                        if(file_exists($unlink_url)){
+                            unlink($unlink_url);
+                        }
+
+                        $path = __DIR__ . './../images/';
+                        $file_name = "image_" . uniqid() . str_replace("image/", ".", $_FILES['photo4']['type']);
+                        $location = $path . $file_name;
+                        if (move_uploaded_file($_FILES['photo4']['tmp_name'], $location)) {
+
+                            $check_file_name = $file_name;
+                            $location_img = get_template_directory_uri() . '/template-parts/images/' . $check_file_name;
+                            update_field('photo4', $location_img, $post_id);
+
+                            $alert = "<p class='alert_tk_sucess'>Cập nhập tài khoản thành công !</p>";
+                        }
+                    } else {
+                        $alert = "<p class='alert_tk_fail'>Sai định dạng !</p>";
+                    }
+                }elseif ($_FILES['photo5']['name'] != '') {
+                    $file_name = $_FILES['photo5']['name'];
+                    $array = explode(".", $file_name);
+                    $name = $array[0];
+                    $ext = $array[1];
+                    if ($ext == 'jpg' || $ext == 'png' || $ext == 'gif' || $ext == 'jpeg') {
+                        $dir_base = get_template_directory_uri() . '/template-parts/images/';
+                        $unlink_url_first = get_field('photo5');
+                        $unlink_name = str_replace($dir_base,"",$unlink_url_first);
+
+                        $dir_base_unfile = get_template_directory() . '/template-parts/images/';
+                        $unlink_url = $dir_base_unfile . $unlink_name;
+                        if(file_exists($unlink_url)){
+                            unlink($unlink_url);
+                        }
+
+                        $path = __DIR__ . './../images/';
+                        $file_name = "image_" . uniqid() . str_replace("image/", ".", $_FILES['photo5']['type']);
+                        $location = $path . $file_name;
+                        if (move_uploaded_file($_FILES['photo5']['tmp_name'], $location)) {
+
+                            $check_file_name = $file_name;
+                            $location_img = get_template_directory_uri() . '/template-parts/images/' . $check_file_name;
+                            update_field('photo5', $location_img, $post_id);
+
+                            $alert = "<p class='alert_tk_sucess'>Cập nhập tài khoản thành công !</p>";
+                        }
+                    } else {
+                        $alert = "<p class='alert_tk_fail'>Sai định dạng !</p>";
+                    }
+                }
 
                 $alert = "<p class='alert_tk_sucess'>Cập nhập khách sạn thành công !</p>";
             }
@@ -83,157 +242,367 @@ get_header();
         <div class="content_admin">
             <div class="giao_dich_moi add_user add_khach_san edit_khach_san">
                 <form action="<?php echo get_permalink(); ?>" method="post" enctype="multipart/form-data">
+                    <?php if(isset($alert)){
+                        echo $alert;
+                    } ?>
                     <div class="add_hotel">
                         <div class="item">
                             <h1>Sửa khách sạn</h1>
                             <ul>
                                 <li>
-                                    <label>ID Khách sạn</label>
-                                    <input type="text" name="id_khach_sạn" class="id_khach_sạn" value="<?php echo get_field('id_khach_sạn'); ?>" required>
+                                    <label>Hotel Id</label>
+                                    <input type="text" name="hotel_id" class="hotel_id" value="<?php echo get_the_ID(); ?>" required/>
                                 </li>
                                 <li>
-                                    <label>Mã Khách sạn</label>
-                                    <input type="email" name="ma_ks" class="ma_ks" value="<?php echo get_field('ma_ks'); ?>" required>
+                                    <label>Chain Id</label>
+                                    <input type="text" name="chain_id" class="chain_id" value="<?php echo get_field('chain_id'); ?>"/>
                                 </li>
                                 <li>
-                                    <label>Tên Khách sạn</label>
-                                    <input type="text" name="ten_ks" class="ten_ks" value="<?php echo get_field('ten_ks'); ?>" required>
+                                    <label>Chain name</label>
+                                    <input type="text" name="chain_name" class="chain_name" value="<?php echo get_field('chain_name'); ?>"/>
                                 </li>
                                 <li>
-                                    <label>MST Khách sạn</label>
-                                    <input type="text" name="mst_ks" class="mst_ks" value="<?php echo get_field('mst_ks'); ?>">
+                                    <label>Brand Id</label>
+                                    <input type="text" name="brand_id" class="brand_id" value="<?php echo get_field('brand_id'); ?>"/>
                                 </li>
                                 <li>
-                                    <label>STK Khách sạn</label>
-                                    <input type="number" name="stk_ks" class="stk_ks" value="<?php echo get_field('stk_ks'); ?>">
+                                    <label>Brand name</label>
+                                    <input type="text" name="brand_name" class="brand_name" value="<?php echo get_field('brand_name'); ?>"/>
                                 </li>
                                 <li>
-                                    <label>Khu vực Khách sạn</label>
-                                    <select name= "khu_vuc_ks" class="khu_vuc_ks" data-check="<?php echo get_field('khu_vuc_ks'); ?>">
-                                        <option value="An Giang">An Giang
-                                        <option value="Bà Rịa - Vũng Tàu">Bà Rịa - Vũng Tàu
-                                        <option value="Bắc Giang">Bắc Giang
-                                        <option value="Bắc Kạn">Bắc Kạn
-                                        <option value="Bạc Liêu">Bạc Liêu
-                                        <option value="Bắc Ninh">Bắc Ninh
-                                        <option value="Bến Tre">Bến Tre
-                                        <option value="Bình Định">Quy Nhơn - Bình Định
-                                        <option value="Bình Dương">Bình Dương
-                                        <option value="Bình Phước">Bình Phước
-                                        <option value="Bình Thuận">Mũi Né - Bình Thuận
-                                        <option value="Cà Mau">Cà Mau
-                                        <option value="Cao Bằng">Cao Bằng
-                                        <option value="Đắk Lắk">Đắk Lắk
-                                        <option value="Đắk Nông">Đắk Nông
-                                        <option value="Điện Biên">Điện Biên
-                                        <option value="Đồng Nai">Đồng Nai
-                                        <option value="Đồng Tháp">Đồng Tháp
-                                        <option value="Gia Lai">Gia Lai
-                                        <option value="Hà Giang">Hà Giang
-                                        <option value="Hà Nam">Hà Nam
-                                        <option value="Hà Tĩnh">Hà Tĩnh
-                                        <option value="Hải Dương">Hải Dương
-                                        <option value="Hậu Giang">Hậu Giang
-                                        <option value="Hòa Bình">Hòa Bình
-                                        <option value="Hưng Yên">Hưng Yên
-                                        <option value="Khánh Hòa">Khánh Hòa
-                                        <option value="Kiên Giang">Kiên Giang
-                                        <option value="Kon Tum">Kon Tum
-                                        <option value="Lai Châu">Lai Châu
-                                        <option value="Lâm Đồng">Lâm Đồng
-                                        <option value="Lạng Sơn">Lạng Sơn
-                                        <option value="Lào Cai">Lào Cai
-                                        <option value="Long An">Long An
-                                        <option value="Nam Định">Nam Định
-                                        <option value="Nghệ An">Cửa Lò - Nghệ An
-                                        <option value="Ninh Bình">Ninh Bình
-                                        <option value="Ninh Thuận">Ninh Thuận
-                                        <option value="Phú Thọ">Phú Thọ
-                                        <option value="Quảng Bình">Quảng Bình
-                                        <option value="Quảng Nam">Hội An - Quảng Nam
-                                        <option value="Quảng Ngãi">Quảng Ngãi
-                                        <option value="Quảng Ninh">Hạ Long - Quảng Ninh
-                                        <option value="Quảng Trị">Quảng Trị
-                                        <option value="Sóc Trăng">Sóc Trăng
-                                        <option value="Sơn La">Sơn La
-                                        <option value="Tây Ninh">Tây Ninh
-                                        <option value="Thái Bình">Thái Bình
-                                        <option value="Thái Nguyên">Thái Nguyên
-                                        <option value="Thanh Hóa">Sầm Sơn - Thanh Hóa
-                                        <option value="Thừa Thiên Huế">Thừa Thiên Huế
-                                        <option value="Tiền Giang">Tiền Giang
-                                        <option value="Trà Vinh">Trà Vinh
-                                        <option value="Tuyên Quang">Tuyên Quang
-                                        <option value="Vĩnh Long">Vĩnh Long
-                                        <option value="Vĩnh Phúc">Vĩnh Phúc
-                                        <option value="Yên Bái">Yên Bái
-                                        <option value="Phú Yên">Phú Yên
-                                        <option value="Cần Thơ">Cần Thơ
-                                        <option value="Đà Nẵng">Đà Nẵng
-                                        <option value="Hải Phòng">Hải Phòng
-                                        <option value="Hà Nội">Hà Nội
-                                        <option value="HCM">HCM
-                                    </select>
+                                    <label>Hotel name</label>
+                                    <input type="text" name="hotel_name" class="hotel_name" value="<?php echo get_field('hotel_name'); ?>" required/>
                                 </li>
                                 <li>
-                                    <label>Địa chỉ</label>
-                                    <input type="text" name="dia_chi_ks" class="dia_chi_ks" value="<?php echo get_field('dia_chi_ks'); ?>">
+                                    <label>Hotel formerly name</label>
+                                    <input type="text" name="hotel_formerly_name" class="hotel_formerly_name" value="<?php echo get_field('hotel_formerly_name'); ?>"/>
                                 </li>
                                 <li>
-                                    <label>Email sale Khách sạn</label>
-                                    <input type="email" name="email_sale_ks" class="email_sale_ks" value="<?php echo get_field('email_sale_ks'); ?>">
+                                    <label>Hotel translated name</label>
+                                    <input type="text" name="hotel_translated_name" class="hotel_translated_name" value="<?php echo get_field('hotel_translated_name'); ?>"/>
                                 </li>
                                 <li>
-                                    <label>SĐT sale Khách sạn</label>
-                                    <input type="text" name="sdt_sale_ks" class="sdt_sale_ks" value="<?php echo get_field('sdt_sale_ks'); ?>">
+                                    <label>Addressline1</label>
+                                    <input type="text" name="addressline1" class="addressline1" value="<?php echo get_field('addressline1'); ?>"/>
                                 </li>
                                 <li>
-                                    <label>Email đặt phòng</label>
-                                    <input type="email" name="email_dat_phong" class="email_dat_phong" value="<?php echo get_field('email_dat_phong'); ?>">
+                                    <label>Addressline2</label>
+                                    <input type="text" name="addressline2" class="addressline2" value="<?php echo get_field('addressline2'); ?>"/>
                                 </li>
                                 <li>
-                                    <label>SĐT đặt phòng</label>
-                                    <input type="number" name="sdt_dat_phong" class="sdt_dat_phong" value="<?php echo get_field('sdt_dat_phong'); ?>">
+                                    <label>Zipcode</label>
+                                    <input type="text" name="zipcode" class="zipcode" value="<?php echo get_field('zipcode'); ?>"/>
                                 </li>
                                 <li>
-                                    <label>Link HĐ gốc</label>
-                                    <input type="text" name="link_hd_goc" class="link_hd_goc" value="<?php echo get_field('link_hd_goc'); ?>">
+                                    <label>City</label>
+                                    <input type="text" name="city" class="city" value="<?php echo get_field('city'); ?>"/>
                                 </li>
-                                <div class="get_alert" style="text-align: center;"></div>
-                                <?php if($alert){echo $alert;} ?>
+                                <li>
+                                    <label>State</label>
+                                    <input type="text" name="state" class="state" value="<?php echo get_field('state'); ?>"/>
+                                </li>
+                                <li>
+                                    <label>Country</label>
+                                    <input type="text" name="country" class="country" value="<?php echo get_field('country'); ?>"/>
+                                </li>
+                                <li>
+                                    <label>Countryisocode</label>
+                                    <input type="text" name="countryisocode" class="countryisocode" value="<?php echo get_field('countryisocode'); ?>"/>
+                                </li>
+                                <li>
+                                    <label>Star rating</label>
+                                    <input type="text" name="star_rating" class="star_rating" value="<?php echo get_field('star_rating'); ?>"/>
+                                </li>
+                                <li>
+                                    <label>Longitude</label>
+                                    <input type="text" name="longitude" class="longitude" value="<?php echo get_field('longitude'); ?>"/>
+                                </li>
+                                <li>
+                                    <label>Latitude</label>
+                                    <input type="text" name="latitude" class="latitude" value="<?php echo get_field('latitude'); ?>"/>
+                                </li>
+                                <li>
+                                    <label>Checkin</label>
+                                    <input type="text" name="checkin" class="checkin" value="<?php echo get_field('checkin'); ?>"/>
+                                </li>
+                                <li>
+                                    <label>Checkout</label>
+                                    <input type="text" name="checkout" class="checkout" value="<?php echo get_field('checkout'); ?>"/>
+                                </li>
+                                <li>
+                                    <label>Numberrooms</label>
+                                    <input type="text" name="numberrooms" class="numberrooms" value="<?php echo get_field('numberrooms'); ?>"/>
+                                </li>
+                                <li>
+                                    <label>Numberfloors</label>
+                                    <input type="text" name="numberfloors" class="numberfloors" value="<?php echo get_field('numberfloors'); ?>"/>
+                                </li>
+                                <li>
+                                    <label>Yearopened</label>
+                                    <input type="text" name="yearopened" class="yearopened" value="<?php echo get_field('yearopened'); ?>"/>
+                                </li>
+                                <li>
+                                    <label>Yearrenovated</label>
+                                    <input type="text" name="yearrenovated" class="yearrenovated" value="<?php echo get_field('yearrenovated'); ?>"/>
+                                </li>
+                                <li>
+                                    <label>Overview</label>
+                                    <input type="text" name="overview" class="overview" value="<?php echo get_field('overview'); ?>"/>
+                                </li>
+                                <li>
+                                    <label>Rates from</label>
+                                    <input type="text" name="rates_from" class=rates_from value="<?php echo get_field('rates_from'); ?>"/>
+                                </li>
+                                <li>
+                                    <label>Continent Id</label>
+                                    <input type="text" name="continent_id" class=continent_id value="<?php echo get_field('continent_id'); ?>"/>
+                                </li>
+                                <li>
+                                    <label>Continent name</label>
+                                    <input type="text" name="continent_name" class=continent_name value="<?php echo get_field('continent_name'); ?>"/>
+                                </li>
+                                <li>
+                                    <label>City Id</label>
+                                    <input type="text" name="city_id" class=city_id value="<?php echo get_field('city_id'); ?>"/>
+                                </li>
+                                <li>
+                                    <label>Country Id</label>
+                                    <input type="text" name="country_id" class=country_id value="<?php echo get_field('country_id'); ?>"/>
+                                </li>
+                                <li>
+                                    <label>Number of reviews</label>
+                                    <input type="text" name="number_of_reviews" class=number_of_reviews value="<?php echo get_field('number_of_reviews'); ?>"/>
+                                </li>
+                                <li>
+                                    <label>Rating average</label>
+                                    <input type="text" name="rating_average" class=rating_average value="<?php echo get_field('rating_average'); ?>"/>
+                                </li>
+                                <li>
+                                    <label>Rates currency</label>
+                                    <input type="text" name="rates_currency" class=rates_currency value="<?php echo get_field('rates_currency'); ?>"/>
+                                </li>
                             </ul>
                             <div class="acf-form-submit">
                                 <input type="submit" name="sub_edit_khach_san" value="Cập nhập">
                             </div>
                         </div>
                         <div class="item">
+                            <div class="view_detail_hotel">
+                                <label>URL: </label>
+                                <input type="text" name="url" class="url" value="<?php echo get_field('url'); ?>" required/>
+                                <button type="button"  data-url="<?php echo get_field('url'); ?>">Xem</button>
+                            </div>
+                        </div>
+                        <div class="item gallery">
+                            <h1>Thư viện ảnh</h1>
+                            <div>
+                                <ul id="lightgallery">
+                                    <li id="item" data-src="<?php
+                                        if(!empty(get_field('photo1'))){
+                                            echo get_field('photo1');
+                                        }else{
+                                            echo get_template_directory_uri().'/assets/images/empty.gif';
+                                        }
+                                    ?>" data-position="0">
+                                        <div class="img <?php if(!empty(get_field('photo1'))){echo 'active';} ?>" style="background: url(<?php
+                                            if(!empty(get_field('photo1'))){
+                                                echo get_field('photo1');
+                                            }else{
+                                                echo get_template_directory_uri().'/assets/images/empty.gif';
+                                            }
+                                        ?>)">
+                                            <img style="display: none;" src="<?php
+                                            if(!empty(get_field('photo1'))){
+                                                echo get_field('photo1');
+                                            }else{
+                                                echo get_template_directory_uri().'/assets/images/empty.gif';
+                                            }
+                                            ?>"/>
+                                        </div>
+
+                                        <i class="fa fa-times <?php if(empty(get_field('photo1'))){echo 'hide';} ?>" aria-hidden="true" data-img="<?php echo get_template_directory_uri().'/assets/images/empty.gif'; ?>"></i>
+
+                                        <div class="btn_add_img <?php if(!empty(get_field('photo1'))){echo 'hide';} ?>">
+                                            <button type="button" class="btn_add_img">Thêm ảnh</button>
+                                            <input type="file" name="photo1" class="photo1" value="chọn ảnh">
+                                        </div>
+                                    </li>
+
+                                    <li id="item" data-src="<?php
+                                    if(!empty(get_field('photo2'))){
+                                        echo get_field('photo2');
+                                    }else{
+                                        echo get_template_directory_uri().'/assets/images/empty.gif';
+                                    }
+                                    ?>" data-position="0">
+                                        <div class="img <?php if(!empty(get_field('photo2'))){echo 'active';} ?>" style="background: url(<?php
+                                        if(!empty(get_field('photo2'))){
+                                            echo get_field('photo2');
+                                        }else{
+                                            echo get_template_directory_uri().'/assets/images/empty.gif';
+                                        }
+                                        ?>)">
+                                            <img style="display: none;" src="<?php
+                                            if(!empty(get_field('photo2'))){
+                                                echo get_field('photo2');
+                                            }else{
+                                                echo get_template_directory_uri().'/assets/images/empty.gif';
+                                            }
+                                            ?>"/>
+                                        </div>
+                                        <i class="fa fa-times <?php if(empty(get_field('photo2'))){echo 'hide';} ?>" aria-hidden="true" data-img="<?php echo get_template_directory_uri().'/assets/images/empty.gif'; ?>"></i>
+
+                                        <div class="btn_add_img <?php if(!empty(get_field('photo2'))){echo 'hide';} ?>">
+                                            <button type="button" class="btn_add_img">Thêm ảnh</button>
+                                            <input type="file" name="photo2" class="photo2" value="chọn ảnh">
+                                        </div>
+                                    </li>
+
+                                    <li id="item" data-src="<?php
+                                    if(!empty(get_field('photo3'))){
+                                        echo get_field('photo3');
+                                    }else{
+                                        echo get_template_directory_uri().'/assets/images/empty.gif';
+                                    }
+                                    ?>" data-position="0">
+                                        <div class="img <?php if(!empty(get_field('photo3'))){echo 'active';} ?>" style="background: url(<?php
+                                        if(!empty(get_field('photo3'))){
+                                            echo get_field('photo3');
+                                        }else{
+                                            echo get_template_directory_uri().'/assets/images/empty.gif';
+                                        }
+                                        ?>)">
+                                            <img style="display: none;" src="<?php
+                                            if(!empty(get_field('photo3'))){
+                                                echo get_field('photo3');
+                                            }else{
+                                                echo get_template_directory_uri().'/assets/images/empty.gif';
+                                            }
+                                            ?>"/>
+                                        </div>
+                                        <i class="fa fa-times <?php if(empty(get_field('photo3'))){echo 'hide';} ?>" aria-hidden="true" data-img="<?php echo get_template_directory_uri().'/assets/images/empty.gif'; ?>"></i>
+
+                                        <div class="btn_add_img <?php if(!empty(get_field('photo3'))){echo 'hide';} ?>">
+                                            <button type="button" class="btn_add_img">Thêm ảnh</button>
+                                            <input type="file" name="photo3" class="photo3" value="chọn ảnh">
+                                        </div>
+                                    </li>
+
+                                    <li id="item" data-src="<?php
+                                    if(!empty(get_field('photo4'))){
+                                        echo get_field('photo4');
+                                    }else{
+                                        echo get_template_directory_uri().'/assets/images/empty.gif';
+                                    }
+                                    ?>" data-position="0">
+                                        <div class="img <?php if(!empty(get_field('photo4'))){echo 'active';} ?>" style="background: url(<?php
+                                        if(!empty(get_field('photo4'))){
+                                            echo get_field('photo4');
+                                        }else{
+                                            echo get_template_directory_uri().'/assets/images/empty.gif';
+                                        }
+                                        ?>)">
+                                            <img style="display: none;" src="<?php
+                                            if(!empty(get_field('photo4'))){
+                                                echo get_field('photo4');
+                                            }else{
+                                                echo get_template_directory_uri().'/assets/images/empty.gif';
+                                            }
+                                            ?>"/>
+                                        </div>
+                                        <i class="fa fa-times <?php if(empty(get_field('photo4'))){echo 'hide';} ?>" aria-hidden="true" data-img="<?php echo get_template_directory_uri().'/assets/images/empty.gif'; ?>"></i>
+
+                                        <div class="btn_add_img <?php if(!empty(get_field('photo4'))){echo 'hide';} ?>">
+                                            <button type="button" class="btn_add_img">Thêm ảnh</button>
+                                            <input type="file" name="photo4" class="photo4" value="chọn ảnh">
+                                        </div>
+                                    </li>
+
+                                    <li id="item" data-src="<?php
+                                        if(!empty(get_field('photo5'))){
+                                            echo get_field('photo5');
+                                        }else{
+                                            echo get_template_directory_uri().'/assets/images/empty.gif';
+                                        }
+                                    ?>" data-position="0">
+                                        <div class="img <?php if(!empty(get_field('photo5'))){echo 'active';} ?>" style="background: url(<?php
+                                            if(!empty(get_field('photo5'))){
+                                                echo get_field('photo5');
+                                            }else{
+                                                echo get_template_directory_uri().'/assets/images/empty.gif';
+                                            }
+                                        ?>)">
+                                            <img style="display: none;" src="<?php
+                                                if(!empty(get_field('photo5'))){
+                                                    echo get_field('photo5');
+                                                }else{
+                                                    echo get_template_directory_uri().'/assets/images/empty.gif';
+                                                }
+                                            ?>"/>
+                                        </div>
+                                        <i class="fa fa-times <?php if(empty(get_field('photo5'))){echo 'hide';} ?>" aria-hidden="true" data-img="<?php echo get_template_directory_uri().'/assets/images/empty.gif'; ?>"></i>
+
+                                        <div class="btn_add_img <?php if(!empty(get_field('photo5'))){echo 'hide';} ?>">
+                                            <button type="button" class="btn_add_img">Thêm ảnh</button>
+                                            <input type="file" name="photo5" class="photo5" value="chọn ảnh">
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="item type_room">
                             <h1>Giá phòng và loại phòng</h1>
 
                             <ul>
                                 <li>
-                                    <label>Loại phòng : </label>
-                                    <input type="text" class="ten_phong_ks">
+                                    <label>Room name : </label>
+                                    <input type="text" class="room_name_ks">
                                 </li>
                                 <li>
-                                    <label>Giá phòng : </label>
-                                    <input type="text" class="gia_phong_ks">
-                                    <button type="button" class="add_rom">Thêm</button>
+                                    <label>Date : </label>
+                                    <input type="text" data-date-format="dd/mm/yyyy" data-position="top left" class="date_price_ks datepicker-here" data-language='en'>
                                 </li>
+                                <li>
+                                    <label>Price : </label>
+                                    <input type="text" class="price_ks">
+                                    <button type="button" class="add_rom" data-id="<?php echo $this_ID; ?>">Thêm</button>
+                                </li>
+                            </ul>
+
+                            <ul class="show_list_ds">
                                 <li>
                                     <strong>Danh sách loại phòng</strong>
                                     <div class="loai_phong">
                                         <?php
-                                            $str = get_field('loai_phong_ks');
-                                            $arr_lists = explode(",",$str);
-                                            foreach ($arr_lists as $list){
-                                                echo '<div class="rom">'.$list.' <i class="fa fa-times-circle" aria-hidden="true"></i></div>';
-                                            }
+                                        $str = get_field('loai_phong_ks');
+                                        $arr_lists = explode(",",$str);
+                                        foreach ($arr_lists as $list){
+                                            echo '<div class="rom">'.$list.' <i class="fa fa-times-circle" aria-hidden="true"></i></div>';
+                                        }
                                         ?>
                                     </div>
-                                    <input type="hidden" name="loai_phong_ks" class="loai_phong_ks">
                                 </li>
                             </ul>
+
+                            <ul>
+                                <div class="scene">
+                                    <div class="cube">
+                                        <div class="cube__face cube__face--front">front</div>
+                                        <div class="cube__face cube__face--back">back</div>
+                                        <div class="cube__face cube__face--right">right</div>
+                                        <div class="cube__face cube__face--left">left</div>
+                                        <div class="cube__face cube__face--top">top</div>
+                                        <div class="cube__face cube__face--bottom">bottom</div>
+                                    </div>
+                                </div>
+                            </ul>
+
                         </div>
+                    </div>
+
+                    <div class="load_url_iframe">
+                        <button type="button" class="btn_close"><i class="fa fa-times" aria-hidden="true"></i></button>
+                        <div class="screen"></div>
                     </div>
                 </form>
             </div>

@@ -62,6 +62,83 @@
                 $('.sub_login').click();
             }
         });
+
+        if (!$('#lightgallery').is(':empty')){
+            $('#lightgallery').lightGallery();
+
+            //click show frame load url website
+            $('.view_detail_hotel button').on('click', function () {
+                var url = $('.add_hotel .view_detail_hotel input.url').val();
+                $('.load_url_iframe .screen').html('<iframe src="'+url+'"></iframe>');
+                $('.load_url_iframe').fadeIn();
+            });
+
+            $('.btn_close').on('click', function () {
+                $('.load_url_iframe').fadeOut();
+            });
+
+
+            //kéo thả gallery hotel
+            $( "#lightgallery" ).sortable({
+                revert: true,
+                helper: "clone",
+                start: function( event, ui ) {
+                    $(ui.item).addClass("active-draggable");
+                    $(ui.item).css('transform','rotate(4deg)');
+                    ui.item.startPos = ui.item.index();
+
+                },
+                drag: function( event, ui ) {
+                },
+                stop:function( event, ui ) {
+                    $(ui.item).removeClass("active-draggable");
+                    $(ui.item).css('transform','rotate(0deg)');
+                    console.log($.map($(this).find('li'), function(el) {
+                        return $(el).attr('class') + ' = ' + $(el).index();
+                    }));
+
+                    $.map($(this).find('li'), function(el) {
+                        var class_item = $(el).attr('class');
+                        $('#'+class_item).attr('data-position', $(el).index());
+                    });
+                }
+            });
+
+            $('.add_hotel .item.gallery ul li i.fa-times').on('click', function (e) {
+                e.stopPropagation(); //stop parent load
+
+                var img = $(this).attr('data-img');
+
+                $(this).siblings('.img').css('background', 'url('+img+')');
+                $(this).parents('li').attr('data-src', img);
+                $(this).siblings('.img').find('img').attr('src', img);
+                $(this).siblings('.img').removeClass('active');
+                $(this).siblings('.btn_add_img').show();
+                $(this).hide();
+            });
+
+            $('.add_hotel .item.gallery ul li .btn_add_img').on('click', function (e) {
+                e.stopPropagation(); //stop parent load
+
+                $(this).siblings('input').on('click', function (e) {
+                    e.stopPropagation(); //stop parent load
+                });
+            });
+
+            $('.add_hotel .item.gallery ul li input').on('click', function (e) {
+                e.stopPropagation(); //stop parent load
+            });
+
+            $('.add_hotel .item.gallery ul li input').change(function (e) {
+                var tmppath = URL.createObjectURL(e.target.files[0]);
+                $(this).parents('.btn_add_img').siblings('.img').css('background', 'url('+tmppath+')');
+                $(this).parents('.btn_add_img').siblings('.img').find('img').attr('src', tmppath);
+                $(this).parents('.btn_add_img').parents('li').attr('data-src', tmppath);
+                $(this).parents('.btn_add_img').hide();
+                $(this).parents('.btn_add_img').siblings('i.fa-times').show();
+                $(this).parents('.btn_add_img').siblings('.img').addClass('active');
+            });
+        }
     }
 
     function datePicker() {
@@ -116,6 +193,51 @@
         });
     }
 
+    //deley search keyup query ajax
+    function delay(callback, ms) {
+        var timer = 0;
+        return function() {
+            var context = this, args = arguments;
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+                callback.apply(context, args);
+            }, ms || 0);
+        };
+    }
+
+    //string to slug
+    function str_slug(title){
+
+        var slug;
+
+        //Đổi chữ hoa thành chữ thường
+        slug = title.toLowerCase();
+
+        //Đổi ký tự có dấu thành không dấu
+        slug = slug.replace(/á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/gi, 'a');
+        slug = slug.replace(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/gi, 'e');
+        slug = slug.replace(/i|í|ì|ỉ|ĩ|ị/gi, 'i');
+        slug = slug.replace(/ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/gi, 'o');
+        slug = slug.replace(/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/gi, 'u');
+        slug = slug.replace(/ý|ỳ|ỷ|ỹ|ỵ/gi, 'y');
+        slug = slug.replace(/đ/gi, 'd');
+        //Xóa các ký tự đặt biệt
+        slug = slug.replace(/\`|\~|\!|\@|\#|\||\$|\%|\^|\&|\*|\(|\)|\+|\=|\,|\.|\/|\?|\>|\<|\'|\"|\:|\;|_/gi, '');
+        //Đổi khoảng trắng thành ký tự gạch ngang
+        slug = slug.replace(/ /gi, "-");
+        //Đổi nhiều ký tự gạch ngang liên tiếp thành 1 ký tự gạch ngang
+        //Phòng trường hợp người nhập vào quá nhiều ký tự trắng
+        slug = slug.replace(/\-\-\-\-\-/gi, '-');
+        slug = slug.replace(/\-\-\-\-/gi, '-');
+        slug = slug.replace(/\-\-\-/gi, '-');
+        slug = slug.replace(/\-\-/gi, '-');
+        //Xóa các ký tự gạch ngang ở đầu và cuối
+        slug = '@' + slug + '@';
+        slug = slug.replace(/\@\-|\-\@|\@/gi, '');
+        //In slug ra textbox có id “slug”
+        return slug;
+    }
+
     //selected nếu đã có dữ liệu
     function checkSelect() {
         var ClassSelect = [
@@ -152,7 +274,7 @@
             $('.'+val).val($('.'+val).attr('data-check'));
         });
 
-        //Lấy dữ liệu tên và bảng giá phòng theo tên khách sạn
+        //Lấy dữ liệu tên và bảng giá phòng theo tên khách sạn giao dịch
         $('.ten_khach_san_gd').change(function(e){
             e.preventDefault();
             var element = $(this).find('option:selected');
@@ -162,22 +284,47 @@
             var loai_phong_ban_dt = $('.loai_phong_ban_dt');
 
             $('.ma_dich_vu_gd').val(myID);
+        });
 
-            var array_room = data_room.split(",");
+        $('.ten_khach_san_gd_val').keyup(delay(function (e) {
+            var keyword = $(this).val();
+            if(keyword != ""){
+                $.ajax({
+                    type: "post",
+                    dataType: "html",
+                    url: my_ajax_object.ajax_url,
+                    data: {
+                        action: "pop_ten_khach_san_gd",
+                        keyword:keyword
+                    },
+                    success: function (response) {
+                        if(response == 'empty'){
+                            $('.pop_ten_khach_san_gd').hide();
+                        }else{
+                            $('.pop_ten_khach_san_gd').show();
+                            $('.pop_ten_khach_san_gd .list_show').empty();
+                            $('.pop_ten_khach_san_gd .list_show').html(response);
+                        }
+                    }
+                });
+            }else{
+                $(this).val('');
+            }
+        }, 500));
 
+        $(document).on('click','.pop_ten_khach_san_gd .list_show ul', function () {
+            var id_ks_gd = $(this).find('.id_ks_gd').val();
+            var hotel_name = $(this).find('.hotel_name').val();
 
-            loai_phong_ban_gd.empty();
-            loai_phong_ban_dt.empty();
+            $('.ten_khach_san_gd').val(id_ks_gd);
+            $('.ten_khach_san_gd_val').val(hotel_name);
 
-            loai_phong_ban_gd.append(' <option value="" selected disabled hidden>Chọn loại phòng</option>');
-            loai_phong_ban_dt.append(' <option value="" selected disabled hidden>Chọn loại phòng</option>');
+            $('.ma_dich_vu_gd').val(id_ks_gd);
 
-            $.each(array_room , function(index, val) {
-                var array_room_data  = val.split(":");
-                loai_phong_ban_gd.append('<option value="'+array_room_data[0]+'" data-price="'+array_room_data[1]+'">'+array_room_data[0]+'</option>');
-                loai_phong_ban_dt.append('<option value="'+array_room_data[0]+'" data-price="'+array_room_data[1]+'">'+array_room_data[0]+'</option>');
-            });
+            var slug = str_slug(hotel_name);
+            $('td input.ma_dich_vu_gd_val').val(slug+'-'+id_ks_gd);
 
+            $('.pop_ten_khach_san_gd').hide();
         });
 
         //Chọn loại phòng thì sẽ hiện ra giá
@@ -223,6 +370,7 @@
 
             $('.ma_dt').val(myID_DT);
         });
+
     }
 
     //Tính số đêm ở, ngày sắp đến check in, ngày được hủy, ngày đc thay đổi khi chọn lịch
@@ -506,6 +654,7 @@
             cursorborder: "1px solid #23262B",
             scrollspeed: 60,
         });
+
         $(".content_admin").niceScroll({
             cursorcolor:"#23262B",
             cursorwidth: "10px",
@@ -514,6 +663,7 @@
             cursorborder: "1px solid #23262B",
             scrollspeed: 60,
         });
+
         $(".quantri_admin .menu_admin ul .sub-menu").niceScroll({
             cursorcolor:"#23262B",
             cursorwidth: "10px",
@@ -522,6 +672,7 @@
             cursorborder: "1px solid #23262B",
             scrollspeed: 60,
         });
+
         $(".quantri_admin .my_friend").niceScroll({
             cursorcolor:"#23262B",
             cursorwidth: "10px",
@@ -530,6 +681,7 @@
             cursorborder: "1px solid #23262B",
             scrollspeed: 60,
         });
+
         $(".select2-results__options").niceScroll({
             cursorcolor:"#23262B",
             cursorwidth: "10px",
@@ -1054,38 +1206,30 @@
     //Thêm phòng và giá khách sạn
     function AddTypeRoom() {
         var btn_add_rom = $('.add_rom');
-        var ten_phong_ks = $('.ten_phong_ks');
-        var gia_phong_ks = $('.gia_phong_ks');
         var loai_phong = $('.add_hotel .item:nth-child(2) li .loai_phong');
         var remove_rom = $('.add_hotel .item:nth-child(2) li .loai_phong .rom i');
         var loai_phong_ks = $('.loai_phong_ks');
 
         btn_add_rom.on('click',function (e) {
-            var lenght = $('.loai_phong').find(".rom").length;
-
-            e.preventDefault();
-
-            if(ten_phong_ks.val() == ""){
-                alert('Tên phòng trống !');
-            }else if(gia_phong_ks.val() == ""){
-                alert('Giá phòng trống !');
-            }else{
-                loai_phong.append('<div class="rom">'+ten_phong_ks.val()+':'+gia_phong_ks.val()+' <i class="fa fa-times-circle" aria-hidden="true"></i></div>');
-                if(lenght > 0){
-                    for (var i = 0; i <= lenght+1; i++){
-                        var add_data = $('.add_hotel .item:nth-child(2) li .loai_phong .rom:nth-child('+i+')').text();
-                    }
-                    loai_phong_ks.val(loai_phong_ks.val()+','+add_data);
-
-                }else{
-                    for (var i = 0; i <= lenght+1; i++){
-                        var add_data = $('.add_hotel .item:nth-child(2) li .loai_phong .rom:nth-child('+i+')').text();
-
-                    }
-                    loai_phong_ks.val(add_data);
+            var room_name_ks = $('.room_name_ks').val();
+            var date_price_ks = $('.date_price_ks').val();
+            var price_ks = $('.price_ks').val();
+            var data_id = $(this).attr('data-id');
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: my_ajax_object.ajax_url,
+                data: {
+                    action: "add_type_room",
+                    room_name_ks:room_name_ks,
+                    date_price_ks:date_price_ks,
+                    price_ks:price_ks,
+                    data_id:data_id,
+                },
+                success: function (response) {
 
                 }
-            }
+            });
         });
 
         $(document).on('click', ".rom i", function() {
@@ -1125,7 +1269,7 @@
 
     //Lấy dữ liệu khách hàng khi nhập đúng tên khách vào phần nhập giao dịch
     function getDataClient() {
-        $('.khach_dai_dien_gd').on('keyup', function () {
+        $('.khach_dai_dien_gd').keyup(delay(function (e) {
             var keyword = $(this).val();
             if(keyword != ""){
                 $.ajax({
@@ -1148,9 +1292,9 @@
                     }
                 });
             }
-        });
+        }, 500));
 
-        $('.sdt_gd').on('keyup', function () {
+        $('.sdt_gd').keyup(delay(function (e) {
             var keyword = $(this).val();
             $.ajax({
                 type: "post",
@@ -1170,9 +1314,9 @@
                     }
                 }
             });
-        });
+        },500));
 
-        $('.ten_kgd').on('keyup', function () {
+        $('.ten_kgd').keyup(delay(function (e) {
             var keyword = $(this).val();
             $.ajax({
                 type: "post",
@@ -1192,9 +1336,9 @@
                     }
                 }
             });
-        });
+        },500));
 
-        $('.nick_kgd').on('keyup', function () {
+        $('.nick_kgd').keyup(delay(function (e) {
             var keyword = $(this).val();
             $.ajax({
                 type: "post",
@@ -1214,9 +1358,9 @@
                     }
                 }
             });
-        });
+        },500));
 
-        $('.sdt_kgd').on('keyup', function () {
+        $('.sdt_kgd').keyup(delay(function (e) {
             var keyword = $(this).val();
             $.ajax({
                 type: "post",
@@ -1236,9 +1380,9 @@
                     }
                 }
             });
-        });
+        },500));
 
-        $('.email_kgd_duy_nhat').on('keyup', function () {
+        $('.email_kgd_duy_nhat').keyup(delay(function (e) {
             var keyword = $(this).val();
             $.ajax({
                 type: "post",
@@ -1258,9 +1402,9 @@
                     }
                 }
             });
-        });
+        },500));
 
-        $('.tk_kgd').on('keyup', function () {
+        $('.tk_kgd').keyup(delay(function (e) {
             var keyword = $(this).val();
             $.ajax({
                 type: "post",
@@ -1280,9 +1424,9 @@
                     }
                 }
             });
-        });
+        },500));
 
-        $('.ma_kgd').on('keyup', function () {
+        $('.ma_kgd').keyup(delay(function (e) {
             var keyword = $(this).val();
             $.ajax({
                 type: "post",
@@ -1302,7 +1446,7 @@
                     }
                 }
             });
-        });
+        },500));
 
         $(document).on('click','.popup_get_data_list .list_show ul', function () {
             var ma_kgd = $(this).find('.ma_kgd').val();
@@ -1430,6 +1574,79 @@
         });
     }
 
+    //import file excel hotel
+    function Excel_Hotel() {
+        var sub_import_excel_hotel = $('.sub_import_excel_hotel');
+        var frm_excel_hotel = $(".frm_excel_hotel");
+        var file_excel = $('.file_excel');
+        var show_pecent = $('.show_pecent');
+
+        var img_screen = $('.file_excel').val();
+        if(typeof img_screen !== 'undefined'){
+            $('.file_excel').change(function (e) {
+                e.preventDefault();
+                var tmppath = URL.createObjectURL(event.target.files[0]);
+                var filename = $('.file_excel').val().split('\\').pop();
+                $('.btn_upload_excel').text(filename);
+            });
+
+            $('.btn_upload_excel').on('click',function (e) {
+                e.preventDefault();
+                $('.file_excel').click();
+            });
+        }
+
+        $('.sub_upload_excel_hotel').on('click', function (e) {
+            e.preventDefault();
+            var file_data = file_excel.prop('files')[0];
+            var form_data = new FormData();
+
+            form_data.append('action', 'excel_hotel_count');
+            form_data.append('file', file_data);
+
+            $.ajax({
+                url: my_ajax_object.ajax_url,
+                type: 'post',
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                data: form_data,
+                success: function (response) {
+                    $('.page-template-import_excel_hotel .progress .total_import').text(response.data);
+                },
+            });
+        });
+
+        $('.page-template-import_excel_hotel .frm_excel_hotel').submit(function (e) {
+            e.preventDefault();
+            var file_data = file_excel.prop('files')[0];
+            var form_data = new FormData();
+            var number = 1430;
+
+            form_data.append('action', 'excel_hotel');
+            form_data.append('file', file_data);
+            form_data.append('number', number);
+
+            $.ajax({
+                url: my_ajax_object.ajax_url,
+                type: 'post',
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                data: form_data,
+                async:true,
+                cache: false,
+                success: function (response) {
+                    if(response.data == 'error'){
+                        alert('Sai định dạng !');
+                    }else{
+                        console.log(response.data);
+                    }
+                },
+            });
+        });
+    }
+
     function _init() {
         base();
         datePicker();
@@ -1447,6 +1664,7 @@
         checkSelect();
         getDataClient();
         forget_email();
+        Excel_Hotel();
         //googleSheet();
     }
 

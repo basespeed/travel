@@ -10,7 +10,7 @@ if($_SESSION['sucess'] == "sucess") {
         get_template_part('template-parts/single/history-giao-dich');
     } elseif (is_singular('tai_khoan') && is_single()) {
         get_template_part('template-parts/single/single_user');
-    } elseif (is_singular('khach_san') && is_single()) {
+    } elseif (is_singular('hotel') && is_single()) {
         get_template_part('template-parts/single/single_khach_san');
     } elseif (is_singular('nhan_vien') && is_single()) {
         get_template_part('template-parts/single/single_nhan_vien');
