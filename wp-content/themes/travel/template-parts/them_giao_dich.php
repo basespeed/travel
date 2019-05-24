@@ -53,9 +53,7 @@ if($_SESSION['sucess'] == "sucess") {
 
                                 if ($query->have_posts()) {
                                     while ($query->have_posts()) : $query->the_post();
-                                        if (get_field('ma_xac_nhan') == $_POST['ma_xac_nhan']) {
-                                            $alert = "<p class='alert_tk_fail'>Mã xác nhận đã tồn tại !</p>";
-                                        }elseif (get_field('ma_gd') == $_POST['ma_gd']) {
+                                        if (get_field('ma_gd') == $_POST['ma_gd']) {
                                             $alert = "<p class='alert_tk_fail'>Mã giao dịch đã tồn tại !</p>";
                                         }elseif ($_POST['sl_dt'] != $_POST['sl_gd']) {
                                             $alert = "<p class='alert_tk_fail'>Số lượng phòng khách hàng và đối tác phải bằng nhau !</p>";
@@ -403,16 +401,21 @@ if($_SESSION['sucess'] == "sucess") {
                                         </tr>
                                         <tr>
                                             <td width="50%">
-                                                <select name="noi_di_gd" class="noi_di_gd" data-check="<?php echo get_field('noi_di_gd'); ?>" required>
-                                                    <option value="" selected disabled hidden>Chọn nơi đi</option>
+                                                <select name="noi_di_gd" class="noi_di_gd" required>
                                                     <?php
                                                     //List các địa điểm đi và đến
                                                     $query_khach_san = new WP_Query(array(
                                                         'post_type' => 'dia_diem_local',
                                                         'posts_per_page' => 64,
                                                     ));
+                                                    $n_check = 0;
                                                     if($query_khach_san->have_posts()) : while ($query_khach_san->have_posts()) : $query_khach_san->the_post();
-                                                        ?><option value="<?php the_title(); ?>"><?php the_title(); ?></option><?php
+                                                        $n_check++;
+                                                        if($n_check == 1){
+                                                            ?><option value="<?php the_title(); ?>" selected="selected"><?php the_title(); ?></option><?php
+                                                        }else{
+                                                            ?><option value="<?php the_title(); ?>"><?php the_title(); ?></option><?php
+                                                        }
                                                     endwhile;
                                                     endif;
                                                     wp_reset_postdata();
@@ -420,16 +423,21 @@ if($_SESSION['sucess'] == "sucess") {
                                                 </select>
                                             </td>
                                             <td>
-                                                <select name="noi_den_gd" class="noi_den_gd" data-check="<?php echo get_field('noi_den_gd'); ?>" required>
-                                                    <option value="" selected disabled hidden>Chọn nơi đến</option>
+                                                <select name="noi_den_gd" class="noi_den_gd" required>
                                                     <?php
                                                     //List các địa điểm đi và đến
                                                     $query_khach_san = new WP_Query(array(
                                                         'post_type' => 'dia_diem_local',
                                                         'posts_per_page' => 64,
                                                     ));
+                                                    $n_check = 1;
                                                     if($query_khach_san->have_posts()) : while ($query_khach_san->have_posts()) : $query_khach_san->the_post();
-                                                        ?><option value="<?php the_title(); ?>"><?php the_title(); ?></option><?php
+                                                        $n_check++;
+                                                        if($n_check == 3){
+                                                            ?><option value="<?php the_title(); ?>" selected="selected"><?php the_title(); ?></option><?php
+                                                        }else{
+                                                            ?><option value="<?php the_title(); ?>"><?php the_title(); ?></option><?php
+                                                        }
                                                     endwhile;
                                                     endif;
                                                     wp_reset_postdata();
@@ -442,9 +450,9 @@ if($_SESSION['sucess'] == "sucess") {
                                 </td>
                                 <td align="center" style="background-color: #f19315b3;">
                                     MGD LK
-                                    <input name="ma_gd_con" class="ma_gd_con" value="<?php echo get_field('ma_gd_con'); ?>" style="background: #FFF;" required/>
+                                    <input name="ma_gd_con" class="ma_gd_con" value="<?php echo 'MGDLK_'.get_the_ID(); ?>" style="background: #FFF;" required/>
                                     Mã giao dịch
-                                    <input name="ma_gd_them_booking" class="ma_gd_them_booking" style="background: #FFF;" value="<?php echo get_field('ma_gd_them_booking'); ?>" />
+                                    <input name="ma_gd_them_booking" class="ma_gd_them_booking" style="background: #FFF;" value="<?php echo 'BTC_'.get_the_ID(); ?>" />
                                 </td>
                                 <td width="42%">
                                     <table width="100%" border="1">
@@ -457,18 +465,20 @@ if($_SESSION['sucess'] == "sucess") {
                                         </tr>
                                         <tr>
                                             <td width="80%">
-                                                <select name="ten_dt_gui_book_dt" class="ten_dt_gui_book_dt" data-check="<?php echo get_field('ten_dt_gui_book_dt'); ?>" required/>
-                                                <option value="" selected disabled hidden>Chọn đối tác</option>
+                                                <select name="ten_dt_gui_book_dt" class="ten_dt_gui_book_dt" required/>
                                                 <?php
                                                 //List danh sách đối tác
                                                 $query = new WP_Query(array(
                                                     'post_type' => 'doi_tac',
                                                 ));
-
+                                                $dt_count = 0;
                                                 if($query->have_posts()) : while ($query->have_posts()) : $query->the_post();
-                                                    ?>
-                                                    <option value="<?php echo get_field('ten_dt'); ?>" data-room="<?php echo $str = get_field('loai_phong_ks');?>" data-id="<?php echo get_field('ma_dt'); ?>"><?php echo get_field('ten_dt'); ?></option>
-                                                <?php
+                                                    $dt_count++;
+                                                    if($dt_count == 1){
+                                                        ?><option value="<?php echo get_field('ten_dt'); ?>" selected="selected" data-room="<?php echo $str = get_field('loai_phong_ks');?>" data-id="<?php echo get_field('ma_dt'); ?>"><?php echo get_field('ten_dt'); ?></option><?php
+                                                    }else{
+                                                        ?><option value="<?php echo get_field('ten_dt'); ?>" data-room="<?php echo $str = get_field('loai_phong_ks');?>" data-id="<?php echo get_field('ma_dt'); ?>"><?php echo get_field('ten_dt'); ?></option><?php
+                                                    }
                                                 endwhile;
                                                 endif;
                                                 wp_reset_postdata();
@@ -487,16 +497,21 @@ if($_SESSION['sucess'] == "sucess") {
                                         </tr>
                                         <tr>
                                             <td width="50%">
-                                                <select name="noi_di_dt" class="noi_di_dt" data-check="<?php echo get_field('noi_di_dt'); ?>" required>
-                                                    <option value="" selected disabled hidden>Chọn nơi đi</option>
+                                                <select name="noi_di_dt" class="noi_di_dt" required>
                                                     <?php
                                                     //List các địa điểm đi và đến
                                                     $query_khach_san = new WP_Query(array(
                                                         'post_type' => 'dia_diem_local',
                                                         'posts_per_page' => 64,
                                                     ));
+                                                    $n_check2 = 0;
                                                     if($query_khach_san->have_posts()) : while ($query_khach_san->have_posts()) : $query_khach_san->the_post();
-                                                        ?><option value="<?php the_title(); ?>"><?php the_title(); ?></option><?php
+                                                        $n_check2++;
+                                                        if($n_check2 == 1){
+                                                            ?><option value="<?php the_title(); ?>" selected="selected"><?php the_title(); ?></option><?php
+                                                        }else{
+                                                            ?><option value="<?php the_title(); ?>"><?php the_title(); ?></option><?php
+                                                        }
                                                     endwhile;
                                                     endif;
                                                     wp_reset_postdata();
@@ -504,16 +519,21 @@ if($_SESSION['sucess'] == "sucess") {
                                                 </select>
                                             </td>
                                             <td>
-                                                <select name="noi_den_dt" class="noi_den_dt" data-check="<?php echo get_field('noi_den_dt'); ?>" required>
-                                                    <option value="" selected disabled hidden>Chọn nơi đến</option>
+                                                <select name="noi_den_dt" class="noi_den_dt" required>
                                                     <?php
                                                     //List các địa điểm đi và đến
                                                     $query_khach_san = new WP_Query(array(
                                                         'post_type' => 'dia_diem_local',
                                                         'posts_per_page' => 64,
                                                     ));
+                                                    $n_check2 = 1;
                                                     if($query_khach_san->have_posts()) : while ($query_khach_san->have_posts()) : $query_khach_san->the_post();
-                                                        ?><option value="<?php the_title(); ?>"><?php the_title(); ?></option><?php
+                                                        $n_check2++;
+                                                        if($n_check2 == 3){
+                                                            ?><option value="<?php the_title(); ?>" selected="selected"><?php the_title(); ?></option><?php
+                                                        }else{
+                                                            ?><option value="<?php the_title(); ?>"><?php the_title(); ?></option><?php
+                                                        }
                                                     endwhile;
                                                     endif;
                                                     wp_reset_postdata();
@@ -566,8 +586,7 @@ if($_SESSION['sucess'] == "sucess") {
                                                 </div>
                                             </td>
                                             <td>
-                                                <select name="trang_thai_bkk_voi_kh_gd" class="trang_thai_bkk_voi_kh_gd" data-check="<?php echo get_field('trang_thai_bkk_voi_kh_gd'); ?>" required>
-                                                    <option value="" selected disabled hidden>Chọn trạng thái</option>
+                                                <select name="trang_thai_bkk_voi_kh_gd" class="trang_thai_bkk_voi_kh_gd" required>
                                                     <?php
                                                     $arr = array(
                                                         'post_type' => 'trang_thai',
@@ -576,10 +595,15 @@ if($_SESSION['sucess'] == "sucess") {
                                                     );
 
                                                     $query = new WP_Query($arr);
+                                                    $bkk = 0;
                                                     while ($query->have_posts()) : $query->the_post();
-                                                        ?>
-                                                        <option value="<?php the_title(); ?>"><?php the_title(); ?></option>
-                                                    <?php
+                                                        $bkk++;
+                                                        if($bkk == 1){
+                                                            ?><option value="<?php the_title(); ?>"><?php the_title(); ?></option><?php
+                                                        }else{
+                                                            ?><option value="<?php the_title(); ?>"><?php the_title(); ?></option><?php
+                                                        }
+
                                                     endwhile;
                                                     wp_reset_postdata();
                                                     ?>
@@ -591,7 +615,7 @@ if($_SESSION['sucess'] == "sucess") {
                                 </td>
                                 <td align="center" style="background-color: #f19315b3;">
                                     <strong>Mã Booking</strong>
-                                    <input type="text" name="ma_gd" class="ma_gd" style="background: #FFF;" value="<?php echo get_field('ma_gd'); ?>" required />
+                                    <input type="text" name="ma_gd" class="ma_gd" style="background: #FFF;" value="<?php echo 'MBK_'.get_the_ID(); ?>" required />
                                 </td>
                                 <td>
                                     <table width="100%" border="1">
@@ -603,8 +627,7 @@ if($_SESSION['sucess'] == "sucess") {
                                         </tr>
                                         <tr>
                                             <td width="40%">
-                                                <select name="trang_thai_bkk_voi_dt" class="trang_thai_bkk_voi_dt" data-check="<?php echo get_field('trang_thai_bkk_voi_dt'); ?>" required>
-                                                    <option value="" selected disabled hidden>Chọn trạng thái</option>
+                                                <select name="trang_thai_bkk_voi_dt" class="trang_thai_bkk_voi_dt"  required>
                                                     <?php
                                                     $arr = array(
                                                         'post_type' => 'trang_thai',
@@ -613,19 +636,23 @@ if($_SESSION['sucess'] == "sucess") {
                                                     );
 
                                                     $query = new WP_Query($arr);
+                                                    $bkk2 = 0;
                                                     while ($query->have_posts()) : $query->the_post();
-                                                        ?>
-                                                        <option value="<?php the_title(); ?>"><?php the_title(); ?></option>
-                                                    <?php
+                                                        $bkk2++;
+                                                        if($bkk2 == 1){
+                                                            ?><option value="<?php the_title(); ?>" selected="selected"><?php the_title(); ?></option><?php
+                                                        }else{
+                                                            ?><option value="<?php the_title(); ?>"><?php the_title(); ?></option><?php
+                                                        }
                                                     endwhile;
                                                     wp_reset_postdata();
                                                     ?>
                                                 </select>
                                             </td>
                                             <td width="20%">
-                                                <input type="text" name="nick_dt" class="nick_dt" value="<?php echo get_field('nick_dt'); ?>" required />
+                                                <input type="text" name="nick_dt" class="nick_dt" value="<?php echo get_field('nick_dt'); ?>" />
                                             </td>
-                                            <td><input type="text" name="ten_nv_dat_phong_dt" class="ten_nv_dat_phong_dt" value="<?php echo get_field('ten_nv_dat_phong_dt'); ?>" required /></td>
+                                            <td><input type="text" name="ten_nv_dat_phong_dt" class="ten_nv_dat_phong_dt" value="<?php echo get_field('ten_nv_dat_phong_dt'); ?>"  /></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -653,7 +680,7 @@ if($_SESSION['sucess'] == "sucess") {
                                 </td>
                                 <td align="center" style="background-color: #f19315b3;">
                                     Hình thức book
-                                    <input type="text" name="hinh_thuc_book_gd" class="hinh_thuc_book_gd" style="background: #FFF;" value="<?php echo get_field('hinh_thuc_book_gd'); ?>" required/">
+                                    <input type="text" name="hinh_thuc_book_gd" class="hinh_thuc_book_gd" style="background: #FFF;" value="<?php echo get_field('hinh_thuc_book_gd'); ?>" /">
                                 </td>
                                 <td>
                                     <table width="100%" border="1">
@@ -688,8 +715,7 @@ if($_SESSION['sucess'] == "sucess") {
                                         </tr>
                                         <tr>
                                             <td width="35%">
-                                                <select name="loai_phong_ban_gd" class="loai_phong_ban_gd" data-check="<?php echo get_field('loai_phong_ban_gd'); ?>">
-                                                    <option value="" selected disabled hidden>Chọn loại phòng</option>
+                                                <select name="loai_phong_ban_gd" class="loai_phong_ban_gd">
                                                     <?php
                                                     $query_khach_san = new WP_Query(array(
                                                         'post_type' => 'khach_san',
@@ -702,9 +728,16 @@ if($_SESSION['sucess'] == "sucess") {
                                                     if($query_khach_san->have_posts()) : while ($query_khach_san->have_posts()) : $query_khach_san->the_post();
                                                         $str = get_field('loai_phong_ks');
                                                         $arr_lists = explode(",",$str);
+                                                        $lp = 1;
                                                         foreach ($arr_lists as $list){
                                                             $list_explode  = $list;
                                                             $list_explode = explode(":", $list_explode);
+                                                            $lp++;
+                                                            if($lp == 1){
+                                                                echo '<option selected="selected" value="'.$list_explode[0].'" data-price="'.preg_replace('/\s+/', '', $list_explode[1]).'">'.$list_explode[0].'</option>';
+                                                            }else{
+                                                                echo '<option value="'.$list_explode[0].'" data-price="'.preg_replace('/\s+/', '', $list_explode[1]).'">'.$list_explode[0].'</option>';
+                                                            }
                                                             echo '<option value="'.$list_explode[0].'" data-price="'.preg_replace('/\s+/', '', $list_explode[1]).'">'.$list_explode[0].'</option>';
                                                         }
                                                     endwhile;
@@ -713,12 +746,11 @@ if($_SESSION['sucess'] == "sucess") {
                                                     ?>
                                                 </select>
                                             </td>
-                                            <td width="10%"><input type="number" name="sl_gd" class="sl_gd" value="<?php echo get_field('sl_gd'); ?>" required /></td>
+                                            <td width="10%"><input type="number" name="sl_gd" class="sl_gd" value="1" required /></td>
                                             <td width="15%"><input type="number" name="don_gia_ban_gd" class="don_gia_ban_gd" value="<?php echo get_field('don_gia_ban_gd'); ?>" required /></td>
                                             <td width="20%">
-                                                <select name="don_vi_gd" class="don_vi_gd" data-check="<?php echo get_field('don_vi_gd'); ?>" required>
-                                                    <option value="" selected disabled hidden>Chọn đơn vị</option>
-                                                    <option value="vnđ/phòng/đêm">vnđ/phòng/đêm</option>
+                                                <select name="don_vi_gd" class="don_vi_gd" required>
+                                                    <option selected="selected" value="vnđ/phòng/đêm">vnđ/phòng/đêm</option>
                                                     <option value="vnđ/căn/đêm">vnđ/căn/đêm</option>
                                                     <option value="vnđ/villa/đêm">vnđ/villa/đêm</option>
                                                 </select>
@@ -731,9 +763,8 @@ if($_SESSION['sucess'] == "sucess") {
                                         </tr>
                                         <tr>
                                             <td colspan="3" align="center">
-                                                <select name="goi_dv_km_ban_gd" class="goi_dv_km_ban_gd" data-check="<?php echo get_field('goi_dv_km_ban_gd'); ?>" required>
-                                                    <option value="" selected disabled hidden>Chọn gói DV - KM</option>
-                                                    <option value="BB - Ăn sáng">BB - Ăn sáng</option>
+                                                <select name="goi_dv_km_ban_gd" class="goi_dv_km_ban_gd" required>
+                                                    <option selected="selected" value="BB - Ăn sáng">BB - Ăn sáng</option>
                                                     <option value="FB - Ăn 3 bữa">FB - Ăn 3 bữa</option>
                                                     <option value="FBV - Ăn 3 bữa + Vui chơi">FBV - Ăn 3 bữa + Vui chơi</option>
                                                     <option value="FBVS - Ăn 3 bữa + Vui chơi + Safari">FBVS - Ăn 3 bữa + Vui chơi + Safari</option>
@@ -753,7 +784,7 @@ if($_SESSION['sucess'] == "sucess") {
                                 </td>
                                 <td align="center" style="background-color: #f19315b3;">
                                     Mã xác nhận
-                                    <input type="text" name="ma_xac_nhan" class="ma_xac_nhan" style="background: #FFF;" value="<?php echo get_field('ma_xac_nhan'); ?>" required/>
+                                    <input type="text" name="ma_xac_nhan" class="ma_xac_nhan" style="background: #FFF;" value="<?php echo get_field('ma_xac_nhan'); ?>"/>
                                     <p></p>
                                     Lý giải PT
                                     <textarea name="ly_giai_pt" class="ly_giai_pt" style="background: #FFF;"><?php echo get_field('ly_giai_pt'); ?></textarea>
@@ -770,8 +801,7 @@ if($_SESSION['sucess'] == "sucess") {
                                         </tr>
                                         <tr>
                                             <td width="35%">
-                                                <select name="loai_phong_ban_dt" class="loai_phong_ban_dt" data-check="<?php echo get_field('loai_phong_ban_dt'); ?>">
-                                                    <option value="" selected disabled hidden>Chọn loại phòng</option>
+                                                <select name="loai_phong_ban_dt" class="loai_phong_ban_dt">
                                                     <?php
                                                     $query_khach_san = new WP_Query(array(
                                                         'post_type' => 'khach_san',
@@ -781,12 +811,19 @@ if($_SESSION['sucess'] == "sucess") {
                                                         'meta_compare' => 'RLIKE',
 
                                                     ));
+                                                    $lp2 = 1;
                                                     if($query_khach_san->have_posts()) : while ($query_khach_san->have_posts()) : $query_khach_san->the_post();
                                                         $str = get_field('loai_phong_ks');
                                                         $arr_lists = explode(",",$str);
                                                         foreach ($arr_lists as $list){
                                                             $list_explode  = $list;
                                                             $list_explode = explode(":", $list_explode);
+                                                            $lp2++;
+                                                            if($lp2 == 1){
+                                                                echo '<option selected="selected" value="'.$list_explode[0].'" data-price="'.preg_replace('/\s+/', '', $list_explode[1]).'">'.$list_explode[0].'</option>';
+                                                            }else{
+                                                                echo '<option value="'.$list_explode[0].'" data-price="'.preg_replace('/\s+/', '', $list_explode[1]).'">'.$list_explode[0].'</option>';
+                                                            }
                                                             echo '<option value="'.$list_explode[0].'" data-price="'.preg_replace('/\s+/', '', $list_explode[1]).'">'.$list_explode[0].'</option>';
                                                         }
                                                     endwhile;
@@ -795,12 +832,11 @@ if($_SESSION['sucess'] == "sucess") {
                                                     ?>
                                                 </select>
                                             </td>
-                                            <td width="10%"><input type="number" name="sl_dt" class="sl_dt" value="<?php echo get_field('sl_dt'); ?>" required /></td>
+                                            <td width="10%"><input type="number" name="sl_dt" class="sl_dt" value="1" required /></td>
                                             <td width="15%"><input type="number" name="don_gia_ban_dt" class="don_gia_ban_dt" value="<?php echo get_field('don_gia_ban_dt'); ?>" required /></td>
                                             <td width="20%">
-                                                <select name="don_vi_dt" class="don_vi_dt" data-check="<?php echo get_field('don_vi_dt'); ?>" required>
-                                                    <option value="" selected disabled hidden>Chọn đơn vị</option>
-                                                    <option value="vnđ/phòng/đêm">vnđ/phòng/đêm</option>
+                                                <select name="don_vi_dt" class="don_vi_dt" required>
+                                                    <option selected="selected" value="vnđ/phòng/đêm">vnđ/phòng/đêm</option>
                                                     <option value="vnđ/căn/đêm">vnđ/căn/đêm</option>
                                                     <option value="vnđ/villa/đêm">vnđ/villa/đêm</option>
                                                 </select>
@@ -813,9 +849,8 @@ if($_SESSION['sucess'] == "sucess") {
                                         </tr>
                                         <tr>
                                             <td colspan="3" align="center">
-                                                <select name="goi_dv_km_ban_dt" class="goi_dv_km_ban_dt" data-check="<?php echo get_field('goi_dv_km_ban_dt'); ?>" required>
-                                                    <option value="" selected disabled hidden>Chọn gói DV - KM</option>
-                                                    <option value="BB - Ăn sáng">BB - Ăn sáng</option>
+                                                <select name="goi_dv_km_ban_dt" class="goi_dv_km_ban_dt" required>
+                                                    <option selected="selected" value="BB - Ăn sáng">BB - Ăn sáng</option>
                                                     <option value="FB - Ăn 3 bữa">FB - Ăn 3 bữa</option>
                                                     <option value="FBV - Ăn 3 bữa + Vui chơi">FBV - Ăn 3 bữa + Vui chơi</option>
                                                     <option value="FBVS - Ăn 3 bữa + Vui chơi + Safari">FBVS - Ăn 3 bữa + Vui chơi + Safari</option>
@@ -857,19 +892,19 @@ if($_SESSION['sucess'] == "sucess") {
                                             <td> KH TT PT tại?</td>
                                         </tr>
                                         <tr>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="sl_nl" class="sl_nl" value="<?php echo get_field('sl_nl'); ?>" required /></td>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="gp" class="gp" value="<?php echo get_field('gp'); ?>" required /></td>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="sl02" class="sl02" value="<?php echo get_field('sl02'); ?>" required /></td>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="sl24" class="sl24" value="<?php echo get_field('sl24'); ?>" required /></td>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="sl46" class="sl46" value="<?php echo get_field('sl46'); ?>" required /></td>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="sl612" class="sl612" value="<?php echo get_field('sl612'); ?>" required /></td>
-                                            <td width="10%"><input type="number" style="background: #fff;" name="pt_nguoi" class="pt_nguoi" value="<?php echo get_field('pt_nguoi'); ?>" required /></td>
-                                            <td width="10%"><input type="number" style="background: #fff;" name="pt_giai_doan" class="pt_giai_doan" value="<?php echo get_field('pt_giai_doan'); ?>" required /></td>
-                                            <td width="10%"><input type="number" style="background: #fff;" name="pt_cuoi_tuan" class="pt_cuoi_tuan" value="<?php echo get_field('pt_cuoi_tuan'); ?>" required /></td>
-                                            <td width="10%"><input type="text" style="background: #fff;" name="bua_an_bat_buoc" class="bua_an_bat_buoc" value="<?php echo get_field('bua_an_bat_buoc'); ?>" required /></td>
-                                            <td width="10%"><input type="text" style="background: #fff;" name="dich_vu_khac" class="dich_vu_khac" value="<?php echo get_field('dich_vu_khac'); ?>" required /></td>
-                                            <td width="10%"><input type="number" style="background: #fff;" name="tong_pt" class="tong_pt" value="<?php echo get_field('tong_pt'); ?>" required /></td>
-                                            <td><input type="text" style="background: #fff;" name="kh_tt_pt_tai" class="kh_tt_pt_tai" value="<?php echo get_field('kh_tt_pt_tai'); ?>" required /></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="sl_nl" class="sl_nl" value="1"  /></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="gp" class="gp" value="1"  /></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="sl02" class="sl02" value="1"  /></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="sl24" class="sl24" value="1"  /></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="sl46" class="sl46" value="1"  /></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="sl612" class="sl612" value="1"  /></td>
+                                            <td width="10%"><input type="number" style="background: #fff;" name="pt_nguoi" class="pt_nguoi" value="<?php echo get_field('pt_nguoi'); ?>"  /></td>
+                                            <td width="10%"><input type="number" style="background: #fff;" name="pt_giai_doan" class="pt_giai_doan" value="<?php echo get_field('pt_giai_doan'); ?>"  /></td>
+                                            <td width="10%"><input type="number" style="background: #fff;" name="pt_cuoi_tuan" class="pt_cuoi_tuan" value="<?php echo get_field('pt_cuoi_tuan'); ?>"  /></td>
+                                            <td width="10%"><input type="text" style="background: #fff;" name="bua_an_bat_buoc" class="bua_an_bat_buoc" value="<?php echo get_field('bua_an_bat_buoc'); ?>"  /></td>
+                                            <td width="10%"><input type="text" style="background: #fff;" name="dich_vu_khac" class="dich_vu_khac" value="<?php echo get_field('dich_vu_khac'); ?>"  /></td>
+                                            <td width="10%"><input type="number" style="background: #fff;" name="tong_pt" class="tong_pt" value="<?php echo get_field('tong_pt'); ?>"  /></td>
+                                            <td><input type="text" style="background: #fff;" name="kh_tt_pt_tai" class="kh_tt_pt_tai" value="<?php echo get_field('kh_tt_pt_tai'); ?>"  /></td>
                                         </tr>
 
                                         </tbody>
@@ -886,31 +921,31 @@ if($_SESSION['sucess'] == "sucess") {
                                                 <textarea name="danh_sach_doan_yeu_cau_khac" class="danh_sach_doan_yeu_cau_khac"><?php echo get_field('danh_sach_doan_yeu_cau_khac'); ?></textarea>
                                             </td>
                                             <td width="25%">Tiền chưa PT</td>
-                                            <td width="25%"><input type="number" width="100%" style="height:24px;" name="tien_chua_pt_khac" class="tien_chua_pt_khac" value="<?php echo get_field('tien_chua_pt_khac'); ?>" required /></td>
+                                            <td width="25%"><input type="number" width="100%" style="height:24px;" name="tien_chua_pt_khac" class="tien_chua_pt_khac" value="<?php echo get_field('tien_chua_pt_khac'); ?>" /></td>
                                         </tr>
                                         <tr>
                                             <td>Tổng phụ thu</td>
-                                            <td><input type="number" name="tong_phu_thu_khac" style="height:24px;" class="tong_phu_thu_khac" value="<?php echo get_field('tong_phu_thu_khac'); ?>" required /></td>
+                                            <td><input type="number" name="tong_phu_thu_khac" style="height:24px;" class="tong_phu_thu_khac" value="<?php echo get_field('tong_phu_thu_khac'); ?>" /></td>
                                         </tr>
                                         <tr>
                                             <td>Giảm giá cho KH</td>
-                                            <td><input type="number" name="giam_gia_cho_kh_khac" style="height:24px;" class="giam_gia_cho_kh_khac" value="<?php echo get_field('giam_gia_cho_kh_khac'); ?>" required /></td>
+                                            <td><input type="number" name="giam_gia_cho_kh_khac" style="height:24px;" class="giam_gia_cho_kh_khac" value="<?php echo get_field('giam_gia_cho_kh_khac'); ?>" /></td>
                                         </tr>
                                         <tr>
                                             <td>Tổng giá trị</td>
-                                            <td><input type="number" name="tong_gia_tri_khac" style="height:24px;" class="tong_gia_tri_khac" value="<?php echo get_field('tong_gia_tri_khac'); ?>" required /></td>
+                                            <td><input type="number" name="tong_gia_tri_khac" style="height:24px;" class="tong_gia_tri_khac" value="<?php echo get_field('tong_gia_tri_khac'); ?>" /></td>
                                         </tr>
                                         <tr>
                                             <td>Đã thanh toán</td>
-                                            <td><input type="number" name="da_thanh_toan_khac" style="height:24px;" class="da_thanh_toan_khac" value="<?php echo get_field('da_thanh_toan_khac'); ?>" required /></td>
+                                            <td><input type="number" name="da_thanh_toan_khac" style="height:24px;" class="da_thanh_toan_khac" value="<?php echo get_field('da_thanh_toan_khac'); ?>" /></td>
                                         </tr>
                                         <tr>
                                             <td>KH còn nợ</td>
-                                            <td><input type="number" name="kh_con_no_khac" style="height:24px;" class="kh_con_no_khac" value="<?php echo get_field('kh_con_no_khac'); ?>" required /></td>
+                                            <td><input type="number" name="kh_con_no_khac" style="height:24px;" class="kh_con_no_khac" value="<?php echo get_field('kh_con_no_khac'); ?>" /></td>
                                         </tr>
                                         <tr>
                                             <td>Ngày yêu cầu KH hoàn tất TT</td>
-                                            <td><input type="text" style="height:24px;" name="ngay_yeu_cau_kh_hoan_tat_tt_khac" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_yeu_cau_kh_hoan_tat_tt_khac datepicker-here" data-language='en' value="<?php echo get_field('ngay_yeu_cau_kh_hoan_tat_tt_khac'); ?>" required /></td>
+                                            <td><input type="text" style="height:24px;" name="ngay_yeu_cau_kh_hoan_tat_tt_khac" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_yeu_cau_kh_hoan_tat_tt_khac datepicker-here" data-language='en' value="<?php echo get_field('ngay_yeu_cau_kh_hoan_tat_tt_khac'); ?>" /></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -923,11 +958,11 @@ if($_SESSION['sucess'] == "sucess") {
                                                 <ul class="price_count">
                                                     <li>
                                                         Lãi/Lỗ
-                                                        <input type="number" name="lai_lo_khac" class="lai_lo_khac" style="background: #FFF;" value="<?php echo get_field('lai_lo_khac'); ?>" required />
+                                                        <input type="number" name="lai_lo_khac" class="lai_lo_khac" style="background: #FFF;" value="<?php echo get_field('lai_lo_khac'); ?>"  />
                                                     </li>
                                                     <li>
                                                         Thuế VAT
-                                                        <input type="number" name="thue_vat_khac" class="thue_vat_khac" style="background: #FFF;" value="<?php echo get_field('thue_vat_khac'); ?>" required />
+                                                        <input type="number" name="thue_vat_khac" class="thue_vat_khac" style="background: #FFF;" value="<?php echo get_field('thue_vat_khac'); ?>"  />
                                                     </li>
                                                 </ul>
                                             </td>
@@ -937,11 +972,11 @@ if($_SESSION['sucess'] == "sucess") {
                                                 <ul class="price_count">
                                                     <li>
                                                         Thuế TNDN
-                                                        <input type="number" name="thue_tndn_khac" class="thue_tndn_khac" style="background: #FFF;" value="<?php echo get_field('thue_tndn_khac'); ?>" required />
+                                                        <input type="number" name="thue_tndn_khac" class="thue_tndn_khac" style="background: #FFF;" value="<?php echo get_field('thue_tndn_khac'); ?>"  />
                                                     </li>
                                                     <li>
                                                         CP marketing
-                                                        <input type="text" name="cp_marketing_khac" class="cp_marketing_khac" style="background: #FFF;" value="<?php echo get_field('cp_marketing_khac'); ?>" required />
+                                                        <input type="text" name="cp_marketing_khac" class="cp_marketing_khac" style="background: #FFF;" value="<?php echo get_field('cp_marketing_khac'); ?>"  />
                                                     </li>
                                                 </ul>
                                             </td>
@@ -951,11 +986,11 @@ if($_SESSION['sucess'] == "sucess") {
                                                 <ul class="price_count">
                                                     <li>
                                                         CP hậu cần
-                                                        <input type="text" name="cp_hau_can_khac" class="cp_hau_can_khac" style="background: #FFF;" value="<?php echo get_field('cp_hau_can_khac'); ?>" required />
+                                                        <input type="text" name="cp_hau_can_khac" class="cp_hau_can_khac" style="background: #FFF;" value="<?php echo get_field('cp_hau_can_khac'); ?>"  />
                                                     </li>
                                                     <li>
                                                         CP hậu mãi
-                                                        <input type="text" name="cp_hau_mai_khac" class="cp_hau_mai_khac" style="background: #FFF;" value="<?php echo get_field('cp_hau_mai_khac'); ?>" required />
+                                                        <input type="text" name="cp_hau_mai_khac" class="cp_hau_mai_khac" style="background: #FFF;" value="<?php echo get_field('cp_hau_mai_khac'); ?>"  />
                                                     </li>
                                                 </ul>
                                             </td>
@@ -963,7 +998,7 @@ if($_SESSION['sucess'] == "sucess") {
                                         <tr>
                                             <td align="center" style="background-color: #f19315b3;padding-bottom: 10px;">
                                                 CP cố định
-                                                <input type="text" name="cp_co_dinh_khac" class="cp_co_dinh_khac" style="background: #FFF;" value="<?php echo get_field('cp_co_dinh_khac'); ?>" required />
+                                                <input type="text" name="cp_co_dinh_khac" class="cp_co_dinh_khac" style="background: #FFF;" value="<?php echo get_field('cp_co_dinh_khac'); ?>"  />
                                             </td>
                                         </tr>
                                         </tbody>
@@ -973,7 +1008,7 @@ if($_SESSION['sucess'] == "sucess") {
                                     <table width="100%" border="1" style="background: #2e75bd63;">
                                         <tbody>
                                         <tr>
-                                            <td width="25%"><input type="number" name="tien_chua_pt_khac2" class="tien_chua_pt_khac2" value="<?php echo get_field('tien_chua_pt_khac2'); ?>" required /></td>
+                                            <td width="25%"><input type="number" name="tien_chua_pt_khac2" class="tien_chua_pt_khac2" value="<?php echo get_field('tien_chua_pt_khac2'); ?>"  /></td>
                                             <td width="25%">Tiền chưa PT</td>
                                             <td width="50%" colspan="2" rowspan="7">
                                                 Ghi chú của ĐT
@@ -981,27 +1016,27 @@ if($_SESSION['sucess'] == "sucess") {
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><input type="number" name="tong_phu_thu_khac2" style="height:24px;" class="tong_phu_thu_khac2" value="<?php echo get_field('tong_phu_thu_khac2'); ?>" required /></td>
+                                            <td><input type="number" name="tong_phu_thu_khac2" style="height:24px;" class="tong_phu_thu_khac2" value="<?php echo get_field('tong_phu_thu_khac2'); ?>"  /></td>
                                             <td>Tổng phụ thu</td>
                                         </tr>
                                         <tr>
-                                            <td><input type="number" name="giam_gia_cua_dt_khac2" style="height:24px;" class="giam_gia_cua_dt_khac2" value="<?php echo get_field('giam_gia_cua_dt_khac2'); ?>" required /></td>
+                                            <td><input type="number" name="giam_gia_cua_dt_khac2" style="height:24px;" class="giam_gia_cua_dt_khac2" value="<?php echo get_field('giam_gia_cua_dt_khac2'); ?>"  /></td>
                                             <td>Giảm giá của ĐT</td>
                                         </tr>
                                         <tr>
-                                            <td><input type="number" name="tong_gia_tri_khac2" style="height:24px;" class="tong_gia_tri_khac2" value="<?php echo get_field('tong_gia_tri_khac2'); ?>" required /></td>
+                                            <td><input type="number" name="tong_gia_tri_khac2" style="height:24px;" class="tong_gia_tri_khac2" value="<?php echo get_field('tong_gia_tri_khac2'); ?>"  /></td>
                                             <td>Tổng giá trị</td>
                                         </tr>
                                         <tr>
-                                            <td><input type="number" name="da_thanh_toan_khac2" style="height:24px;" class="da_thanh_toan_khac2" value="<?php echo get_field('da_thanh_toan_khac2'); ?>" required /></td>
+                                            <td><input type="number" name="da_thanh_toan_khac2" style="height:24px;" class="da_thanh_toan_khac2" value="<?php echo get_field('da_thanh_toan_khac2'); ?>"  /></td>
                                             <td>Đã thanh toán</td>
                                         </tr>
                                         <tr>
-                                            <td><input type="number" name="bct_con_no_khac2" style="height:24px;" class="bct_con_no_khac2" value="<?php echo get_field('bct_con_no_khac2'); ?>" required /></td>
+                                            <td><input type="number" name="bct_con_no_khac2" style="height:24px;" class="bct_con_no_khac2" value="<?php echo get_field('bct_con_no_khac2'); ?>"  /></td>
                                             <td>BCT còn nợ</td>
                                         </tr>
                                         <tr>
-                                            <td><input type="text" name="ngay_phai_hoan_tat_tt_cho_ks_khac2" style="height:24px;" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_phai_hoan_tat_tt_cho_ks_khac2 datepicker-here" data-language='en' value="<?php echo get_field('ngay_phai_hoan_tat_tt_cho_ks_khac2'); ?>" required ></td>
+                                            <td><input type="text" name="ngay_phai_hoan_tat_tt_cho_ks_khac2" style="height:24px;" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_phai_hoan_tat_tt_cho_ks_khac2 datepicker-here" data-language='en' value="<?php echo get_field('ngay_phai_hoan_tat_tt_cho_ks_khac2'); ?>"  ></td>
                                             <td>Ngày phải hoàn tất TT cho KS</td>
                                         </tr>
                                         </tbody>
@@ -1480,13 +1515,16 @@ if($_SESSION['sucess'] == "sucess") {
                                             <td width="12%"><input type="number" style="background: #FFF;" name="tk_kgd" class="tk_kgd" value="<?php echo $tk_kgd; ?>" required /></td>
                                             <td width="10%"><input type="text" style="background: #FFF;" name="ma_kgd" class="ma_kgd" value="<?php echo $ma_kgd; ?>" required /></td>
                                             <td width="10%">
-                                                <select name="xep_hang_kgd" class="xep_hang_kgd" style="background: #FFF;" data-check="<?php echo $xep_hang_kgd; ?>" required>
+                                                <select name="xep_hang_kgd" class="xep_hang_kgd" style="background: #FFF;" required>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option selected="selected" value="5">5</option>
                                                 </select>
                                             </td>
-                                            <td width="10%"><input type="text" name="ma_ctv" style="background: #FFF;" class="ma_ctv" value="<?php echo $ma_ctv; ?>" required /></td>
-                                            <td><input type="text" name="ma_nv" class="ma_nv" style="background: #FFF;" value="<?php echo $ma_nv; ?>" required /></td>
+                                            <td width="10%"><input type="text" name="ma_ctv" style="background: #FFF;" class="ma_ctv" value="<?php echo $ma_ctv; ?>"  /></td>
+                                            <td><input type="text" name="ma_nv" class="ma_nv" style="background: #FFF;" value="<?php echo $ma_nv; ?>"  /></td>
                                         </tr>
                                         </tbody>
                                     </table>

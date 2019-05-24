@@ -52,6 +52,7 @@
         disable_edit_giao_dich3_view.prop( "disabled", true );
 
 
+
         /*$('.ngay_cập_nhập_giao_dịch_cuối_cung').prop( "disabled", true );
         $('.so_dem_gd').prop( "disabled", true );
         $('.con_ngay_gd').prop( "disabled", true );*/
@@ -79,65 +80,67 @@
 
 
             //kéo thả gallery hotel
-            $( "#lightgallery" ).sortable({
-                revert: true,
-                helper: "clone",
-                start: function( event, ui ) {
-                    $(ui.item).addClass("active-draggable");
-                    $(ui.item).css('transform','rotate(4deg)');
-                    ui.item.startPos = ui.item.index();
+            if($('.giao_dich_moi').hasClass('gallery_hotel')){
+                $( "#lightgallery" ).sortable({
+                    revert: true,
+                    helper: "clone",
+                    start: function( event, ui ) {
+                        $(ui.item).addClass("active-draggable");
+                        $(ui.item).css('transform','rotate(4deg)');
+                        ui.item.startPos = ui.item.index();
 
-                },
-                drag: function( event, ui ) {
-                },
-                stop:function( event, ui ) {
-                    $(ui.item).removeClass("active-draggable");
-                    $(ui.item).css('transform','rotate(0deg)');
-                    console.log($.map($(this).find('li'), function(el) {
-                        return $(el).attr('class') + ' = ' + $(el).index();
-                    }));
+                    },
+                    drag: function( event, ui ) {
+                    },
+                    stop:function( event, ui ) {
+                        $(ui.item).removeClass("active-draggable");
+                        $(ui.item).css('transform','rotate(0deg)');
+                        console.log($.map($(this).find('li'), function(el) {
+                            return $(el).attr('class') + ' = ' + $(el).index();
+                        }));
 
-                    $.map($(this).find('li'), function(el) {
-                        var class_item = $(el).attr('class');
-                        $('#'+class_item).attr('data-position', $(el).index());
+                        $.map($(this).find('li'), function(el) {
+                            var class_item = $(el).attr('class');
+                            $('#'+class_item).attr('data-position', $(el).index());
+                        });
+                    }
+                });
+
+                $('.add_hotel .item.gallery ul li i.fa-times').on('click', function (e) {
+                    e.stopPropagation(); //stop parent load
+
+                    var img = $(this).attr('data-img');
+
+                    $(this).siblings('.img').css('background', 'url('+img+')');
+                    $(this).parents('li').attr('data-src', img);
+                    $(this).siblings('.img').find('img').attr('src', img);
+                    $(this).siblings('.img').removeClass('active');
+                    $(this).siblings('.btn_add_img').show();
+                    $(this).hide();
+                });
+
+                $('.add_hotel .item.gallery ul li .btn_add_img').on('click', function (e) {
+                    e.stopPropagation(); //stop parent load
+
+                    $(this).siblings('input').on('click', function (e) {
+                        e.stopPropagation(); //stop parent load
                     });
-                }
-            });
+                });
 
-            $('.add_hotel .item.gallery ul li i.fa-times').on('click', function (e) {
-                e.stopPropagation(); //stop parent load
-
-                var img = $(this).attr('data-img');
-
-                $(this).siblings('.img').css('background', 'url('+img+')');
-                $(this).parents('li').attr('data-src', img);
-                $(this).siblings('.img').find('img').attr('src', img);
-                $(this).siblings('.img').removeClass('active');
-                $(this).siblings('.btn_add_img').show();
-                $(this).hide();
-            });
-
-            $('.add_hotel .item.gallery ul li .btn_add_img').on('click', function (e) {
-                e.stopPropagation(); //stop parent load
-
-                $(this).siblings('input').on('click', function (e) {
+                $('.add_hotel .item.gallery ul li input').on('click', function (e) {
                     e.stopPropagation(); //stop parent load
                 });
-            });
 
-            $('.add_hotel .item.gallery ul li input').on('click', function (e) {
-                e.stopPropagation(); //stop parent load
-            });
-
-            $('.add_hotel .item.gallery ul li input').change(function (e) {
-                var tmppath = URL.createObjectURL(e.target.files[0]);
-                $(this).parents('.btn_add_img').siblings('.img').css('background', 'url('+tmppath+')');
-                $(this).parents('.btn_add_img').siblings('.img').find('img').attr('src', tmppath);
-                $(this).parents('.btn_add_img').parents('li').attr('data-src', tmppath);
-                $(this).parents('.btn_add_img').hide();
-                $(this).parents('.btn_add_img').siblings('i.fa-times').show();
-                $(this).parents('.btn_add_img').siblings('.img').addClass('active');
-            });
+                $('.add_hotel .item.gallery ul li input').change(function (e) {
+                    var tmppath = URL.createObjectURL(e.target.files[0]);
+                    $(this).parents('.btn_add_img').siblings('.img').css('background', 'url('+tmppath+')');
+                    $(this).parents('.btn_add_img').siblings('.img').find('img').attr('src', tmppath);
+                    $(this).parents('.btn_add_img').parents('li').attr('data-src', tmppath);
+                    $(this).parents('.btn_add_img').hide();
+                    $(this).parents('.btn_add_img').siblings('i.fa-times').show();
+                    $(this).parents('.btn_add_img').siblings('.img').addClass('active');
+                });
+            }
         }
     }
 
@@ -271,7 +274,61 @@
         ];
 
         $.each(ClassSelect , function(index, val) {
-            $('.'+val).val($('.'+val).attr('data-check'));
+            if($('.'+val).attr('data-check') != undefined){
+                $('.'+val).val($('.'+val).attr('data-check'));
+            }
+        });
+
+        $('.noi_di_gd').on('change', function(){
+            $('.noi_di_dt').val($(this).val());
+        });
+
+        $('.noi_den_gd').on('change', function(){
+            $('.noi_den_dt').val($(this).val());
+        });
+
+        $('.noi_di_dt').on('change', function(){
+            $('.noi_di_gd').val($(this).val());
+        });
+
+        $('.noi_den_dt').on('change', function(){
+            $('.noi_den_gd').val($(this).val());
+        });
+
+        $('.trang_thai_bkk_voi_kh_gd').on('change', function(){
+            $('.trang_thai_bkk_voi_dt').val($(this).val());
+        });
+
+        $('.trang_thai_bkk_voi_dt').on('change', function(){
+            $('.trang_thai_bkk_voi_kh_gd').val($(this).val());
+        });
+
+        $('.don_vi_gd').on('change', function(){
+            $('.don_vi_dt').val($(this).val());
+        });
+
+        $('.don_vi_dt').on('change', function(){
+            $('.don_vi_gd').val($(this).val());
+        });
+
+        $('.loai_phong_ban_gd').on('change', function(){
+            $('.loai_phong_ban_dt').val($(this).val());
+            var price = $(this).find('option:selected', this).attr('data-price');
+            $('.don_gia_ban_dt').val(price);
+        });
+
+        $('.loai_phong_ban_dt').on('change', function(){
+            $('.loai_phong_ban_gd').val($(this).val());
+            var price = $(this).find('option:selected', this).attr('data-price');
+            $('.don_gia_ban_gd').val(price);
+        });
+
+        $('.sl_gd').on('keyup', function(){
+            $('.sl_dt').val($(this).val());
+        });
+
+        $('.sl_dt').on('keyup', function(){
+            $('.sl_gd').val($(this).val());
         });
 
         //Lấy dữ liệu tên và bảng giá phòng theo tên khách sạn giao dịch
@@ -335,6 +392,10 @@
 
             $('input.don_gia_ban_gd').attr('value', parseInt(price));
         });
+
+        $('.don_gia_ban_gd').val($('.loai_phong_ban_gd option:selected', this).attr('data-price'));
+        $('.don_gia_ban_dt').val($('.loai_phong_ban_dt option:selected', this).attr('data-price'));
+        $('.ma_dt').val($('.ten_dt_gui_book_dt option:selected', this).attr('data-id'));
 
         $('.loai_phong_ban_dt').on('change', function (e) {
             e.preventDefault();
@@ -938,7 +999,7 @@
                     },
                     success: function (response) {
                         //console.log(response.data[1] + '--' + ma_nhan_vien_chat);
-                        if(response.data[0] != 'stop'){
+                        /*if(response.data[0] != 'stop'){*/
                             /*if(response.data[1] == ma_nhan_vien_chat){
                             }else{
                             }*/
@@ -959,9 +1020,9 @@
                                     window.open(url_current, '_blank');
                                 }
                             }*/
-                        }else{
+                        /*}else{
                             //console.log(response.data[0] + '---' + ma_nhan_vien_chat);
-                        }
+                        }*/
                     }
                 });
             },3000);
@@ -1647,6 +1708,134 @@
         });
     }
 
+    //calendar change price time hotel
+    function Calendar_price_hotel() {
+        var d = new Date();
+        var month_current = d.getMonth();
+        var total_date = new Date(d.getFullYear(), month_current, 0).getDate();
+
+        var weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
+        var month = $('.calendar_hotel .month_hotel .insider h3 span').text();
+        month = parseInt(month);
+        for (var i = 1; i <= total_date + 1; i++){
+            var a = new Date(month+'/'+i+'/2019');
+            var day_last = a.getDay();
+            var a_class;
+            if(weekday[day_last] == 'Saturday'){
+                a_class = 'active';
+            }else if(weekday[day_last] == 'Sunday'){
+                a_class = 'active';
+            }else{
+                a_class = 'dis_active';
+            }
+            $('.calendar_hotel ul.list_date_box').append('<li class="calendar_list '+a_class+'"><div class="scene"><div class="cube"><div class="cube__face cube__face--front"><div class="info"><h4>'+i+'</h4><p>'+weekday[day_last]+'</p><p>5,000,000 vnđ</p></div></div><div class="cube__face cube__face--back">back</div><div class="cube__face cube__face--right">right</div><div class="cube__face cube__face--left">left</div><div class="cube__face cube__face--top"><div class="info"><h4>'+i+'</h4><p>'+weekday[day_last]+'</p><p>5,000,000 vnđ</p></div><div class="cube__face cube__face--bottom">bottom</div></div></div></li>');
+        }
+
+        $('.calendar_hotel .btn_close').on('click', function () {
+            $('.calendar_hotel').fadeOut();
+        });
+
+        $('.calendar_hotel .month_hotel .insider .next').on('click', function () {
+            var $n = 1;
+            var start = $('.calendar_hotel .month_hotel .insider h3 span').text();
+            var now = new Date();
+            var month,count_date;
+            var weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
+            start = parseInt(start);
+            $n = start + 1;
+            if($n > 12){
+                $n = 1;
+            }
+            month = $n;
+
+            $('.calendar_hotel .month_hotel .insider h3 span').text($n);
+
+            count_date = new Date(now.getFullYear(), $n, 0).getDate();
+            $('.calendar_hotel ul.list_date_box').empty();
+
+            for (var i = 1; i <= count_date; i++){
+                var a = new Date(month+'/'+i+'/2019');
+                var day_last = a.getDay();
+                var a_class;
+                if(weekday[day_last] == 'Saturday'){
+                    a_class = 'active';
+                }else if(weekday[day_last] == 'Sunday'){
+                    a_class = 'active';
+                }else{
+                    a_class = 'dis_active';
+                }
+                $('.calendar_hotel ul.list_date_box').append('<li class="calendar_list '+a_class+'"><div class="scene"><div class="cube"><div class="cube__face cube__face--front"><div class="info"><h4>'+i+'</h4><p>'+weekday[day_last]+'</p><p>5,000,000 vnđ</p></div></div><div class="cube__face cube__face--back">back</div><div class="cube__face cube__face--right">right</div><div class="cube__face cube__face--left">left</div><div class="cube__face cube__face--top"><div class="info"><h4>'+i+'</h4><p>'+weekday[day_last]+'</p><p>5,000,000 vnđ</p></div><div class="cube__face cube__face--bottom">bottom</div></div></div></li>');
+            }
+        });
+        $('.calendar_hotel .month_hotel .insider .prev').on('click', function () {
+            var $n = 1;
+            var start = $('.calendar_hotel .month_hotel .insider h3 span').text();
+            var now = new Date();
+            var month,count_date;
+            var weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
+            start = parseInt(start);
+            $n = start - 1;
+            if($n < 1){
+                $n = 12;
+            }
+            month = $n;
+
+            count_date = new Date(now.getFullYear(), $n, 0).getDate();
+
+            $('.calendar_hotel ul.list_date_box').empty();
+
+            for (var i = 1; i <= count_date; i++){
+                var a = new Date(month+'/'+i+'/2019');
+                var day_last = a.getDay();
+                var a_class;
+                if(weekday[day_last] == 'Saturday'){
+                    a_class = 'active';
+                }else if(weekday[day_last] == 'Sunday'){
+                    a_class = 'active';
+                }else{
+                    a_class = 'dis_active';
+                }
+                $('.calendar_hotel ul.list_date_box').append('<li class="calendar_list '+a_class+'"><div class="scene"><div class="cube"><div class="cube__face cube__face--front"><div class="info"><h4>'+i+'</h4><p>'+weekday[day_last]+'</p><p>5,000,000 vnđ</p></div></div><div class="cube__face cube__face--back">back</div><div class="cube__face cube__face--right">right</div><div class="cube__face cube__face--left">left</div><div class="cube__face cube__face--top"><div class="info"><h4>'+i+'</h4><p>'+weekday[day_last]+'</p><p>5,000,000 vnđ</p></div><div class="cube__face cube__face--bottom">bottom</div></div></div></li>');
+            }
+
+            $('.calendar_hotel .month_hotel .insider h3 span').text($n);
+
+        });
+
+        $(document).on('click','.calendar_hotel .scene .cube .cube__face--front', function () {
+            $(this).parents('.cube').addClass('show-top');
+        });
+
+        $(document).on('click','.calendar_hotel .scene .cube .cube__face--top',function () {
+            $(this).parents('.cube').removeClass('show-top');
+        });
+
+        //Check all date regular
+        $(document).on('click','.check_date_last_week', function(){
+            if($(this).attr('checked') == 'checked'){
+                $(this).parents('.option_date_hotel').siblings('ul.list_date_box').find('li.calendar_list.active .scene .cube').addClass('show-top');
+                $(this).parents('.option_date_hotel').siblings('ul.list_date_box').find('li.calendar_list.dis_active .scene .cube').removeClass('show-top');
+            }else{
+                $(this).parents('.option_date_hotel').siblings('ul.list_date_box').find('li.calendar_list.active .scene .cube').removeClass('show-top');
+            }
+        });
+
+        //Check all date last week
+        $(document).on('click','.check_date_regular', function(){
+            if($(this).attr('checked') == 'checked'){
+                $(this).parents('.option_date_hotel').siblings('ul.list_date_box').find('li.calendar_list.dis_active .scene .cube').addClass('show-top');
+                $(this).parents('.option_date_hotel').siblings('ul.list_date_box').find('li.calendar_list.active .scene .cube').removeClass('show-top');
+            }else{
+                $(this).parents('.option_date_hotel').siblings('ul.list_date_box').find('li.calendar_list.dis_active .scene .cube').removeClass('show-top');
+            }
+        });
+
+
+    }
+
     function _init() {
         base();
         datePicker();
@@ -1665,6 +1854,7 @@
         getDataClient();
         forget_email();
         Excel_Hotel();
+        Calendar_price_hotel();
         //googleSheet();
     }
 

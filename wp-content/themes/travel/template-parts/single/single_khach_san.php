@@ -240,14 +240,14 @@ get_header();
         }
         ?>
         <div class="content_admin">
-            <div class="giao_dich_moi add_user add_khach_san edit_khach_san">
+            <div class="giao_dich_moi add_user add_khach_san edit_khach_san gallery_hotel">
                 <form action="<?php echo get_permalink(); ?>" method="post" enctype="multipart/form-data">
                     <?php if(isset($alert)){
                         echo $alert;
                     } ?>
                     <div class="add_hotel">
                         <div class="item">
-                            <h1>Sửa khách sạn</h1>
+                            <h1>Thông tin khách sạn</h1>
                             <ul>
                                 <li>
                                     <label>Hotel Id</label>
@@ -584,18 +584,32 @@ get_header();
                                 </li>
                             </ul>
 
-                            <ul>
-                                <div class="scene">
-                                    <div class="cube">
-                                        <div class="cube__face cube__face--front">front</div>
-                                        <div class="cube__face cube__face--back">back</div>
-                                        <div class="cube__face cube__face--right">right</div>
-                                        <div class="cube__face cube__face--left">left</div>
-                                        <div class="cube__face cube__face--top">top</div>
-                                        <div class="cube__face cube__face--bottom">bottom</div>
+                            <div class="calendar_hotel">
+                                <div class="date_hotel">
+                                    <div class="month_hotel">
+                                        <div class="insider">
+                                            <div class="prev"><i class="fa fa-angle-left" aria-hidden="true"></i></div>
+                                            <h3 class="animated bounce ">Month <span>5</span></h3>
+                                            <div class="next"><i class="fa fa-angle-right" aria-hidden="true"></i></div>
+                                        </div>
+                                        <button type="button" class="btn_close"><i class="fa fa-times" aria-hidden="true"></i></button>
+                                    </div>
+                                    <ul class="list_date_box"></ul>
+                                    <div class="option_date_hotel">
+                                        <ul>
+                                            <li>
+                                                <span>Ngày thường</span>
+                                                <span><input type="checkbox" name="check_date_regular" class="check_date_regular"/></span>
+                                            </li>
+                                            <li>
+                                                <span>Ngày cuối tuần</span>
+                                                <span><input type="checkbox" name="check_date_last_week" class="check_date_regular"/></span>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
-                            </ul>
+                            </div>
+
 
                         </div>
                     </div>

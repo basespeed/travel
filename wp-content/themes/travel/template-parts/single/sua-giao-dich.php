@@ -721,7 +721,7 @@
                                 </td>
                                 <td align="center" style="background-color: #f19315b3;">
                                     Hình thức book
-                                    <input type="text" name="hinh_thuc_book_gd" class="hinh_thuc_book_gd" style="background: #FFF;" value="<?php echo get_field('hinh_thuc_book_gd'); ?>" required/">
+                                    <input type="text" name="hinh_thuc_book_gd" class="hinh_thuc_book_gd" style="background: #FFF;" value="<?php echo get_field('hinh_thuc_book_gd'); ?>"/">
                                 </td>
                                 <td>
                                     <table width="100%" border="1">
@@ -821,7 +821,7 @@
                                 </td>
                                 <td align="center" style="background-color: #f19315b3;">
                                     Mã xác nhận
-                                    <input type="text" name="ma_xac_nhan" class="ma_xac_nhan" style="background: #FFF;" value="<?php echo get_field('ma_xac_nhan'); ?>" required/>
+                                    <input type="text" name="ma_xac_nhan" class="ma_xac_nhan" style="background: #FFF;" value="<?php echo get_field('ma_xac_nhan'); ?>"/>
                                     <p></p>
                                     Lý giải PT
                                     <textarea name="ly_giai_pt" class="ly_giai_pt" style="background: #FFF;"><?php echo get_field('ly_giai_pt'); ?></textarea>
@@ -925,19 +925,19 @@
                                             <td> KH TT PT tại?</td>
                                         </tr>
                                         <tr>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="sl_nl" class="sl_nl" value="<?php echo get_field('sl_nl'); ?>" required /></td>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="gp" class="gp" value="<?php echo get_field('gp'); ?>" required /></td>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="sl02" class="sl02" value="<?php echo get_field('sl02'); ?>" required /></td>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="sl24" class="sl24" value="<?php echo get_field('sl24'); ?>" required /></td>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="sl46" class="sl46" value="<?php echo get_field('sl46'); ?>" required /></td>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="sl612" class="sl612" value="<?php echo get_field('sl612'); ?>" required /></td>
-                                            <td width="10%"><input type="number" style="background: #fff;" name="pt_nguoi" class="pt_nguoi" value="<?php echo get_field('pt_nguoi'); ?>" required /></td>
-                                            <td width="10%"><input type="number" style="background: #fff;" name="pt_giai_doan" class="pt_giai_doan" value="<?php echo get_field('pt_giai_doan'); ?>" required /></td>
-                                            <td width="10%"><input type="number" style="background: #fff;" name="pt_cuoi_tuan" class="pt_cuoi_tuan" value="<?php echo get_field('pt_cuoi_tuan'); ?>" required /></td>
-                                            <td width="10%"><input type="text" style="background: #fff;" name="bua_an_bat_buoc" class="bua_an_bat_buoc" value="<?php echo get_field('bua_an_bat_buoc'); ?>" required /></td>
-                                            <td width="10%"><input type="text" style="background: #fff;" name="dich_vu_khac" class="dich_vu_khac" value="<?php echo get_field('dich_vu_khac'); ?>" required /></td>
-                                            <td width="10%"><input type="number" style="background: #fff;" name="tong_pt" class="tong_pt" value="<?php echo get_field('tong_pt'); ?>" required /></td>
-                                            <td><input type="text" style="background: #fff;" name="kh_tt_pt_tai" class="kh_tt_pt_tai" value="<?php echo get_field('kh_tt_pt_tai'); ?>" required /></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="sl_nl" class="sl_nl" value="<?php echo get_field('sl_nl'); ?>"  /></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="gp" class="gp" value="<?php echo get_field('gp'); ?>"  /></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="sl02" class="sl02" value="<?php echo get_field('sl02'); ?>"  /></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="sl24" class="sl24" value="<?php echo get_field('sl24'); ?>"  /></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="sl46" class="sl46" value="<?php echo get_field('sl46'); ?>"  /></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="sl612" class="sl612" value="<?php echo get_field('sl612'); ?>"  /></td>
+                                            <td width="10%"><input type="number" style="background: #fff;" name="pt_nguoi" class="pt_nguoi" value="<?php echo get_field('pt_nguoi'); ?>"  /></td>
+                                            <td width="10%"><input type="number" style="background: #fff;" name="pt_giai_doan" class="pt_giai_doan" value="<?php echo get_field('pt_giai_doan'); ?>"  /></td>
+                                            <td width="10%"><input type="number" style="background: #fff;" name="pt_cuoi_tuan" class="pt_cuoi_tuan" value="<?php echo get_field('pt_cuoi_tuan'); ?>"  /></td>
+                                            <td width="10%"><input type="text" style="background: #fff;" name="bua_an_bat_buoc" class="bua_an_bat_buoc" value="<?php echo get_field('bua_an_bat_buoc'); ?>"  /></td>
+                                            <td width="10%"><input type="text" style="background: #fff;" name="dich_vu_khac" class="dich_vu_khac" value="<?php echo get_field('dich_vu_khac'); ?>"  /></td>
+                                            <td width="10%"><input type="number" style="background: #fff;" name="tong_pt" class="tong_pt" value="<?php echo get_field('tong_pt'); ?>"  /></td>
+                                            <td><input type="text" style="background: #fff;" name="kh_tt_pt_tai" class="kh_tt_pt_tai" value="<?php echo get_field('kh_tt_pt_tai'); ?>"  /></td>
                                         </tr>
 
                                         </tbody>
@@ -1551,6 +1551,9 @@
                                                 <select name="xep_hang_kgd" class="xep_hang_kgd" style="background: #FFF;" data-check="<?php echo $xep_hang_kgd; ?>" required>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
                                                 </select>
                                             </td>
                                             <td width="10%"><input type="text" name="ma_ctv" style="background: #FFF;" class="ma_ctv" value="<?php echo $ma_ctv; ?>" required /></td>

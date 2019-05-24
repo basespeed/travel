@@ -107,7 +107,7 @@
       }
     }
     li:last-child{
-      width: 100% !important;
+      width: 100%;
     }
     .show_list_ds{
       margin-left: 15px;
@@ -265,60 +265,6 @@
   }
 
 }
-.scene {
-  width: 200px;
-  height: 200px;
-  //border: 1px solid #CCC;
-  margin: 80px;
-  perspective: 400px;
-  .cube {
-    width: 200px;
-    height: 200px;
-    position: relative;
-    transform-style: preserve-3d;
-    transform: translateZ(-100px);
-    transition: transform 1s;
-    &:hover{
-      transform: translateZ(-100px) rotateY(-180deg);
-    }
-  }
-
-  .cube.show-front  { transform: translateZ(-100px) rotateY(   0deg); }
-  .cube.show-right  { transform: translateZ(-100px) rotateY( -90deg); }
-  .cube.show-back   { transform: translateZ(-100px) rotateY(-180deg); }
-  .cube.show-left   { transform: translateZ(-100px) rotateY(  90deg); }
-  .cube.show-top    { transform: translateZ(-100px) rotateX( -90deg); }
-  .cube.show-bottom { transform: translateZ(-100px) rotateX(  90deg); }
-
-  .cube__face {
-    position: absolute;
-    width: 200px;
-    height: 200px;
-    border: 2px solid black;
-    line-height: 200px;
-    font-size: 40px;
-    font-weight: bold;
-    color: white;
-    text-align: center;
-  }
-
-  .cube__face--front  { background: rgba(  220,80,68, 0.9); }
-  .cube__face--right  { background: rgba( 236,178,84, 0.9); }
-  .cube__face--back   { background: rgba( 59,121,253, 0.9); }
-  .cube__face--left   { background: rgba(4,4,4, 0.9); }
-  .cube__face--top    { background: rgba(252,221,63, 0.9); }
-  .cube__face--bottom { background: rgba(50,55,60, 0.9); }
-
-  .cube__face--front  { transform: rotateY(  0deg) translateZ(100px); }
-  .cube__face--right  { transform: rotateY( 90deg) translateZ(100px); }
-  .cube__face--back   { transform: rotateY(180deg) translateZ(100px); }
-  .cube__face--left   { transform: rotateY(-90deg) translateZ(100px); }
-  .cube__face--top    { transform: rotateX( 90deg) translateZ(100px); }
-  .cube__face--bottom { transform: rotateX(-90deg) translateZ(100px); }
-}
-
-
-
 
 .ui-sortable-handle{
   transform: rotate(0deg);
@@ -960,6 +906,160 @@ table#show_chat {
 
 .page-template-edit_nhan_vien .giao_dich_moi table tr td span:first-child.hide_active{
   display: block;
+}
+
+.calendar_hotel{
+  position: fixed;
+  z-index: 10000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  &:after{
+    content: "";
+    display: block;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background: rgba(0,0,0,0.8);
+    position: absolute;
+  }
+  .date_hotel{
+    width:1220px;
+    height: auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    display: flex;
+    flex-wrap: wrap;
+    z-index: 1000;
+  }
+  ul{
+    width: 100% !important;
+    padding: 0px !important;
+    padding-top: 10px !important;
+  }
+  button{
+    right: 15px !important;
+    top: 10px !important;
+    i{
+      color: #FFF;
+    }
+  }
+  li{
+    width: 120px !important;
+    height: auto !important;
+    margin-bottom: 10px !important;
+  }
+  li:last-child{
+    width: 120px !important;
+  }
+  .month_hotel{
+    width: 1220px;
+    padding: 10px 0px;
+    margin: auto;
+    position: relative;
+    z-index: 1000;
+    top: 0px;
+    background: #2E74BC;
+    .insider{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      h3{
+        margin:0px 20px;
+        color: #FFF;
+      }
+      i{
+        font-size: 30px;
+        cursor: pointer;
+        color: #FFF;
+      }
+    }
+  }
+  .scene {
+    width: 120px;
+    height: 120px;
+    margin: 0px;
+    perspective: 400px;
+    .cube {
+      width: 120px;
+      height: 120px;
+      position: relative;
+      transform-style: preserve-3d;
+      transform: translateZ(-100px);
+      transition: transform 1s;
+      cursor: pointer;
+    }
+
+    .cube.show-front  { transform: translateZ(-100px) rotateY(   0deg); }
+    .cube.show-right  { transform: translateZ(-100px) rotateY( -90deg); }
+    .cube.show-back   { transform: translateZ(-100px) rotateY(-180deg); }
+    .cube.show-left   { transform: translateZ(-100px) rotateY(  90deg); }
+    .cube.show-top    { transform: translateZ(-100px) rotateX( -90deg); }
+    .cube.show-bottom { transform: translateZ(-100px) rotateX(  90deg); }
+
+    .cube__face {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      //border: 2px solid #ff4b4b;
+      font-size: 30px;
+      font-weight: bold;
+      color: white;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+      h4{
+        margin: 0;
+      }
+      p{
+        margin: 0;
+        font-size: 15px;
+      }
+    }
+
+    .cube__face--front  { background: rgba(  66,195,82, 1); }
+    .cube__face--right  { background: rgba( 236,178,84, 1); }
+    .cube__face--back   { background: rgba( 59,121,253, 1); }
+    .cube__face--left   { background: rgba(4,4,4, 1); }
+    .cube__face--top    { background: rgba(255,75,75, 1); }
+    .cube__face--bottom { background: rgba(50,55,60, 1); }
+
+    .cube__face--front  { transform: rotateY(  0deg) translateZ(60px); }
+    .cube__face--right  { transform: rotateY( 90deg) translateZ(60px); }
+    .cube__face--back   { transform: rotateY(180deg) translateZ(60px); }
+    .cube__face--left   { transform: rotateY(-90deg) translateZ(60px); }
+    .cube__face--top    { transform: rotateX( 90deg) translateZ(60px); }
+    .cube__face--bottom { transform: rotateX(-90deg) translateZ(60px); }
+  }
+  li.calendar_list.active{
+    .cube__face--front  { background: rgba(  241,178,84, 1); }
+  }
+  .option_date_hotel{
+    width: 1220px;
+    padding: 10px 0px;
+    margin: auto;
+    position: relative;
+    z-index: 1000;
+    top: 0px;
+    background: #FFF;
+    ul{
+      display: flex;
+      li{
+        width: auto !important;
+        display: flex;
+        align-items: center;
+        input{
+          width: auto;
+        }
+      }
+    }
+  }
 }
 
 @media screen and (max-width: 1620px){
