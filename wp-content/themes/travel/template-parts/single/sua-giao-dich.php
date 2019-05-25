@@ -402,7 +402,7 @@
                                         <td align="center"></td>
                                         <tr>
                                             <td width="50%">
-                                                <input type="text" name="ten_khach_san_gd_val" class="ten_khach_san_gd_val" value="<?php
+                                                <input type="text" name="ten_khach_san_gd_val" class="ten_khach_san_gd_val"  value="<?php
                                                     if(!empty(get_field('ten_khach_san_gd'))){
                                                         $ten_khach_san_gd = get_field('ten_khach_san_gd');
                                                         if ( (int)$ten_khach_san_gd == $ten_khach_san_gd ) {
@@ -423,8 +423,8 @@
                                                             echo get_field('ten_khach_san_gd');
                                                         }
                                                     }
-                                                ?>" required>
-                                                <input type="hidden" name="ten_khach_san_gd" class="ten_khach_san_gd" value="<?php echo get_field('ten_khach_san_gd'); ?>">
+                                                ?>" required autocomplete="off">
+                                                <input type="hidden" name="ten_khach_san_gd" class="ten_khach_san_gd" value="<?php echo get_field('ten_khach_san_gd'); ?>" autocomplete="off">
                                                 <div class="pop_ten_khach_san_gd">
                                                     <ul>
                                                         <li>Hotel name</li>
@@ -461,8 +461,8 @@
                                                         echo get_field('ma_dich_vu_gd');
                                                     }
                                                 }
-                                                ?>" required/>
-                                                <input type="hidden" name="ma_dich_vu_gd" class="ma_dich_vu_gd" value="<?php echo get_field('ma_dich_vu_gd'); ?>" />
+                                                ?>" required autocomplete="off"/>
+                                                <input type="hidden" name="ma_dich_vu_gd" class="ma_dich_vu_gd" value="<?php echo get_field('ma_dich_vu_gd'); ?>" autocomplete="off"/>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -475,7 +475,7 @@
                                         </tr>
                                         <tr>
                                             <td width="50%">
-                                                <select name="noi_di_gd" class="noi_di_gd" data-check="<?php echo get_field('noi_di_gd'); ?>" required>
+                                                <select name="noi_di_gd" class="noi_di_gd" data-check="<?php echo get_field('noi_di_gd'); ?>" required autocomplete="off">
                                                     <?php
                                                     //List các địa điểm đi và đến
                                                     $query_khach_san = new WP_Query(array(
@@ -491,7 +491,7 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <select name="noi_den_gd" class="noi_den_gd" data-check="<?php echo get_field('noi_den_gd'); ?>" required>
+                                                <select name="noi_den_gd" class="noi_den_gd" data-check="<?php echo get_field('noi_den_gd'); ?>" required >
                                                     <?php
                                                     //List các địa điểm đi và đến
                                                     $query_khach_san = new WP_Query(array(
@@ -512,9 +512,9 @@
                                 </td>
                                 <td align="center" style="background-color: #f19315b3;">
                                     MGD LK
-                                    <input name="ma_gd_con" class="ma_gd_con" value="<?php echo get_field('ma_gd_con'); ?>" style="background: #FFF;" required/>
+                                    <input name="ma_gd_con" class="ma_gd_con" value="<?php echo get_field('ma_gd_con'); ?>" style="background: #FFF;" required autocomplete="off"/>
                                     Mã giao dịch
-                                    <input name="ma_gd_them_booking" class="ma_gd_them_booking" style="background: #FFF;" value="<?php echo get_field('ma_gd_them_booking'); ?>" />
+                                    <input name="ma_gd_them_booking" class="ma_gd_them_booking" style="background: #FFF;" value="<?php echo get_field('ma_gd_them_booking'); ?>" autocomplete="off"/>
                                 </td>
                                 <td width="42%">
                                     <table width="100%" border="1">
@@ -545,7 +545,7 @@
                                                 ?>
                                                 </select>
                                             </td>
-                                            <td><input type="text" name="ma_dt" class="ma_dt" value="<?php echo get_field('ma_dt'); ?>" required /></td>
+                                            <td><input type="text" name="ma_dt" class="ma_dt" value="<?php echo get_field('ma_dt'); ?>" required autocomplete="off"/></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -557,7 +557,7 @@
                                         </tr>
                                         <tr>
                                             <td width="50%">
-                                                <select name="noi_di_dt" class="noi_di_dt" data-check="<?php echo get_field('noi_di_dt'); ?>" required>
+                                                <select name="noi_di_dt" class="noi_di_dt" data-check="<?php echo get_field('noi_di_dt'); ?>" required >
                                                     <?php
                                                     //List các địa điểm đi và đến
                                                     $query_khach_san = new WP_Query(array(
@@ -604,7 +604,7 @@
                                         </tr>
                                         <tr>
                                             <td width="40%">
-                                                <input type="text" name="khach_dai_dien_gd" class="khach_dai_dien_gd" value="<?php echo get_field('khach_dai_dien_gd'); ?>" required />
+                                                <input type="text" name="khach_dai_dien_gd" class="khach_dai_dien_gd" value="<?php echo get_field('khach_dai_dien_gd'); ?>" required autocomplete="off"/>
                                                 <div class="popup_get_data_list pop_ten">
                                                     <ul>
                                                         <li>Tên</li>
@@ -619,7 +619,7 @@
                                                 </div>
                                             </td>
                                             <td width="20%">
-                                                <input type="number" name="sdt_gd" class="sdt_gd" value="<?php echo get_field('sdt_gd'); ?>" required />
+                                                <input type="number" name="sdt_gd" class="sdt_gd" value="<?php echo get_field('sdt_gd'); ?>" required autocomplete="off"/>
                                                 <div class="popup_get_data_list pop_sdt">
                                                     <ul>
                                                         <li>Tên</li>
@@ -659,7 +659,7 @@
                                 </td>
                                 <td align="center" style="background-color: #f19315b3;">
                                     <strong>Mã Booking</strong>
-                                    <input type="text" name="ma_gd" class="ma_gd" style="background: #FFF;" value="<?php echo get_field('ma_gd'); ?>" required />
+                                    <input type="text" name="ma_gd" class="ma_gd" style="background: #FFF;" value="<?php echo get_field('ma_gd'); ?>" required autocomplete="off"/>
                                 </td>
                                 <td>
                                     <table width="100%" border="1">
@@ -691,9 +691,9 @@
                                                 </select>
                                             </td>
                                             <td width="20%">
-                                                <input type="text" name="nick_dt" class="nick_dt" value="<?php echo get_field('nick_dt'); ?>" required />
+                                                <input type="text" name="nick_dt" class="nick_dt" value="<?php echo get_field('nick_dt'); ?>" autocomplete="off"/>
                                             </td>
-                                            <td><input type="text" name="ten_nv_dat_phong_dt" class="ten_nv_dat_phong_dt" value="<?php echo get_field('ten_nv_dat_phong_dt'); ?>" required /></td>
+                                            <td><input type="text" name="ten_nv_dat_phong_dt" class="ten_nv_dat_phong_dt" value="<?php echo get_field('ten_nv_dat_phong_dt'); ?>" autocomplete="off"/></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -710,10 +710,10 @@
                                             <td>Còn ? ngày</td>
                                         </tr>
                                         <tr>
-                                            <td width="40%"><input type="text" name="ci_gd" data-date-format="dd/mm/yyyy" class="ci_gd datepicker-here" data-language='en' value="<?php echo get_field('ci_gd'); ?>" required /></td>
-                                            <td width="10%"><input type="number" name="so_dem_gd" class="so_dem_gd" value="<?php echo get_field('so_dem_gd'); ?>" required /></td>
-                                            <td width="40%"><input type="text" name="co_gd" data-date-format="dd/mm/yyyy" class="co_gd datepicker-here" data-language='en' value="<?php echo get_field('co_gd'); ?>" required /></td>
-                                            <td><input type="number" name="con_ngay_gd" class="con_ngay_gd" value="<?php echo get_field('con_ngay_gd'); ?>" required /></td>
+                                            <td width="40%"><input type="text" name="ci_gd" data-date-format="dd/mm/yyyy" class="ci_gd datepicker-here" data-language='en' value="<?php echo get_field('ci_gd'); ?>" required autocomplete="off"/></td>
+                                            <td width="10%"><input type="number" name="so_dem_gd" class="so_dem_gd" value="<?php echo get_field('so_dem_gd'); ?>" required autocomplete="off"/></td>
+                                            <td width="40%"><input type="text" name="co_gd" data-date-format="dd/mm/yyyy" class="co_gd datepicker-here" data-language='en' value="<?php echo get_field('co_gd'); ?>" required autocomplete="off"/></td>
+                                            <td><input type="number" name="con_ngay_gd" class="con_ngay_gd" value="<?php echo get_field('con_ngay_gd'); ?>" required autocomplete="off"/></td>
                                         </tr>
 
                                         </tbody>
@@ -721,7 +721,7 @@
                                 </td>
                                 <td align="center" style="background-color: #f19315b3;">
                                     Hình thức book
-                                    <input type="text" name="hinh_thuc_book_gd" class="hinh_thuc_book_gd" style="background: #FFF;" value="<?php echo get_field('hinh_thuc_book_gd'); ?>"/">
+                                    <input type="text" name="hinh_thuc_book_gd" class="hinh_thuc_book_gd" style="background: #FFF;" value="<?php echo get_field('hinh_thuc_book_gd'); ?>" autocomplete="off"/>
                                 </td>
                                 <td>
                                     <table width="100%" border="1">
@@ -733,10 +733,10 @@
                                             <td>Còn ? ngày</td>
                                         </tr>
                                         <tr>
-                                            <td width="40%"><input type="text" name="ngay_duoc_huy" data-date-format="dd/mm/yyyy" class="ngay_duoc_huy datepicker-here" data-language='en' value="<?php echo get_field('ngay_duoc_huy'); ?>" required /></td>
-                                            <td width="10%"><input type="number" name="con_ngay_dt" class="con_ngay_dt" value="<?php echo get_field('con_ngay_dt'); ?>" required /></td>
-                                            <td width="40%"><input type="text" name="ngay_duoc_thay_doi" data-date-format="dd/mm/yyyy" class="ngay_duoc_thay_doi datepicker-here" data-language='en' value="<?php echo get_field('ngay_duoc_thay_doi'); ?>" required /></td>
-                                            <td><input type="number" name="con_ngay_thay_doi_dt" class="con_ngay_thay_doi_dt" value="<?php echo get_field('con_ngay_thay_doi_dt'); ?>" required/></td>
+                                            <td width="40%"><input type="text" name="ngay_duoc_huy" data-date-format="dd/mm/yyyy" class="ngay_duoc_huy datepicker-here" data-language='en' value="<?php echo get_field('ngay_duoc_huy'); ?>" required autocomplete="off"/></td>
+                                            <td width="10%"><input type="number" name="con_ngay_dt" class="con_ngay_dt" value="<?php echo get_field('con_ngay_dt'); ?>" required autocomplete="off"/></td>
+                                            <td width="40%"><input type="text" name="ngay_duoc_thay_doi" data-date-format="dd/mm/yyyy" class="ngay_duoc_thay_doi datepicker-here" data-language='en' value="<?php echo get_field('ngay_duoc_thay_doi'); ?>" required autocomplete="off"/></td>
+                                            <td><input type="number" name="con_ngay_thay_doi_dt" class="con_ngay_thay_doi_dt" value="<?php echo get_field('con_ngay_thay_doi_dt'); ?>" required autocomplete="off"/></td>
                                         </tr>
 
                                         </tbody>
@@ -760,7 +760,7 @@
                                                     <option value="" selected disabled hidden>Chọn loại phòng</option>
                                                     <?php
                                                     $query_khach_san = new WP_Query(array(
-                                                        'post_type' => 'khach_san',
+                                                        'post_type' => 'hotel',
                                                         'posts_type' => 15,
                                                         'meta_key'		=> 'ten_ks',
                                                         'meta_value' => '^' . preg_quote( get_field('ten_khach_san_gd') ),
@@ -781,17 +781,17 @@
                                                     ?>
                                                 </select>
                                             </td>
-                                            <td width="10%"><input type="number" name="sl_gd" class="sl_gd" value="<?php echo get_field('sl_gd'); ?>" required /></td>
-                                            <td width="15%"><input type="number" name="don_gia_ban_gd" class="don_gia_ban_gd" value="<?php echo get_field('don_gia_ban_gd'); ?>" required /></td>
+                                            <td width="10%"><input type="number" name="sl_gd" class="sl_gd" value="<?php echo get_field('sl_gd'); ?>" required autocomplete="off"/></td>
+                                            <td width="15%"><input type="number" name="don_gia_ban_gd" class="don_gia_ban_gd" value="<?php echo get_field('don_gia_ban_gd'); ?>"  autocomplete="off"/></td>
                                             <td width="20%">
-                                                <select name="don_vi_gd" class="don_vi_gd" data-check="<?php echo get_field('don_vi_gd'); ?>" required>
+                                                <select name="don_vi_gd" class="don_vi_gd" data-check="<?php echo get_field('don_vi_gd'); ?>" required >
                                                     <option value="" selected disabled hidden>Chọn đơn vị</option>
                                                     <option value="vnđ/phòng/đêm">vnđ/phòng/đêm</option>
                                                     <option value="vnđ/căn/đêm">vnđ/căn/đêm</option>
                                                     <option value="vnđ/villa/đêm">vnđ/villa/đêm</option>
                                                 </select>
                                             </td>
-                                            <td width="20%"><input type="number" name="tong_gd" class="tong_gd" value="<?php echo get_field('tong_gd'); ?>" required /></td>
+                                            <td width="20%"><input type="number" name="tong_gd" class="tong_gd" value="<?php echo get_field('tong_gd'); ?>" required autocomplete="off"/></td>
                                         </tr>
                                         <tr>
                                             <td colspan="3" align="center">Gói DV - KM bán</td>
@@ -807,7 +807,7 @@
                                                     <option value="FBVS - Ăn 3 bữa + Vui chơi + Safari">FBVS - Ăn 3 bữa + Vui chơi + Safari</option>
                                                 </select>
                                             </td>
-                                            <td colspan="2" align="center"><input type="text" name="ma_pro_gd" class="ma_pro_gd" value="<?php echo get_field('ma_pro_gd'); ?>" /></td>
+                                            <td colspan="2" align="center"><input type="text" name="ma_pro_gd" class="ma_pro_gd" value="<?php echo get_field('ma_pro_gd'); ?>" autocomplete="off"/></td>
                                         </tr>
                                         <tr>
                                             <td colspan="5" align="center">Dịch vụ đi kèm</td>
@@ -821,7 +821,7 @@
                                 </td>
                                 <td align="center" style="background-color: #f19315b3;">
                                     Mã xác nhận
-                                    <input type="text" name="ma_xac_nhan" class="ma_xac_nhan" style="background: #FFF;" value="<?php echo get_field('ma_xac_nhan'); ?>"/>
+                                    <input type="text" name="ma_xac_nhan" class="ma_xac_nhan" style="background: #FFF;" value="<?php echo get_field('ma_xac_nhan'); ?>" autocomplete="off"/>
                                     <p></p>
                                     Lý giải PT
                                     <textarea name="ly_giai_pt" class="ly_giai_pt" style="background: #FFF;"><?php echo get_field('ly_giai_pt'); ?></textarea>
@@ -863,17 +863,17 @@
                                                     ?>
                                                 </select>
                                             </td>
-                                            <td width="10%"><input type="number" name="sl_dt" class="sl_dt" value="<?php echo get_field('sl_dt'); ?>" required /></td>
-                                            <td width="15%"><input type="number" name="don_gia_ban_dt" class="don_gia_ban_dt" value="<?php echo get_field('don_gia_ban_dt'); ?>" required /></td>
+                                            <td width="10%"><input type="number" name="sl_dt" class="sl_dt" value="<?php echo get_field('sl_dt'); ?>" required autocomplete="off"/></td>
+                                            <td width="15%"><input type="number" name="don_gia_ban_dt" class="don_gia_ban_dt" value="<?php echo get_field('don_gia_ban_dt'); ?>" autocomplete="off"/></td>
                                             <td width="20%">
-                                                <select name="don_vi_dt" class="don_vi_dt" data-check="<?php echo get_field('don_vi_dt'); ?>" required>
+                                                <select name="don_vi_dt" class="don_vi_dt" data-check="<?php echo get_field('don_vi_dt'); ?>" required >
                                                     <option value="" selected disabled hidden>Chọn đơn vị</option>
                                                     <option value="vnđ/phòng/đêm">vnđ/phòng/đêm</option>
                                                     <option value="vnđ/căn/đêm">vnđ/căn/đêm</option>
                                                     <option value="vnđ/villa/đêm">vnđ/villa/đêm</option>
                                                 </select>
                                             </td>
-                                            <td width="20%"><input type="number" name="tong_dt" class="tong_dt" value="<?php echo get_field('tong_dt'); ?>" required /></td>
+                                            <td width="20%"><input type="number" name="tong_dt" class="tong_dt" value="<?php echo get_field('tong_dt'); ?>" required autocomplete="off"/></td>
                                         </tr>
                                         <tr>
                                             <td colspan="3" align="center">Gói DV - KM bán</td>
@@ -925,19 +925,24 @@
                                             <td> KH TT PT tại?</td>
                                         </tr>
                                         <tr>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="sl_nl" class="sl_nl" value="<?php echo get_field('sl_nl'); ?>"  /></td>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="gp" class="gp" value="<?php echo get_field('gp'); ?>"  /></td>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="sl02" class="sl02" value="<?php echo get_field('sl02'); ?>"  /></td>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="sl24" class="sl24" value="<?php echo get_field('sl24'); ?>"  /></td>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="sl46" class="sl46" value="<?php echo get_field('sl46'); ?>"  /></td>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="sl612" class="sl612" value="<?php echo get_field('sl612'); ?>"  /></td>
-                                            <td width="10%"><input type="number" style="background: #fff;" name="pt_nguoi" class="pt_nguoi" value="<?php echo get_field('pt_nguoi'); ?>"  /></td>
-                                            <td width="10%"><input type="number" style="background: #fff;" name="pt_giai_doan" class="pt_giai_doan" value="<?php echo get_field('pt_giai_doan'); ?>"  /></td>
-                                            <td width="10%"><input type="number" style="background: #fff;" name="pt_cuoi_tuan" class="pt_cuoi_tuan" value="<?php echo get_field('pt_cuoi_tuan'); ?>"  /></td>
-                                            <td width="10%"><input type="text" style="background: #fff;" name="bua_an_bat_buoc" class="bua_an_bat_buoc" value="<?php echo get_field('bua_an_bat_buoc'); ?>"  /></td>
-                                            <td width="10%"><input type="text" style="background: #fff;" name="dich_vu_khac" class="dich_vu_khac" value="<?php echo get_field('dich_vu_khac'); ?>"  /></td>
-                                            <td width="10%"><input type="number" style="background: #fff;" name="tong_pt" class="tong_pt" value="<?php echo get_field('tong_pt'); ?>"  /></td>
-                                            <td><input type="text" style="background: #fff;" name="kh_tt_pt_tai" class="kh_tt_pt_tai" value="<?php echo get_field('kh_tt_pt_tai'); ?>"  /></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="sl_nl" class="sl_nl" value="<?php echo get_field('sl_nl'); ?>" autocomplete="off" /></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="gp" class="gp" value="<?php echo get_field('gp'); ?>"  autocomplete="off"/></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="sl02" class="sl02" value="<?php echo get_field('sl02'); ?>" autocomplete="off" /></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="sl24" class="sl24" value="<?php echo get_field('sl24'); ?>" autocomplete="off" /></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="sl46" class="sl46" value="<?php echo get_field('sl46'); ?>" autocomplete="off" /></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="sl612" class="sl612" value="<?php echo get_field('sl612'); ?>"  autocomplete="off"/></td>
+                                            <td width="10%"><input type="number" style="background: #fff;" name="pt_nguoi" class="pt_nguoi" value="<?php echo get_field('pt_nguoi'); ?>" autocomplete="off" /></td>
+                                            <td width="10%"><input type="number" style="background: #fff;" name="pt_giai_doan" class="pt_giai_doan" value="<?php echo get_field('pt_giai_doan'); ?>" autocomplete="off" /></td>
+                                            <td width="10%"><input type="number" style="background: #fff;" name="pt_cuoi_tuan" class="pt_cuoi_tuan" value="<?php echo get_field('pt_cuoi_tuan'); ?>" autocomplete="off" /></td>
+                                            <td width="10%"><input type="number" style="background: #fff;" name="bua_an_bat_buoc" class="bua_an_bat_buoc" value="<?php echo get_field('bua_an_bat_buoc'); ?>" autocomplete="off" /></td>
+                                            <td width="10%"><input type="number" style="background: #fff;" name="dich_vu_khac" class="dich_vu_khac" value="<?php echo get_field('dich_vu_khac'); ?>" autocomplete="off" /></td>
+                                            <td width="10%"><input type="number" style="background: #fff;" name="tong_pt" class="tong_pt" value="<?php echo get_field('tong_pt'); ?>" autocomplete="off" /></td>
+                                            <td>
+                                                <select name="kh_tt_pt_tai" style="background: #fff;" class="kh_tt_pt_tai" data-check="<?php get_field('kh_tt_pt_tai'); ?>">
+                                                    <option value="BTC" selected>BTC</option>
+                                                    <option value="Khách sạn">Khách sạn</option>
+                                                </select>
+                                            </td>
                                         </tr>
 
                                         </tbody>
@@ -954,31 +959,31 @@
                                                 <textarea name="danh_sach_doan_yeu_cau_khac" class="danh_sach_doan_yeu_cau_khac"><?php echo get_field('danh_sach_doan_yeu_cau_khac'); ?></textarea>
                                             </td>
                                             <td width="25%">Tiền chưa PT</td>
-                                            <td width="25%"><input type="number" width="100%" style="height:24px;" name="tien_chua_pt_khac" class="tien_chua_pt_khac" value="<?php echo get_field('tien_chua_pt_khac'); ?>" required /></td>
+                                            <td width="25%"><input type="number" width="100%" style="height:24px;" name="tien_chua_pt_khac" class="tien_chua_pt_khac" value="<?php echo get_field('tien_chua_pt_khac'); ?>" autocomplete="off" /></td>
                                         </tr>
                                         <tr>
                                             <td>Tổng phụ thu</td>
-                                            <td><input type="number" name="tong_phu_thu_khac" style="height:24px;" class="tong_phu_thu_khac" value="<?php echo get_field('tong_phu_thu_khac'); ?>" required /></td>
+                                            <td><input type="number" name="tong_phu_thu_khac" style="height:24px;" class="tong_phu_thu_khac" value="<?php echo get_field('tong_phu_thu_khac'); ?>"  autocomplete="off"/></td>
                                         </tr>
                                         <tr>
                                             <td>Giảm giá cho KH</td>
-                                            <td><input type="number" name="giam_gia_cho_kh_khac" style="height:24px;" class="giam_gia_cho_kh_khac" value="<?php echo get_field('giam_gia_cho_kh_khac'); ?>" required /></td>
+                                            <td><input type="number" name="giam_gia_cho_kh_khac" style="height:24px;" class="giam_gia_cho_kh_khac" value="<?php echo get_field('giam_gia_cho_kh_khac'); ?>"  autocomplete="off"/></td>
                                         </tr>
                                         <tr>
                                             <td>Tổng giá trị</td>
-                                            <td><input type="number" name="tong_gia_tri_khac" style="height:24px;" class="tong_gia_tri_khac" value="<?php echo get_field('tong_gia_tri_khac'); ?>" required /></td>
+                                            <td><input type="number" name="tong_gia_tri_khac" style="height:24px;" class="tong_gia_tri_khac" value="<?php echo get_field('tong_gia_tri_khac'); ?>" autocomplete="off" /></td>
                                         </tr>
                                         <tr>
                                             <td>Đã thanh toán</td>
-                                            <td><input type="number" name="da_thanh_toan_khac" style="height:24px;" class="da_thanh_toan_khac" value="<?php echo get_field('da_thanh_toan_khac'); ?>" required /></td>
+                                            <td><input type="number" name="da_thanh_toan_khac" style="height:24px;" class="da_thanh_toan_khac" value="<?php echo get_field('da_thanh_toan_khac'); ?>" autocomplete="off" /></td>
                                         </tr>
                                         <tr>
                                             <td>KH còn nợ</td>
-                                            <td><input type="number" name="kh_con_no_khac" style="height:24px;" class="kh_con_no_khac" value="<?php echo get_field('kh_con_no_khac'); ?>" required /></td>
+                                            <td><input type="number" name="kh_con_no_khac" style="height:24px;" class="kh_con_no_khac" value="<?php echo get_field('kh_con_no_khac'); ?>" autocomplete="off" /></td>
                                         </tr>
                                         <tr>
                                             <td>Ngày yêu cầu KH hoàn tất TT</td>
-                                            <td><input type="text" style="height:24px;" name="ngay_yeu_cau_kh_hoan_tat_tt_khac" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_yeu_cau_kh_hoan_tat_tt_khac datepicker-here" data-language='en' value="<?php echo get_field('ngay_yeu_cau_kh_hoan_tat_tt_khac'); ?>" required /></td>
+                                            <td><input type="text" style="height:24px;" name="ngay_yeu_cau_kh_hoan_tat_tt_khac" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_yeu_cau_kh_hoan_tat_tt_khac datepicker-here" data-language='en' value="<?php echo get_field('ngay_yeu_cau_kh_hoan_tat_tt_khac'); ?>" autocomplete="off" /></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -991,11 +996,11 @@
                                                 <ul class="price_count">
                                                     <li>
                                                         Lãi/Lỗ
-                                                        <input type="number" name="lai_lo_khac" class="lai_lo_khac" style="background: #FFF;" value="<?php echo get_field('lai_lo_khac'); ?>" required />
+                                                        <input type="number" name="lai_lo_khac" class="lai_lo_khac" style="background: #FFF;" value="<?php echo get_field('lai_lo_khac'); ?>" autocomplete="off" />
                                                     </li>
                                                     <li>
                                                         Thuế VAT
-                                                        <input type="number" name="thue_vat_khac" class="thue_vat_khac" style="background: #FFF;" value="<?php echo get_field('thue_vat_khac'); ?>" required />
+                                                        <input type="number" name="thue_vat_khac" class="thue_vat_khac" style="background: #FFF;" value="<?php echo get_field('thue_vat_khac'); ?>" autocomplete="off" />
                                                     </li>
                                                 </ul>
                                             </td>
@@ -1005,11 +1010,11 @@
                                                 <ul class="price_count">
                                                     <li>
                                                         Thuế TNDN
-                                                        <input type="number" name="thue_tndn_khac" class="thue_tndn_khac" style="background: #FFF;" value="<?php echo get_field('thue_tndn_khac'); ?>" required />
+                                                        <input type="number" name="thue_tndn_khac" class="thue_tndn_khac" style="background: #FFF;" value="<?php echo get_field('thue_tndn_khac'); ?>" autocomplete="off" />
                                                     </li>
                                                     <li>
                                                         CP marketing
-                                                        <input type="text" name="cp_marketing_khac" class="cp_marketing_khac" style="background: #FFF;" value="<?php echo get_field('cp_marketing_khac'); ?>" required />
+                                                        <input type="text" name="cp_marketing_khac" class="cp_marketing_khac" style="background: #FFF;" value="<?php echo get_field('cp_marketing_khac'); ?>" autocomplete="off" />
                                                     </li>
                                                 </ul>
                                             </td>
@@ -1019,11 +1024,11 @@
                                                 <ul class="price_count">
                                                     <li>
                                                         CP hậu cần
-                                                        <input type="text" name="cp_hau_can_khac" class="cp_hau_can_khac" style="background: #FFF;" value="<?php echo get_field('cp_hau_can_khac'); ?>" required />
+                                                        <input type="text" name="cp_hau_can_khac" class="cp_hau_can_khac" style="background: #FFF;" value="<?php echo get_field('cp_hau_can_khac'); ?>" autocomplete="off" />
                                                     </li>
                                                     <li>
                                                         CP hậu mãi
-                                                        <input type="text" name="cp_hau_mai_khac" class="cp_hau_mai_khac" style="background: #FFF;" value="<?php echo get_field('cp_hau_mai_khac'); ?>" required />
+                                                        <input type="text" name="cp_hau_mai_khac" class="cp_hau_mai_khac" style="background: #FFF;" value="<?php echo get_field('cp_hau_mai_khac'); ?>" autocomplete="off" />
                                                     </li>
                                                 </ul>
                                             </td>
@@ -1031,7 +1036,7 @@
                                         <tr>
                                             <td align="center" style="background-color: #f19315b3;padding-bottom: 10px;">
                                                 CP cố định
-                                                <input type="text" name="cp_co_dinh_khac" class="cp_co_dinh_khac" style="background: #FFF;" value="<?php echo get_field('cp_co_dinh_khac'); ?>" required />
+                                                <input type="text" name="cp_co_dinh_khac" class="cp_co_dinh_khac" style="background: #FFF;" value="<?php echo get_field('cp_co_dinh_khac'); ?>" autocomplete="off" />
                                             </td>
                                         </tr>
                                         </tbody>
@@ -1041,7 +1046,7 @@
                                     <table width="100%" border="1" style="background: #2e75bd63;">
                                         <tbody>
                                         <tr>
-                                            <td width="25%"><input type="number" name="tien_chua_pt_khac2" class="tien_chua_pt_khac2" value="<?php echo get_field('tien_chua_pt_khac2'); ?>" required /></td>
+                                            <td width="25%"><input type="number" name="tien_chua_pt_khac2" class="tien_chua_pt_khac2" value="<?php echo get_field('tien_chua_pt_khac2'); ?>" autocomplete="off" /></td>
                                             <td width="25%">Tiền chưa PT</td>
                                             <td width="50%" colspan="2" rowspan="7">
                                                 Ghi chú của ĐT
@@ -1049,27 +1054,27 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><input type="number" name="tong_phu_thu_khac2" style="height:24px;" class="tong_phu_thu_khac2" value="<?php echo get_field('tong_phu_thu_khac2'); ?>" required /></td>
+                                            <td><input type="number" name="tong_phu_thu_khac2" style="height:24px;" class="tong_phu_thu_khac2" value="<?php echo get_field('tong_phu_thu_khac2'); ?>" autocomplete="off" /></td>
                                             <td>Tổng phụ thu</td>
                                         </tr>
                                         <tr>
-                                            <td><input type="number" name="giam_gia_cua_dt_khac2" style="height:24px;" class="giam_gia_cua_dt_khac2" value="<?php echo get_field('giam_gia_cua_dt_khac2'); ?>" required /></td>
+                                            <td><input type="number" name="giam_gia_cua_dt_khac2" style="height:24px;" class="giam_gia_cua_dt_khac2" value="<?php echo get_field('giam_gia_cua_dt_khac2'); ?>" autocomplete="off" /></td>
                                             <td>Giảm giá của ĐT</td>
                                         </tr>
                                         <tr>
-                                            <td><input type="number" name="tong_gia_tri_khac2" style="height:24px;" class="tong_gia_tri_khac2" value="<?php echo get_field('tong_gia_tri_khac2'); ?>" required /></td>
+                                            <td><input type="number" name="tong_gia_tri_khac2" style="height:24px;" class="tong_gia_tri_khac2" value="<?php echo get_field('tong_gia_tri_khac2'); ?>" autocomplete="off" /></td>
                                             <td>Tổng giá trị</td>
                                         </tr>
                                         <tr>
-                                            <td><input type="number" name="da_thanh_toan_khac2" style="height:24px;" class="da_thanh_toan_khac2" value="<?php echo get_field('da_thanh_toan_khac2'); ?>" required /></td>
+                                            <td><input type="number" name="da_thanh_toan_khac2" style="height:24px;" class="da_thanh_toan_khac2" value="<?php echo get_field('da_thanh_toan_khac2'); ?>" autocomplete="off" /></td>
                                             <td>Đã thanh toán</td>
                                         </tr>
                                         <tr>
-                                            <td><input type="number" name="bct_con_no_khac2" style="height:24px;" class="bct_con_no_khac2" value="<?php echo get_field('bct_con_no_khac2'); ?>" required /></td>
+                                            <td><input type="number" name="bct_con_no_khac2" style="height:24px;" class="bct_con_no_khac2" value="<?php echo get_field('bct_con_no_khac2'); ?>" autocomplete="off" /></td>
                                             <td>BCT còn nợ</td>
                                         </tr>
                                         <tr>
-                                            <td><input type="text" name="ngay_phai_hoan_tat_tt_cho_ks_khac2" style="height:24px;" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_phai_hoan_tat_tt_cho_ks_khac2 datepicker-here" data-language='en' value="<?php echo get_field('ngay_phai_hoan_tat_tt_cho_ks_khac2'); ?>" required ></td>
+                                            <td><input type="text" name="ngay_phai_hoan_tat_tt_cho_ks_khac2" style="height:24px;" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_phai_hoan_tat_tt_cho_ks_khac2 datepicker-here" data-language='en' value="<?php echo get_field('ngay_phai_hoan_tat_tt_cho_ks_khac2'); ?>" autocomplete="off" ></td>
                                             <td>Ngày phải hoàn tất TT cho KS</td>
                                         </tr>
                                         </tbody>
@@ -1500,7 +1505,7 @@
                                         </tr>
                                         <tr>
                                             <td width="15%">
-                                                <input type="text" style="background: #FFF;" name="ten_kgd" class="ten_kgd" value="<?php echo $ten_kgd; ?>" required />
+                                                <input type="text" style="background: #FFF;" name="ten_kgd" class="ten_kgd" value="<?php echo $ten_kgd; ?>"  autocomplete="off"/>
                                                 <div class="popup_get_data_list pop_tenkgd">
                                                     <ul>
                                                         <li>Tên</li>
@@ -1515,7 +1520,7 @@
                                                 </div>
                                             </td>
                                             <td width="8%">
-                                                <input type="text" style="background: #FFF;" name="nick_kgd" class="nick_kgd" value="<?php echo $nick_kgd; ?>" required />
+                                                <input type="text" style="background: #FFF;" name="nick_kgd" class="nick_kgd" value="<?php echo $nick_kgd; ?>"  autocomplete="off"/>
                                                 <div class="popup_get_data_list pop_nick_kgd">
                                                     <ul>
                                                         <li>Tên</li>
@@ -1530,7 +1535,7 @@
                                                 </div>
                                             </td>
                                             <td width="8%">
-                                                <input type="number" style="background: #FFF;" name="sdt_kgd" class="sdt_kgd" value="<?php echo $sdt_kgd; ?>" required />
+                                                <input type="number" style="background: #FFF;" name="sdt_kgd" class="sdt_kgd" value="<?php echo $sdt_kgd; ?>" autocomplete="off" />
                                                 <div class="popup_get_data_list pop_sdt_kgd">
                                                     <ul>
                                                         <li>Tên</li>
@@ -1544,11 +1549,11 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td width="15%"><input type="email" style="background: #FFF;" name="email_kgd_duy_nhat" class="email_kgd_duy_nhat" value="<?php echo $email_kgd_duy_nhat; ?>" required /></td>
-                                            <td width="12%"><input type="number" style="background: #FFF;" name="tk_kgd" class="tk_kgd" value="<?php echo $tk_kgd; ?>" required /></td>
-                                            <td width="10%"><input type="text" style="background: #FFF;" name="ma_kgd" class="ma_kgd" value="<?php echo $ma_kgd; ?>" required /></td>
+                                            <td width="15%"><input type="email" style="background: #FFF;" name="email_kgd_duy_nhat" class="email_kgd_duy_nhat" value="<?php echo $email_kgd_duy_nhat; ?>" autocomplete="off" /></td>
+                                            <td width="12%"><input type="number" style="background: #FFF;" name="tk_kgd" class="tk_kgd" value="<?php echo $tk_kgd; ?>" autocomplete="off" /></td>
+                                            <td width="10%"><input type="text" style="background: #FFF;" name="ma_kgd" class="ma_kgd" value="<?php echo $ma_kgd; ?>" autocomplete="off" /></td>
                                             <td width="10%">
-                                                <select name="xep_hang_kgd" class="xep_hang_kgd" style="background: #FFF;" data-check="<?php echo $xep_hang_kgd; ?>" required>
+                                                <select name="xep_hang_kgd" class="xep_hang_kgd" style="background: #FFF;" data-check="<?php echo $xep_hang_kgd; ?>" autocomplete="off" >
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -1556,8 +1561,8 @@
                                                     <option value="5">5</option>
                                                 </select>
                                             </td>
-                                            <td width="10%"><input type="text" name="ma_ctv" style="background: #FFF;" class="ma_ctv" value="<?php echo $ma_ctv; ?>" required /></td>
-                                            <td><input type="text" name="ma_nv" class="ma_nv" style="background: #FFF;" value="<?php echo $ma_nv; ?>" required /></td>
+                                            <td width="10%"><input type="text" name="ma_ctv" style="background: #FFF;" class="ma_ctv" value="<?php echo $ma_ctv; ?>" autocomplete="off" /></td>
+                                            <td><input type="text" name="ma_nv" class="ma_nv" style="background: #FFF;" value="<?php echo $ma_nv; ?>" autocomplete="off" /></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -1574,17 +1579,17 @@
                                             <td>TK cọc</td>
                                         </tr>
                                         <tr>
-                                            <td width="25%"><input type="text" name="ma_gd_coc_1" class="ma_gd_coc_1" value="<?php echo $ma_gd_coc_1; ?>"  /></td>
-                                            <td width="25%"><input type="number" name="tien_coc_1" class="tien_coc_1" value="<?php echo $tien_coc_1; ?>"  /></td>
-                                            <td width="25%"><input type="text" name="ngay_coc_1" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_coc_1 datepicker-here" data-language='en' value="<?php echo $ngay_coc_1; ?>"  /></td>
-                                            <td><input type="number" name="tk_coc_1" class="tk_coc_1" value="<?php echo $tk_coc_1; ?>"  /></td>
+                                            <td width="25%"><input type="text" name="ma_gd_coc_1" class="ma_gd_coc_1" value="<?php echo $ma_gd_coc_1; ?>" autocomplete="off" /></td>
+                                            <td width="25%"><input type="number" name="tien_coc_1" class="tien_coc_1" value="<?php echo $tien_coc_1; ?>" autocomplete="off" /></td>
+                                            <td width="25%"><input type="text" name="ngay_coc_1" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_coc_1 datepicker-here" data-language='en' value="<?php echo $ngay_coc_1; ?>" autocomplete="off" /></td>
+                                            <td><input type="number" name="tk_coc_1" class="tk_coc_1" value="<?php echo $tk_coc_1; ?>"  autocomplete="off"/></td>
                                         </tr>
                                         </tbody>
                                     </table>
                                 </td>
                                 <td align="center" style="background-color: #f19315b3;padding-top: 5px;">
                                     Mã Kho (popup thông tin kho)
-                                    <input type="text" style="background: #FFF;" name="ma_kho_popup_thong_tin_kho" class="ma_kho_popup_thong_tin_kho" value="<?php echo $ma_kho_popup_thong_tin_kho; ?>"  />
+                                    <input type="text" style="background: #FFF;" name="ma_kho_popup_thong_tin_kho" class="ma_kho_popup_thong_tin_kho" value="<?php echo $ma_kho_popup_thong_tin_kho; ?>" autocomplete="off" />
                                 </td>
                                 <td>
                                     <table width="100%" border="1">
@@ -1596,10 +1601,10 @@
                                             <td>TK cọc đi</td>
                                         </tr>
                                         <tr>
-                                            <td width="25%"><input type="text" name="ma_gd_coc_di_2" class="ma_gd_coc_di_2" value="<?php echo $ma_gd_coc_di_2; ?>"  /></td>
-                                            <td width="25%"><input type="number" name="tien_coc_di_2" class="tien_coc_di_2" value="<?php echo $tien_coc_di_2; ?>"  /></td>
-                                            <td width="25%"><input type="text" name="ngay_phai_coc_di_2" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_phai_coc_di_2 datepicker-here" data-language='en' value="<?php echo $ngay_phai_coc_di_2; ?>"  /></td>
-                                            <td><input type="number" name="tk_coc_di_2" class="tk_coc_di_2" value="<?php echo $tk_coc_di_2; ?>"  /></td>
+                                            <td width="25%"><input type="text" name="ma_gd_coc_di_2" class="ma_gd_coc_di_2" value="<?php echo $ma_gd_coc_di_2; ?>" autocomplete="off" /></td>
+                                            <td width="25%"><input type="number" name="tien_coc_di_2" class="tien_coc_di_2" value="<?php echo $tien_coc_di_2; ?>" autocomplete="off" /></td>
+                                            <td width="25%"><input type="text" name="ngay_phai_coc_di_2" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_phai_coc_di_2 datepicker-here" data-language='en' value="<?php echo $ngay_phai_coc_di_2; ?>" autocomplete="off" /></td>
+                                            <td><input type="number" name="tk_coc_di_2" class="tk_coc_di_2" value="<?php echo $tk_coc_di_2; ?>" autocomplete="off" /></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -1616,17 +1621,17 @@
                                             <td>TK TT lần 2</td>
                                         </tr>
                                         <tr>
-                                            <td width="25%"><input type="text" name="ma_gd_tt_lan_2_1" class="ma_gd_tt_lan_2_1" value="<?php echo $ma_gd_tt_lan_2_1; ?>"  /></td>
-                                            <td width="25%"><input type="number" name="tien_tt_lan_2_1" class="tien_tt_lan_2_1" value="<?php echo $tien_tt_lan_2_1; ?>"  /></td>
-                                            <td width="25%"><input type="text" name="ngay_tt_lan_2_1" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_tt_lan_2_1 datepicker-here" data-language='en' value="<?php echo $ngay_tt_lan_2_1; ?>"  /></td>
-                                            <td><input type="number" name="tk_tt_lan_2_1" class="tk_tt_lan_2_1" value="<?php echo $tk_tt_lan_2_1; ?>"  /></td>
+                                            <td width="25%"><input type="text" name="ma_gd_tt_lan_2_1" class="ma_gd_tt_lan_2_1" value="<?php echo $ma_gd_tt_lan_2_1; ?>" autocomplete="off" /></td>
+                                            <td width="25%"><input type="number" name="tien_tt_lan_2_1" class="tien_tt_lan_2_1" value="<?php echo $tien_tt_lan_2_1; ?>" autocomplete="off" /></td>
+                                            <td width="25%"><input type="text" name="ngay_tt_lan_2_1" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_tt_lan_2_1 datepicker-here" data-language='en' value="<?php echo $ngay_tt_lan_2_1; ?>" autocomplete="off" /></td>
+                                            <td><input type="number" name="tk_tt_lan_2_1" class="tk_tt_lan_2_1" value="<?php echo $tk_tt_lan_2_1; ?>" autocomplete="off" /></td>
                                         </tr>
                                         </tbody>
                                     </table>
                                 </td>
                                 <td align="center" style="background-color: #f19315b3;padding-top: 5px;">
                                     SL lấy từ kho
-                                    <input type="number" style="background: #FFF;" name="sl_lay_tu_kho" class="sl_lay_tu_kho" value="<?php echo $sl_lay_tu_kho; ?>"  />
+                                    <input type="number" style="background: #FFF;" name="sl_lay_tu_kho" class="sl_lay_tu_kho" value="<?php echo $sl_lay_tu_kho; ?>" autocomplete="off" />
                                 </td>
                                 <td>
                                     <table width="100%" border="1">
@@ -1638,10 +1643,10 @@
                                             <td>TK đi lần 2</td>
                                         </tr>
                                         <tr>
-                                            <td width="25%"><input type="text" name="ma_gd_di_lan_2_2" class="ma_gd_di_lan_2_2" value="<?php echo $ma_gd_di_lan_2_2; ?>"  /></td>
-                                            <td width="25%"><input type="number" name="tien_di_lan_2_2" class="tien_di_lan_2_2" value="<?php echo $tien_di_lan_2_2; ?>"  /></td>
-                                            <td width="25%"><input type="text" name="ngay_phai_di_lan_2_2" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_phai_di_lan_2_2 datepicker-here" data-language='en' value="<?php echo $ngay_phai_di_lan_2_2; ?>"  /></td>
-                                            <td><input type="number" name="tk_di_lan_2_2" class="tk_di_lan_2_2" value="<?php echo $tk_di_lan_2_2; ?>"  /></td>
+                                            <td width="25%"><input type="text" name="ma_gd_di_lan_2_2" class="ma_gd_di_lan_2_2" value="<?php echo $ma_gd_di_lan_2_2; ?>" autocomplete="off" /></td>
+                                            <td width="25%"><input type="number" name="tien_di_lan_2_2" class="tien_di_lan_2_2" value="<?php echo $tien_di_lan_2_2; ?>" autocomplete="off" /></td>
+                                            <td width="25%"><input type="text" name="ngay_phai_di_lan_2_2" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_phai_di_lan_2_2 datepicker-here" data-language='en' value="<?php echo $ngay_phai_di_lan_2_2; ?>" autocomplete="off" /></td>
+                                            <td><input type="number" name="tk_di_lan_2_2" class="tk_di_lan_2_2" value="<?php echo $tk_di_lan_2_2; ?>" autocomplete="off" /></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -1658,10 +1663,10 @@
                                             <td>TK TT lần 3</td>
                                         </tr>
                                         <tr>
-                                            <td width="25%"><input type="text" name="ma_gd_tt_lan_3_1" class="ma_gd_tt_lan_3_1" value="<?php echo $ma_gd_tt_lan_3_1; ?>"  /></td>
-                                            <td width="25%"><input type="number" name="tien_tt_lan_3_1" class="tien_tt_lan_3_1" value="<?php echo $tien_tt_lan_3_1; ?>"  /></td>
-                                            <td width="25%"><input type="text" name="ngay_tt_lan_3_1" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_tt_lan_3_1 datepicker-here" data-language='en' value="<?php echo $ngay_tt_lan_3_1; ?>"  /></td>
-                                            <td><input type="number" name="tk_tt_lan_3_1" class="tk_tt_lan_3_1" value="<?php echo $tk_tt_lan_3_1; ?>" /></td>
+                                            <td width="25%"><input type="text" name="ma_gd_tt_lan_3_1" class="ma_gd_tt_lan_3_1" value="<?php echo $ma_gd_tt_lan_3_1; ?>"  autocomplete="off"/></td>
+                                            <td width="25%"><input type="number" name="tien_tt_lan_3_1" class="tien_tt_lan_3_1" value="<?php echo $tien_tt_lan_3_1; ?>" autocomplete="off" /></td>
+                                            <td width="25%"><input type="text" name="ngay_tt_lan_3_1" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_tt_lan_3_1 datepicker-here" data-language='en' value="<?php echo $ngay_tt_lan_3_1; ?>" autocomplete="off" /></td>
+                                            <td><input type="number" name="tk_tt_lan_3_1" class="tk_tt_lan_3_1" value="<?php echo $tk_tt_lan_3_1; ?>" autocomplete="off"/></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -1677,10 +1682,10 @@
                                             <td>TK đi lần 3</td>
                                         </tr>
                                         <tr>
-                                            <td width="25%"><input type="text" name="ma_gd_di_lan_3_2" class="ma_gd_di_lan_3_2" value="<?php echo $ma_gd_di_lan_3_2; ?>"  /></td>
-                                            <td width="25%"><input type="number" name="tien_di_lan_3_2" class="tien_di_lan_3_2" value="<?php echo $tien_di_lan_3_2; ?>"  /></td>
-                                            <td width="25%"><input type="text" name="ngay_phai_di_lan_3_2" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_phai_di_lan_3_2 datepicker-here" data-language='en' value="<?php echo $ngay_phai_di_lan_3_2; ?>"  /></td>
-                                            <td><input type="number" name="tk_di_lan_3_2" class="tk_di_lan_3_2" value="<?php echo $tk_di_lan_3_2; ?>"  /></td>
+                                            <td width="25%"><input type="text" name="ma_gd_di_lan_3_2" class="ma_gd_di_lan_3_2" value="<?php echo $ma_gd_di_lan_3_2; ?>" autocomplete="off" /></td>
+                                            <td width="25%"><input type="number" name="tien_di_lan_3_2" class="tien_di_lan_3_2" value="<?php echo $tien_di_lan_3_2; ?>" autocomplete="off" /></td>
+                                            <td width="25%"><input type="text" name="ngay_phai_di_lan_3_2" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_phai_di_lan_3_2 datepicker-here" data-language='en' value="<?php echo $ngay_phai_di_lan_3_2; ?>" autocomplete="off" /></td>
+                                            <td><input type="number" name="tk_di_lan_3_2" class="tk_di_lan_3_2" value="<?php echo $tk_di_lan_3_2; ?>" autocomplete="off" /></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -1697,10 +1702,10 @@
                                             <td>Mã GD hoàn tiền</td>
                                         </tr>
                                         <tr>
-                                            <td width="25%"><input type="number" name="tk_kh_1" class="tk_kh_1" value="<?php echo $tk_kh_1; ?>"  /></td>
-                                            <td width="25%"><input type="number" name="so_tien_hoan_1" class="so_tien_hoan_1" value="<?php echo $so_tien_hoan_1; ?>"  /></td>
-                                            <td width="25%"><input type="text" name="ngay_hoan_tien_1" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_hoan_tien_1 datepicker-here" data-language='en' value="<?php echo $ngay_hoan_tien_1; ?>"  /></td>
-                                            <td><input type="text" name="ma_gd_hoan_tien_1" class="ma_gd_hoan_tien_1" value="<?php echo $ma_gd_hoan_tien_1; ?>"  /></td>
+                                            <td width="25%"><input type="number" name="tk_kh_1" class="tk_kh_1" value="<?php echo $tk_kh_1; ?>" autocomplete="off" /></td>
+                                            <td width="25%"><input type="number" name="so_tien_hoan_1" class="so_tien_hoan_1" value="<?php echo $so_tien_hoan_1; ?>" autocomplete="off" /></td>
+                                            <td width="25%"><input type="text" name="ngay_hoan_tien_1" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_hoan_tien_1 datepicker-here" data-language='en' value="<?php echo $ngay_hoan_tien_1; ?>" autocomplete="off" /></td>
+                                            <td><input type="text" name="ma_gd_hoan_tien_1" class="ma_gd_hoan_tien_1" value="<?php echo $ma_gd_hoan_tien_1; ?>" autocomplete="off" /></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -1716,10 +1721,10 @@
                                             <td>Mã GD hoàn tiền</td>
                                         </tr>
                                         <tr>
-                                            <td width="25%"><input type="number" name="tk_doi_tac_2" class="tk_doi_tac_2" value="<?php echo $tk_doi_tac_2; ?>"  /></td>
-                                            <td width="25%"><input type="number" name="so_tien_hoan_2" class="so_tien_hoan_2" value="<?php echo $so_tien_hoan_2; ?>"  /></td>
-                                            <td width="25%"><input type="text" name="ngay_hoan_tien_2" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_hoan_tien_2 datepicker-here" data-language='en' value="<?php echo $ngay_hoan_tien_2; ?>"  /></td>
-                                            <td><input type="text" name="ma_gd_hoan_tien_2" class="ma_gd_hoan_tien_2" value="<?php echo $ma_gd_hoan_tien_2; ?>"  /></td>
+                                            <td width="25%"><input type="number" name="tk_doi_tac_2" class="tk_doi_tac_2" value="<?php echo $tk_doi_tac_2; ?>" autocomplete="off" /></td>
+                                            <td width="25%"><input type="number" name="so_tien_hoan_2" class="so_tien_hoan_2" value="<?php echo $so_tien_hoan_2; ?>" autocomplete="off" /></td>
+                                            <td width="25%"><input type="text" name="ngay_hoan_tien_2" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_hoan_tien_2 datepicker-here" data-language='en' value="<?php echo $ngay_hoan_tien_2; ?>" autocomplete="off" /></td>
+                                            <td><input type="text" name="ma_gd_hoan_tien_2" class="ma_gd_hoan_tien_2" value="<?php echo $ma_gd_hoan_tien_2; ?>" autocomplete="off" /></td>
                                         </tr>
                                         </tbody>
                                     </table>

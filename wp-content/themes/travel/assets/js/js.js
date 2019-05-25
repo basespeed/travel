@@ -1706,7 +1706,35 @@
                 },
             });
         });
+
+
     }
+
+    //Tính phụ thu
+    setInterval(function () {
+        var pt_nguoi = parseInt($('.pt_nguoi').val());
+        var pt_giai_doan = parseInt($('.pt_giai_doan').val());
+        var pt_cuoi_tuan = parseInt($('.pt_cuoi_tuan').val());
+        var bua_an_bat_buoc = parseInt($('.bua_an_bat_buoc').val());
+        var dich_vu_khac = parseInt($('.dich_vu_khac').val());
+        var tien_chua_pt_khac = parseInt($('.tien_chua_pt_khac').val());
+        var giam_gia_cho_kh_khac = parseInt($('.giam_gia_cho_kh_khac').val());
+        var da_thanh_toan_khac = parseInt($('.da_thanh_toan_khac').val());
+        var tong_gd = parseInt($('.tong_gd').val());
+        var tong_pt = $('.tong_pt');
+        var tong_phu_thu_khac = $('.tong_phu_thu_khac');
+        var tong_gia_tri_khac = $('.tong_gia_tri_khac');
+        var kh_con_no_khac = $('.kh_con_no_khac');
+        var total;
+
+        $('.tien_chua_pt_khac').val(tong_gd);
+        total = pt_nguoi + pt_giai_doan + pt_cuoi_tuan + bua_an_bat_buoc + dich_vu_khac + tien_chua_pt_khac;
+        total = total - giam_gia_cho_kh_khac;
+        tong_pt.val(total);
+        tong_phu_thu_khac.val(total);
+        tong_gia_tri_khac.val(total);
+        kh_con_no_khac.val(total - da_thanh_toan_khac);
+    },500);
 
     //calendar change price time hotel
     function Calendar_price_hotel() {
