@@ -78,7 +78,13 @@ function travel_scripts() {
     wp_enqueue_script( 'picturefill-js', get_template_directory_uri() . '/assets/js/picturefill.min.js', array(), false, true );
     wp_enqueue_script( 'lightgallery-js', get_template_directory_uri() . '/assets/js/lightgallery-all.min.js', array(), false, true );
     wp_enqueue_script( 'mousewheel-js', get_template_directory_uri() . '/assets/js/jquery.mousewheel.min.js', array(), false, true );
-    //wp_enqueue_script( 'jquery-ui-js',  'https://code.jquery.com/ui/1.12.0/jquery-ui.js', array(), false, true );
+    wp_enqueue_script( 'money-js', get_template_directory_uri() . '/assets/js/simple.money.format.js', array(), false, true );
+
+    global $post;
+    if( $post->ID == 240) {
+        wp_enqueue_script( 'jquery-ui-js',  'https://code.jquery.com/ui/1.12.0/jquery-ui.js', array(), false, true );
+    }
+
 	wp_enqueue_script( 'travel-js', get_template_directory_uri() . '/assets/js/js.js', array(), false, true );
 
     wp_localize_script( 'travel-js', 'my_ajax_object', array( 'ajax_url' => get_template_directory_uri().'/inc/ajax/admin-ajax.php' ) ); //admin_url( 'admin-ajax.php' )
@@ -90,6 +96,8 @@ function travel_scripts() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'travel_scripts' );
+
+
 
 add_action( 'wp_enqueue_scripts', 'wp_style' );
 function wp_style() {

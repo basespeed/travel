@@ -46,11 +46,11 @@ get_header();
 
             if($query->have_posts()) {
                 while ($query->have_posts()) : $query->the_post();
-                    if (get_field('hotel_id') == $_POST['hotel_id'] and $this_hotel_id != $_POST['hotel_id']) {
+                    /*if (get_field('hotel_id') == $_POST['hotel_id'] and $this_hotel_id != $_POST['hotel_id']) {
                         $alert = "<p class='alert_tk_fail'>ID đã tồn tại !</p>";
                     }elseif(get_field('hotel_name') == $_POST['hotel_name'] and $this_hotel_name != $_POST['hotel_name']){
                         $alert = "<p class='alert_tk_fail'>Tên khách sạn đã tồn tại !</p>";
-                    }
+                    }*/
                 endwhile;
                 wp_reset_postdata();
             }
@@ -58,7 +58,7 @@ get_header();
             if(! isset($alert)){
                 $update_user = array(
                     'ID'           => get_the_ID(),
-                    'post_title'   => $_POST['ten_ks'],
+                    //'post_title'   => $_POST['ten_ks'],
                 );
 
                 $post_id = wp_update_post($update_user);
@@ -108,7 +108,7 @@ get_header();
                             $location_img = get_template_directory_uri() . '/template-parts/images/' . $check_file_name;
                             update_field('photo1', $location_img, $post_id);
 
-                            $alert = "<p class='alert_tk_sucess'>Cập nhập tài khoản thành công !</p>";
+                            $alert = "<p class='alert_tk_sucess'>Cập nhập thành công !</p>";
                         }
                     } else {
                         $alert = "<p class='alert_tk_fail'>Sai định dạng !</p>";
@@ -138,7 +138,7 @@ get_header();
                             $location_img = get_template_directory_uri() . '/template-parts/images/' . $check_file_name;
                             update_field('photo2', $location_img, $post_id);
 
-                            $alert = "<p class='alert_tk_sucess'>Cập nhập tài khoản thành công !</p>";
+                            $alert = "<p class='alert_tk_sucess'>Cập nhập thành công !</p>";
                         }
                     } else {
                         $alert = "<p class='alert_tk_fail'>Sai định dạng !</p>";
@@ -168,7 +168,7 @@ get_header();
                             $location_img = get_template_directory_uri() . '/template-parts/images/' . $check_file_name;
                             update_field('photo3', $location_img, $post_id);
 
-                            $alert = "<p class='alert_tk_sucess'>Cập nhập tài khoản thành công !</p>";
+                            $alert = "<p class='alert_tk_sucess'>Cập nhập thành công !</p>";
                         }
                     } else {
                         $alert = "<p class='alert_tk_fail'>Sai định dạng !</p>";
@@ -198,7 +198,7 @@ get_header();
                             $location_img = get_template_directory_uri() . '/template-parts/images/' . $check_file_name;
                             update_field('photo4', $location_img, $post_id);
 
-                            $alert = "<p class='alert_tk_sucess'>Cập nhập tài khoản thành công !</p>";
+                            $alert = "<p class='alert_tk_sucess'>Cập nhập thành công !</p>";
                         }
                     } else {
                         $alert = "<p class='alert_tk_fail'>Sai định dạng !</p>";
@@ -228,7 +228,7 @@ get_header();
                             $location_img = get_template_directory_uri() . '/template-parts/images/' . $check_file_name;
                             update_field('photo5', $location_img, $post_id);
 
-                            $alert = "<p class='alert_tk_sucess'>Cập nhập tài khoản thành công !</p>";
+                            $alert = "<p class='alert_tk_sucess'>Cập nhập thành công !</p>";
                         }
                     } else {
                         $alert = "<p class='alert_tk_fail'>Sai định dạng !</p>";
@@ -420,9 +420,9 @@ get_header();
                                             ?>"/>
                                         </div>
 
-                                        <i class="fa fa-times <?php if(empty(get_field('photo1'))){echo 'hide';} ?>" aria-hidden="true" data-img="<?php echo get_template_directory_uri().'/assets/images/empty.gif'; ?>"></i>
+                                        <i class="fa fa-times <?php if(empty(get_field('photo1'))){echo 'hide_edit';} ?>" aria-hidden="true" data-img="<?php echo get_template_directory_uri().'/assets/images/empty.gif'; ?>"></i>
 
-                                        <div class="btn_add_img <?php if(!empty(get_field('photo1'))){echo 'hide';} ?>">
+                                        <div class="btn_add_img <?php if(!empty(get_field('photo1'))){echo 'hide_edit';} ?>">
                                             <button type="button" class="btn_add_img">Thêm ảnh</button>
                                             <input type="file" name="photo1" class="photo1" value="chọn ảnh">
                                         </div>
@@ -450,9 +450,9 @@ get_header();
                                             }
                                             ?>"/>
                                         </div>
-                                        <i class="fa fa-times <?php if(empty(get_field('photo2'))){echo 'hide';} ?>" aria-hidden="true" data-img="<?php echo get_template_directory_uri().'/assets/images/empty.gif'; ?>"></i>
+                                        <i class="fa fa-times <?php if(empty(get_field('photo2'))){echo 'hide_edit';} ?>" aria-hidden="true" data-img="<?php echo get_template_directory_uri().'/assets/images/empty.gif'; ?>"></i>
 
-                                        <div class="btn_add_img <?php if(!empty(get_field('photo2'))){echo 'hide';} ?>">
+                                        <div class="btn_add_img <?php if(!empty(get_field('photo2'))){echo 'hide_edit';} ?>">
                                             <button type="button" class="btn_add_img">Thêm ảnh</button>
                                             <input type="file" name="photo2" class="photo2" value="chọn ảnh">
                                         </div>
@@ -480,9 +480,9 @@ get_header();
                                             }
                                             ?>"/>
                                         </div>
-                                        <i class="fa fa-times <?php if(empty(get_field('photo3'))){echo 'hide';} ?>" aria-hidden="true" data-img="<?php echo get_template_directory_uri().'/assets/images/empty.gif'; ?>"></i>
+                                        <i class="fa fa-times <?php if(empty(get_field('photo3'))){echo 'hide_edit';} ?>" aria-hidden="true" data-img="<?php echo get_template_directory_uri().'/assets/images/empty.gif'; ?>"></i>
 
-                                        <div class="btn_add_img <?php if(!empty(get_field('photo3'))){echo 'hide';} ?>">
+                                        <div class="btn_add_img <?php if(!empty(get_field('photo3'))){echo 'hide_edit';} ?>">
                                             <button type="button" class="btn_add_img">Thêm ảnh</button>
                                             <input type="file" name="photo3" class="photo3" value="chọn ảnh">
                                         </div>
@@ -510,9 +510,9 @@ get_header();
                                             }
                                             ?>"/>
                                         </div>
-                                        <i class="fa fa-times <?php if(empty(get_field('photo4'))){echo 'hide';} ?>" aria-hidden="true" data-img="<?php echo get_template_directory_uri().'/assets/images/empty.gif'; ?>"></i>
+                                        <i class="fa fa-times <?php if(empty(get_field('photo4'))){echo 'hide_edit';} ?>" aria-hidden="true" data-img="<?php echo get_template_directory_uri().'/assets/images/empty.gif'; ?>"></i>
 
-                                        <div class="btn_add_img <?php if(!empty(get_field('photo4'))){echo 'hide';} ?>">
+                                        <div class="btn_add_img <?php if(!empty(get_field('photo4'))){echo 'hide_edit';} ?>">
                                             <button type="button" class="btn_add_img">Thêm ảnh</button>
                                             <input type="file" name="photo4" class="photo4" value="chọn ảnh">
                                         </div>
@@ -540,9 +540,9 @@ get_header();
                                                 }
                                             ?>"/>
                                         </div>
-                                        <i class="fa fa-times <?php if(empty(get_field('photo5'))){echo 'hide';} ?>" aria-hidden="true" data-img="<?php echo get_template_directory_uri().'/assets/images/empty.gif'; ?>"></i>
+                                        <i class="fa fa-times <?php if(empty(get_field('photo5'))){echo 'hide_edit';} ?>" aria-hidden="true" data-img="<?php echo get_template_directory_uri().'/assets/images/empty.gif'; ?>"></i>
 
-                                        <div class="btn_add_img <?php if(!empty(get_field('photo5'))){echo 'hide';} ?>">
+                                        <div class="btn_add_img <?php if(!empty(get_field('photo5'))){echo 'hide_edit';} ?>">
                                             <button type="button" class="btn_add_img">Thêm ảnh</button>
                                             <input type="file" name="photo5" class="photo5" value="chọn ảnh">
                                         </div>
@@ -558,10 +558,10 @@ get_header();
                                     <label>Room name : </label>
                                     <input type="text" class="room_name_ks">
                                 </li>
-                                <li>
+                                <!--<li>
                                     <label>Date : </label>
                                     <input type="text" data-date-format="dd/mm/yyyy" data-position="top left" class="date_price_ks datepicker-here" data-language='en'>
-                                </li>
+                                </li>-->
                                 <li>
                                     <label>Price : </label>
                                     <input type="text" class="price_ks">
@@ -572,19 +572,47 @@ get_header();
                             <ul class="show_list_ds">
                                 <li>
                                     <strong>Danh sách loại phòng</strong>
-                                    <div class="loai_phong">
+                                    <div class="list_room">
                                         <?php
-                                        $str = get_field('loai_phong_ks');
-                                        $arr_lists = explode(",",$str);
-                                        foreach ($arr_lists as $list){
-                                            echo '<div class="rom">'.$list.' <i class="fa fa-times-circle" aria-hidden="true"></i></div>';
-                                        }
+                                            $query_room = new WP_Query(array(
+                                                'post_type' => 'room',
+                                                'posts_per_page' => 10,
+                                                'meta_key'		=> 'id_khach_san',
+                                                'meta_value'	=> get_the_ID(),
+                                                'order' => 'DESC'
+                                            ));
+
+                                            if($query_room->have_posts()) : while ($query_room->have_posts()) : $query_room->the_post();
+                                        ?>
+                                        <div class="room">
+                                            <div class="content">
+                                                <div class="item">
+                                                    <!--<label>Room name :</label>-->
+                                                    <input type="text" value="<?php echo get_field('ten_phong'); ?>" class="item_room_name" data-id="<?php echo get_the_ID(); ?>" disabled>
+                                                </div>
+
+                                                <div class="item">
+                                                    <!--<label>Price :</label>-->
+                                                    <input type="text" value="<?php echo get_field('gia_tien'); ?>" class="item_price" disabled>
+                                                </div>
+                                            </div>
+
+                                            <div class="btn">
+                                                <span class="save"><i class="fa fa-floppy-o" aria-hidden="true"></i></span>
+                                                <span class="edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
+                                                <span class="del"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
+                                            </div>
+                                        </div>
+                                        <?php
+                                            endwhile;
+                                            endif;
+                                            wp_reset_postdata();
                                         ?>
                                     </div>
                                 </li>
                             </ul>
 
-                            <div class="calendar_hotel">
+                            <div class="calendar_hotel" style="display:none !important;">
                                 <div class="date_hotel">
                                     <div class="month_hotel">
                                         <div class="insider">

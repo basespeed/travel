@@ -162,7 +162,7 @@ if($_SESSION['sucess'] == "sucess") {
                         }else{
                             $arr = array(
                                 'post_type' => 'giao_dich',
-                                'posts_per_page' => 15,
+                                'posts_per_page' => 200,
                                 'order' => 'DESC',
                                 'paged' => $paged,
                             );
@@ -179,91 +179,91 @@ if($_SESSION['sucess'] == "sucess") {
                                             }elseif(isset($_GET['sort']) && $_GET['sort'] == 'code_desc'){
                                                 echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
                                             }
-                                ?></a></strong></td>
+                                            ?></a></strong></td>
                                 <td><strong><a href="<?php echo get_home_url('/'); ?>/giao-dich/?sort=<?php if($_GET['sort'] == 'mgd'){echo 'mgd_desc'; }else{echo 'mgd';}?>">MGD <?php
                                             if(isset($_GET['sort']) && $_GET['sort'] == 'mgd'){
                                                 echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
                                             }elseif(isset($_GET['sort']) && $_GET['sort'] == 'mgd_desc'){
                                                 echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
                                             }
-                                ?></a></strong></td>
+                                            ?></a></strong></td>
                                 <td><strong><a href="<?php echo get_home_url('/'); ?>/giao-dich/?sort=<?php if($_GET['sort'] == 'mbk'){echo 'mbk_desc'; }else{echo 'mbk';}?>">MBK <?php
                                             if(isset($_GET['sort']) && $_GET['sort'] == 'mbk'){
                                                 echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
                                             }elseif(isset($_GET['sort']) && $_GET['sort'] == 'mbk_desc'){
                                                 echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
                                             }
-                                ?></a></strong></td>
+                                            ?></a></strong></td>
                                 <td><strong><a href="<?php echo get_home_url('/'); ?>/giao-dich/?sort=<?php if($_GET['sort'] == 'kdd'){echo 'kdd_desc'; }else{echo 'kdd';}?>">Khách đại diện <?php
-                                    if(isset($_GET['sort']) && $_GET['sort'] == 'kdd'){
-                                        echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
-                                    }elseif(isset($_GET['sort']) && $_GET['sort'] == 'kdd_desc'){
-                                        echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
-                                    }
-                                ?></a></strong></td>
+                                            if(isset($_GET['sort']) && $_GET['sort'] == 'kdd'){
+                                                echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
+                                            }elseif(isset($_GET['sort']) && $_GET['sort'] == 'kdd_desc'){
+                                                echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
+                                            }
+                                            ?></a></strong></td>
                                 <td><strong><a href="<?php echo get_home_url('/'); ?>/giao-dich/?sort=<?php if($_GET['sort'] == 'tks'){echo 'tks_desc'; }else{echo 'tks';}?>">Tên Khách sạn <?php
-                                    if(isset($_GET['sort']) && $_GET['sort'] == 'tks'){
-                                        echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
-                                    }elseif(isset($_GET['sort']) && $_GET['sort'] == 'tks_desc'){
-                                        echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
-                                    }
-                                ?></a></strong></td>
+                                            if(isset($_GET['sort']) && $_GET['sort'] == 'tks'){
+                                                echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
+                                            }elseif(isset($_GET['sort']) && $_GET['sort'] == 'tks_desc'){
+                                                echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
+                                            }
+                                            ?></a></strong></td>
                                 <td><strong><a href="<?php echo get_home_url('/'); ?>/giao-dich/?sort=<?php if($_GET['sort'] == 'ci'){echo 'ci_desc'; }else{echo 'ci';}?>">Check-in <?php
-                                    if(isset($_GET['sort']) && $_GET['sort'] == 'ci'){
-                                        echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
-                                    }elseif(isset($_GET['sort']) && $_GET['sort'] == 'ci_desc'){
-                                        echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
-                                    }
-                                ?></a></strong></td>
+                                            if(isset($_GET['sort']) && $_GET['sort'] == 'ci'){
+                                                echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
+                                            }elseif(isset($_GET['sort']) && $_GET['sort'] == 'ci_desc'){
+                                                echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
+                                            }
+                                            ?></a></strong></td>
                                 <td><strong><a href="<?php echo get_home_url('/'); ?>/giao-dich/?sort=<?php if($_GET['sort'] == 'co'){echo 'co_desc'; }else{echo 'co';}?>">Check-out <?php
-                                    if(isset($_GET['sort']) && $_GET['sort'] == 'co'){
-                                        echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
-                                    }elseif(isset($_GET['sort']) && $_GET['sort'] == 'co_desc'){
-                                        echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
-                                    }
-                                ?></a></strong></td>
+                                            if(isset($_GET['sort']) && $_GET['sort'] == 'co'){
+                                                echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
+                                            }elseif(isset($_GET['sort']) && $_GET['sort'] == 'co_desc'){
+                                                echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
+                                            }
+                                            ?></a></strong></td>
                                 <td><strong><a href="<?php echo get_home_url('/'); ?>/giao-dich/?sort=<?php if($_GET['sort'] == 'slp'){echo 'slp_desc'; }else{echo 'slp';}?>">SLP <?php
-                                    if(isset($_GET['sort']) && $_GET['sort'] == 'slp'){
-                                        echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
-                                    }elseif(isset($_GET['sort']) && $_GET['sort'] == 'slp_desc'){
-                                        echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
-                                    }
-                                ?></a></strong></td>
+                                            if(isset($_GET['sort']) && $_GET['sort'] == 'slp'){
+                                                echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
+                                            }elseif(isset($_GET['sort']) && $_GET['sort'] == 'slp_desc'){
+                                                echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
+                                            }
+                                            ?></a></strong></td>
                                 <td><strong><a href="<?php echo get_home_url('/'); ?>/giao-dich/?sort=<?php if($_GET['sort'] == 'lp'){echo 'lp_desc'; }else{echo 'lp';}?>">Loại phòng <?php
-                                    if(isset($_GET['sort']) && $_GET['sort'] == 'lp'){
-                                        echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
-                                    }elseif(isset($_GET['sort']) && $_GET['sort'] == 'lp_desc'){
-                                        echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
-                                    }
-                                ?></a></strong></td>
+                                            if(isset($_GET['sort']) && $_GET['sort'] == 'lp'){
+                                                echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
+                                            }elseif(isset($_GET['sort']) && $_GET['sort'] == 'lp_desc'){
+                                                echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
+                                            }
+                                            ?></a></strong></td>
                                 <td><strong><a href="<?php echo get_home_url('/'); ?>/giao-dich/?sort=<?php if($_GET['sort'] == 'htb'){echo 'htb_desc'; }else{echo 'htb';}?>">Hình thức BKK <?php
-                                    if(isset($_GET['sort']) && $_GET['sort'] == 'htb'){
-                                        echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
-                                    }elseif(isset($_GET['sort']) && $_GET['sort'] == 'htb_desc'){
-                                        echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
-                                    }
-                                ?></a></strong></td>
+                                            if(isset($_GET['sort']) && $_GET['sort'] == 'htb'){
+                                                echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
+                                            }elseif(isset($_GET['sort']) && $_GET['sort'] == 'htb_desc'){
+                                                echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
+                                            }
+                                            ?></a></strong></td>
                                 <td><strong><a href="<?php echo get_home_url('/'); ?>/giao-dich/?sort=<?php if($_GET['sort'] == 'cnks'){echo 'cnks_desc'; }else{echo 'cnks';}?>">Còn nợ KS (cả PT) <?php
-                                    if(isset($_GET['sort']) && $_GET['sort'] == 'cnks'){
-                                        echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
-                                    }elseif(isset($_GET['sort']) && $_GET['sort'] == 'cnks'){
-                                        echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
-                                    }
-                                ?></a></strong></td>
+                                            if(isset($_GET['sort']) && $_GET['sort'] == 'cnks'){
+                                                echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
+                                            }elseif(isset($_GET['sort']) && $_GET['sort'] == 'cnks'){
+                                                echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
+                                            }
+                                            ?></a></strong></td>
                                 <td><strong><a href="<?php echo get_home_url('/'); ?>/giao-dich/?sort=<?php if($_GET['sort'] == 'nptth'){echo 'nptth_desc'; }else{echo 'nptth';}?>">Ngày phải TT hết <?php
-                                    if(isset($_GET['sort']) && $_GET['sort'] == 'nptth'){
-                                        echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
-                                    }elseif(isset($_GET['sort']) && $_GET['sort'] == 'nptth_desc'){
-                                        echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
-                                    }
-                                ?></a></strong></td>
+                                            if(isset($_GET['sort']) && $_GET['sort'] == 'nptth'){
+                                                echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
+                                            }elseif(isset($_GET['sort']) && $_GET['sort'] == 'nptth_desc'){
+                                                echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
+                                            }
+                                            ?></a></strong></td>
                                 <td><strong><a href="<?php echo get_home_url('/'); ?>/giao-dich/?sort=<?php if($_GET['sort'] == 'tpttcks'){echo 'tpttcks_desc'; }else{echo 'tpttcks';}?>">Tổng phải TT cho KS cả PT <?php
-                                    if(isset($_GET['sort']) && $_GET['sort'] == 'tpttcks'){
-                                        echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
-                                    }elseif(isset($_GET['sort']) && $_GET['sort'] == 'tpttcks_desc'){
-                                        echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
-                                    }
-                                ?></a></strong></td>
+                                            if(isset($_GET['sort']) && $_GET['sort'] == 'tpttcks'){
+                                                echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
+                                            }elseif(isset($_GET['sort']) && $_GET['sort'] == 'tpttcks_desc'){
+                                                echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
+                                            }
+                                            ?></a></strong></td>
                                 <td><strong>Ghi chú nội bộ</strong></td>
                                 <td></td>
                             </tr>
@@ -281,18 +281,34 @@ if($_SESSION['sucess'] == "sucess") {
                                     <td><?php echo get_field('ten_khach_san_gd'); ?></td>
                                     <td><?php
                                         echo get_field('ci_gd');
-                                    ?></td>
+                                        ?></td>
                                     <td><?php
                                         echo get_field('co_gd');
-                                    ?></td>
+                                        ?></td>
                                     <td><?php echo get_field('sl_gd'); ?></td>
                                     <td><?php echo get_field('loai_phong_ban_dt'); ?></td>
                                     <td><?php echo get_field('hinh_thuc_book_gd'); ?></td>
-                                    <td><?php echo get_field('kh_con_no_khac'); ?></td>
+                                    <td><?php
+                                        $a = get_field('kh_con_no_khac');
+
+                                        if (strpos($a, ',') === false) {
+                                            echo number_format(get_field('kh_con_no_khac'),'0',',',',');
+                                        }else{
+                                            echo get_field('kh_con_no_khac');
+                                        }
+                                        ?></td>
                                     <td><?php
                                         echo get_field('ngay_yeu_cau_kh_hoan_tat_tt_khac');
-                                    ?></td>
-                                    <td width="10%"><?php echo get_field('tong_gia_tri_khac'); ?></td>
+                                        ?></td>
+                                    <td width="10%"><?php
+                                        $b = get_field('tong_gia_tri_khac');
+
+                                        if (strpos($b, ',') === false) {
+                                            echo number_format(get_field('tong_gia_tri_khac') ,'0',',',',');
+                                        }else{
+                                            echo get_field('tong_gia_tri_khac');
+                                        }
+                                        ?></td>
                                     <td width="12%"><?php
                                         $arr_chat = array(
                                             'post_type' => 'chat',
@@ -311,7 +327,7 @@ if($_SESSION['sucess'] == "sucess") {
                                             echo 'Dữ liệu trống !';
                                         endif;
                                         wp_reset_postdata();
-                                    ?></td>
+                                        ?></td>
                                     <td>
                                         <a class="edit" href="<?php echo $the_permalink; ?>"><i
                                                     class="fa fa-pencil-square-o" aria-hidden="true"></i></a>

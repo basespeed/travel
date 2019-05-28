@@ -1,5 +1,88 @@
 <?php
     $ID_GD = get_the_ID();
+    //Lấy dữ liệu giao dịch tổng khi có query khác chèn vào giữa
+    $ten_kgd = get_field('ten_kgd');
+    $nick_kgd = get_field('nick_kgd');
+    $sdt_kgd = get_field('sdt_kgd');
+    $email_kgd_duy_nhat = get_field('email_kgd_duy_nhat');
+    $tk_kgd = get_field('tk_kgd');
+    $ma_kgd = get_field('ma_kgd');
+    $xep_hang_kgd = get_field('xep_hang_kgd');
+    $ma_ctv = get_field('ma_ctv');
+    $ma_nv = get_field('ma_nv');
+    $ma_gd_coc_1 = get_field('ma_gd_coc_1');
+    $tien_coc_1 = get_field('tien_coc_1');
+    $ngay_coc_1 = get_field('ngay_coc_1');
+    $tk_coc_1 = get_field('tk_coc_1');
+    $ma_kho_popup_thong_tin_kho = get_field('ma_kho_popup_thong_tin_kho');
+    $ma_gd_coc_di_2 = get_field('ma_gd_coc_di_2');
+    $tien_coc_di_2 = get_field('tien_coc_di_2');
+    $ngay_phai_coc_di_2 = get_field('ngay_phai_coc_di_2');
+    $tk_coc_di_2 = get_field('tk_coc_di_2');
+    $ma_gd_tt_lan_2_1 = get_field('ma_gd_tt_lan_2_1');
+    $tien_tt_lan_2_1 = get_field('tien_tt_lan_2_1');
+    $ngay_tt_lan_2_1 = get_field('ngay_tt_lan_2_1');
+    $tk_tt_lan_2_1 = get_field('tk_tt_lan_2_1');
+    $sl_lay_tu_kho = get_field('sl_lay_tu_kho');
+    $ma_gd_di_lan_2_2 = get_field('ma_gd_di_lan_2_2');
+    $tien_di_lan_2_2 = get_field('tien_di_lan_2_2');
+    $ngay_phai_di_lan_2_2 = get_field('ngay_phai_di_lan_2_2');
+    $tk_di_lan_2_2 = get_field('tk_di_lan_2_2');
+    $ma_gd_tt_lan_3_1 = get_field('ma_gd_tt_lan_3_1');
+    $tien_tt_lan_3_1 = get_field('tien_tt_lan_3_1');
+    $ngay_tt_lan_3_1 = get_field('ngay_tt_lan_3_1');
+    $tk_tt_lan_3_1 = get_field('tk_tt_lan_3_1');
+    $ma_gd_di_lan_3_2 = get_field('ma_gd_di_lan_3_2');
+    $tien_di_lan_3_2 = get_field('tien_di_lan_3_2');
+    $ngay_phai_di_lan_3_2 = get_field('ngay_phai_di_lan_3_2');
+    $tk_di_lan_3_2 = get_field('tk_di_lan_3_2');
+    $tk_kh_1 = get_field('tk_kh_1');
+    $so_tien_hoan_1 = get_field('so_tien_hoan_1');
+    $ngay_hoan_tien_1 = get_field('ngay_hoan_tien_1');
+    $ma_gd_hoan_tien_1 = get_field('ma_gd_hoan_tien_1');
+    $tk_doi_tac_2 = get_field('tk_doi_tac_2');
+    $so_tien_hoan_2 = get_field('so_tien_hoan_2');
+    $ngay_hoan_tien_2 = get_field('ngay_hoan_tien_2');
+    $ma_gd_hoan_tien_2 = get_field('ma_gd_hoan_tien_2');
+    $ghi_chu_thanh_toan_1 = get_field('ghi_chu_thanh_toan_1');
+    $ghi_chu_thanh_toan_2 = get_field('ghi_chu_thanh_toan_2');
+
+    $sl_nl = get_field('sl_nl');
+    $gp = get_field('gp');
+    $sl02 = get_field('sl02');
+    $sl24 = get_field('sl24');
+    $sl46 = get_field('sl46');
+    $sl612 = get_field('sl612');
+    $pt_nguoi = get_field('pt_nguoi');
+    $pt_giai_doan = get_field('pt_giai_doan');
+    $pt_cuoi_tuan = get_field('pt_cuoi_tuan');
+    $bua_an_bat_buoc = get_field('bua_an_bat_buoc');
+    $dich_vu_khac = get_field('dich_vu_khac');
+    $tong_pt = get_field('tong_pt');
+    $kh_tt_pt_tai = get_field('kh_tt_pt_tai');
+    $danh_sach_doan_yeu_cau_khac = get_field('danh_sach_doan_yeu_cau_khac');
+    $tien_chua_pt_khac = get_field('tien_chua_pt_khac');
+    $tong_phu_thu_khac = get_field('tong_phu_thu_khac');
+    $giam_gia_cho_kh_khac = get_field('giam_gia_cho_kh_khac');
+    $tong_gia_tri_khac = get_field('tong_gia_tri_khac');
+    $da_thanh_toan_khac = get_field('da_thanh_toan_khac');
+    $kh_con_no_khac = get_field('kh_con_no_khac');
+    $ngay_yeu_cau_kh_hoan_tat_tt_khac = get_field('ngay_yeu_cau_kh_hoan_tat_tt_khac');
+    $lai_lo_khac = get_field('lai_lo_khac');
+    $thue_vat_khac = get_field('thue_vat_khac');
+    $thue_tndn_khac = get_field('thue_tndn_khac');
+    $cp_marketing_khac = get_field('cp_marketing_khac');
+    $cp_hau_can_khac = get_field('cp_hau_can_khac');
+    $cp_hau_mai_khac = get_field('cp_hau_mai_khac');
+    $cp_co_dinh_khac = get_field('cp_co_dinh_khac');
+    $tien_chua_pt_khac2 = get_field('tien_chua_pt_khac2');
+    $ghi_chu_cua_dt_khac2 = get_field('ghi_chu_cua_dt_khac2');
+    $tong_phu_thu_khac2 = get_field('tong_phu_thu_khac2');
+    $giam_gia_cua_dt_khac2 = get_field('giam_gia_cua_dt_khac2');
+    $tong_gia_tri_khac2 = get_field('tong_gia_tri_khac2');
+    $da_thanh_toan_khac2 = get_field('da_thanh_toan_khac2');
+    $bct_con_no_khac2 = get_field('bct_con_no_khac2');
+    $ngay_phai_hoan_tat_tt_cho_ks_khac2 = get_field('ngay_phai_hoan_tat_tt_cho_ks_khac2');
 ?>
 <div id="content" class="<?php if(isset($_GET['view'])){echo "view_fix";} ?>">
     <div class="quantri_admin">
@@ -260,6 +343,7 @@
                             if(isset($alert)){
                                 echo '<p class="alert">'.$alert.'</p>';
                             }else{
+                                echo '<meta http-equiv="refresh" content="0">';
                                 echo $alert = "<p class='alert_tk_sucess'>Cập nhập giao dịch thành công !</p>";
                             }
 
@@ -757,24 +841,19 @@
                                         <tr>
                                             <td width="35%">
                                                 <select name="loai_phong_ban_gd" class="loai_phong_ban_gd" data-check="<?php echo get_field('loai_phong_ban_gd'); ?>">
-                                                    <option value="" selected disabled hidden>Chọn loại phòng</option>
                                                     <?php
-                                                    $query_khach_san = new WP_Query(array(
-                                                        'post_type' => 'hotel',
-                                                        'posts_type' => 15,
-                                                        'meta_key'		=> 'ten_ks',
-                                                        'meta_value' => '^' . preg_quote( get_field('ten_khach_san_gd') ),
-                                                        'meta_compare' => 'RLIKE',
-
+                                                    $query_room = new WP_Query(array(
+                                                        'post_type' => 'room',
+                                                        'posts_per_page' => 10,
+                                                        'meta_key'		=> 'id_khach_san',
+                                                        'meta_value'	=> get_field('ten_khach_san_gd'),
+                                                        'order' => 'DESC'
                                                     ));
-                                                    if($query_khach_san->have_posts()) : while ($query_khach_san->have_posts()) : $query_khach_san->the_post();
-                                                        $str = get_field('loai_phong_ks');
-                                                        $arr_lists = explode(",",$str);
-                                                        foreach ($arr_lists as $list){
-                                                            $list_explode  = $list;
-                                                            $list_explode = explode(":", $list_explode);
-                                                            echo '<option value="'.$list_explode[0].'" data-price="'.preg_replace('/\s+/', '', $list_explode[1]).'">'.$list_explode[0].'</option>';
-                                                        }
+
+                                                    if($query_room->have_posts()) : while ($query_room->have_posts()) : $query_room->the_post();
+                                                        ?>
+                                                        <option value="<?php echo get_field('ten_phong'); ?>" data-price="<?php echo get_field('gia_tien'); ?>"><?php echo get_field('ten_phong'); ?></option>
+                                                        <?php
                                                     endwhile;
                                                     endif;
                                                     wp_reset_postdata();
@@ -782,7 +861,32 @@
                                                 </select>
                                             </td>
                                             <td width="10%"><input type="number" name="sl_gd" class="sl_gd" value="<?php echo get_field('sl_gd'); ?>" required autocomplete="off"/></td>
-                                            <td width="15%"><input type="number" name="don_gia_ban_gd" class="don_gia_ban_gd" value="<?php echo get_field('don_gia_ban_gd'); ?>"  autocomplete="off"/></td>
+                                            <td width="15%"><input type="text" name="don_gia_ban_gd" class="don_gia_ban_gd" value="<?php
+                                                $query_room = new WP_Query(array(
+                                                    'post_type' => 'room',
+                                                    'posts_per_page' => 10,
+                                                    'meta_query'	=> array(
+                                                        'relation'		=> 'AND',
+                                                        array(
+                                                            'key'	 	=> 'id_khach_san',
+                                                            'value'	  	=> get_field('ten_khach_san_gd'),
+                                                            'compare' 	=> '=',
+                                                        ),
+                                                        array(
+                                                            'key'	  	=> 'ten_phong',
+                                                            'value'	  	=> get_field('loai_phong_ban_gd'),
+                                                            'compare' 	=> '=',
+                                                        ),
+                                                    ),
+                                                    'order' => 'DESC'
+                                                ));
+
+                                                if($query_room->have_posts()) : while ($query_room->have_posts()) : $query_room->the_post();
+                                                    echo get_field('gia_tien');
+                                                endwhile;
+                                                endif;
+                                                wp_reset_postdata();
+                                                ?>"  autocomplete="off"/></td>
                                             <td width="20%">
                                                 <select name="don_vi_gd" class="don_vi_gd" data-check="<?php echo get_field('don_vi_gd'); ?>" required >
                                                     <option value="" selected disabled hidden>Chọn đơn vị</option>
@@ -791,7 +895,7 @@
                                                     <option value="vnđ/villa/đêm">vnđ/villa/đêm</option>
                                                 </select>
                                             </td>
-                                            <td width="20%"><input type="number" name="tong_gd" class="tong_gd" value="<?php echo get_field('tong_gd'); ?>" required autocomplete="off"/></td>
+                                            <td width="20%"><input type="text" name="tong_gd" class="tong_gd" value="<?php echo get_field('tong_gd'); ?>" required autocomplete="off"/></td>
                                         </tr>
                                         <tr>
                                             <td colspan="3" align="center">Gói DV - KM bán</td>
@@ -839,24 +943,19 @@
                                         <tr>
                                             <td width="35%">
                                                 <select name="loai_phong_ban_dt" class="loai_phong_ban_dt" data-check="<?php echo get_field('loai_phong_ban_dt'); ?>">
-                                                    <option value="" selected disabled hidden>Chọn loại phòng</option>
                                                     <?php
-                                                    $query_khach_san = new WP_Query(array(
-                                                        'post_type' => 'khach_san',
-                                                        'posts_type' => 15,
-                                                        'meta_key'		=> 'ten_ks',
-                                                        'meta_value' => '^' . preg_quote( get_field('ten_khach_san_gd') ),
-                                                        'meta_compare' => 'RLIKE',
-
+                                                    $query_room = new WP_Query(array(
+                                                        'post_type' => 'room',
+                                                        'posts_per_page' => 10,
+                                                        'meta_key'		=> 'id_khach_san',
+                                                        'meta_value'	=> get_field('ten_khach_san_gd'),
+                                                        'order' => 'DESC'
                                                     ));
-                                                    if($query_khach_san->have_posts()) : while ($query_khach_san->have_posts()) : $query_khach_san->the_post();
-                                                        $str = get_field('loai_phong_ks');
-                                                        $arr_lists = explode(",",$str);
-                                                        foreach ($arr_lists as $list){
-                                                            $list_explode  = $list;
-                                                            $list_explode = explode(":", $list_explode);
-                                                            echo '<option value="'.$list_explode[0].'" data-price="'.preg_replace('/\s+/', '', $list_explode[1]).'">'.$list_explode[0].'</option>';
-                                                        }
+
+                                                    if($query_room->have_posts()) : while ($query_room->have_posts()) : $query_room->the_post();
+                                                        ?>
+                                                        <option value="<?php echo get_field('ten_phong'); ?>" data-price="<?php echo get_field('gia_tien'); ?>"><?php echo get_field('ten_phong'); ?></option>
+                                                    <?php
                                                     endwhile;
                                                     endif;
                                                     wp_reset_postdata();
@@ -864,7 +963,7 @@
                                                 </select>
                                             </td>
                                             <td width="10%"><input type="number" name="sl_dt" class="sl_dt" value="<?php echo get_field('sl_dt'); ?>" required autocomplete="off"/></td>
-                                            <td width="15%"><input type="number" name="don_gia_ban_dt" class="don_gia_ban_dt" value="<?php echo get_field('don_gia_ban_dt'); ?>" autocomplete="off"/></td>
+                                            <td width="15%"><input type="text" name="don_gia_ban_dt" class="don_gia_ban_dt" value="<?php echo get_field('don_gia_ban_dt'); ?>" autocomplete="off"/></td>
                                             <td width="20%">
                                                 <select name="don_vi_dt" class="don_vi_dt" data-check="<?php echo get_field('don_vi_dt'); ?>" required >
                                                     <option value="" selected disabled hidden>Chọn đơn vị</option>
@@ -873,7 +972,7 @@
                                                     <option value="vnđ/villa/đêm">vnđ/villa/đêm</option>
                                                 </select>
                                             </td>
-                                            <td width="20%"><input type="number" name="tong_dt" class="tong_dt" value="<?php echo get_field('tong_dt'); ?>" required autocomplete="off"/></td>
+                                            <td width="20%"><input type="text" name="tong_dt" class="tong_dt" value="<?php echo get_field('tong_dt'); ?>" required autocomplete="off"/></td>
                                         </tr>
                                         <tr>
                                             <td colspan="3" align="center">Gói DV - KM bán</td>
@@ -905,230 +1004,6 @@
                                 </td>
                             </tr>
 
-                            <tr>
-                                <td colspan="3">
-                                    <table width="100%" border="1" style="background: #9bb552a6">
-                                        <tbody style="padding: 5px;">
-                                        <tr style="margin-top: 5px;">
-                                            <td width="5%">SL NL</td>
-                                            <td width="5%">GP</td>
-                                            <td width="5%">0 - 2</td>
-                                            <td width="5%">2 - 4</td>
-                                            <td width="5%">4 - 6</td>
-                                            <td width="5%">6 - 12</td>
-                                            <td width="10%">PT người</td>
-                                            <td width="10%">PT giai đoạn</td>
-                                            <td width="10%">PT cuối tuần</td>
-                                            <td width="10%">Bữa ăn bắt buộc</td>
-                                            <td width="10%">Dịch vụ khác</td>
-                                            <td width="10%">Tổng PT</td>
-                                            <td> KH TT PT tại?</td>
-                                        </tr>
-                                        <tr>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="sl_nl" class="sl_nl" value="<?php echo get_field('sl_nl'); ?>" autocomplete="off" /></td>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="gp" class="gp" value="<?php echo get_field('gp'); ?>"  autocomplete="off"/></td>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="sl02" class="sl02" value="<?php echo get_field('sl02'); ?>" autocomplete="off" /></td>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="sl24" class="sl24" value="<?php echo get_field('sl24'); ?>" autocomplete="off" /></td>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="sl46" class="sl46" value="<?php echo get_field('sl46'); ?>" autocomplete="off" /></td>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="sl612" class="sl612" value="<?php echo get_field('sl612'); ?>"  autocomplete="off"/></td>
-                                            <td width="10%"><input type="number" style="background: #fff;" name="pt_nguoi" class="pt_nguoi" value="<?php echo get_field('pt_nguoi'); ?>" autocomplete="off" /></td>
-                                            <td width="10%"><input type="number" style="background: #fff;" name="pt_giai_doan" class="pt_giai_doan" value="<?php echo get_field('pt_giai_doan'); ?>" autocomplete="off" /></td>
-                                            <td width="10%"><input type="number" style="background: #fff;" name="pt_cuoi_tuan" class="pt_cuoi_tuan" value="<?php echo get_field('pt_cuoi_tuan'); ?>" autocomplete="off" /></td>
-                                            <td width="10%"><input type="number" style="background: #fff;" name="bua_an_bat_buoc" class="bua_an_bat_buoc" value="<?php echo get_field('bua_an_bat_buoc'); ?>" autocomplete="off" /></td>
-                                            <td width="10%"><input type="number" style="background: #fff;" name="dich_vu_khac" class="dich_vu_khac" value="<?php echo get_field('dich_vu_khac'); ?>" autocomplete="off" /></td>
-                                            <td width="10%"><input type="number" style="background: #fff;" name="tong_pt" class="tong_pt" value="<?php echo get_field('tong_pt'); ?>" autocomplete="off" /></td>
-                                            <td>
-                                                <select name="kh_tt_pt_tai" style="background: #fff;" class="kh_tt_pt_tai" data-check="<?php get_field('kh_tt_pt_tai'); ?>">
-                                                    <option value="BTC" selected>BTC</option>
-                                                    <option value="Khách sạn">Khách sạn</option>
-                                                </select>
-                                            </td>
-                                        </tr>
-
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <table width="100%" border="1" style="background: #2e75bd63;">
-                                        <tbody>
-                                        <tr>
-                                            <td rowspan="7">
-                                                Danh sách đoàn, yêu cầu khác
-                                                <textarea name="danh_sach_doan_yeu_cau_khac" class="danh_sach_doan_yeu_cau_khac"><?php echo get_field('danh_sach_doan_yeu_cau_khac'); ?></textarea>
-                                            </td>
-                                            <td width="25%">Tiền chưa PT</td>
-                                            <td width="25%"><input type="number" width="100%" style="height:24px;" name="tien_chua_pt_khac" class="tien_chua_pt_khac" value="<?php echo get_field('tien_chua_pt_khac'); ?>" autocomplete="off" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tổng phụ thu</td>
-                                            <td><input type="number" name="tong_phu_thu_khac" style="height:24px;" class="tong_phu_thu_khac" value="<?php echo get_field('tong_phu_thu_khac'); ?>"  autocomplete="off"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Giảm giá cho KH</td>
-                                            <td><input type="number" name="giam_gia_cho_kh_khac" style="height:24px;" class="giam_gia_cho_kh_khac" value="<?php echo get_field('giam_gia_cho_kh_khac'); ?>"  autocomplete="off"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tổng giá trị</td>
-                                            <td><input type="number" name="tong_gia_tri_khac" style="height:24px;" class="tong_gia_tri_khac" value="<?php echo get_field('tong_gia_tri_khac'); ?>" autocomplete="off" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Đã thanh toán</td>
-                                            <td><input type="number" name="da_thanh_toan_khac" style="height:24px;" class="da_thanh_toan_khac" value="<?php echo get_field('da_thanh_toan_khac'); ?>" autocomplete="off" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td>KH còn nợ</td>
-                                            <td><input type="number" name="kh_con_no_khac" style="height:24px;" class="kh_con_no_khac" value="<?php echo get_field('kh_con_no_khac'); ?>" autocomplete="off" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ngày yêu cầu KH hoàn tất TT</td>
-                                            <td><input type="text" style="height:24px;" name="ngay_yeu_cau_kh_hoan_tat_tt_khac" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_yeu_cau_kh_hoan_tat_tt_khac datepicker-here" data-language='en' value="<?php echo get_field('ngay_yeu_cau_kh_hoan_tat_tt_khac'); ?>" autocomplete="off" /></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                                <td>
-                                    <table width="100%" border="1">
-                                        <tbody>
-                                        <tr>
-                                            <td align="center" style="background-color: #f19315b3;padding-top: 5px;">
-                                                <ul class="price_count">
-                                                    <li>
-                                                        Lãi/Lỗ
-                                                        <input type="number" name="lai_lo_khac" class="lai_lo_khac" style="background: #FFF;" value="<?php echo get_field('lai_lo_khac'); ?>" autocomplete="off" />
-                                                    </li>
-                                                    <li>
-                                                        Thuế VAT
-                                                        <input type="number" name="thue_vat_khac" class="thue_vat_khac" style="background: #FFF;" value="<?php echo get_field('thue_vat_khac'); ?>" autocomplete="off" />
-                                                    </li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td align="center" style="background-color: #f19315b3;">
-                                                <ul class="price_count">
-                                                    <li>
-                                                        Thuế TNDN
-                                                        <input type="number" name="thue_tndn_khac" class="thue_tndn_khac" style="background: #FFF;" value="<?php echo get_field('thue_tndn_khac'); ?>" autocomplete="off" />
-                                                    </li>
-                                                    <li>
-                                                        CP marketing
-                                                        <input type="text" name="cp_marketing_khac" class="cp_marketing_khac" style="background: #FFF;" value="<?php echo get_field('cp_marketing_khac'); ?>" autocomplete="off" />
-                                                    </li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td align="center" style="background-color: #f19315b3;">
-                                                <ul class="price_count">
-                                                    <li>
-                                                        CP hậu cần
-                                                        <input type="text" name="cp_hau_can_khac" class="cp_hau_can_khac" style="background: #FFF;" value="<?php echo get_field('cp_hau_can_khac'); ?>" autocomplete="off" />
-                                                    </li>
-                                                    <li>
-                                                        CP hậu mãi
-                                                        <input type="text" name="cp_hau_mai_khac" class="cp_hau_mai_khac" style="background: #FFF;" value="<?php echo get_field('cp_hau_mai_khac'); ?>" autocomplete="off" />
-                                                    </li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td align="center" style="background-color: #f19315b3;padding-bottom: 10px;">
-                                                CP cố định
-                                                <input type="text" name="cp_co_dinh_khac" class="cp_co_dinh_khac" style="background: #FFF;" value="<?php echo get_field('cp_co_dinh_khac'); ?>" autocomplete="off" />
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                                <td>
-                                    <table width="100%" border="1" style="background: #2e75bd63;">
-                                        <tbody>
-                                        <tr>
-                                            <td width="25%"><input type="number" name="tien_chua_pt_khac2" class="tien_chua_pt_khac2" value="<?php echo get_field('tien_chua_pt_khac2'); ?>" autocomplete="off" /></td>
-                                            <td width="25%">Tiền chưa PT</td>
-                                            <td width="50%" colspan="2" rowspan="7">
-                                                Ghi chú của ĐT
-                                                <textarea name="ghi_chu_cua_dt_khac2" class="ghi_chu_cua_dt_khac2"><?php echo get_field('ghi_chu_cua_dt_khac2'); ?></textarea>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="number" name="tong_phu_thu_khac2" style="height:24px;" class="tong_phu_thu_khac2" value="<?php echo get_field('tong_phu_thu_khac2'); ?>" autocomplete="off" /></td>
-                                            <td>Tổng phụ thu</td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="number" name="giam_gia_cua_dt_khac2" style="height:24px;" class="giam_gia_cua_dt_khac2" value="<?php echo get_field('giam_gia_cua_dt_khac2'); ?>" autocomplete="off" /></td>
-                                            <td>Giảm giá của ĐT</td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="number" name="tong_gia_tri_khac2" style="height:24px;" class="tong_gia_tri_khac2" value="<?php echo get_field('tong_gia_tri_khac2'); ?>" autocomplete="off" /></td>
-                                            <td>Tổng giá trị</td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="number" name="da_thanh_toan_khac2" style="height:24px;" class="da_thanh_toan_khac2" value="<?php echo get_field('da_thanh_toan_khac2'); ?>" autocomplete="off" /></td>
-                                            <td>Đã thanh toán</td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="number" name="bct_con_no_khac2" style="height:24px;" class="bct_con_no_khac2" value="<?php echo get_field('bct_con_no_khac2'); ?>" autocomplete="off" /></td>
-                                            <td>BCT còn nợ</td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="text" name="ngay_phai_hoan_tat_tt_cho_ks_khac2" style="height:24px;" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_phai_hoan_tat_tt_cho_ks_khac2 datepicker-here" data-language='en' value="<?php echo get_field('ngay_phai_hoan_tat_tt_cho_ks_khac2'); ?>" autocomplete="off" ></td>
-                                            <td>Ngày phải hoàn tất TT cho KS</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                            <?php
-                            //Lấy dữ liệu giao dịch tổng khi có query khác chèn vào giữa
-                            $ten_kgd = get_field('ten_kgd');
-                            $nick_kgd = get_field('nick_kgd');
-                            $sdt_kgd = get_field('sdt_kgd');
-                            $email_kgd_duy_nhat = get_field('email_kgd_duy_nhat');
-                            $tk_kgd = get_field('tk_kgd');
-                            $ma_kgd = get_field('ma_kgd');
-                            $xep_hang_kgd = get_field('xep_hang_kgd');
-                            $ma_ctv = get_field('ma_ctv');
-                            $ma_nv = get_field('ma_nv');
-                            $ma_gd_coc_1 = get_field('ma_gd_coc_1');
-                            $tien_coc_1 = get_field('tien_coc_1');
-                            $ngay_coc_1 = get_field('ngay_coc_1');
-                            $tk_coc_1 = get_field('tk_coc_1');
-                            $ma_kho_popup_thong_tin_kho = get_field('ma_kho_popup_thong_tin_kho');
-                            $ma_gd_coc_di_2 = get_field('ma_gd_coc_di_2');
-                            $tien_coc_di_2 = get_field('tien_coc_di_2');
-                            $ngay_phai_coc_di_2 = get_field('ngay_phai_coc_di_2');
-                            $tk_coc_di_2 = get_field('tk_coc_di_2');
-                            $ma_gd_tt_lan_2_1 = get_field('ma_gd_tt_lan_2_1');
-                            $tien_tt_lan_2_1 = get_field('tien_tt_lan_2_1');
-                            $ngay_tt_lan_2_1 = get_field('ngay_tt_lan_2_1');
-                            $tk_tt_lan_2_1 = get_field('tk_tt_lan_2_1');
-                            $sl_lay_tu_kho = get_field('sl_lay_tu_kho');
-                            $ma_gd_di_lan_2_2 = get_field('ma_gd_di_lan_2_2');
-                            $tien_di_lan_2_2 = get_field('tien_di_lan_2_2');
-                            $ngay_phai_di_lan_2_2 = get_field('ngay_phai_di_lan_2_2');
-                            $tk_di_lan_2_2 = get_field('tk_di_lan_2_2');
-                            $ma_gd_tt_lan_3_1 = get_field('ma_gd_tt_lan_3_1');
-                            $tien_tt_lan_3_1 = get_field('tien_tt_lan_3_1');
-                            $ngay_tt_lan_3_1 = get_field('ngay_tt_lan_3_1');
-                            $tk_tt_lan_3_1 = get_field('tk_tt_lan_3_1');
-                            $ma_gd_di_lan_3_2 = get_field('ma_gd_di_lan_3_2');
-                            $tien_di_lan_3_2 = get_field('tien_di_lan_3_2');
-                            $ngay_phai_di_lan_3_2 = get_field('ngay_phai_di_lan_3_2');
-                            $tk_di_lan_3_2 = get_field('tk_di_lan_3_2');
-                            $tk_kh_1 = get_field('tk_kh_1');
-                            $so_tien_hoan_1 = get_field('so_tien_hoan_1');
-                            $ngay_hoan_tien_1 = get_field('ngay_hoan_tien_1');
-                            $ma_gd_hoan_tien_1 = get_field('ma_gd_hoan_tien_1');
-                            $tk_doi_tac_2 = get_field('tk_doi_tac_2');
-                            $so_tien_hoan_2 = get_field('so_tien_hoan_2');
-                            $ngay_hoan_tien_2 = get_field('ngay_hoan_tien_2');
-                            $ma_gd_hoan_tien_2 = get_field('ma_gd_hoan_tien_2');
-                            $ghi_chu_thanh_toan_1 = get_field('ghi_chu_thanh_toan_1');
-                            $ghi_chu_thanh_toan_2 = get_field('ghi_chu_thanh_toan_2');
-                            ?>
                             <tr>
                                 <td colspan="3"><table width="100%" border="1" id="show_chat" class="show_chat_table" data-id="<?php echo get_the_ID(); ?>">
                                         <thead>
@@ -1218,7 +1093,7 @@
                                                                     echo get_template_directory_uri().'/assets/images/user.jpg';
                                                                 endif;
                                                                 wp_reset_postdata();
-                                                            ?>" alt="avatar"></div>
+                                                                ?>" alt="avatar"></div>
                                                             <div class="content">Ngày nhập vào :
                                                                 <span><?php echo $ngay_nhap_vao_chat; ?></span> # Mã NV :
                                                                 <span><?php echo $ma_nhan_vien_chat; ?></span> # Lời nhắn :
@@ -1370,7 +1245,7 @@
                                                                                 echo get_template_directory_uri().'/assets/images/user.jpg';
                                                                             endif;
                                                                             wp_reset_postdata();
-                                                                        ?>" alt="avatar"></div>
+                                                                            ?>" alt="avatar"></div>
                                                                         <div class="content">Ngày nhập vào :
                                                                             <span><?php echo $ngay_nhap_vao_chat; ?></span> # Mã NV :
                                                                             <span><?php echo $ma_nhan_vien_chat; ?></span> # Lời nhắn cũ nhất :
@@ -1487,6 +1362,183 @@
                                         </tr>
                                         </tfoot>
                                     </table></td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="3">
+                                    <table width="100%" border="1" style="background: #9bb552a6">
+                                        <tbody style="padding: 5px;">
+                                        <tr style="margin-top: 5px;">
+                                            <td width="5%">SL NL</td>
+                                            <td width="5%">GP</td>
+                                            <td width="5%">0 - 2</td>
+                                            <td width="5%">2 - 4</td>
+                                            <td width="5%">4 - 6</td>
+                                            <td width="5%">6 - 12</td>
+                                            <td width="10%">PT người</td>
+                                            <td width="10%">PT giai đoạn</td>
+                                            <td width="10%">PT cuối tuần</td>
+                                            <td width="10%">Bữa ăn bắt buộc</td>
+                                            <td width="10%">Dịch vụ khác</td>
+                                            <td width="10%">Tổng PT</td>
+                                            <td> KH TT PT tại?</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="sl_nl" class="sl_nl" value="<?php echo $sl_nl; ?>" autocomplete="off" /></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="gp" class="gp" value="<?php echo $gp; ?>"  autocomplete="off"/></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="sl02" class="sl02" value="<?php echo $sl02; ?>" autocomplete="off" /></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="sl24" class="sl24" value="<?php echo $sl24; ?>" autocomplete="off" /></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="sl46" class="sl46" value="<?php echo $sl46; ?>" autocomplete="off" /></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="sl612" class="sl612" value="<?php echo $sl612; ?>"  autocomplete="off"/></td>
+                                            <td width="10%"><input type="text" style="background: #fff;" name="pt_nguoi" class="pt_nguoi" value="<?php echo $pt_nguoi; ?>" autocomplete="off" /></td>
+                                            <td width="10%"><input type="text" style="background: #fff;" name="pt_giai_doan" class="pt_giai_doan" value="<?php echo $pt_giai_doan; ?>" autocomplete="off" /></td>
+                                            <td width="10%"><input type="text" style="background: #fff;" name="pt_cuoi_tuan" class="pt_cuoi_tuan" value="<?php echo $pt_cuoi_tuan; ?>" autocomplete="off" /></td>
+                                            <td width="10%"><input type="text" style="background: #fff;" name="bua_an_bat_buoc" class="bua_an_bat_buoc" value="<?php echo $bua_an_bat_buoc; ?>" autocomplete="off" /></td>
+                                            <td width="10%"><input type="text" style="background: #fff;" name="dich_vu_khac" class="dich_vu_khac" value="<?php echo $dich_vu_khac; ?>" autocomplete="off" /></td>
+                                            <td width="10%"><input type="text" style="background: #fff;" name="tong_pt" class="tong_pt" value="<?php echo $tong_pt; ?>" autocomplete="off" /></td>
+                                            <td>
+                                                <select name="kh_tt_pt_tai" style="background: #fff;" class="kh_tt_pt_tai" data-check="<?php echo $kh_tt_pt_tai; ?>">
+                                                    <option value="BTC">BTC</option>
+                                                    <option value="Khách sạn">Khách sạn</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr class="phu_thu_kh_vs_dt <?php if($kh_tt_pt_tai == 'Khách sạn'){echo 'hide';} ?>">
+                                <td>
+                                    <table width="100%" border="1" style="background: #2e75bd63;">
+                                        <tbody>
+                                        <tr>
+                                            <td rowspan="7">
+                                                Danh sách đoàn, yêu cầu khác
+                                                <textarea name="danh_sach_doan_yeu_cau_khac" class="danh_sach_doan_yeu_cau_khac"><?php echo $danh_sach_doan_yeu_cau_khac; ?></textarea>
+                                            </td>
+                                            <td width="25%">Tiền chưa PT</td>
+                                            <td width="25%"><input type="text" width="100%" style="height:24px;" name="tien_chua_pt_khac" class="tien_chua_pt_khac" value="<?php echo $tien_chua_pt_khac; ?>" autocomplete="off" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tổng phụ thu</td>
+                                            <td><input type="text" name="tong_phu_thu_khac" style="height:24px;" class="tong_phu_thu_khac" value="<?php echo $tong_phu_thu_khac; ?>"  autocomplete="off"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Giảm giá cho KH</td>
+                                            <td><input type="text" name="giam_gia_cho_kh_khac" style="height:24px;" class="giam_gia_cho_kh_khac" value="<?php echo $giam_gia_cho_kh_khac; ?>"  autocomplete="off"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tổng giá trị</td>
+                                            <td><input type="text" name="tong_gia_tri_khac" style="height:24px;" class="tong_gia_tri_khac" value="<?php echo $tong_gia_tri_khac; ?>" autocomplete="off" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Đã thanh toán</td>
+                                            <td><input type="text" name="da_thanh_toan_khac" style="height:24px;" class="da_thanh_toan_khac" value="<?php echo $da_thanh_toan_khac; ?>" autocomplete="off" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>KH còn nợ</td>
+                                            <td><input type="text" name="kh_con_no_khac" style="height:24px;" class="kh_con_no_khac" value="<?php echo $kh_con_no_khac; ?>" autocomplete="off" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ngày yêu cầu KH hoàn tất TT</td>
+                                            <td><input type="text" style="height:24px;" name="ngay_yeu_cau_kh_hoan_tat_tt_khac" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_yeu_cau_kh_hoan_tat_tt_khac datepicker-here" data-language='en' value="<?php echo $ngay_yeu_cau_kh_hoan_tat_tt_khac; ?>" autocomplete="off" /></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table width="100%" border="1">
+                                        <tbody>
+                                        <tr>
+                                            <td align="center" style="background-color: #f19315b3;padding-top: 5px;">
+                                                <ul class="price_count">
+                                                    <li>
+                                                        Lãi/Lỗ
+                                                        <input type="text" name="lai_lo_khac" class="lai_lo_khac" style="background: #FFF;" value="<?php echo $lai_lo_khac; ?>" autocomplete="off" />
+                                                    </li>
+                                                    <li>
+                                                        Thuế VAT
+                                                        <input type="text" name="thue_vat_khac" class="thue_vat_khac" style="background: #FFF;" value="<?php echo $thue_vat_khac; ?>" autocomplete="off" />
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center" style="background-color: #f19315b3;">
+                                                <ul class="price_count">
+                                                    <li>
+                                                        Thuế TNDN
+                                                        <input type="text" name="thue_tndn_khac" class="thue_tndn_khac" style="background: #FFF;" value="<?php echo $thue_tndn_khac; ?>" autocomplete="off" />
+                                                    </li>
+                                                    <li>
+                                                        CP marketing
+                                                        <input type="text" name="cp_marketing_khac" class="cp_marketing_khac" style="background: #FFF;" value="<?php echo $cp_marketing_khac; ?>" autocomplete="off" />
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center" style="background-color: #f19315b3;">
+                                                <ul class="price_count">
+                                                    <li>
+                                                        CP hậu cần
+                                                        <input type="text" name="cp_hau_can_khac" class="cp_hau_can_khac" style="background: #FFF;" value="<?php echo $cp_hau_can_khac; ?>" autocomplete="off" />
+                                                    </li>
+                                                    <li>
+                                                        CP hậu mãi
+                                                        <input type="text" name="cp_hau_mai_khac" class="cp_hau_mai_khac" style="background: #FFF;" value="<?php echo $cp_hau_mai_khac; ?>" autocomplete="off" />
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center" style="background-color: #f19315b3;padding-bottom: 10px;">
+                                                CP cố định
+                                                <input type="text" name="cp_co_dinh_khac" class="cp_co_dinh_khac" style="background: #FFF;" value="<?php echo $cp_co_dinh_khac; ?>" autocomplete="off" />
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table width="100%" border="1" style="background: #2e75bd63;">
+                                        <tbody>
+                                        <tr>
+                                            <td width="25%"><input type="text" name="tien_chua_pt_khac2" class="tien_chua_pt_khac2" value="<?php echo $tien_chua_pt_khac2; ?>" autocomplete="off" /></td>
+                                            <td width="25%">Tiền chưa PT</td>
+                                            <td width="50%" colspan="2" rowspan="7">
+                                                Ghi chú của ĐT
+                                                <textarea name="ghi_chu_cua_dt_khac2" class="ghi_chu_cua_dt_khac2"><?php echo $ghi_chu_cua_dt_khac2; ?></textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" name="tong_phu_thu_khac2" style="height:24px;" class="tong_phu_thu_khac2" value="<?php echo $tong_phu_thu_khac2; ?>" autocomplete="off" /></td>
+                                            <td>Tổng phụ thu</td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" name="giam_gia_cua_dt_khac2" style="height:24px;" class="giam_gia_cua_dt_khac2" value="<?php echo $giam_gia_cua_dt_khac2; ?>" autocomplete="off" /></td>
+                                            <td>Giảm giá của ĐT</td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" name="tong_gia_tri_khac2" style="height:24px;" class="tong_gia_tri_khac2" value="<?php echo $tong_gia_tri_khac2; ?>" autocomplete="off" /></td>
+                                            <td>Tổng giá trị</td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" name="da_thanh_toan_khac2" style="height:24px;" class="da_thanh_toan_khac2" value="<?php echo $da_thanh_toan_khac2; ?>" autocomplete="off" /></td>
+                                            <td>Đã thanh toán</td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" name="bct_con_no_khac2" style="height:24px;" class="bct_con_no_khac2" value="<?php echo $bct_con_no_khac2; ?>" autocomplete="off" /></td>
+                                            <td>BCT còn nợ</td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" name="ngay_phai_hoan_tat_tt_cho_ks_khac2" style="height:24px;" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_phai_hoan_tat_tt_cho_ks_khac2 datepicker-here" data-language='en' value="<?php echo $ngay_phai_hoan_tat_tt_cho_ks_khac2; ?>" autocomplete="off" ></td>
+                                            <td>Ngày phải hoàn tất TT cho KS</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
                             </tr>
                             <tr>
                                 <td colspan="3">

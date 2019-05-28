@@ -36,96 +36,74 @@ get_header();
 
             <div class="content_admin">
                 <div class="giao_dich_moi">
-                    <table>
-                        <?php
-                        $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-                        $arr = array(
-                            'post_type' => 'hotel',
-                            'posts_per_page' => 20,
-                            'order' => 'DESC',
-                            'paged' => $paged,
-                        );
+                    <div class="search_hotel">
+                        <form action="<?php echo get_home_url() ?>/tim-kiem-khach-san" method="post">
+                            <input type="text" name="keyword" placeholder="Tìm kiếm khách sạn...">
+                            <button type="submit" name="sub_search_hotel" class="sub_search_hotel"><i class="fa fa-search" aria-hidden="true"></i></button>
+                        </form>
 
-                        $the_query = new WP_Query($arr);
-                        $n = 1;
-                        if ($the_query->have_posts()) :
-                            ?>
-                            <!--<tr>
-                                <td><strong>Mã KS</strong></td>
-                                <td><strong>Tên KS</strong></td>
-                                <td><strong>MST KS</strong></td>
-                                <td><strong>STK KS</strong></td>
-                                <td><strong>Khu vực KS</strong></td>
-                                <td><strong>Email sale KS</strong></td>
-                                <td><strong>SĐT sale KS</strong></td>
-                                <td><strong>Email đặt phòng</strong></td>
-                                <td><strong>SĐT đặt phòng</strong></td>
-                                <td></td>
-                            </tr>-->
-                            <tr>
-                                <td><strong>Hotel ID</strong></td>
-                                <td><strong>Hotel name</strong></td>
-                                <td><strong>Brand name</strong></td>
-                                <td><strong>Addressline 1</strong></td>
-                                <td><strong>Zipcode</strong></td>
-                                <td><strong>City</strong></td>
-                                <td><strong>State</strong></td>
-                                <td><strong>Country</strong></td>
-                                <td><strong>Countryisocode</strong></td>
-                                <td><strong>Numberrooms</strong></td>
-                                <td></td>
-                            </tr>
+                    </div>
+                    <div class="content_hotel_list">
+                        <table>
                             <?php
+                            $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+                            $arr = array(
+                                'post_type' => 'hotel',
+                                'posts_per_page' => 200,
+                                'order' => 'DESC',
+                                'paged' => $paged,
+                            );
 
-                            while ($the_query->have_posts()) : $the_query->the_post();
+                            $the_query = new WP_Query($arr);
+                            $n = 1;
+                            if ($the_query->have_posts()) :
                                 ?>
-                                <!--<tr>
-                                    <td><?php /*echo get_field('ma_ks'); */?></td>
-                                    <td><a class="title"
-                                           href="<?php /*the_permalink(); */?>"><?php /*echo get_field('ten_ks'); */?></a></td>
-                                    <td><?php /*echo get_field('mst_ks'); */?></td>
-                                    <td><?php /*echo get_field('stk_ks'); */?></td>
-                                    <td><?php /*echo get_field('khu_vuc_ks'); */?></td>
-                                    <td><?php /*echo get_field('email_sale_ks'); */?></td>
-                                    <td><?php /*echo get_field('sdt_sale_ks'); */?></td>
-                                    <td><?php /*echo get_field('email_dat_phong'); */?></td>
-                                    <td><?php /*echo get_field('sdt_dat_phong'); */?></td>
-                                    <td>
-                                        <a class="edit" href="<?php /*the_permalink(); */?>"><i
-                                                    class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                        <a onclick="return confirm('Bạn có chắc muốn xóa nó');" class="delete" href="<?php /*echo get_delete_post_link(get_the_ID()); */?>"><i
-                                                    class="fa fa-times-circle" aria-hidden="true"></i></a>
-                                    </td>
-                                </tr>-->
-                                <tr>
-                                    <td><?php echo get_field('hotel_id'); ?></td>
-                                    <td><a class="title"
-                                           href="<?php the_permalink(); ?>"><?php echo get_field('hotel_name'); ?></a></td>
-                                    <td><?php echo get_field('brand_name'); ?></td>
-                                    <td><?php echo get_field('addressline1'); ?></td>
-                                    <td><?php echo get_field('zipcode'); ?></td>
-                                    <td><?php echo get_field('city'); ?></td>
-                                    <td><?php echo get_field('state'); ?></td>
-                                    <td><?php echo get_field('country'); ?></td>
-                                    <td><?php echo get_field('countryisocode'); ?></td>
-                                    <td><?php echo get_field('numberrooms'); ?></td>
-                                    <td>
-                                        <a class="edit" href="<?php the_permalink(); ?>"><i
-                                                    class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                        <a onclick="return confirm('Bạn có chắc muốn xóa nó');" class="delete" href="<?php echo get_delete_post_link(get_the_ID()); ?>"><i
-                                                    class="fa fa-times-circle" aria-hidden="true"></i></a>
-                                    </td>
+                                <tr class="header_edit_hotel_list">
+                                    <td><strong>Hotel ID</strong></td>
+                                    <td><strong>Hotel name</strong></td>
+                                    <td><strong>Brand name</strong></td>
+                                    <td><strong>Addressline 1</strong></td>
+                                    <td><strong>Zipcode</strong></td>
+                                    <td><strong>City</strong></td>
+                                    <td><strong>State</strong></td>
+                                    <td><strong>Country</strong></td>
+                                    <td><strong>Countryisocode</strong></td>
+                                    <td><strong>Numberrooms</strong></td>
+                                    <td></td>
                                 </tr>
-                            <?php
-                            endwhile;
-                            $total_pages = $the_query->max_num_pages;
-                            $current_page = max(1, get_query_var('paged'));
-                        else:
-                            echo "<td colspan='3'>Dữ liệu trống !</td>";
-                        endif;
-                        wp_reset_postdata();
-                        ?>
-                    </table>
+                                <?php
+                                while ($the_query->have_posts()) : $the_query->the_post();
+                                    ?>
+                                    <tr class="list_hotel">
+                                        <td><?php echo get_field('hotel_id'); ?></td>
+                                        <td><a class="title"
+                                               href="<?php the_permalink(); ?>"><?php echo get_field('hotel_name'); ?></a></td>
+                                        <td><?php echo get_field('brand_name'); ?></td>
+                                        <td><?php echo get_field('addressline1'); ?></td>
+                                        <td><?php echo get_field('zipcode'); ?></td>
+                                        <td><?php echo get_field('city'); ?></td>
+                                        <td><?php echo get_field('state'); ?></td>
+                                        <td><?php echo get_field('country'); ?></td>
+                                        <td><?php echo get_field('countryisocode'); ?></td>
+                                        <td><?php echo get_field('numberrooms'); ?></td>
+                                        <td>
+                                            <a class="edit" href="<?php the_permalink(); ?>"><i
+                                                        class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                            <a onclick="return confirm('Bạn có chắc muốn xóa nó');" class="delete" href="<?php echo get_delete_post_link(get_the_ID()); ?>"><i
+                                                        class="fa fa-times-circle" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+                                <?php
+                                endwhile;
+                                $total_pages = $the_query->max_num_pages;
+                                $current_page = max(1, get_query_var('paged'));
+                            else:
+                                echo "<td colspan='3'>Dữ liệu trống !</td>";
+                            endif;
+                            wp_reset_postdata();
+                            ?>
+                        </table>
+                    </div>
                     <?php
                     if ($total_pages) :
                         echo '<nav class="nav">';

@@ -47,3 +47,40 @@
   }
 }
 }
+
+.list_room{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: -10px;
+  .room{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    .content{
+      display: flex;
+      .item{
+        margin-right: 10px;
+      }
+    }
+    .btn{
+      margin-top: 5px;
+      i{
+        font-size: 20px;
+        cursor: pointer;
+        margin-left: 5px;
+      }
+      .save{
+        color: green;
+        display: none;
+      }
+      .edit{
+        color: green;
+      }
+      .del{
+        color: red;
+      }
+    }
+  }
+}

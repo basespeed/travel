@@ -111,6 +111,7 @@
     }
     .show_list_ds{
       margin-left: 15px;
+      width: calc(100% - 515px);
     }
   }
   .item:nth-child(1){
@@ -124,7 +125,7 @@
         }
       }
       li:last-child{
-        width: 16.66% !important;
+        width: 16.66%;
       }
     }
   }
@@ -270,7 +271,7 @@
   transform: rotate(0deg);
 }
 .hide{
-  display: none;
+  display: none !important;
 }
 select{
   max-height: 300px;
@@ -874,7 +875,7 @@ table#show_chat {
 .thue_tndn_khac,.cp_marketing_khac,.cp_hau_can_khac,.cp_hau_mai_khac,
 .cp_co_dinh_khac,.tien_coc_1,.tien_tt_lan_2_1,.tien_tt_lan_3_1,
 .so_tien_hoan_1,.tien_coc_di_2,.tien_di_lan_2_2,.tien_di_lan_3_2,
-.so_tien_hoan_2,.bua_an_bat_buoc,.dich_vu_khac{
+.so_tien_hoan_2,.bua_an_bat_buoc,.dich_vu_khac,.ngay_yeu_cau_kh_hoan_tat_tt_khac,.ngay_phai_hoan_tat_tt_cho_ks_khac2{
   text-align: right;
 }
 .so_dem_gd,.con_ngay_gd,.sl_gd,.con_ngay_dt,.con_ngay_thay_doi_dt,
@@ -1059,6 +1060,55 @@ table#show_chat {
         }
       }
     }
+  }
+}
+
+.hide_edit{
+  display: none;
+}
+
+.add_hotel .type_room{
+  ul{
+    width: 500px !important;
+    li{
+      width: 100% !important;
+    }
+    li:last-child{
+      width: 100% !important;
+    }
+  }
+  .show_list_ds{
+    width: calc(100% - 515px) !important;
+    min-height: 191px;
+  }
+}
+
+.search_hotel{
+  margin: 10px 0px;
+  form{
+    display: flex;
+  }
+  button{
+    display: block;
+    height: 35px;
+    width: 35px;
+    background: #2D74BB;
+    border-radius: 0px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    i{
+      color: #FFF;
+    }
+  }
+  input{
+    display: block;
+    width: 300px;
+    height: 35px;
+    border-radius: 0px;
+    outline: none;
+    border: none;
+    background: #FFF;
   }
 }
 

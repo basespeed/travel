@@ -142,7 +142,234 @@
                 });
             }
         }
+
+        /**
+         * Number.prototype.format(n, x, s, c)
+         *
+         * @param integer n: length of decimal
+         * @param integer x: length of whole part
+         * @param mixed   s: sections delimiter
+         * @param mixed   c: decimal delimiter
+         */
+        Number.prototype.format = function(n, x, s, c) {
+            var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\D' : '$') + ')',
+                num = this.toFixed(Math.max(0, ~~n));
+
+            return (c ? num.replace('.', c) : num).replace(new RegExp(re, 'g'), '$&' + (s || ','));
+        };
+
+        //format set input currency price
+        $('.don_gia_ban_gd').simpleMoneyFormat();
+        $('.tong_gd').simpleMoneyFormat();
+        $('.pt_nguoi').simpleMoneyFormat();
+        $('.pt_giai_doan').simpleMoneyFormat();
+        $('.pt_cuoi_tuan').simpleMoneyFormat();
+        $('.bua_an_bat_buoc').simpleMoneyFormat();
+        $('.dich_vu_khac').simpleMoneyFormat();
+        $('.tong_pt').simpleMoneyFormat();
+        $('.don_gia_ban_dt').simpleMoneyFormat();
+        $('.tong_dt').simpleMoneyFormat();
+        $('.tien_chua_pt_khac').simpleMoneyFormat();
+        $('.tong_phu_thu_khac').simpleMoneyFormat();
+        $('.giam_gia_cho_kh_khac').simpleMoneyFormat();
+        $('.tong_gia_tri_khac').simpleMoneyFormat();
+        $('.da_thanh_toan_khac').simpleMoneyFormat();
+        $('.kh_con_no_khac').simpleMoneyFormat();
+        $('.lai_lo_khac').simpleMoneyFormat();
+        $('.thue_vat_khac').simpleMoneyFormat();
+        $('.thue_tndn_khac').simpleMoneyFormat();
+        $('.cp_marketing_khac').simpleMoneyFormat();
+        $('.cp_hau_can_khac').simpleMoneyFormat();
+        $('.cp_hau_mai_khac').simpleMoneyFormat();
+        $('.cp_co_dinh_khac').simpleMoneyFormat();
+        $('.tien_chua_pt_khac2').simpleMoneyFormat();
+        $('.tong_phu_thu_khac2').simpleMoneyFormat();
+        $('.giam_gia_cua_dt_khac2').simpleMoneyFormat();
+        $('.tong_gia_tri_khac2').simpleMoneyFormat();
+        $('.da_thanh_toan_khac2').simpleMoneyFormat();
+        $('.bct_con_no_khac2').simpleMoneyFormat();
+        $('.price_ks').simpleMoneyFormat();
+        $('.item_price').simpleMoneyFormat();
+
+        //ngày yêu cầu hoàn tất
+        $('.ci_gd').change(function () {
+            var formattedDate = new Date("27/05/2019");
+            var d = formattedDate.getDate();
+            var m =  formattedDate.getMonth();
+            d += 1;  // JavaScript months are 0-11
+            var y = formattedDate.getFullYear();
+
+            console.log(d + "." + m + "." + y);
+        });
+
+        //ngay yeu cau hoan tat
+        $('.ci_gd').on('click', function(){
+            $('.ci_gd').datepicker({
+                onSelect: function () {
+                    var strDate = $('.ci_gd').val();
+                    var dateParts = strDate.split("/");
+                    var now = new Date(dateParts[2], (dateParts[1] - 1), dateParts[0]);
+                    var yesterday = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate() - 1);
+                    var d = yesterday.getDate();
+                    var m = yesterday.getMonth();
+                    var y = yesterday.getFullYear();
+                    $('.ngay_yeu_cau_kh_hoan_tat_tt_khac').val(d+'/'+m+'/'+y);
+                    $('.ngay_phai_hoan_tat_tt_cho_ks_khac2').val(d+'/'+m+'/'+y);
+                }
+            });
+        });
     }
+
+    //Tính phụ thu giao dịch
+
+    $('.giam_gia_cho_kh_khac').keyup(function () {
+        $('.giam_gia_cua_dt_khac2').val($(this).val());
+    });
+    $('.giam_gia_cua_dt_khac2').keyup(function () {
+        $('.giam_gia_cho_kh_khac').val($(this).val());
+    });
+    $('.giam_gia_cho_kh_khac').change(function () {
+        $('.giam_gia_cua_dt_khac2').val($(this).val());
+    });
+    $('.giam_gia_cua_dt_khac2').change(function () {
+        $('.giam_gia_cho_kh_khac').val($(this).val());
+    });
+
+
+    var kh_tt_pt_tai = $('.kh_tt_pt_tai');
+
+    kh_tt_pt_tai.on('change', function () {
+        var val = $(this).val();
+        if(val == 'BTC'){
+            $('.phu_thu_kh_vs_dt').removeClass('hide');
+        }else{
+            $('.phu_thu_kh_vs_dt').addClass('hide');
+        }
+    });
+
+    setInterval(function () {
+        var pt_nguoi = $('.pt_nguoi').val();
+        var pt_giai_doan = $('.pt_giai_doan').val();
+        var pt_cuoi_tuan = $('.pt_cuoi_tuan').val();
+        var bua_an_bat_buoc = $('.bua_an_bat_buoc').val();
+        var dich_vu_khac = $('.dich_vu_khac').val();
+        var tien_chua_pt_khac = $('.tien_chua_pt_khac').val();
+        var giam_gia_cho_kh_khac = $('.giam_gia_cho_kh_khac').val();
+        var giam_gia_cua_dt_khac2 = $('.giam_gia_cua_dt_khac2').val();
+        var da_thanh_toan_khac = $('.da_thanh_toan_khac').val();
+        var da_thanh_toan_khac2 = $('.da_thanh_toan_khac2').val();
+
+        var tong_gd = parseInt($('.tong_gd').val());
+        var tong_pt = $('.tong_pt');
+        var tong_phu_thu_khac = $('.tong_phu_thu_khac');
+        var tong_phu_thu_khac2 = $('.tong_phu_thu_khac2');
+        var tong_gia_tri_khac = $('.tong_gia_tri_khac');
+        var tong_gia_tri_khac2 = $('.tong_gia_tri_khac2');
+        var kh_con_no_khac = $('.kh_con_no_khac');
+        var bct_con_no_khac2 = $('.bct_con_no_khac2');
+        var lai_lo_khac = $('.lai_lo_khac');
+        var total,tong_gia_tri_khac_sale,tong_gia_tri_khac_total,tong_gia_tri_khac_dt,kh_con_no_khac_count2;
+        var kh_con_no_khac_count;
+
+        if(pt_nguoi != undefined || pt_giai_doan != undefined || pt_cuoi_tuan != undefined || bua_an_bat_buoc != undefined || dich_vu_khac != undefined || tien_chua_pt_khac != undefined || giam_gia_cho_kh_khac != undefined || da_thanh_toan_khac != undefined ){
+            pt_nguoi = pt_nguoi.replace(',','');
+            pt_nguoi = pt_nguoi.replace(',','');
+            pt_nguoi = pt_nguoi.replace(',','');
+            pt_nguoi = parseInt(pt_nguoi);
+
+            pt_giai_doan = pt_giai_doan.replace(',','');
+            pt_giai_doan = pt_giai_doan.replace(',','');
+            pt_giai_doan = pt_giai_doan.replace(',','');
+            pt_giai_doan = parseInt(pt_giai_doan);
+
+            pt_cuoi_tuan = pt_cuoi_tuan.replace(',','');
+            pt_cuoi_tuan = pt_cuoi_tuan.replace(',','');
+            pt_cuoi_tuan = pt_cuoi_tuan.replace(',','');
+            pt_cuoi_tuan = parseInt(pt_cuoi_tuan);
+
+            bua_an_bat_buoc = bua_an_bat_buoc.replace(',','');
+            bua_an_bat_buoc = bua_an_bat_buoc.replace(',','');
+            bua_an_bat_buoc = bua_an_bat_buoc.replace(',','');
+            bua_an_bat_buoc = parseInt(bua_an_bat_buoc);
+
+            dich_vu_khac = dich_vu_khac.replace(',','');
+            dich_vu_khac = dich_vu_khac.replace(',','');
+            dich_vu_khac = dich_vu_khac.replace(',','');
+            dich_vu_khac = parseInt(dich_vu_khac);
+
+            tien_chua_pt_khac = tien_chua_pt_khac.replace(',','');
+            tien_chua_pt_khac = tien_chua_pt_khac.replace(',','');
+            tien_chua_pt_khac = tien_chua_pt_khac.replace(',','');
+            tien_chua_pt_khac = parseInt(tien_chua_pt_khac);
+
+            giam_gia_cho_kh_khac = giam_gia_cho_kh_khac.replace(',','');
+            giam_gia_cho_kh_khac = giam_gia_cho_kh_khac.replace(',','');
+            giam_gia_cho_kh_khac = giam_gia_cho_kh_khac.replace(',','');
+            giam_gia_cho_kh_khac = parseInt(giam_gia_cho_kh_khac);
+
+            giam_gia_cua_dt_khac2 = giam_gia_cua_dt_khac2.replace(',','');
+            giam_gia_cua_dt_khac2 = giam_gia_cua_dt_khac2.replace(',','');
+            giam_gia_cua_dt_khac2 = giam_gia_cua_dt_khac2.replace(',','');
+            giam_gia_cua_dt_khac2 = parseInt(giam_gia_cua_dt_khac2);
+
+            da_thanh_toan_khac = da_thanh_toan_khac.replace(',','');
+            da_thanh_toan_khac = da_thanh_toan_khac.replace(',','');
+            da_thanh_toan_khac = da_thanh_toan_khac.replace(',','');
+            da_thanh_toan_khac = parseInt(da_thanh_toan_khac);
+
+            da_thanh_toan_khac2 = da_thanh_toan_khac2.replace(',','');
+            da_thanh_toan_khac2 = da_thanh_toan_khac2.replace(',','');
+            da_thanh_toan_khac2 = da_thanh_toan_khac2.replace(',','');
+            da_thanh_toan_khac2 = parseInt(da_thanh_toan_khac2);
+
+            //Tổng phụ thụ
+            total = pt_nguoi + pt_giai_doan + pt_cuoi_tuan + bua_an_bat_buoc + dich_vu_khac;
+
+            tong_pt.val(total.format(0, 3, ','));
+
+            //Tổng phụ thu khách hàng
+            tong_phu_thu_khac.val(total.format(0, 3, ','));
+            //Tổng phụ thu đối tác
+            tong_phu_thu_khac2.val(total.format(0, 3, ','));
+
+            tong_gia_tri_khac_sale = total + tien_chua_pt_khac;
+
+            //Tổng giá trị khách hàng
+            tong_gia_tri_khac_total = tong_gia_tri_khac_sale - giam_gia_cho_kh_khac;
+            tong_gia_tri_khac.val(tong_gia_tri_khac_total.format(0, 3, ','));
+
+            //Tổng giá trị đối tác
+            tong_gia_tri_khac_dt = tong_gia_tri_khac_sale - giam_gia_cua_dt_khac2;
+            tong_gia_tri_khac2.val(tong_gia_tri_khac_dt.format(0, 3, ','));
+
+            //Khách hàng còn nợ
+            kh_con_no_khac_count = tong_gia_tri_khac_total - da_thanh_toan_khac;
+            kh_con_no_khac.val(kh_con_no_khac_count.format(0, 3, ','));
+
+            //Đối tác còn nợ
+            kh_con_no_khac_count2 = tong_gia_tri_khac_dt - da_thanh_toan_khac2;
+            bct_con_no_khac2.val(kh_con_no_khac_count2.format(0, 3, ','));
+
+            //Lãi/lỗ
+            lai_lo_khac = tong_gia_tri_khac_total - tong_gia_tri_khac_dt;
+            $('input.lai_lo_khac').val(lai_lo_khac.format(0, 3, ','));
+
+            //Thuế VAT
+            var thue_vat_khac,lai_lo_khac_1,lai_lo_khac_10;
+            lai_lo_khac_1 = tong_gia_tri_khac_total/100;
+            lai_lo_khac_10 = lai_lo_khac_1 * 10;
+            $('.thue_vat_khac').val(lai_lo_khac_10.format(0, 3, ','));
+
+            //Thuế TNDN
+            var thue_tndn_khac,thue_tndn_khac_1,thue_tndn_khac_25;
+            thue_tndn_khac_1 = tong_gia_tri_khac_total/100;
+            thue_tndn_khac_25 = thue_tndn_khac_1 * 25;
+            $('.thue_tndn_khac').val(thue_tndn_khac_25.format(0, 3, ','));
+
+            $('.phu_thu_kh_vs_dt').show();
+        }
+    },500);
+
 
     function datePicker() {
         $('.datepicker').data('datepicker');
@@ -195,6 +422,23 @@
             }
         });
     }
+
+    //Search hotel
+    $('.search_hotel .sub_search_hotel').on('click', function (e) {
+        e.preventDefault();
+        var keyword = $(this).siblings('input').val();
+        alert(keyword);
+        $.ajax({
+            type: "post",
+            dataType: "html",
+            url: my_ajax_object.ajax_url,
+            data: {action: "search_hotel", keyword : keyword},
+            success: function(response){
+                $('.content_hotel_list').html(response);
+                $('.nav').remove();
+            }
+        });
+    });
 
     //deley search keyup query ajax
     function delay(callback, ms) {
@@ -271,6 +515,7 @@
             'khu_vuc_ks',
             'khu_vuc_dt',
             'bo_phan_chat',
+            'kh_tt_pt_tai'
         ];
 
         $.each(ClassSelect , function(index, val) {
@@ -311,16 +556,22 @@
             $('.don_vi_gd').val($(this).val());
         });
 
+        $('.don_gia_ban_gd').val($('.loai_phong_ban_gd option:selected').attr('data-price'));
+        $('.don_gia_ban_dt').val($('.loai_phong_ban_dt option:selected').attr('data-price'));
+        $('.ma_dt').val($('.ten_dt_gui_book_dt option:selected').attr('data-id'));
+
         $('.loai_phong_ban_gd').on('change', function(){
-            $('.loai_phong_ban_dt').val($(this).val());
             var price = $(this).find('option:selected', this).attr('data-price');
             $('.don_gia_ban_dt').val(price);
+            $('.don_gia_ban_gd').val(price);
+            $('.loai_phong_ban_dt').val($(this).find('option:selected', this).val());
         });
 
         $('.loai_phong_ban_dt').on('change', function(){
-            $('.loai_phong_ban_gd').val($(this).val());
             var price = $(this).find('option:selected', this).attr('data-price');
             $('.don_gia_ban_gd').val(price);
+            $('.don_gia_ban_dt').val(price);
+            $('.loai_phong_ban_gd').val($(this).find('option:selected', this).val());
         });
 
         $('.sl_gd').on('keyup', function(){
@@ -367,6 +618,8 @@
             }else{
                 $(this).val('');
             }
+
+
         }, 500));
 
         $(document).on('click','.pop_ten_khach_san_gd .list_show ul', function () {
@@ -384,45 +637,52 @@
             $('.pop_ten_khach_san_gd').hide();
         });
 
-        //Chọn loại phòng thì sẽ hiện ra giá
-        $('.loai_phong_ban_gd').on('change', function (e) {
-            e.preventDefault();
-            var element = $(this).find('option:selected');
-            var price = element.attr("data-price");
-
-            $('input.don_gia_ban_gd').attr('value', parseInt(price));
-        });
-
-        $('.don_gia_ban_gd').val($('.loai_phong_ban_gd option:selected', this).attr('data-price'));
-        $('.don_gia_ban_dt').val($('.loai_phong_ban_dt option:selected', this).attr('data-price'));
-        $('.ma_dt').val($('.ten_dt_gui_book_dt option:selected', this).attr('data-id'));
-
-        $('.loai_phong_ban_dt').on('change', function (e) {
-            e.preventDefault();
-            var element = $(this).find('option:selected');
-            var price = element.attr("data-price");
-
-            $('input.don_gia_ban_dt').attr('value', parseInt(price));
-        });
+        setInterval(function () {
+            $('.don_gia_ban_gd').val($(document).find('.loai_phong_ban_gd option:selected').attr('data-price'));
+            $('.don_gia_ban_dt').val($(document).find('.loai_phong_ban_gd option:selected').attr('data-price'));
+        },500);
 
         //Auto load tổng giá phòng ở trong ? đêm
         setInterval(function () {
-            var sl_gd = $('.sl_gd').val();
+            var sl_gd = parseInt($('.sl_gd').val());
             var don_gia_ban_gd = $('.don_gia_ban_gd').val();
-            var sl_dt = $('.sl_dt').val();
+            var sl_dt = parseInt($('.sl_dt').val());
             var don_gia_ban_dt = $('.don_gia_ban_dt').val();
-
-            var tong_room_gd = sl_gd * don_gia_ban_gd;
             var so_dem_gd = $('.so_dem_gd').val();
-            $('.tong_gd').val(tong_room_gd * so_dem_gd);
+            var tong_room_gd;
+
+            if($('.page-template').hasClass('page-template-them_giao_dich') || $('.single').hasClass('single-giao_dich')){
+                don_gia_ban_gd = don_gia_ban_gd.replace(",", "");
+                don_gia_ban_gd = don_gia_ban_gd.replace(",", "");
+                don_gia_ban_gd = don_gia_ban_gd.replace(",", "");
+                don_gia_ban_gd = don_gia_ban_gd.replace(",", "");
+                don_gia_ban_gd = parseInt(don_gia_ban_gd);
+
+                tong_room_gd = sl_gd * don_gia_ban_gd;
+                tong_room_gd = tong_room_gd * so_dem_gd;
+
+                $('.tong_gd').val(tong_room_gd.format(0, 3, ','));
+
+                $('.tien_chua_pt_khac').val(tong_room_gd.format(0, 3, ','));
+                $('.tien_chua_pt_khac2').val(tong_room_gd.format(0, 3, ','));
+
+                don_gia_ban_dt = don_gia_ban_dt.replace(",", "");
+                don_gia_ban_dt = don_gia_ban_dt.replace(",", "");
+                don_gia_ban_dt = don_gia_ban_dt.replace(",", "");
+                don_gia_ban_dt = don_gia_ban_dt.replace(",", "");
+                don_gia_ban_dt = parseInt(don_gia_ban_dt);
 
 
-            var tong_room_dt = sl_dt * don_gia_ban_dt;
-            var so_dem_dt = $('.so_dem_gd').val();
-            $('.tong_dt').val(tong_room_dt * so_dem_dt);
+                var tong_room_dt = sl_dt * don_gia_ban_dt;
+                var so_dem_dt = parseInt($('.so_dem_gd').val());
+                var tong_room_dt_total = tong_room_dt * so_dem_dt;
 
-            var mgdc = $('.ma_gd_con').val();
-            $('.ma_gd_con_t').val(mgdc);
+                $('.tong_dt').val(tong_room_dt_total.format(0, 3, ','));
+
+                var mgdc = $('.ma_gd_con').val();
+                $('.ma_gd_con_t').val(mgdc);
+            }
+
         },1000);
 
         $('.ten_dt_gui_book_dt').change(function(){
@@ -493,6 +753,8 @@
                         var days  = diff/1000/60/60/24;
                         if (date_out != "" && date_in != "") {
                             $('.so_dem_gd').attr('value', Math.floor(days));
+                        }else{
+                            $('.so_dem_gd').attr('value', 0);
                         }
 
                         var now = new Date();
@@ -880,64 +1142,67 @@
             var reply_chat = $('input.reply_chat').val();
             var id_reply = $('.id_reply').val();
 
-            if(tin_nhan_chat == ""){
-                alert('Nhập lời nhắn trống !');
-            }else if(bo_phan_chat == ""){
-                alert('Bộ phận trống !');
-            }else if(muc_do_uu_tien_chat == ""){
-                alert('Mức độ ưu tiên trống !');
-            }else if(ngay_can_nhac_lai_chat == ""){
-                alert('Ngày cần nhắc lại trống !');
-            }else if(ma_nhan_vien_chat == ""){
-                alert('Mã nhân viên trống !');
+            if(id_chat_gd != ''){
+                if(tin_nhan_chat == ""){
+                    alert('Nhập lời nhắn trống !');
+                }else if(bo_phan_chat == ""){
+                    alert('Bộ phận trống !');
+                }else if(muc_do_uu_tien_chat == ""){
+                    alert('Mức độ ưu tiên trống !');
+                }else if(ngay_can_nhac_lai_chat == ""){
+                    alert('Ngày cần nhắc lại trống !');
+                }else if(ma_nhan_vien_chat == ""){
+                    alert('Mã nhân viên trống !');
+                }else{
+                    var count_chat = parseInt($('.count_chat').attr('data-count'));
+
+                    count_chat += 1;
+
+                    //alert(reply_chat);
+
+                    $.ajax({
+                        type: "post",
+                        dataType: "json",
+                        url: my_ajax_object.ajax_url,
+                        data: {
+                            action: "send_mess",
+                            tin_nhan_chat:tin_nhan_chat,
+                            bo_phan_chat:bo_phan_chat,
+                            muc_do_uu_tien_chat:muc_do_uu_tien_chat,
+                            trang_thai_chat:trang_thai_chat,
+                            ngay_can_nhac_lai_chat:ngay_can_nhac_lai_chat,
+                            ma_nhan_vien_chat:ma_nhan_vien_chat,
+                            id_chat_gd:id_chat_gd,
+                            count_chat:count_chat,
+                            curren_url_chat:curren_url_chat,
+                            reply_chat:reply_chat,
+                            id_reply:id_reply
+                        },
+                        success: function(response){
+                            $('.send_chat td textarea').val();
+
+                            var id_del = response.data;
+
+
+                            setTimeout(function () {
+                                $.ajax({
+                                    type: "post",
+                                    dataType: "json",
+                                    url: my_ajax_object.ajax_url,
+                                    data: {
+                                        action: "notifications_edit_chat_del",
+                                        id_del:id_del,
+                                    },
+                                    success: function (response) {
+                                        //console.log(response.data);
+                                    }
+                                });
+                            },600);
+                        }
+                    });
+                }
             }else{
-                var count_chat = parseInt($('.count_chat').attr('data-count'));
 
-                count_chat += 1;
-
-                //alert(reply_chat);
-
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: my_ajax_object.ajax_url,
-                    data: {
-                        action: "send_mess",
-                        tin_nhan_chat:tin_nhan_chat,
-                        bo_phan_chat:bo_phan_chat,
-                        muc_do_uu_tien_chat:muc_do_uu_tien_chat,
-                        trang_thai_chat:trang_thai_chat,
-                        ngay_can_nhac_lai_chat:ngay_can_nhac_lai_chat,
-                        ma_nhan_vien_chat:ma_nhan_vien_chat,
-                        id_chat_gd:id_chat_gd,
-                        count_chat:count_chat,
-                        curren_url_chat:curren_url_chat,
-                        reply_chat:reply_chat,
-                        id_reply:id_reply
-                    },
-                    success: function(response){
-                        $('.send_chat td textarea').val();
-
-                        var id_del = response.data;
-
-                        console.log(response.data);
-
-                        setTimeout(function () {
-                            $.ajax({
-                                type: "post",
-                                dataType: "json",
-                                url: my_ajax_object.ajax_url,
-                                data: {
-                                    action: "notifications_edit_chat_del",
-                                    id_del:id_del,
-                                },
-                                success: function (response) {
-                                    //console.log(response.data);
-                                }
-                            });
-                        },600);
-                    }
-                });
             }
         });
 
@@ -1267,55 +1532,106 @@
     //Thêm phòng và giá khách sạn
     function AddTypeRoom() {
         var btn_add_rom = $('.add_rom');
-        var loai_phong = $('.add_hotel .item:nth-child(2) li .loai_phong');
-        var remove_rom = $('.add_hotel .item:nth-child(2) li .loai_phong .rom i');
-        var loai_phong_ks = $('.loai_phong_ks');
+        var btn_room_save = $('.list_room .room .btn .save');
+        var btn_room_edit = $('.list_room .room .btn .edit');
+        var btn_room_del = $('.list_room .room .btn .del');
 
         btn_add_rom.on('click',function (e) {
             var room_name_ks = $('.room_name_ks').val();
-            var date_price_ks = $('.date_price_ks').val();
             var price_ks = $('.price_ks').val();
             var data_id = $(this).attr('data-id');
+            if(room_name_ks != '' || price_ks != ''){
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: my_ajax_object.ajax_url,
+                    data: {
+                        action: "add_type_room",
+                        data_id:data_id,
+                        room_name_ks:room_name_ks,
+                        price_ks:price_ks
+                    },
+                    success: function (response) {
+                        $('.room_name_ks').val('');
+                        $('.price_ks').val('');
+                        $('.list_room').html(response.data);
+                    }
+                });
+            }else{
+                alert('Dữ liệu trống !');
+            }
+        });
+
+        //Get type room in booking
+        $(document).on('click','.pop_ten_khach_san_gd .list_show', function () {
+            var id = $(('.ten_khach_san_gd')).val();
+            var o = new Option("option text", "value");
             $.ajax({
                 type: "post",
                 dataType: "json",
                 url: my_ajax_object.ajax_url,
                 data: {
-                    action: "add_type_room",
-                    room_name_ks:room_name_ks,
-                    date_price_ks:date_price_ks,
-                    price_ks:price_ks,
-                    data_id:data_id,
+                    action: "add_type_room_booking",
+                    id:id,
                 },
                 success: function (response) {
-
+                    $('.loai_phong_ban_gd').html(response.data);
+                    $('.loai_phong_ban_dt').html(response.data);
                 }
             });
         });
 
-        $(document).on('click', ".rom i", function() {
-            $(this).parent().remove();
-
+        $(document).on('click','.list_room .room .btn .edit', function(){
+            $(this).siblings('.save').show();
+            $(this).parents('.btn').siblings('.content').find('input').prop( "disabled", false );
+            $(this).hide();
         });
 
-        setInterval(function () {
-            var lenght = $('.loai_phong').find(".rom").length;
-            loai_phong_ks.val('');
-            if(lenght > 0){
-                for (var i = 1; i <= lenght; i++){
-                    if(i == 1){
-                        var add_data = $('.add_hotel .item:nth-child(2) li .loai_phong .rom:nth-child('+i+')').text();
-                        loai_phong_ks.val(loai_phong_ks.val()+add_data);
-                    }else{
-                        var add_data = $('.add_hotel .item:nth-child(2) li .loai_phong .rom:nth-child('+i+')').text();
-                        loai_phong_ks.val(loai_phong_ks.val()+','+add_data);
+        $(document).on('click','.list_room .room .btn .save', function(){
+            var item_room_name = $(this).parents('.btn').siblings('.content').find('.item .item_room_name').val();
+            var item_price = $(this).parents('.btn').siblings('.content').find('.item .item_price').val();
+            var data_id = $(this).parents('.btn').siblings('.content').find('.item .item_room_name').attr('data-id');
+
+            $(this).parents('.btn').siblings('.content').find('input').prop( "disabled", true );
+
+            $(this).siblings('.edit').show();
+            $(this).hide();
+
+            if(item_room_name != '' || item_price != ''){
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: my_ajax_object.ajax_url,
+                    data: {
+                        action: "add_type_room_edit",
+                        item_room_name:item_room_name,
+                        item_price:item_price,
+                        data_id:data_id,
+                    },
+                    success: function (response) {
+
                     }
-
-                }
+                });
             }
+        });
 
+        $(document).on('click','.list_room .room .btn .del', function(){
+            var data_id = $(this).parents('.btn').siblings('.content').find('.item .item_room_name').attr('data-id');
+            var item_room_name = $(this).parents('.btn').siblings('.content').find('.item .item_room_name').val();
+            var check = confirm('Bạn có chắc muốn xóa : '+item_room_name);
 
-        },1000);
+            if(check == true){
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: my_ajax_object.ajax_url,
+                    data: {action: "add_type_room_del", data_id : data_id},
+                    success: function(response){
+                        $('.list_room').html(response.data);
+                    }
+                });
+            }
+        });
 
         //Loại bỏ các cảnh báo
         var at = function( test ) {
@@ -1612,7 +1928,6 @@
                     pass_forget: pass_forget,
                 },
                 success: function (response) {
-                    console.log(response.data);
                     sub_pass_forget.show();
                     $('button.load_forget').hide();
                     if(response.data == 'false'){
@@ -1701,7 +2016,7 @@
                     if(response.data == 'error'){
                         alert('Sai định dạng !');
                     }else{
-                        console.log(response.data);
+
                     }
                 },
             });
@@ -1709,32 +2024,6 @@
 
 
     }
-
-    //Tính phụ thu
-    setInterval(function () {
-        var pt_nguoi = parseInt($('.pt_nguoi').val());
-        var pt_giai_doan = parseInt($('.pt_giai_doan').val());
-        var pt_cuoi_tuan = parseInt($('.pt_cuoi_tuan').val());
-        var bua_an_bat_buoc = parseInt($('.bua_an_bat_buoc').val());
-        var dich_vu_khac = parseInt($('.dich_vu_khac').val());
-        var tien_chua_pt_khac = parseInt($('.tien_chua_pt_khac').val());
-        var giam_gia_cho_kh_khac = parseInt($('.giam_gia_cho_kh_khac').val());
-        var da_thanh_toan_khac = parseInt($('.da_thanh_toan_khac').val());
-        var tong_gd = parseInt($('.tong_gd').val());
-        var tong_pt = $('.tong_pt');
-        var tong_phu_thu_khac = $('.tong_phu_thu_khac');
-        var tong_gia_tri_khac = $('.tong_gia_tri_khac');
-        var kh_con_no_khac = $('.kh_con_no_khac');
-        var total;
-
-        $('.tien_chua_pt_khac').val(tong_gd);
-        total = pt_nguoi + pt_giai_doan + pt_cuoi_tuan + bua_an_bat_buoc + dich_vu_khac + tien_chua_pt_khac;
-        total = total - giam_gia_cho_kh_khac;
-        tong_pt.val(total);
-        tong_phu_thu_khac.val(total);
-        tong_gia_tri_khac.val(total);
-        kh_con_no_khac.val(total - da_thanh_toan_khac);
-    },500);
 
     //calendar change price time hotel
     function Calendar_price_hotel() {
@@ -1860,8 +2149,11 @@
                 $(this).parents('.option_date_hotel').siblings('ul.list_date_box').find('li.calendar_list.dis_active .scene .cube').removeClass('show-top');
             }
         });
+    }
 
-
+    function DisableErrorJavaScript() {
+        function silentErrorHandler() {return true;}
+        window.onerror=silentErrorHandler;
     }
 
     function _init() {
@@ -1884,6 +2176,7 @@
         Excel_Hotel();
         Calendar_price_hotel();
         //googleSheet();
+        DisableErrorJavaScript();
     }
 
     _init();
