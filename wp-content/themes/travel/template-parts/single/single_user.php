@@ -22,8 +22,6 @@ if (isset($_POST['sub_update_user'])) {
                 $alert = "<p class='alert_tk_fail'>Số điện thoại đã có người đăng ký !</p>";
             } elseif (get_field('cmt_tai_khoan') == $_POST['cmt_tai_khoan'] and $this_cmt != $_POST['cmt_tai_khoan']) {
                 $alert = "<p class='alert_tk_fail'>Chứng minh thư đã có người đăng ký !</p>";
-            } elseif (get_field('ten_biet_danh_tai_khoan') == $_POST['ten_biet_danh_tai_khoan'] and $this_ten_biet_danh_tai_khoan != $_POST['ten_biet_danh_tai_khoan']) {
-                $alert = "<p class='alert_tk_fail'>Tên biệt danh đã có người đăng ký !</p>";
             }
         endwhile;
         wp_reset_postdata();
@@ -114,7 +112,8 @@ if (isset($_POST['sub_update_user'])) {
             update_field('cmt_tai_khoan', $_POST['cmt_tai_khoan'], $post_id);
             update_field('bo_phan_tai_khoan', $_POST['bo_phan_tai_khoan'], $post_id);
             update_field('loai_quyen_tai_khoan', $_POST['loai_quyen_tai_khoan'], $post_id);
-            update_field('dia_chi_tai_khoan', $_POST['dia_chi_tai_khoan'], $post_id);
+            update_field('dia_chi_tai_khoan', $_POST['email_tai_khoan'], $post_id);
+            update_field('lien_ket_tai_khoan', $_POST['email_tai_khoan'], $post_id);
             add_post_meta($post_id, 'ten_anh_tai_khoan', $file_name, true);
 
             $alert = "<p class='alert_tk_sucess'>Cập nhập tài khoản thành công !</p>";
@@ -160,31 +159,17 @@ if (isset($_POST['sub_update_user'])) {
                 <h1>Sửa tài khoản</h1>
                 <form action="<?php echo get_permalink(); ?>" method="post" enctype="multipart/form-data">
                     <ul>
-                        <li>
+                        <!--<li>
                             <label>Tìm kiếm Email</label>
                             <input type="text" class="search_email" placeholder="Tìm kiếm email..">
-                        </li>
+                        </li>-->
                         <li>
                             <label>Email</label>
-                            <select name="email_tai_khoan" class="email_tai_khoan"
-                                    data-check="<?php echo get_field('email_tai_khoan'); ?>">
-                                <option value="" selected disabled hidden>Chọn Email</option>
-                                <?php
-                                $array = array(
-                                    'post_type' => 'nhan_vien',
-                                );
-
-                                $query = new WP_Query($array);
-
-                                if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post();
-                                    ?>
-                                    <option value="<?php echo get_field('email_nv'); ?>"><?php echo get_field('email_nv'); ?></option>
-                                <?php
-                                endwhile;
-                                endif;
-                                wp_reset_postdata();
-                                ?>
-                            </select>
+                            <!--<select name="email_tai_khoan" class="email_tai_khoan"
+                                    data-check="<?php /*echo get_field('email_tai_khoan'); */?>">
+                                <option value="<?php /*echo get_field('email_tai_khoan'); */?>"><?php /*echo get_field('email_tai_khoan'); */?></option>
+                            </select>-->
+                            <input type="text" name="email_tai_khoan" value="<?php echo get_field('email_tai_khoan'); ?>" />
                         </li>
                         <li>
                             <label>Đổi mật khẩu</label>
@@ -238,6 +223,7 @@ if (isset($_POST['sub_update_user'])) {
                             <label>Địa chỉ</label>
                             <textarea type="number" name="dia_chi_tai_khoan"
                                       class="dia_chi_tai_khoan"><?php echo get_field('dia_chi_tai_khoan'); ?></textarea>
+                            <input type="hidden" name="lien_ket_tai_khoan" class="lien_ket_tai_khoan" value="<?php echo get_field('lien_ket_tai_khoan'); ?>">
                             <div class="get_alert"></div>
                             <?php if ($alert) {
                                 echo $alert;

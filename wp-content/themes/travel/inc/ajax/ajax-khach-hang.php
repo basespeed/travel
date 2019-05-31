@@ -38,7 +38,7 @@ function setKhachDaiDien() {
                 <ul>
                     <li><?php
                         $str = get_field('ten_kgd');
-                        $str = str_replace($keyword, " <strong>" . $keyword . "</strong> ", $str);
+                        $str = str_replace($keyword, " <strong> " . $keyword . " </strong> ", $str);
                         echo $str;
                         ?></li>
                     <li><input type="text" value="<?php echo get_field('sdt_kgd'); ?>"></li>
@@ -60,7 +60,12 @@ function setKhachDaiDien() {
             wp_reset_postdata();
         }
     }else{
-        echo 'empty';
+        ?>
+        <p>
+            <span>Khách tồn tại ! </span>
+            <a href="<?php echo get_home_url(); ?>/them-khach-hang" target="_blank">Thêm khách mới</a>
+        </p>
+        <?php
     }
 
 
@@ -107,7 +112,7 @@ function setKhachDaiDienSDT() {
                     <li><?php echo get_field('ten_kgd'); ?></li>
                     <li><?php
                         $str = get_field('sdt_kgd');
-                        $str = str_replace($keyword, " <strong>" . $keyword . "</strong> ", $str);
+                        $str = str_replace($keyword, " <strong> " . $keyword . " </strong> ", $str);
                         echo $str;
                         ?></li>
                     <li><input type="email" value="<?php echo get_field('email_kgd_duy_nhat'); ?>"></li>
@@ -174,13 +179,13 @@ function setKhachDaiDienTenKgd() {
                 <ul>
                     <li><?php
                         $str = get_field('ten_kgd');
-                        $str = str_replace($keyword, " <strong>" . $keyword . "</strong> ", $str);
+                        $str = str_replace($keyword, " <strong> " . $keyword . " </strong> ", $str);
                         echo $str;
                         ?></li>
                     <li><input type="text" value="<?php echo get_field('sdt_kgd'); ?>"></li>
                     <li><?php
                         $str = get_field('email_kgd_duy_nhat');
-                        $str = str_replace($keyword, " <strong>" . $keyword . "</strong> ", $str);
+                        $str = str_replace($keyword, " <strong> " . $keyword . " </strong> ", $str);
                         echo $str;
                         ?></li>
                     <li><input type="text" value="<?php echo get_field('tk_kgd'); ?>"></li>
@@ -200,9 +205,13 @@ function setKhachDaiDienTenKgd() {
             wp_reset_postdata();
         }
     }else{
-        echo 'empty';
+        ?>
+        <p>
+            <span>Tên khách giao dịch không tồn tại ! </span>
+            <a href="<?php echo get_home_url(); ?>/them-khach-hang" target="_blank">Thêm khách mới</a>
+        </p>
+        <?php
     }
-
 
     die();
 }
@@ -247,7 +256,7 @@ function setNickKgd() {
                 <ul>
                     <li><?php
                         $str = get_field('ten_kgd');
-                        $str = str_replace($keyword, " <strong>" . $keyword . "</strong> ", $str);
+                        $str = str_replace($keyword, " <strong> " . $keyword . " </strong> ", $str);
                         echo $str;
                         ?></li>
                     <li><input type="text" value="<?php echo get_field('sdt_kgd'); ?>"></li>
@@ -317,7 +326,7 @@ function setSdtKgd() {
                 <ul>
                     <li><?php
                         $str = get_field('ten_kgd');
-                        $str = str_replace($keyword, " <strong>" . $keyword . "</strong> ", $str);
+                        $str = str_replace($keyword, " <strong> " . $keyword . " </strong> ", $str);
                         echo $str;
                         ?></li>
                     <li><input type="text" value="<?php echo get_field('sdt_kgd'); ?>"></li>
@@ -384,7 +393,7 @@ function setEmail_kgd_duy_nhat() {
                 <ul>
                     <li><?php
                         $str = get_field('ten_kgd');
-                        $str = str_replace($keyword, " <strong>" . $keyword . "</strong> ", $str);
+                        $str = str_replace($keyword, " <strong> " . $keyword . " </strong> ", $str);
                         echo $str;
                         ?></li>
                     <li><input type="text" value="<?php echo get_field('sdt_kgd'); ?>"></li>
@@ -456,7 +465,7 @@ function setTk_kgd() {
                 <ul>
                     <li><?php
                         $str = get_field('ten_kgd');
-                        $str = str_replace($keyword, " <strong>" . $keyword . "</strong> ", $str);
+                        $str = str_replace($keyword, " <strong> " . $keyword . " </strong> ", $str);
                         echo $str;
                         ?></li>
                     <li><input type="text" value="<?php echo get_field('sdt_kgd'); ?>"></li>
@@ -527,7 +536,7 @@ function setMa_kgd() {
                 <ul>
                     <li><?php
                         $str = get_field('ten_kgd');
-                        $str = str_replace($keyword, "<strong>" . $keyword . "</strong> ", $str);
+                        $str = str_replace($keyword, "<strong> " . $keyword . " </strong> ", $str);
                         echo $str;
                         ?></li>
                     <li><input type="text" value="<?php echo get_field('sdt_kgd'); ?>"></li>
@@ -550,6 +559,81 @@ function setMa_kgd() {
         }
     }else{
         echo 'empty';
+    }
+    //wp_send_json_success('ajax');
+
+
+    die();
+}
+
+
+add_action("wp_ajax_set_pop_ten_dt_gui_book_dt", "set_pop_ten_dt_gui_book_dt");
+add_action("wp_ajax_nopriv_set_pop_ten_dt_gui_book_dt", "set_pop_ten_dt_gui_book_dt");
+
+function set_pop_ten_dt_gui_book_dt() {
+    $keyword = $_POST['keyword'];
+
+    global $wpdb,$data;
+    $keyword = $_POST['keyword'];
+    $search_query = $wpdb->get_results("
+                SELECT
+                    $wpdb->posts.post_title,
+                    $wpdb->posts.ID,
+                    $wpdb->posts.post_content
+                FROM
+                    $wpdb->posts,
+                    $wpdb->postmeta AS postmeta1
+            
+                WHERE
+                    $wpdb->posts.ID = postmeta1.post_id
+                    AND $wpdb->posts.post_type = 'doi_tac'
+                    AND postmeta1.meta_key = 'ten_dt'
+                    AND postmeta1.meta_value LIKE '%$keyword%'
+                    ORDER BY post_date DESC
+                    LIMIT 10
+                ");
+
+    if($search_query){
+        foreach ($search_query as $data) {
+            $id = $data->ID;
+            $args = array(
+                'p'         => $id, // ID of a page, post, or custom type
+                'post_type' => 'doi_tac'
+            );
+            $query_hotel = new WP_Query($args);
+            while ($query_hotel->have_posts()) : $query_hotel->the_post();
+                ?>
+                <ul>
+                    <li><?php
+                        $str = get_field('ten_dt');
+                        $str = str_replace($keyword, "<strong> " . $keyword . " </strong> ", $str);
+                        echo $str;
+                        ?></li>
+                    <li><input type="text" value="<?php echo get_field('sdt_dt'); ?>"></li>
+                    <li><input type="email" value="<?php echo get_field('email_dt'); ?>"></li>
+                    <li><input type="text" value="<?php echo get_field('stk_dt'); ?>"></li>
+                    <li>
+                        <input type="text" value="<?php echo get_field('don_vi_cong_tac_dt'); ?>">
+                        <input type="hidden" class="ma_kgd" value="<?php echo get_field('ma_kgd'); ?>">
+                        <input type="hidden" class="ten" value="<?php echo get_field('ten_dt'); ?>">
+                        <input type="hidden" class="sdt" value="<?php echo get_field('sdt_dt'); ?>">
+                        <input type="hidden" class="email" value="<?php echo get_field('email_dt'); ?>">
+                        <input type="hidden" class="tk" value="<?php echo get_field('stk_dt'); ?>">
+                        <input type="hidden" class="don_vi_cong_tac_dt" value="<?php echo get_field('don_vi_cong_tac_dt'); ?>">
+                        <input type="hidden" class="mdt" value="<?php echo get_field('ma_dt'); ?>">
+                    </li>
+                </ul>
+            <?php
+            endwhile;
+            wp_reset_postdata();
+        }
+    }else{
+        ?>
+        <p>
+            <span>Đối tác không tồn tại ! </span>
+            <a href="<?php echo get_home_url(); ?>/them-moi-doi-tac" target="_blank">Thêm đối tác</a>
+        </p>
+        <?php
     }
     //wp_send_json_success('ajax');
 
@@ -596,7 +680,7 @@ function setMGDLK() {
                 <ul>
                     <li><?php
                         $str = get_field('ten_kgd');
-                        $str = str_replace($keyword, "<strong>" . $keyword . "</strong>", $str);
+                        $str = str_replace($keyword, "<strong> " . $keyword . " </strong>", $str);
                         echo $str;
                         ?></li>
                     <li><input type="text" value="<?php echo get_field('sdt_kgd'); ?>"></li>
@@ -688,7 +772,12 @@ function pop_ten_khach_san_gd() {
             wp_reset_postdata();
         }
     }else{
-        echo 'empty';
+        ?>
+        <p>
+            <span>Khách sạn không tồn tại ! </span>
+            <a href="<?php echo get_home_url(); ?>/them-moi-khach-san" target="_blank">Thêm khách sạn</a>
+        </p>
+        <?php
     }
     //wp_send_json_success('ajax');
 

@@ -77,7 +77,7 @@ if($_SESSION['sucess'] == "sucess") {
                         $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
                         $arrays = array(
                             'post_type' => 'dia_diem_local',
-                            'posts_per_page' => 5,
+                            'posts_per_page' => 20,
                             'order' => 'DESC',
                             'paged' => $paged,
                         );

@@ -24,8 +24,6 @@ if($_SESSION['sucess'] == "sucess") {
                         $alert = "<p class='alert_tk_fail'>Số điện thoại đã có người đăng ký !</p>";
                     } elseif (get_field('cmt_tai_khoan') == $_POST['cmt_tai_khoan']) {
                         $alert = "<p class='alert_tk_fail'>Chứng minh thư đã có người đăng ký !</p>";
-                    } elseif (get_field('ten_biet_danh_tai_khoan') == $_POST['ten_biet_danh_tai_khoan']) {
-                        $alert = "<p class='alert_tk_fail'>Tên biệt danh đã có người đăng ký !</p>";
                     }
                 endwhile;
                 wp_reset_postdata();
@@ -61,7 +59,7 @@ if($_SESSION['sucess'] == "sucess") {
                             add_post_meta($post_id, 'dia_chi_tai_khoan', $_POST['dia_chi_tai_khoan'], true);
                             add_post_meta($post_id, 'hinh_anh_tai_khoan', $location_img, true);
                             add_post_meta($post_id, 'ten_anh_tai_khoan', $file_name, true);
-                            add_post_meta($post_id, 'lien_ket_tai_khoan', $_POST['lien_ket_tai_khoan'], true);
+                            add_post_meta($post_id, 'lien_ket_tai_khoan', $_POST['email_tai_khoan'], true);
 
                             $alert = "<p class='alert_tk_sucess'>Tạo tài khoản thành công !</p>";
                         }
@@ -121,20 +119,20 @@ if($_SESSION['sucess'] == "sucess") {
                                 <select name="email_tai_khoan" class="email_tai_khoan">
                                     <option value="" selected disabled hidden>Chọn Email</option>
                                     <?php
-                                    $array = array(
+/*                                    $array = array(
                                         'post_type' => 'nhan_vien',
                                     );
 
                                     $query = new WP_Query($array);
 
                                     if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post();
-                                        ?>
-                                        <option value="<?php echo get_field('email_nv'); ?>"><?php echo get_field('email_nv'); ?></option>
-                                    <?php
-                                    endwhile;
+                                        */?><!--
+                                        <option value="<?php /*echo get_field('email_nv'); */?>"><?php /*echo get_field('email_nv'); */?></option>
+                                    --><?php
+/*                                    endwhile;
                                     endif;
                                     wp_reset_postdata();
-                                    ?>
+                                    */?>
                                 </select>
                             </li>
                             <li>

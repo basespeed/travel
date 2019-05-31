@@ -555,7 +555,7 @@ get_header();
 
                             <ul>
                                 <li>
-                                    <label>Room name : </label>
+                                    <label>Tên phòng : </label>
                                     <input type="text" class="room_name_ks">
                                 </li>
                                 <!--<li>
@@ -563,8 +563,12 @@ get_header();
                                     <input type="text" data-date-format="dd/mm/yyyy" data-position="top left" class="date_price_ks datepicker-here" data-language='en'>
                                 </li>-->
                                 <li>
-                                    <label>Price : </label>
-                                    <input type="text" class="price_ks">
+                                    <label>Giá bán : </label>
+                                    <input type="text" class="gia_tien_kh_add">
+                                </li>
+                                <li>
+                                    <label>Giá mua : </label>
+                                    <input type="text" class="gia_tien_dt_add">
                                     <button type="button" class="add_rom" data-id="<?php echo $this_ID; ?>">Thêm</button>
                                 </li>
                             </ul>
@@ -593,7 +597,12 @@ get_header();
 
                                                 <div class="item">
                                                     <!--<label>Price :</label>-->
-                                                    <input type="text" value="<?php echo get_field('gia_tien'); ?>" class="item_price" disabled>
+                                                    <input type="text" value="<?php echo get_field('gia_tien_kh'); ?>" class="gia_tien_kh" disabled>
+                                                </div>
+
+                                                <div class="item">
+                                                    <!--<label>Price :</label>-->
+                                                    <input type="text" value="<?php echo get_field('gia_tien_dt'); ?>" class="gia_tien_dt" disabled>
                                                 </div>
                                             </div>
 

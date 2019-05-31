@@ -5,7 +5,8 @@ add_action("wp_ajax_nopriv_add_type_room", "add_type_room");
 function add_type_room() {
     $data_id = $_POST['data_id'];
     $room_name_ks = $_POST['room_name_ks'];
-    $price_ks = $_POST['price_ks'];
+    $gia_tien_kh = $_POST['gia_tien_kh'];
+    $gia_tien_dt = $_POST['gia_tien_dt'];
 
     $add_room = array(
         'post_title' => $room_name_ks.'_'.$data_id,
@@ -16,7 +17,8 @@ function add_type_room() {
     $post_id = wp_insert_post($add_room);
 
     add_post_meta($post_id, 'ten_phong', $room_name_ks, true);
-    add_post_meta($post_id, 'gia_tien', $price_ks, true);
+    add_post_meta($post_id, 'gia_tien_kh', $gia_tien_kh, true);
+    add_post_meta($post_id, 'gia_tien_dt', $gia_tien_dt, true);
     add_post_meta($post_id, 'id_khach_san', $data_id, true);
 
     $query_room = new WP_Query(array(
@@ -34,7 +36,10 @@ function add_type_room() {
         $data .= '<input type="text" value="'.get_field('ten_phong').'" class="item_room_name" data-id="'.get_the_ID().'" disabled>';
         $data .= '</div>';
         $data .= '<div class="item">';
-        $data .= '<input type="text" value="'.get_field('gia_tien').'" class="item_price" disabled>';
+        $data .= '<input type="text" value="'.get_field('gia_tien_kh').'" class="gia_tien_kh" disabled>';
+        $data .= '</div>';
+        $data .= '<div class="item">';
+        $data .= '<input type="text" value="'.get_field('gia_tien_dt').'" class="gia_tien_dt" disabled>';
         $data .= '</div>';
         $data .= '</div>';
         $data .= '<div class="btn">';
@@ -58,7 +63,8 @@ add_action("wp_ajax_nopriv_add_type_room_edit", "add_type_room_edit");
 function add_type_room_edit() {
     $data_id = $_POST['data_id'];
     $item_room_name = $_POST['item_room_name'];
-    $item_price = $_POST['item_price'];
+    $gia_tien_kh = $_POST['gia_tien_kh'];
+    $gia_tien_dt = $_POST['gia_tien_dt'];
 
     $update_type_room = array(
         'ID'           => $data_id,
@@ -68,7 +74,8 @@ function add_type_room_edit() {
     $post_update = wp_update_post($update_type_room);
 
     update_field( 'ten_phong', $item_room_name, $post_update );
-    update_field( 'gia_tien', $item_price, $post_update );
+    update_field( 'gia_tien_kh', $gia_tien_kh, $post_update );
+    update_field( 'gia_tien_dt', $gia_tien_dt, $post_update );
 
     //wp_send_json_success();
 
@@ -80,6 +87,7 @@ add_action("wp_ajax_nopriv_add_type_room_del", "add_type_room_del");
 
 function add_type_room_del() {
     $data_id = $_POST['data_id'];
+    $id_firt = $_POST['id_firt'];
 
     $args = array (
         'post_type' => 'room',
@@ -97,7 +105,9 @@ function add_type_room_del() {
     $query_room = new WP_Query(array(
         'post_type' => 'room',
         'posts_per_page' => 10,
-        'order' => 'DESC'
+        'order' => 'DESC',
+        'meta_key'		=> 'id_khach_san',
+        'meta_value'	=> $id_firt
     ));
     //$html = '';
     if($query_room->have_posts()) : while ($query_room->have_posts()) : $query_room->the_post();
@@ -107,7 +117,10 @@ function add_type_room_del() {
         $data .= '<input type="text" value="'.get_field('ten_phong').'" class="item_room_name" data-id="'.get_the_ID().'" disabled>';
         $data .= '</div>';
         $data .= '<div class="item">';
-        $data .= '<input type="text" value="'.get_field('gia_tien').'" class="item_price" disabled>';
+        $data .= '<input type="text" value="'.get_field('gia_tien_kh').'" class="gia_tien_kh" disabled>';
+        $data .= '</div>';
+        $data .= '<div class="item">';
+        $data .= '<input type="text" value="'.get_field('gia_tien_dt').'" class="gia_tien_dt" disabled>';
         $data .= '</div>';
         $data .= '</div>';
         $data .= '<div class="btn">';
@@ -143,9 +156,9 @@ function add_type_room_booking() {
     $count = 1;
     if($query_room->have_posts()) : while ($query_room->have_posts()) : $query_room->the_post();
         if($count == 1){
-            $data .= '<option value="'.get_field('ten_phong').'" data-price="'.get_field('gia_tien').'" selected>'.get_field('ten_phong').'</option>';
+            $data .= '<option value="'.get_field('ten_phong').'" data-price1="'.get_field('gia_tien_kh').'" data-price2="'.get_field('gia_tien_dt').'" selected>'.get_field('ten_phong').'</option>';
         }else{
-            $data .= '<option value="'.get_field('ten_phong').'" data-price="'.get_field('gia_tien').'" >'.get_field('ten_phong').'</option>';
+            $data .= '<option value="'.get_field('ten_phong').'" data-price1="'.get_field('gia_tien_kh').'" data-price2="'.get_field('gia_tien_dt').'" >'.get_field('ten_phong').'</option>';
         }
 
         $count++;

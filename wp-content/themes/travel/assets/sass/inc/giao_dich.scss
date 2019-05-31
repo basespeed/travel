@@ -1079,8 +1079,24 @@ table#show_chat {
   }
   .show_list_ds{
     width: calc(100% - 515px) !important;
-    min-height: 191px;
+    min-height: 259px;
   }
+}
+
+.quantri_admin .them_giao_dich td{
+  border:none;
+}
+
+.hinh_thuc_book_gd{
+  background: #FFF !important;
+}
+
+.list_show li strong {
+  margin-right: 0px;
+}
+
+.-current-week222- {
+  background: red !important;
 }
 
 .search_hotel{

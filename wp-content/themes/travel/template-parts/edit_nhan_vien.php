@@ -83,7 +83,7 @@ if($_SESSION['sucess'] == "sucess") {
                                         <td><?php echo get_field('ten_ngan_hang_nv'); ?></td>
                                         <td><?php echo get_field('tk_nv'); ?></td>
                                         <td><?php
-                                            $lien_ket_tai_khoan_nv = get_field('lien_ket_tai_khoan');
+                                            $lien_ket_tai_khoan_nv = get_field('email_nv');
 
                                             $query_check = new WP_Query(array(
                                                 'post_type' => 'tai_khoan',

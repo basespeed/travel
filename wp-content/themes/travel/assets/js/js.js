@@ -95,9 +95,9 @@
                     stop:function( event, ui ) {
                         $(ui.item).removeClass("active-draggable");
                         $(ui.item).css('transform','rotate(0deg)');
-                        console.log($.map($(this).find('li'), function(el) {
+                        /*console.log($.map($(this).find('li'), function(el) {
                             return $(el).attr('class') + ' = ' + $(el).index();
-                        }));
+                        }));*/
 
                         $.map($(this).find('li'), function(el) {
                             var class_item = $(el).attr('class');
@@ -189,7 +189,19 @@
         $('.da_thanh_toan_khac2').simpleMoneyFormat();
         $('.bct_con_no_khac2').simpleMoneyFormat();
         $('.price_ks').simpleMoneyFormat();
-        $('.item_price').simpleMoneyFormat();
+        $('.gia_tien_kh').simpleMoneyFormat();
+        $('.gia_tien_dt').simpleMoneyFormat();
+        $('.gia_tien_kh_add').simpleMoneyFormat();
+        $('.gia_tien_dt_add').simpleMoneyFormat();
+
+        //Ngày cần nhắc lại chat
+        var date_nl = new Date();
+        date_nl = new Date(date_nl.getFullYear(), date_nl.getMonth() + 1, date_nl.getDate() + 1);
+        var get_month = date_nl.getMonth();
+        if(get_month<10){
+            get_month = '0'+get_month;
+        }
+        $('.ngay_can_nhac_lai_chat').val(date_nl.getDate()+'/'+get_month+'/'+date_nl.getFullYear());
 
         //ngày yêu cầu hoàn tất
         $('.ci_gd').change(function () {
@@ -199,7 +211,6 @@
             d += 1;  // JavaScript months are 0-11
             var y = formattedDate.getFullYear();
 
-            console.log(d + "." + m + "." + y);
         });
 
         //ngay yeu cau hoan tat
@@ -215,37 +226,11 @@
                     var y = yesterday.getFullYear();
                     $('.ngay_yeu_cau_kh_hoan_tat_tt_khac').val(d+'/'+m+'/'+y);
                     $('.ngay_phai_hoan_tat_tt_cho_ks_khac2').val(d+'/'+m+'/'+y);
+                    alert(1);
                 }
             });
         });
     }
-
-    //Tính phụ thu giao dịch
-
-    $('.giam_gia_cho_kh_khac').keyup(function () {
-        $('.giam_gia_cua_dt_khac2').val($(this).val());
-    });
-    $('.giam_gia_cua_dt_khac2').keyup(function () {
-        $('.giam_gia_cho_kh_khac').val($(this).val());
-    });
-    $('.giam_gia_cho_kh_khac').change(function () {
-        $('.giam_gia_cua_dt_khac2').val($(this).val());
-    });
-    $('.giam_gia_cua_dt_khac2').change(function () {
-        $('.giam_gia_cho_kh_khac').val($(this).val());
-    });
-
-
-    var kh_tt_pt_tai = $('.kh_tt_pt_tai');
-
-    kh_tt_pt_tai.on('change', function () {
-        var val = $(this).val();
-        if(val == 'BTC'){
-            $('.phu_thu_kh_vs_dt').removeClass('hide');
-        }else{
-            $('.phu_thu_kh_vs_dt').addClass('hide');
-        }
-    });
 
     setInterval(function () {
         var pt_nguoi = $('.pt_nguoi').val();
@@ -254,6 +239,7 @@
         var bua_an_bat_buoc = $('.bua_an_bat_buoc').val();
         var dich_vu_khac = $('.dich_vu_khac').val();
         var tien_chua_pt_khac = $('.tien_chua_pt_khac').val();
+        var tien_chua_pt_khac2 = $('.tien_chua_pt_khac2').val();
         var giam_gia_cho_kh_khac = $('.giam_gia_cho_kh_khac').val();
         var giam_gia_cua_dt_khac2 = $('.giam_gia_cua_dt_khac2').val();
         var da_thanh_toan_khac = $('.da_thanh_toan_khac').val();
@@ -268,7 +254,7 @@
         var kh_con_no_khac = $('.kh_con_no_khac');
         var bct_con_no_khac2 = $('.bct_con_no_khac2');
         var lai_lo_khac = $('.lai_lo_khac');
-        var total,tong_gia_tri_khac_sale,tong_gia_tri_khac_total,tong_gia_tri_khac_dt,kh_con_no_khac_count2;
+        var total,tong_gia_tri_khac_sale,tong_gia_tri_khac_sale2,tong_gia_tri_khac_total,tong_gia_tri_khac_dt,kh_con_no_khac_count2;
         var kh_con_no_khac_count;
 
         if(pt_nguoi != undefined || pt_giai_doan != undefined || pt_cuoi_tuan != undefined || bua_an_bat_buoc != undefined || dich_vu_khac != undefined || tien_chua_pt_khac != undefined || giam_gia_cho_kh_khac != undefined || da_thanh_toan_khac != undefined ){
@@ -302,6 +288,11 @@
             tien_chua_pt_khac = tien_chua_pt_khac.replace(',','');
             tien_chua_pt_khac = parseInt(tien_chua_pt_khac);
 
+            tien_chua_pt_khac2 = tien_chua_pt_khac2.replace(',','');
+            tien_chua_pt_khac2 = tien_chua_pt_khac2.replace(',','');
+            tien_chua_pt_khac2 = tien_chua_pt_khac2.replace(',','');
+            tien_chua_pt_khac2 = parseInt(tien_chua_pt_khac2);
+
             giam_gia_cho_kh_khac = giam_gia_cho_kh_khac.replace(',','');
             giam_gia_cho_kh_khac = giam_gia_cho_kh_khac.replace(',','');
             giam_gia_cho_kh_khac = giam_gia_cho_kh_khac.replace(',','');
@@ -327,19 +318,32 @@
 
             tong_pt.val(total.format(0, 3, ','));
 
-            //Tổng phụ thu khách hàng
-            tong_phu_thu_khac.val(total.format(0, 3, ','));
-            //Tổng phụ thu đối tác
-            tong_phu_thu_khac2.val(total.format(0, 3, ','));
+            if($('.kh_tt_pt_tai').val() != 'Khách sạn'){
+                //Tổng phụ thu khách hàng
+                tong_phu_thu_khac.val(total.format(0, 3, ','));
+                //Tổng phụ thu đối tác
+                tong_phu_thu_khac2.val(total.format(0, 3, ','));
+            }else{
+                //Tổng phụ thu khách hàng
+                tong_phu_thu_khac.val(0);
+                //Tổng phụ thu đối tác
+                tong_phu_thu_khac2.val(0);
+            }
 
-            tong_gia_tri_khac_sale = total + tien_chua_pt_khac;
+            if($('.kh_tt_pt_tai').val() == 'Khách sạn'){
+                tong_gia_tri_khac_sale = 0 + tien_chua_pt_khac;
+                tong_gia_tri_khac_sale2 = 0 + tien_chua_pt_khac2;
+            }else{
+                tong_gia_tri_khac_sale = total + tien_chua_pt_khac;
+                tong_gia_tri_khac_sale2 = total + tien_chua_pt_khac2;
+            }
 
             //Tổng giá trị khách hàng
             tong_gia_tri_khac_total = tong_gia_tri_khac_sale - giam_gia_cho_kh_khac;
             tong_gia_tri_khac.val(tong_gia_tri_khac_total.format(0, 3, ','));
 
             //Tổng giá trị đối tác
-            tong_gia_tri_khac_dt = tong_gia_tri_khac_sale - giam_gia_cua_dt_khac2;
+            tong_gia_tri_khac_dt = tong_gia_tri_khac_sale2 - giam_gia_cua_dt_khac2;
             tong_gia_tri_khac2.val(tong_gia_tri_khac_dt.format(0, 3, ','));
 
             //Khách hàng còn nợ
@@ -427,7 +431,6 @@
     $('.search_hotel .sub_search_hotel').on('click', function (e) {
         e.preventDefault();
         var keyword = $(this).siblings('input').val();
-        alert(keyword);
         $.ajax({
             type: "post",
             dataType: "html",
@@ -515,7 +518,8 @@
             'khu_vuc_ks',
             'khu_vuc_dt',
             'bo_phan_chat',
-            'kh_tt_pt_tai'
+            'kh_tt_pt_tai',
+            'hinh_thuc_book_gd',
         ];
 
         $.each(ClassSelect , function(index, val) {
@@ -540,14 +544,6 @@
             $('.noi_den_gd').val($(this).val());
         });
 
-        $('.trang_thai_bkk_voi_kh_gd').on('change', function(){
-            $('.trang_thai_bkk_voi_dt').val($(this).val());
-        });
-
-        $('.trang_thai_bkk_voi_dt').on('change', function(){
-            $('.trang_thai_bkk_voi_kh_gd').val($(this).val());
-        });
-
         $('.don_vi_gd').on('change', function(){
             $('.don_vi_dt').val($(this).val());
         });
@@ -556,30 +552,26 @@
             $('.don_vi_gd').val($(this).val());
         });
 
-        $('.don_gia_ban_gd').val($('.loai_phong_ban_gd option:selected').attr('data-price'));
-        $('.don_gia_ban_dt').val($('.loai_phong_ban_dt option:selected').attr('data-price'));
+        /*$('.don_gia_ban_gd').val($('.loai_phong_ban_gd option:selected').attr('data-price1'));
+        $('.don_gia_ban_dt').val($('.loai_phong_ban_dt option:selected').attr('data-price2'));*/
         $('.ma_dt').val($('.ten_dt_gui_book_dt option:selected').attr('data-id'));
 
         $('.loai_phong_ban_gd').on('change', function(){
-            var price = $(this).find('option:selected', this).attr('data-price');
-            $('.don_gia_ban_dt').val(price);
-            $('.don_gia_ban_gd').val(price);
-            $('.loai_phong_ban_dt').val($(this).find('option:selected', this).val());
+            var price1 = $(this).find('option:selected', this).attr('data-price1');
+            var price2 = $(this).find('option:selected', this).attr('data-price2');
+            $('.don_gia_ban_dt').val(price2);
+            $('.don_gia_ban_gd').val(price1);
+            $('.loai_phong_ban_dt').val($(this).val());
         });
 
         $('.loai_phong_ban_dt').on('change', function(){
-            var price = $(this).find('option:selected', this).attr('data-price');
-            $('.don_gia_ban_gd').val(price);
+            var price = $(this).find('option:selected', this).attr('data-price2');
             $('.don_gia_ban_dt').val(price);
-            $('.loai_phong_ban_gd').val($(this).find('option:selected', this).val());
+            $('.loai_phong_ban_gd').val($(this).val());
         });
 
         $('.sl_gd').on('keyup', function(){
             $('.sl_dt').val($(this).val());
-        });
-
-        $('.sl_dt').on('keyup', function(){
-            $('.sl_gd').val($(this).val());
         });
 
         //Lấy dữ liệu tên và bảng giá phòng theo tên khách sạn giao dịch
@@ -596,28 +588,20 @@
 
         $('.ten_khach_san_gd_val').keyup(delay(function (e) {
             var keyword = $(this).val();
-            if(keyword != ""){
-                $.ajax({
-                    type: "post",
-                    dataType: "html",
-                    url: my_ajax_object.ajax_url,
-                    data: {
-                        action: "pop_ten_khach_san_gd",
-                        keyword:keyword
-                    },
-                    success: function (response) {
-                        if(response == 'empty'){
-                            $('.pop_ten_khach_san_gd').hide();
-                        }else{
-                            $('.pop_ten_khach_san_gd').show();
-                            $('.pop_ten_khach_san_gd .list_show').empty();
-                            $('.pop_ten_khach_san_gd .list_show').html(response);
-                        }
-                    }
-                });
-            }else{
-                $(this).val('');
-            }
+            $.ajax({
+                type: "post",
+                dataType: "html",
+                url: my_ajax_object.ajax_url,
+                data: {
+                    action: "pop_ten_khach_san_gd",
+                    keyword:keyword
+                },
+                success: function (response) {
+                    $('.pop_ten_khach_san_gd').show();
+                    $('.pop_ten_khach_san_gd .list_show').empty();
+                    $('.pop_ten_khach_san_gd .list_show').html(response);
+                }
+            });
 
 
         }, 500));
@@ -637,18 +621,20 @@
             $('.pop_ten_khach_san_gd').hide();
         });
 
-        setInterval(function () {
-            $('.don_gia_ban_gd').val($(document).find('.loai_phong_ban_gd option:selected').attr('data-price'));
-            $('.don_gia_ban_dt').val($(document).find('.loai_phong_ban_gd option:selected').attr('data-price'));
-        },500);
+        /*setInterval(function () {
+            $('.don_gia_ban_gd').val($(document).find('.loai_phong_ban_gd option:selected').attr('data-price1'));
+            $('.don_gia_ban_dt').val($(document).find('.loai_phong_ban_dt option:selected').attr('data-price2'));
+        },500);*/
 
         //Auto load tổng giá phòng ở trong ? đêm
         setInterval(function () {
             var sl_gd = parseInt($('.sl_gd').val());
             var don_gia_ban_gd = $('.don_gia_ban_gd').val();
+            var don_gia_ban_dt = $('.don_gia_ban_dt').val();
             var sl_dt = parseInt($('.sl_dt').val());
             var don_gia_ban_dt = $('.don_gia_ban_dt').val();
             var so_dem_gd = $('.so_dem_gd').val();
+            var tong_dt = $('.tong_dt').val();
             var tong_room_gd;
 
             if($('.page-template').hasClass('page-template-them_giao_dich') || $('.single').hasClass('single-giao_dich')){
@@ -657,14 +643,16 @@
                 don_gia_ban_gd = don_gia_ban_gd.replace(",", "");
                 don_gia_ban_gd = don_gia_ban_gd.replace(",", "");
                 don_gia_ban_gd = parseInt(don_gia_ban_gd);
-
                 tong_room_gd = sl_gd * don_gia_ban_gd;
                 tong_room_gd = tong_room_gd * so_dem_gd;
 
-                $('.tong_gd').val(tong_room_gd.format(0, 3, ','));
-
-                $('.tien_chua_pt_khac').val(tong_room_gd.format(0, 3, ','));
-                $('.tien_chua_pt_khac2').val(tong_room_gd.format(0, 3, ','));
+                if(tong_room_gd !== tong_room_gd){
+                    $('.tong_gd').val(0);
+                    $('.tien_chua_pt_khac').val(0);
+                }else{
+                    $('.tong_gd').val(tong_room_gd.format(0, 3, ','));
+                    $('.tien_chua_pt_khac').val(tong_room_gd.format(0, 3, ','));
+                }
 
                 don_gia_ban_dt = don_gia_ban_dt.replace(",", "");
                 don_gia_ban_dt = don_gia_ban_dt.replace(",", "");
@@ -672,12 +660,16 @@
                 don_gia_ban_dt = don_gia_ban_dt.replace(",", "");
                 don_gia_ban_dt = parseInt(don_gia_ban_dt);
 
-
                 var tong_room_dt = sl_dt * don_gia_ban_dt;
-                var so_dem_dt = parseInt($('.so_dem_gd').val());
-                var tong_room_dt_total = tong_room_dt * so_dem_dt;
+                var tong_room_dt = tong_room_dt * so_dem_gd;
 
-                $('.tong_dt').val(tong_room_dt_total.format(0, 3, ','));
+                if(tong_room_dt !== tong_room_dt){
+                    $('.tong_dt').val(0);
+                    $('.tien_chua_pt_khac2').val(0);
+                }else{
+                    $('.tong_dt').val(tong_room_dt.format(0, 3, ','));
+                    $('.tien_chua_pt_khac2').val(tong_room_dt.format(0, 3, ','));
+                }
 
                 var mgdc = $('.ma_gd_con').val();
                 $('.ma_gd_con_t').val(mgdc);
@@ -705,18 +697,18 @@
         $('.con_ngay_dt').prop('disabled', true);
         $('.con_ngay_thay_doi_dt').prop('disabled', true);
         if(! $('.page-template-them_giao_dich .them_giao_dich').hasClass('sua_giao_dich')){
-            if($('.datepicker-here').hasClass('ci_gd')){
-                setInterval(function () {
-                    var date_in = $('.ci_gd').val();
-                    if(typeof date_in !== 'undefined' || date_in != "") {
+            var date_in = $('.ci_gd').val();
+                if ($('.datepicker-here').hasClass('ci_gd')) {
+                    setInterval(function () {
                         //Ngày check-in
+                        var date_in = $('.ci_gd').val();
                         date_in = date_in.replace('/', "");
                         date_in = date_in.replace('/', "");
                         var d_in = date_in.slice(0, 2);
                         var m_in = date_in.slice(2, 4);
                         var y_in = date_in.slice(4, 8);
                         var join_string_in = parseInt(y_in + m_in + d_in);
-                        var date_checkin = new Date(y_in+'-'+m_in+'-'+d_in);
+                        var date_checkin = new Date(y_in + '-' + m_in + '-' + d_in);
 
                         //Check out
                         var date_out = $('.co_gd').val();
@@ -726,7 +718,7 @@
                         var m_out = date_out.slice(2, 4);
                         var y_out = date_out.slice(4, 8);
                         var join_string_out = parseInt(y_out + m_out + d_out);
-                        var date_checkout = new Date(y_out+'-'+m_out+'-'+d_out);
+                        var date_checkout = new Date(y_out + '-' + m_out + '-' + d_out);
 
                         //Ngày được hủy
                         var date_del = $('.ngay_duoc_huy').val();
@@ -736,7 +728,7 @@
                         var m_del = date_del.slice(2, 4);
                         var y_del = date_del.slice(4, 8);
                         var join_string_del = parseInt(y_del + m_del + d_del);
-                        var date_huy = new Date(y_del+'-'+m_del+'-'+d_del);
+                        var date_huy = new Date(y_del + '-' + m_del + '-' + d_del);
 
                         //Ngày được thay đổi
                         var date_change = $('.ngay_duoc_thay_doi').val();
@@ -746,14 +738,14 @@
                         var m_change = date_change.slice(2, 4);
                         var y_change = date_change.slice(4, 8);
                         var join_string_change = parseInt(y_change + m_change + d_change);
-                        var date_thay_doi = new Date(y_change+'-'+m_change+'-'+d_change);
+                        var date_thay_doi = new Date(y_change + '-' + m_change + '-' + d_change);
 
 
-                        var diff  = new Date(date_checkout - date_checkin);
-                        var days  = diff/1000/60/60/24;
+                        var diff = new Date(date_checkout - date_checkin);
+                        var days = diff / 1000 / 60 / 60 / 24;
                         if (date_out != "" && date_in != "") {
                             $('.so_dem_gd').attr('value', Math.floor(days));
-                        }else{
+                        } else {
                             $('.so_dem_gd').attr('value', 0);
                         }
 
@@ -781,24 +773,42 @@
                         }
                         //Ngày hiện tại
                         var datetime = year + '-' + month + '-' + day;
-                        var datetime = new Date(year+'-'+month+'-'+day);
+                        var datetime = new Date(year + '-' + month + '-' + day);
 
                         //Đến ngày checkin
                         var diff_con_ngay = new Date(date_checkin - datetime);
-                        var days_con_ngay = diff_con_ngay/1000/60/60/24;
+                        var days_con_ngay = diff_con_ngay / 1000 / 60 / 60 / 24;
                         $('.con_ngay_gd').attr('value', Math.floor(days_con_ngay));
+                        if(days_con_ngay !== days_con_ngay){
+                            $('.con_ngay_gd_label').text('?');
+                        }else{
+                            $('.con_ngay_gd_label').text(Math.floor(days_con_ngay));
+                        }
 
                         //Ngày được hủy
                         var diff_con_ngay = new Date(date_huy - datetime);
-                        var days_ngay_huy = diff_con_ngay/1000/60/60/24;
+                        var days_ngay_huy = diff_con_ngay / 1000 / 60 / 60 / 24;
                         $('.con_ngay_dt').attr('value', days_ngay_huy);
+                        if(days_ngay_huy !== days_ngay_huy){
+                            $('.con_ngay_dt_label').text('?');
+                        }else{
+                            $('.con_ngay_dt_label').text(Math.floor(days_ngay_huy));
+                        }
+
                         //Ngày được thay đổi
                         var diff_change = new Date(date_thay_doi - datetime);
-                        var days_change = diff_change/1000/60/60/24;
+                        var days_change = diff_change / 1000 / 60 / 60 / 24;
                         $('.con_ngay_thay_doi_dt').attr('value', Math.floor(days_change));
-                    }
-                },1);
-            }
+                        if(days_change !== days_change){
+                            $('.con_ngay_thay_doi_dt_label').text('?');
+                        }else{
+                            $('.con_ngay_thay_doi_dt_label').text(Math.floor(days_change));
+                        }
+
+
+                    }, 1000);
+                }
+
         }
     }
 
@@ -1017,18 +1027,19 @@
 
     //Filter email để thêm tài khoản cho nhân viên
     function search_email() {
-        var options = $('.email_tai_khoan option').clone();
         //react on keyup in textbox
         $('.search_email').keyup(function () {
+            //var options = $('.email_tai_khoan option').clone();
             var val = $(this).val();
             $('.email_tai_khoan').empty();
             //take only the options containing your filter text or all if empty
-            options.filter(function (idx, el) {
+            /*options.filter(function (idx, el) {
                 return val === '' || $(el).text().indexOf(val) >= 0;
-            }).appendTo('.email_tai_khoan');//add it to list
+            }).appendTo('.email_tai_khoan');//add it to list*/
 
             if($('.add_user ul li input').hasClass('search_email')){
-                var email_tk = $('.email_tai_khoan').val();
+                var email_tk = val;
+                $('.email_tai_khoan').empty();
                 $.ajax({
                     type: "post",
                     dataType: "json",
@@ -1039,6 +1050,7 @@
                         $('.sdt_tai_khoan').val(response.data[1]);
                         $('.lien_ket_tai_khoan').val(response.data[2]);
                         $('.bo_phan_tai_khoan').val(response.data[3]);
+                        $('.email_tai_khoan').append(new Option(response.data[4], response.data[4]));
                     }
                 });
             }
@@ -1047,6 +1059,7 @@
         $('.email_tai_khoan').change(function () {
             if($('.add_user ul li input').hasClass('search_email')){
                 var email_tk = $(this).val();
+                $('.email_tai_khoan').empty();
                 $.ajax({
                     type: "post",
                     dataType: "json",
@@ -1057,6 +1070,7 @@
                         $('.sdt_tai_khoan').val(response.data[1]);
                         $('.lien_ket_tai_khoan').val(response.data[2]);
                         $('.bo_phan_tai_khoan').val(response.data[3]);
+                        $('.email_tai_khoan').append(new Option(response.data[4], response.data[4]));
                     }
                 });
             }
@@ -1263,31 +1277,7 @@
                         ma_nhan_vien_chat:ma_nhan_vien_chat
                     },
                     success: function (response) {
-                        //console.log(response.data[1] + '--' + ma_nhan_vien_chat);
-                        /*if(response.data[0] != 'stop'){*/
-                            /*if(response.data[1] == ma_nhan_vien_chat){
-                            }else{
-                            }*/
 
-                           /* let notify;
-                            if(Notification.permission === 'default'){
-                                //alert('Please allow notification before doing this');
-                            }else {
-                                notify = new Notification('Tin nhắn mới của '+response.data[1], {
-                                    body: response.data[2],
-                                    icon: response.data[0],
-                                    image: $('.acf-form-submit').attr('data-img'),
-                                });
-
-                                notify.onclick = function (ev) {
-                                    //console.log(this);
-                                    var url_current = response.data[3]+'#show_chat';
-                                    window.open(url_current, '_blank');
-                                }
-                            }*/
-                        /*}else{
-                            //console.log(response.data[0] + '---' + ma_nhan_vien_chat);
-                        }*/
                     }
                 });
             },3000);
@@ -1538,7 +1528,8 @@
 
         btn_add_rom.on('click',function (e) {
             var room_name_ks = $('.room_name_ks').val();
-            var price_ks = $('.price_ks').val();
+            var gia_tien_kh = $('.gia_tien_kh_add').val();
+            var gia_tien_dt = $('.gia_tien_dt_add').val();
             var data_id = $(this).attr('data-id');
             if(room_name_ks != '' || price_ks != ''){
                 $.ajax({
@@ -1549,11 +1540,13 @@
                         action: "add_type_room",
                         data_id:data_id,
                         room_name_ks:room_name_ks,
-                        price_ks:price_ks
+                        gia_tien_kh:gia_tien_kh,
+                        gia_tien_dt:gia_tien_dt,
                     },
                     success: function (response) {
                         $('.room_name_ks').val('');
-                        $('.price_ks').val('');
+                        $('.gia_tien_kh_add').val('');
+                        $('.gia_tien_dt_add').val('');
                         $('.list_room').html(response.data);
                     }
                 });
@@ -1577,6 +1570,11 @@
                 success: function (response) {
                     $('.loai_phong_ban_gd').html(response.data);
                     $('.loai_phong_ban_dt').html(response.data);
+                    $('.don_gia_ban_gd').val($(document).find('.loai_phong_ban_gd option:selected').attr('data-price1'));
+                    $('.don_gia_ban_dt').val($(document).find('.loai_phong_ban_dt option:selected').attr('data-price2'));
+
+
+
                 }
             });
         });
@@ -1589,7 +1587,8 @@
 
         $(document).on('click','.list_room .room .btn .save', function(){
             var item_room_name = $(this).parents('.btn').siblings('.content').find('.item .item_room_name').val();
-            var item_price = $(this).parents('.btn').siblings('.content').find('.item .item_price').val();
+            var gia_tien_kh = $(this).parents('.btn').siblings('.content').find('.item .gia_tien_kh').val();
+            var gia_tien_dt = $(this).parents('.btn').siblings('.content').find('.item .gia_tien_dt').val();
             var data_id = $(this).parents('.btn').siblings('.content').find('.item .item_room_name').attr('data-id');
 
             $(this).parents('.btn').siblings('.content').find('input').prop( "disabled", true );
@@ -1605,7 +1604,8 @@
                     data: {
                         action: "add_type_room_edit",
                         item_room_name:item_room_name,
-                        item_price:item_price,
+                        gia_tien_kh:gia_tien_kh,
+                        gia_tien_dt:gia_tien_dt,
                         data_id:data_id,
                     },
                     success: function (response) {
@@ -1617,6 +1617,7 @@
 
         $(document).on('click','.list_room .room .btn .del', function(){
             var data_id = $(this).parents('.btn').siblings('.content').find('.item .item_room_name').attr('data-id');
+            var id_firt = $('.add_rom').attr('data-id');
             var item_room_name = $(this).parents('.btn').siblings('.content').find('.item .item_room_name').val();
             var check = confirm('Bạn có chắc muốn xóa : '+item_room_name);
 
@@ -1625,7 +1626,7 @@
                     type: "post",
                     dataType: "json",
                     url: my_ajax_object.ajax_url,
-                    data: {action: "add_type_room_del", data_id : data_id},
+                    data: {action: "add_type_room_del", data_id : data_id,id_firt:id_firt},
                     success: function(response){
                         $('.list_room').html(response.data);
                     }
@@ -1648,184 +1649,242 @@
     function getDataClient() {
         $('.khach_dai_dien_gd').keyup(delay(function (e) {
             var keyword = $(this).val();
-            if(keyword != ""){
+            $.ajax({
+                type: "post",
+                dataType: "html",
+                url: my_ajax_object.ajax_url,
+                data: {
+                    action: "setKhachDaiDien",
+                    keyword:keyword
+                },
+                success: function (response) {
+                    $('.pop_ten').show();
+                    $('.pop_ten .list_show').empty();
+                    $('.pop_ten .list_show').html(response);
+                }
+            });
+        }, 500));
+
+        $('.sdt_gd').keyup(delay(function (e) {
+            var keyword = $(this).val();
+            if(keyword != ''){
                 $.ajax({
                     type: "post",
                     dataType: "html",
                     url: my_ajax_object.ajax_url,
                     data: {
-                        action: "setKhachDaiDien",
+                        action: "setKhachDaiDienSDT",
                         keyword:keyword
                     },
                     success: function (response) {
                         if(response == 'empty'){
-                            $('.pop_ten').hide();
+                            $('.popup_get_data_list.pop_sdt').hide();
                         }else{
-                            $('.pop_ten').show();
-                            $('.pop_ten .list_show').empty();
-                            $('.pop_ten .list_show').html(response);
+                            $('.popup_get_data_list.pop_sdt').show();
+                            $('.popup_get_data_list.pop_sdt .list_show').empty();
+                            $('.popup_get_data_list.pop_sdt .list_show').html(response);
                         }
-
                     }
                 });
+            }else{
+                $('.popup_get_data_list').hide();
             }
-        }, 500));
 
-        $('.sdt_gd').keyup(delay(function (e) {
-            var keyword = $(this).val();
-            $.ajax({
-                type: "post",
-                dataType: "html",
-                url: my_ajax_object.ajax_url,
-                data: {
-                    action: "setKhachDaiDienSDT",
-                    keyword:keyword
-                },
-                success: function (response) {
-                    if(response == 'empty'){
-                        $('.popup_get_data_list.pop_sdt').hide();
-                    }else{
-                        $('.popup_get_data_list.pop_sdt').show();
-                        $('.popup_get_data_list.pop_sdt .list_show').empty();
-                        $('.popup_get_data_list.pop_sdt .list_show').html(response);
-                    }
-                }
-            });
         },500));
 
         $('.ten_kgd').keyup(delay(function (e) {
             var keyword = $(this).val();
-            $.ajax({
-                type: "post",
-                dataType: "html",
-                url: my_ajax_object.ajax_url,
-                data: {
-                    action: "setKhachDaiDienTenKgd",
-                    keyword:keyword
-                },
-                success: function (response) {
-                    if(response == 'empty'){
-                        $('.popup_get_data_list.pop_tenkgd').hide();
-                    }else{
+            if(keyword != ''){
+                $.ajax({
+                    type: "post",
+                    dataType: "html",
+                    url: my_ajax_object.ajax_url,
+                    data: {
+                        action: "setKhachDaiDienTenKgd",
+                        keyword:keyword
+                    },
+                    success: function (response) {
                         $('.popup_get_data_list.pop_tenkgd').show();
                         $('.popup_get_data_list.pop_tenkgd .list_show').empty();
                         $('.popup_get_data_list.pop_tenkgd .list_show').html(response);
                     }
-                }
-            });
+                });
+            }else{
+                $('.popup_get_data_list').hide();
+            }
         },500));
 
         $('.nick_kgd').keyup(delay(function (e) {
             var keyword = $(this).val();
-            $.ajax({
-                type: "post",
-                dataType: "html",
-                url: my_ajax_object.ajax_url,
-                data: {
-                    action: "setNickKgd",
-                    keyword:keyword
-                },
-                success: function (response) {
-                    if(response == 'empty'){
-                        $('.popup_get_data_list.pop_nick_kgd').hide();
-                    }else{
-                        $('.popup_get_data_list.pop_nick_kgd').show();
-                        $('.popup_get_data_list.pop_nick_kgd .list_show').empty();
-                        $('.popup_get_data_list.pop_nick_kgd .list_show').html(response);
+            if(keyword != ''){
+                $.ajax({
+                    type: "post",
+                    dataType: "html",
+                    url: my_ajax_object.ajax_url,
+                    data: {
+                        action: "setNickKgd",
+                        keyword:keyword
+                    },
+                    success: function (response) {
+                        if(response == 'empty'){
+                            $('.popup_get_data_list.pop_nick_kgd').hide();
+                        }else{
+                            $('.popup_get_data_list.pop_nick_kgd').show();
+                            $('.popup_get_data_list.pop_nick_kgd .list_show').empty();
+                            $('.popup_get_data_list.pop_nick_kgd .list_show').html(response);
+                        }
                     }
-                }
-            });
+                });
+            }else{
+                $('.popup_get_data_list').hide();
+            }
         },500));
 
         $('.sdt_kgd').keyup(delay(function (e) {
             var keyword = $(this).val();
-            $.ajax({
-                type: "post",
-                dataType: "html",
-                url: my_ajax_object.ajax_url,
-                data: {
-                    action: "setSdtKgd",
-                    keyword:keyword
-                },
-                success: function (response) {
-                    if(response == 'empty'){
-                        $('.popup_get_data_list.pop_sdt_kgd').hide();
-                    }else{
-                        $('.popup_get_data_list.pop_sdt_kgd').show();
-                        $('.popup_get_data_list.pop_sdt_kgd .list_show').empty();
-                        $('.popup_get_data_list.pop_sdt_kgd .list_show').html(response);
+            if(keyword != ''){
+                $.ajax({
+                    type: "post",
+                    dataType: "html",
+                    url: my_ajax_object.ajax_url,
+                    data: {
+                        action: "setSdtKgd",
+                        keyword:keyword
+                    },
+                    success: function (response) {
+                        if(response == 'empty'){
+                            $('.popup_get_data_list.pop_sdt_kgd').hide();
+                        }else{
+                            $('.popup_get_data_list.pop_sdt_kgd').show();
+                            $('.popup_get_data_list.pop_sdt_kgd .list_show').empty();
+                            $('.popup_get_data_list.pop_sdt_kgd .list_show').html(response);
+                        }
                     }
-                }
-            });
+                });
+            }else{
+                $('.popup_get_data_list').hide();
+            }
         },500));
 
         $('.email_kgd_duy_nhat').keyup(delay(function (e) {
             var keyword = $(this).val();
-            $.ajax({
-                type: "post",
-                dataType: "html",
-                url: my_ajax_object.ajax_url,
-                data: {
-                    action: "setEmail_kgd_duy_nhat",
-                    keyword:keyword
-                },
-                success: function (response) {
-                    if(response == 'empty'){
-                        $('.popup_get_data_list.pop_email_kgd_duy_nhat').hide();
-                    }else{
-                        $('.popup_get_data_list.pop_email_kgd_duy_nhat').show();
-                        $('.popup_get_data_list.pop_email_kgd_duy_nhat .list_show').empty();
-                        $('.popup_get_data_list.pop_email_kgd_duy_nhat .list_show').html(response);
+            if(keyword != ''){
+                $.ajax({
+                    type: "post",
+                    dataType: "html",
+                    url: my_ajax_object.ajax_url,
+                    data: {
+                        action: "setEmail_kgd_duy_nhat",
+                        keyword:keyword
+                    },
+                    success: function (response) {
+                        if(response == 'empty'){
+                            $('.popup_get_data_list.pop_email_kgd_duy_nhat').hide();
+                        }else{
+                            $('.popup_get_data_list.pop_email_kgd_duy_nhat').show();
+                            $('.popup_get_data_list.pop_email_kgd_duy_nhat .list_show').empty();
+                            $('.popup_get_data_list.pop_email_kgd_duy_nhat .list_show').html(response);
+                        }
                     }
-                }
-            });
+                });
+            }else{
+                $('.popup_get_data_list').hide();
+            }
         },500));
 
         $('.tk_kgd').keyup(delay(function (e) {
             var keyword = $(this).val();
-            $.ajax({
-                type: "post",
-                dataType: "html",
-                url: my_ajax_object.ajax_url,
-                data: {
-                    action: "setTk_kgd",
-                    keyword:keyword
-                },
-                success: function (response) {
-                    if(response == 'empty'){
-                        $('.popup_get_data_list.pop_tk_kgd').hide();
-                    }else{
-                        $('.popup_get_data_list.pop_tk_kgd').show();
-                        $('.popup_get_data_list.pop_tk_kgd .list_show').empty();
-                        $('.popup_get_data_list.pop_tk_kgd .list_show').html(response);
+            if(keyword != ''){
+                $.ajax({
+                    type: "post",
+                    dataType: "html",
+                    url: my_ajax_object.ajax_url,
+                    data: {
+                        action: "setTk_kgd",
+                        keyword:keyword
+                    },
+                    success: function (response) {
+                        if(response == 'empty'){
+                            $('.popup_get_data_list.pop_tk_kgd').hide();
+                        }else{
+                            $('.popup_get_data_list.pop_tk_kgd').show();
+                            $('.popup_get_data_list.pop_tk_kgd .list_show').empty();
+                            $('.popup_get_data_list.pop_tk_kgd .list_show').html(response);
+                        }
                     }
-                }
-            });
+                });
+            }else{
+                $('.popup_get_data_list').hide();
+            }
         },500));
 
         $('.ma_kgd').keyup(delay(function (e) {
+            var keyword = $(this).val();
+            if(keyword != ''){
+                $.ajax({
+                    type: "post",
+                    dataType: "html",
+                    url: my_ajax_object.ajax_url,
+                    data: {
+                        action: "setMa_kgd",
+                        keyword:keyword
+                    },
+                    success: function (response) {
+                        if(response == 'empty'){
+                            $('.popup_get_data_list.pop_ma_kgd').hide();
+                        }else{
+                            $('.popup_get_data_list.pop_ma_kgd').show();
+                            $('.popup_get_data_list.pop_ma_kgd .list_show').empty();
+                            $('.popup_get_data_list.pop_ma_kgd .list_show').html(response);
+                        }
+                    }
+                });
+            }else{
+                $('.popup_get_data_list').hide();
+            }
+        },500));
+
+        $('.ten_dt_gui_book_dt').keyup(delay(function (e) {
             var keyword = $(this).val();
             $.ajax({
                 type: "post",
                 dataType: "html",
                 url: my_ajax_object.ajax_url,
                 data: {
-                    action: "setMa_kgd",
+                    action: "set_pop_ten_dt_gui_book_dt",
                     keyword:keyword
                 },
                 success: function (response) {
-                    if(response == 'empty'){
-                        $('.popup_get_data_list.pop_ma_kgd').hide();
-                    }else{
-                        $('.popup_get_data_list.pop_ma_kgd').show();
-                        $('.popup_get_data_list.pop_ma_kgd .list_show').empty();
-                        $('.popup_get_data_list.pop_ma_kgd .list_show').html(response);
-                    }
+                    $('.popup_get_data_list.pop_ten_dt_gui_book_dt').show();
+                    $('.popup_get_data_list.pop_ten_dt_gui_book_dt .list_show').empty();
+                    $('.popup_get_data_list.pop_ten_dt_gui_book_dt .list_show').html(response);
                 }
             });
         },500));
 
-        $(document).on('click','.popup_get_data_list .list_show ul', function () {
+        $(document).on('click','.popup_get_data_list.pop_ten .list_show ul', function () {
+            var ma_kgd = $(this).find('.ma_kgd').val();
+            var ten = $(this).find('.ten').val();
+            var sdt = $(this).find('.sdt').val();
+
+            $('.khach_dai_dien_gd').val(ten);
+            $('.sdt_gd').val(sdt);
+
+            $('.popup_get_data_list').hide();
+        });
+
+        $(document).on('click','.popup_get_data_list.pop_sdt .list_show ul', function () {
+            var ma_kgd = $(this).find('.ma_kgd').val();
+            var ten = $(this).find('.ten').val();
+            var sdt = $(this).find('.sdt').val();
+
+            $('.khach_dai_dien_gd').val(ten);
+            $('.sdt_gd').val(sdt);
+
+            $('.popup_get_data_list').hide();
+        });
+
+        $(document).on('click','.popup_get_data_list.pop_tenkgd .list_show ul', function () {
             var ma_kgd = $(this).find('.ma_kgd').val();
             var ten = $(this).find('.ten').val();
             var sdt = $(this).find('.sdt').val();
@@ -1834,8 +1893,6 @@
             var nick = $(this).find('.nick').val();
             var link = $(this).find('.link').val();
 
-            $('.khach_dai_dien_gd').val(ten);
-            $('.sdt_gd').val(sdt);
             $('.email_kgd_duy_nhat').val(email);
             $('.sdt_kgd').val(sdt);
             $('.nick_kgd').val(nick);
@@ -1845,6 +1902,90 @@
 
             $('.popup_get_data_list').hide();
         });
+
+        $(document).on('click','.popup_get_data_list.pop_nick_kgd .list_show ul', function () {
+            var ma_kgd = $(this).find('.ma_kgd').val();
+            var ten = $(this).find('.ten').val();
+            var sdt = $(this).find('.sdt').val();
+            var email = $(this).find('.email').val();
+            var tk = $(this).find('.tk').val();
+            var nick = $(this).find('.nick').val();
+            var link = $(this).find('.link').val();
+
+            $('.email_kgd_duy_nhat').val(email);
+            $('.sdt_kgd').val(sdt);
+            $('.nick_kgd').val(nick);
+            $('.ten_kgd').val(ten);
+            $('.tk_kgd').val(tk);
+            $('.ma_kgd').val(ma_kgd);
+
+            $('.popup_get_data_list').hide();
+        });
+
+        $(document).on('click','.popup_get_data_list.pop_sdt_kgd .list_show ul', function () {
+            var ma_kgd = $(this).find('.ma_kgd').val();
+            var ten = $(this).find('.ten').val();
+            var sdt = $(this).find('.sdt').val();
+            var email = $(this).find('.email').val();
+            var tk = $(this).find('.tk').val();
+            var nick = $(this).find('.nick').val();
+            var link = $(this).find('.link').val();
+
+            $('.email_kgd_duy_nhat').val(email);
+            $('.sdt_kgd').val(sdt);
+            $('.nick_kgd').val(nick);
+            $('.ten_kgd').val(ten);
+            $('.tk_kgd').val(tk);
+            $('.ma_kgd').val(ma_kgd);
+
+            $('.popup_get_data_list').hide();
+        });
+
+        $(document).on('click','.pop_ten_dt_gui_book_dt .list_show ul', function () {
+            var ten = $(this).find('.ten').val();
+            var mdt = $(this).find('.mdt').val();
+
+            $('input.ten_dt_gui_book_dt').val(ten);
+            $('.ma_dt').val(mdt);
+
+            $('.popup_get_data_list').hide();
+        });
+
+        //hide air datepick onclick this
+        $('.datepicker-here').on('click', function () {
+            var dp = $(this).datepicker({
+                days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+                minDate: new Date(),
+                weekends: [0,5,6],
+                onSelect: function(formattedDate, date, inst) {
+                    $('.datepicker').removeClass('active');
+                },
+            });
+
+            dp.selectDate([
+                new Date(2016, 5, 18),
+                new Date(2016, 5, 20),
+                new Date(2016, 5, 23),
+                new Date(2016, 6, 10)
+            ])
+        });
+
+
+
+        //hide popup search giao dich
+        $('.quantri_admin .them_giao_dich input').on('focus', function () {
+            $('.popup_get_data_list').hide();
+            $('.pop_ten_khach_san_gd').hide();
+        });
+        $('.quantri_admin .them_giao_dich select').on('focus', function () {
+            $('.popup_get_data_list').hide();
+            $('.pop_ten_khach_san_gd').hide();
+        });
+        $('.quantri_admin .them_giao_dich textarea').on('focus', function () {
+            $('.popup_get_data_list').hide();
+            $('.pop_ten_khach_san_gd').hide();
+        });
+
     }
 
     function googleSheet() {

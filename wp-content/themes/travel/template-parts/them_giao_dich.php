@@ -40,297 +40,332 @@ if($_SESSION['sucess'] == "sucess") {
                 <div class="them_giao_dich">
                     <form action="<?php echo home_url('/'); ?>them-giao-dich" method="post">
                         <?php
-                            if (isset($_POST['sub_new_giao_dich'])) {
-                                $add_new_giao_dich = array(
-                                    'post_title' => 'BTC_'.$post_id,
-                                    'post_status' => 'publish',
-                                    'post_type' => 'giao_dich',
-                                );
+                        if (isset($_POST['sub_new_giao_dich'])) {
+                            $add_new_giao_dich = array(
+                                'post_title' => $_POST['ten_khach_san_gd_val'],
+                                'post_status' => 'publish',
+                                'post_type' => 'giao_dich',
+                            );
 
-                                $post_id = wp_insert_post($add_new_giao_dich);
+                            $post_id = wp_insert_post($add_new_giao_dich);
 
-                                date_default_timezone_set('Asia/Ho_Chi_Minh');
-                                $date_check = date('d-m-Y H:i:s');
+                            date_default_timezone_set('Asia/Ho_Chi_Minh');
+                            $date_check = date('d-m-Y H:i:s');
 
-                                $array_gd = array(
-                                    'post_type' => 'giao_dich',
-                                    'post_status' => 'publish'
-                                );
+                            $array_gd = array(
+                                'post_type' => 'giao_dich',
+                                'post_status' => 'publish'
+                            );
 
-                                $query = new WP_Query($array_gd);
+                            $query = new WP_Query($array_gd);
 
-                                if ($query->have_posts()) {
-                                    while ($query->have_posts()) : $query->the_post();
-                                        /*if (get_field('ma_gd') == $_POST['ma_gd']) {
-                                            $alert = "<p class='alert_tk_fail'>Mã giao dịch đã tồn tại !</p>";
-                                        }elseif ($_POST['sl_dt'] != $_POST['sl_gd']) {
-                                            $alert = "<p class='alert_tk_fail'>Số lượng phòng khách hàng và đối tác phải bằng nhau !</p>";
-                                        }*//*elseif (get_field('ma_gd_hoan_tien_1') == $_POST['ma_gd_hoan_tien_1']) {
+                            if ($query->have_posts()) {
+                                while ($query->have_posts()) : $query->the_post();
+                                    /*if (get_field('ma_gd') == $_POST['ma_gd']) {
+                                        $alert = "<p class='alert_tk_fail'>Mã giao dịch đã tồn tại !</p>";
+                                    }elseif ($_POST['sl_dt'] != $_POST['sl_gd']) {
+                                        $alert = "<p class='alert_tk_fail'>Số lượng phòng khách hàng và đối tác phải bằng nhau !</p>";
+                                    }*//*elseif (get_field('ma_gd_hoan_tien_1') == $_POST['ma_gd_hoan_tien_1']) {
                                             $alert = "<p class='alert_tk_fail'>Mã giao dịch hoàn tiền khách đã tồn tại !</p>";
                                         }elseif (get_field('ma_gd_hoan_tien_2') == $_POST['ma_gd_hoan_tien_2']) {
                                             $alert = "<p class='alert_tk_fail'>Mã giao dịch hoàn tiền đối tác đã tồn tại !</p>";
                                         }*/
-                                    endwhile;
-                                    wp_reset_postdata();
-                                }
-
-                                if(! isset($alert)){
-                                    $group_ID = '6';
-                                    $fields = acf_get_fields($group_ID);
-                                    foreach ($fields as $field){
-                                        if($field['name'] == 'ci_gd'){
-                                            $dob_str = $_POST['ci_gd'];
-                                            if(!empty($dob_str)){
-                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
-                                                $date = $date->format('Ymd');
-                                                update_field('ci_gd', $date, $post_id);
-                                            }
-                                        }elseif($field['name'] == 'co_gd'){
-                                            $dob_str = $_POST['co_gd'];
-                                            if(!empty($dob_str)){
-                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
-                                                $date = $date->format('Ymd');
-                                                update_field('co_gd', $date, $post_id);
-                                            }
-                                        }elseif($field['name'] == 'ngay_duoc_huy'){
-                                            $dob_str = $_POST['ngay_duoc_huy'];
-                                            if(!empty($dob_str)){
-                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
-                                                $date = $date->format('Ymd');
-                                                update_field('ngay_duoc_huy', $date, $post_id);
-                                            }
-                                        }elseif($field['name'] == 'ngay_duoc_thay_doi'){
-                                            $dob_str = $_POST['ngay_duoc_thay_doi'];
-                                            if(!empty($dob_str)){
-                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
-                                                $date = $date->format('Ymd');
-                                                update_field('ngay_duoc_thay_doi', $date, $post_id);
-                                            }
-                                        }elseif($field['name'] == 'ngay_yeu_cau_kh_hoan_tat_tt_khac'){
-                                            $dob_str = $_POST['ngay_yeu_cau_kh_hoan_tat_tt_khac'];
-                                            if(!empty($dob_str)){
-                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
-                                                $date = $date->format('Ymd');
-                                                update_field('ngay_yeu_cau_kh_hoan_tat_tt_khac', $date, $post_id);
-                                            }
-                                        }elseif($field['name'] == 'ngay_phai_hoan_tat_tt_cho_ks_khac2'){
-                                            if(!empty($dob_str)){
-                                                $dob_str = $_POST['ngay_phai_hoan_tat_tt_cho_ks_khac2'];
-                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
-                                                $date = $date->format('Ymd');
-                                                update_field('ngay_phai_hoan_tat_tt_cho_ks_khac2', $date, $post_id);
-                                            }
-                                        }elseif($field['name'] == 'ngay_coc_1'){
-                                            $dob_str = $_POST['ngay_coc_1'];
-                                            if(!empty($dob_str)){
-                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
-                                                $date = $date->format('Ymd');
-                                                update_field('ngay_coc_1', $date, $post_id);
-                                            }
-                                        }elseif($field['name'] == 'ngay_tt_lan_2_1'){
-                                            $dob_str = $_POST['ngay_tt_lan_2_1'];
-                                            if(!empty($dob_str)){
-                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
-                                                $date = $date->format('Ymd');
-                                                update_field('ngay_tt_lan_2_1', $date, $post_id);
-                                            }
-                                        }elseif($field['name'] == 'ngay_tt_lan_3_1'){
-                                            $dob_str = $_POST['ngay_tt_lan_3_1'];
-                                            if(!empty($dob_str)){
-                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
-                                                $date = $date->format('Ymd');
-                                                update_field('ngay_tt_lan_3_1', $date, $post_id);
-                                            }
-                                        }elseif($field['name'] == 'ngay_hoan_tien_1'){
-                                            $dob_str = $_POST['ngay_hoan_tien_1'];
-                                            if(!empty($dob_str)){
-                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
-                                                $date = $date->format('Ymd');
-                                                update_field('ngay_hoan_tien_1', $date, $post_id);
-                                            }
-                                        }elseif($field['name'] == 'ngay_phai_coc_di_2'){
-                                            $dob_str = $_POST['ngay_phai_coc_di_2'];
-                                            if(!empty($dob_str)){
-                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
-                                                $date = $date->format('Ymd');
-                                                update_field('ngay_phai_coc_di_2', $date, $post_id);
-                                            }
-                                        }elseif($field['name'] == 'ngay_phai_di_lan_2_2'){
-                                            $dob_str = $_POST['ngay_phai_di_lan_2_2'];
-                                            if(!empty($dob_str)){
-                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
-                                                $date = $date->format('Ymd');
-                                                update_field('ngay_phai_di_lan_2_2', $date, $post_id);
-                                            }
-                                        }elseif($field['name'] == 'ngay_phai_di_lan_3_2'){
-                                            $dob_str = $_POST['ngay_phai_di_lan_3_2'];
-                                            if(!empty($dob_str)){
-                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
-                                                $date = $date->format('Ymd');
-                                                update_field('ngay_phai_di_lan_3_2', $date, $post_id);
-                                            }
-                                        }elseif($field['name'] == 'ngay_hoan_tien_2'){
-                                            $dob_str = $_POST['ngay_hoan_tien_2'];
-                                            if(!empty($dob_str)){
-                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
-                                                $date = $date->format('Ymd');
-                                                update_field('ngay_hoan_tien_2', $date, $post_id);
-                                            }
-                                        }elseif($field['name'] == 'ma_gd_con'){
-                                            $dob_str = 'MGDLK_'.$post_id;
-                                            add_post_meta($post_id, 'ma_gd_con', $dob_str, true);
-                                        }elseif($field['name'] == 'ma_gd_them_booking'){
-                                            $dob_str = 'BTC_'.$post_id;
-                                            add_post_meta($post_id, 'ma_gd_them_booking', $dob_str, true);
-                                        }elseif($field['name'] == 'ma_gd'){
-                                            $dob_str = 'MBK_'.$post_id;
-                                            add_post_meta($post_id, 'ma_gd', $dob_str, true);
-                                        }else{
-                                            if($field['name'] != ""){
-                                                add_post_meta($post_id, $field['name'], $_POST[$field['name']], true);
-                                            }
-                                        }
-
-                                    }
-
-                                    //lịch sử giao dịch
-                                    $add_lich_su_giao_dich = array(
-                                        'post_title' => $_POST['ma_gd'],
-                                        'post_status' => 'publish',
-                                        'post_type' => 'history_giao_dich',
-                                    );
-
-                                    $post_lich_su_gd = wp_insert_post($add_lich_su_giao_dich);
-
-                                    $group_ID_ls = '6';
-                                    $fields_ls = acf_get_fields($group_ID_ls);
-                                    foreach ($fields_ls as $field){
-                                        if($field['name'] == 'ci_gd'){
-                                            $dob_str = $_POST['ci_gd'];
-                                            if(!empty($dob_str)){
-                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
-                                                $date = $date->format('Ymd');
-                                                update_field('ci_gd', $date, $post_lich_su_gd);
-                                            }
-                                        }elseif($field['name'] == 'co_gd'){
-                                            $dob_str = $_POST['co_gd'];
-                                            if(!empty($dob_str)){
-                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
-                                                $date = $date->format('Ymd');
-                                                update_field('co_gd', $date, $post_lich_su_gd);
-                                            }
-                                        }elseif($field['name'] == 'ngay_duoc_huy'){
-                                            $dob_str = $_POST['ngay_duoc_huy'];
-                                            if(!empty($dob_str)){
-                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
-                                                $date = $date->format('Ymd');
-                                                update_field('ngay_duoc_huy', $date, $post_lich_su_gd);
-                                            }
-                                        }elseif($field['name'] == 'ngay_duoc_thay_doi'){
-                                            $dob_str = $_POST['ngay_duoc_thay_doi'];
-                                            if(!empty($dob_str)){
-                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
-                                                $date = $date->format('Ymd');
-                                                update_field('ngay_duoc_thay_doi', $date, $post_lich_su_gd);
-                                            }
-                                        }elseif($field['name'] == 'ngay_yeu_cau_kh_hoan_tat_tt_khac'){
-                                            $dob_str = $_POST['ngay_yeu_cau_kh_hoan_tat_tt_khac'];
-                                            if(!empty($dob_str)){
-                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
-                                                $date = $date->format('Ymd');
-                                                update_field('ngay_yeu_cau_kh_hoan_tat_tt_khac', $date, $post_lich_su_gd);
-                                            }
-                                        }elseif($field['name'] == 'ngay_phai_hoan_tat_tt_cho_ks_khac2'){
-                                            $dob_str = $_POST['ngay_phai_hoan_tat_tt_cho_ks_khac2'];
-                                            if(!empty($dob_str)){
-                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
-                                                $date = $date->format('Ymd');
-                                                update_field('ngay_phai_hoan_tat_tt_cho_ks_khac2', $date, $post_lich_su_gd);
-                                            }
-                                        }elseif($field['name'] == 'ngay_coc_1'){
-                                            $dob_str = $_POST['ngay_coc_1'];
-                                            if(!empty($dob_str)){
-                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
-                                                $date = $date->format('Ymd');
-                                                update_field('ngay_coc_1', $date, $post_lich_su_gd);
-                                            }
-                                        }elseif($field['name'] == 'ngay_tt_lan_2_1'){
-                                            $dob_str = $_POST['ngay_tt_lan_2_1'];
-                                            if(!empty($dob_str)){
-                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
-                                                $date = $date->format('Ymd');
-                                                update_field('ngay_tt_lan_2_1', $date, $post_lich_su_gd);
-                                            }
-                                        }elseif($field['name'] == 'ngay_tt_lan_3_1'){
-                                            $dob_str = $_POST['ngay_tt_lan_3_1'];
-                                            if(!empty($dob_str)){
-                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
-                                                $date = $date->format('Ymd');
-                                                update_field('ngay_tt_lan_3_1', $date, $post_lich_su_gd);
-                                            }
-                                        }elseif($field['name'] == 'ngay_hoan_tien_1'){
-                                            $dob_str = $_POST['ngay_hoan_tien_1'];
-                                            if(!empty($dob_str)){
-                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
-                                                $date = $date->format('Ymd');
-                                                update_field('ngay_hoan_tien_1', $date, $post_lich_su_gd);
-                                            }
-                                        }elseif($field['name'] == 'ngay_phai_coc_di_2'){
-                                            $dob_str = $_POST['ngay_phai_coc_di_2'];
-                                            if(!empty($dob_str)){
-                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
-                                                $date = $date->format('Ymd');
-                                                update_field('ngay_phai_coc_di_2', $date, $post_lich_su_gd);
-                                            }
-                                        }elseif($field['name'] == 'ngay_phai_di_lan_2_2'){
-                                            $dob_str = $_POST['ngay_phai_di_lan_2_2'];
-                                            if(!empty($dob_str)){
-                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
-                                                $date = $date->format('Ymd');
-                                                update_field('ngay_phai_di_lan_2_2', $date, $post_lich_su_gd);
-                                            }
-                                        }elseif($field['name'] == 'ngay_phai_di_lan_3_2'){
-                                            $dob_str = $_POST['ngay_phai_di_lan_3_2'];
-                                            if(!empty($dob_str)){
-                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
-                                                $date = $date->format('Ymd');
-                                                update_field('ngay_phai_di_lan_3_2', $date, $post_lich_su_gd);
-                                            }
-                                        }elseif($field['name'] == 'ngay_hoan_tien_2'){
-                                            $dob_str = $_POST['ngay_hoan_tien_2'];
-                                            if(!empty($dob_str)){
-                                                $date = DateTime::createFromFormat('d/m/Y', $dob_str);
-                                                $date = $date->format('Ymd');
-                                                update_field('ngay_hoan_tien_2', $date, $post_lich_su_gd);
-                                            }
-                                        }elseif($field['name'] == 'ma_gd_con'){
-                                            $dob_str = 'MGDLK_'.$post_lich_su_gd;
-                                            add_post_meta($post_lich_su_gd, 'ma_gd_con', $dob_str, true);
-                                        }elseif($field['name'] == 'ma_gd_them_booking'){
-                                            $dob_str = 'BTC_'.$post_lich_su_gd;
-                                            add_post_meta($post_lich_su_gd, 'ma_gd_them_booking', $dob_str, true);
-                                        }elseif($field['name'] == 'ma_gd'){
-                                            $dob_str = 'MBK_'.$post_lich_su_gd;
-                                            add_post_meta($post_lich_su_gd, 'ma_gd', $dob_str, true);
-                                        }else{
-                                            if($field['name'] != ""){
-                                                add_post_meta($post_lich_su_gd, $field['name'], $_POST[$field['name']], true);
-                                            }
-                                        }
-                                    }
-
-                                    add_post_meta($post_lich_su_gd, 'nguoi_sua', $_SESSION['name'], true);
-                                    add_post_meta($post_lich_su_gd, 'hanh_dong', 'Thêm giao dịch', true);
-                                    add_post_meta($post_lich_su_gd, 'thoi_gian_sua', $date_check, true);
-                                }
-
-                                if(isset($alert)){
-                                    echo '<p class="alert">'.$alert.'</p>';
-                                    echo '<a href="javascript:history.back()" class="phuc_hoi">Click phục hồi các giá trị vừa nhập để sửa lại !</a>';
-                                }else{
-                                    echo $alert = "<p class='alert_tk_sucess'>Thêm giao dịch thành công !</p>";
-                                }
+                                endwhile;
+                                wp_reset_postdata();
                             }
+
+                            if(! isset($alert)){
+                                $group_ID = '6';
+                                $fields = acf_get_fields($group_ID);
+                                foreach ($fields as $field){
+                                    if($field['name'] == 'ci_gd'){
+                                        $dob_str = $_POST['ci_gd'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('ci_gd', $date, $post_id);
+                                        }
+                                    }elseif($field['name'] == 'co_gd'){
+                                        $dob_str = $_POST['co_gd'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('co_gd', $date, $post_id);
+                                        }
+                                    }elseif($field['name'] == 'ngay_duoc_huy'){
+                                        $dob_str = $_POST['ngay_duoc_huy'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('ngay_duoc_huy', $date, $post_id);
+                                        }
+                                    }elseif($field['name'] == 'ngay_duoc_thay_doi'){
+                                        $dob_str = $_POST['ngay_duoc_thay_doi'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('ngay_duoc_thay_doi', $date, $post_id);
+                                        }
+                                    }elseif($field['name'] == 'ngay_yeu_cau_kh_hoan_tat_tt_khac'){
+                                        $dob_str = $_POST['ngay_yeu_cau_kh_hoan_tat_tt_khac'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('ngay_yeu_cau_kh_hoan_tat_tt_khac', $date, $post_id);
+                                        }
+                                    }elseif($field['name'] == 'ngay_phai_hoan_tat_tt_cho_ks_khac2'){
+                                        if(!empty($dob_str)){
+                                            $dob_str = $_POST['ngay_phai_hoan_tat_tt_cho_ks_khac2'];
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('ngay_phai_hoan_tat_tt_cho_ks_khac2', $date, $post_id);
+                                        }
+                                    }elseif($field['name'] == 'ngay_coc_1'){
+                                        $dob_str = $_POST['ngay_coc_1'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('ngay_coc_1', $date, $post_id);
+                                        }
+                                    }elseif($field['name'] == 'ngay_tt_lan_2_1'){
+                                        $dob_str = $_POST['ngay_tt_lan_2_1'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('ngay_tt_lan_2_1', $date, $post_id);
+                                        }
+                                    }elseif($field['name'] == 'ngay_tt_lan_3_1'){
+                                        $dob_str = $_POST['ngay_tt_lan_3_1'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('ngay_tt_lan_3_1', $date, $post_id);
+                                        }
+                                    }elseif($field['name'] == 'ngay_hoan_tien_1'){
+                                        $dob_str = $_POST['ngay_hoan_tien_1'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('ngay_hoan_tien_1', $date, $post_id);
+                                        }
+                                    }elseif($field['name'] == 'ngay_phai_coc_di_2'){
+                                        $dob_str = $_POST['ngay_phai_coc_di_2'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('ngay_phai_coc_di_2', $date, $post_id);
+                                        }
+                                    }elseif($field['name'] == 'ngay_phai_di_lan_2_2'){
+                                        $dob_str = $_POST['ngay_phai_di_lan_2_2'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('ngay_phai_di_lan_2_2', $date, $post_id);
+                                        }
+                                    }elseif($field['name'] == 'ngay_phai_di_lan_3_2'){
+                                        $dob_str = $_POST['ngay_phai_di_lan_3_2'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('ngay_phai_di_lan_3_2', $date, $post_id);
+                                        }
+                                    }elseif($field['name'] == 'ngay_hoan_tien_2'){
+                                        $dob_str = $_POST['ngay_hoan_tien_2'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('ngay_hoan_tien_2', $date, $post_id);
+                                        }
+                                    }elseif($field['name'] == 'ngay_lock_phong_khach'){
+                                        $dob_str = $_POST['ngay_lock_phong_khach'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('ngay_lock_phong_khach', $date, $post_id);
+                                        }
+                                    }elseif($field['name'] == 'ngay_lock_phong_doi_tac'){
+                                        $dob_str = $_POST['ngay_lock_phong_doi_tac'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('ngay_lock_phong_doi_tac', $date, $post_id);
+                                        }
+                                    }elseif($field['name'] == 'ma_gd_con'){
+                                        $dob_str = 'MLK_'.$post_id;
+                                        add_post_meta($post_id, 'ma_gd_con', $dob_str, true);
+                                    }elseif($field['name'] == 'ma_gd_them_booking'){
+                                        $dob_str = 'BTC_'.$post_id;
+                                        add_post_meta($post_id, 'ma_gd_them_booking', $dob_str, true);
+                                    }elseif($field['name'] == 'ma_gd'){
+                                        $dob_str = 'MBK_'.$post_id;
+                                        add_post_meta($post_id, 'ma_gd', $dob_str, true);
+                                    }else{
+                                        if($field['name'] != ""){
+                                            add_post_meta($post_id, $field['name'], $_POST[$field['name']], true);
+                                        }
+                                    }
+
+                                }
+
+                                //lịch sử giao dịch
+                                $add_lich_su_giao_dich = array(
+                                    'post_status' => 'publish',
+                                    'post_type' => 'history_giao_dich',
+                                    'post_title' => $_POST['ten_khach_san_gd_val'],
+                                );
+
+                                $post_lich_su_gd = wp_insert_post($add_lich_su_giao_dich);
+
+                                $group_ID_ls = '6';
+                                $fields_ls = acf_get_fields($group_ID_ls);
+                                foreach ($fields_ls as $field){
+                                    if($field['name'] == 'ci_gd'){
+                                        $dob_str = $_POST['ci_gd'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('ci_gd', $date, $post_lich_su_gd);
+                                        }
+                                    }elseif($field['name'] == 'co_gd'){
+                                        $dob_str = $_POST['co_gd'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('co_gd', $date, $post_lich_su_gd);
+                                        }
+                                    }elseif($field['name'] == 'ngay_duoc_huy'){
+                                        $dob_str = $_POST['ngay_duoc_huy'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('ngay_duoc_huy', $date, $post_lich_su_gd);
+                                        }
+                                    }elseif($field['name'] == 'ngay_duoc_thay_doi'){
+                                        $dob_str = $_POST['ngay_duoc_thay_doi'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('ngay_duoc_thay_doi', $date, $post_lich_su_gd);
+                                        }
+                                    }elseif($field['name'] == 'ngay_yeu_cau_kh_hoan_tat_tt_khac'){
+                                        $dob_str = $_POST['ngay_yeu_cau_kh_hoan_tat_tt_khac'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('ngay_yeu_cau_kh_hoan_tat_tt_khac', $date, $post_lich_su_gd);
+                                        }
+                                    }elseif($field['name'] == 'ngay_phai_hoan_tat_tt_cho_ks_khac2'){
+                                        $dob_str = $_POST['ngay_phai_hoan_tat_tt_cho_ks_khac2'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('ngay_phai_hoan_tat_tt_cho_ks_khac2', $date, $post_lich_su_gd);
+                                        }
+                                    }elseif($field['name'] == 'ngay_coc_1'){
+                                        $dob_str = $_POST['ngay_coc_1'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('ngay_coc_1', $date, $post_lich_su_gd);
+                                        }
+                                    }elseif($field['name'] == 'ngay_tt_lan_2_1'){
+                                        $dob_str = $_POST['ngay_tt_lan_2_1'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('ngay_tt_lan_2_1', $date, $post_lich_su_gd);
+                                        }
+                                    }elseif($field['name'] == 'ngay_tt_lan_3_1'){
+                                        $dob_str = $_POST['ngay_tt_lan_3_1'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('ngay_tt_lan_3_1', $date, $post_lich_su_gd);
+                                        }
+                                    }elseif($field['name'] == 'ngay_hoan_tien_1'){
+                                        $dob_str = $_POST['ngay_hoan_tien_1'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('ngay_hoan_tien_1', $date, $post_lich_su_gd);
+                                        }
+                                    }elseif($field['name'] == 'ngay_phai_coc_di_2'){
+                                        $dob_str = $_POST['ngay_phai_coc_di_2'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('ngay_phai_coc_di_2', $date, $post_lich_su_gd);
+                                        }
+                                    }elseif($field['name'] == 'ngay_phai_di_lan_2_2'){
+                                        $dob_str = $_POST['ngay_phai_di_lan_2_2'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('ngay_phai_di_lan_2_2', $date, $post_lich_su_gd);
+                                        }
+                                    }elseif($field['name'] == 'ngay_phai_di_lan_3_2'){
+                                        $dob_str = $_POST['ngay_phai_di_lan_3_2'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('ngay_phai_di_lan_3_2', $date, $post_lich_su_gd);
+                                        }
+                                    }elseif($field['name'] == 'ngay_hoan_tien_2'){
+                                        $dob_str = $_POST['ngay_hoan_tien_2'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('ngay_hoan_tien_2', $date, $post_lich_su_gd);
+                                        }
+                                    }elseif($field['name'] == 'ngay_lock_phong_khach'){
+                                        $dob_str = $_POST['ngay_lock_phong_khach'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('ngay_lock_phong_khach', $date, $post_lich_su_gd);
+                                        }
+                                    }elseif($field['name'] == 'ngay_lock_phong_doi_tac'){
+                                        $dob_str = $_POST['ngay_lock_phong_doi_tac'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('ngay_lock_phong_doi_tac', $date, $post_lich_su_gd);
+                                        }
+                                    }elseif($field['name'] == 'ma_gd_con'){
+                                        $dob_str = 'MLK_'.$post_lich_su_gd;
+                                        add_post_meta($post_lich_su_gd, 'ma_gd_con', $dob_str, true);
+                                    }elseif($field['name'] == 'ma_gd_them_booking'){
+                                        $dob_str = 'BTC_'.$post_lich_su_gd;
+                                        add_post_meta($post_lich_su_gd, 'ma_gd_them_booking', $dob_str, true);
+                                    }elseif($field['name'] == 'ma_gd'){
+                                        $dob_str = 'MBK_'.$post_lich_su_gd;
+                                        add_post_meta($post_lich_su_gd, 'ma_gd', $dob_str, true);
+                                    }else{
+                                        if($field['name'] != ""){
+                                            add_post_meta($post_lich_su_gd, $field['name'], $_POST[$field['name']], true);
+                                        }
+                                    }
+                                }
+
+                                add_post_meta($post_lich_su_gd, 'nguoi_sua', $_SESSION['name'], true);
+                                add_post_meta($post_lich_su_gd, 'hanh_dong', 'Thêm giao dịch', true);
+                                add_post_meta($post_lich_su_gd, 'thoi_gian_sua', $date_check, true);
+
+
+                                echo '<a href="'.get_permalink($post_id).'" class="rediret_to_single">rediret_to_single</a>';
+
+                                wp_redirect(get_permalink($post_id));
+                                exit;
+
+                            }
+
+                            if(isset($alert)){
+                                echo '<p class="alert">'.$alert.'</p>';
+                                echo '<a href="javascript:history.back()" class="phuc_hoi">Click phục hồi các giá trị vừa nhập để sửa lại !</a>';
+                            }else{
+                                echo $alert = "<p class='alert_tk_sucess'>Thêm giao dịch thành công !</p>";
+                            }
+                        }
                         ?>
 
                         <table width="100%" border="1">
@@ -368,6 +403,28 @@ if($_SESSION['sucess'] == "sucess") {
                                                     }
                                                 }
                                                 ?>" required autocomplete="off">
+                                                <input type="hidden" value="<?php
+                                                if(!empty(get_field('ten_khach_san_gd'))){
+                                                    $ten_khach_san_gd = get_field('ten_khach_san_gd');
+                                                    if ( (int)$ten_khach_san_gd == $ten_khach_san_gd ) {
+                                                        $query_name_hotel = new WP_Query(array(
+                                                            'post_type' => 'hotel',
+                                                            'p' => get_field('ten_khach_san_gd'),
+                                                            'posts_per_page' => 1,
+                                                        ));
+
+                                                        if($query_name_hotel->have_posts()) : while ($query_name_hotel->have_posts()) : $query_name_hotel->the_post();
+                                                            echo get_the_title();
+                                                        endwhile;
+                                                        else :
+                                                            echo get_field('ten_khach_san_gd');
+                                                        endif;
+                                                        wp_reset_postdata();
+                                                    }else{
+                                                        echo get_field('ten_khach_san_gd');
+                                                    }
+                                                }
+                                                ?>" class="title_new_post" />
                                                 <input type="hidden" name="ten_khach_san_gd" class="ten_khach_san_gd" value="<?php echo get_field('ten_khach_san_gd'); ?>" autocomplete="off">
                                                 <div class="pop_ten_khach_san_gd">
                                                     <ul>
@@ -467,8 +524,8 @@ if($_SESSION['sucess'] == "sucess") {
                                     </table>
                                 </td>
                                 <td align="center" style="background-color: #f19315b3;">
-                                    MGD LK
-                                    <input name="ma_gd_con" class="ma_gd_con" value="<?php echo 'MGDLK_ ...'; ?>" style="background: #FFF;" disabled/>
+                                    MLK
+                                    <input name="ma_gd_con" class="ma_gd_con" value="<?php echo 'MLK_ ...'; ?>" style="background: #FFF;" disabled/>
                                     Mã giao dịch
                                     <input name="ma_gd_them_booking" class="ma_gd_them_booking" style="background: #FFF;" value="<?php echo 'BTC_ ...'; ?>" disabled/>
                                 </td>
@@ -483,31 +540,25 @@ if($_SESSION['sucess'] == "sucess") {
                                         </tr>
                                         <tr>
                                             <td width="80%">
-                                                <select name="ten_dt_gui_book_dt" class="ten_dt_gui_book_dt" required/>
-                                                <?php
-                                                //List danh sách đối tác
-                                                $query = new WP_Query(array(
-                                                    'post_type' => 'doi_tac',
-                                                ));
-                                                $dt_count = 0;
-                                                if($query->have_posts()) : while ($query->have_posts()) : $query->the_post();
-                                                    $dt_count++;
-                                                    if($dt_count == 1){
-                                                        ?><option value="<?php echo get_field('ten_dt'); ?>" selected="selected" data-room="<?php echo $str = get_field('loai_phong_ks');?>" data-id="<?php echo get_field('ma_dt'); ?>"><?php echo get_field('ten_dt'); ?></option><?php
-                                                    }else{
-                                                        ?><option value="<?php echo get_field('ten_dt'); ?>" data-room="<?php echo $str = get_field('loai_phong_ks');?>" data-id="<?php echo get_field('ma_dt'); ?>"><?php echo get_field('ten_dt'); ?></option><?php
-                                                    }
-                                                endwhile;
-                                                endif;
-                                                wp_reset_postdata();
-                                                ?>
-                                                </select>
+                                                <input name="ten_dt_gui_book_dt" class="ten_dt_gui_book_dt" value="" autocomplete="off"/>
+                                                <div class="popup_get_data_list pop_ten_dt_gui_book_dt">
+                                                    <ul>
+                                                        <li>Tên</li>
+                                                        <li>SĐT</li>
+                                                        <li>Email</li>
+                                                        <li>TK</li>
+                                                        <li>Đơn vị công tác</li>
+                                                    </ul>
+                                                    <div class="list_show">
+                                                        <p>Không tìm thấy dữ liệu !</p>
+                                                    </div>
+                                                </div>
                                             </td>
                                             <td><input type="text" name="ma_dt" class="ma_dt" value="<?php echo get_field('ma_dt'); ?>" autocomplete="off" required /></td>
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <table width="100%" border="1">
+                                    <!--<table width="100%" border="1">
                                         <tbody>
                                         <tr>
                                             <td width="50%">Nơi đi (Hiển thị nếu chọn loại dịch vụ là VMB hoặc Xe)</td>
@@ -517,50 +568,50 @@ if($_SESSION['sucess'] == "sucess") {
                                             <td width="50%">
                                                 <select name="noi_di_dt" class="noi_di_dt" required>
                                                     <?php
-                                                    //List các địa điểm đi và đến
-                                                    $query_khach_san = new WP_Query(array(
-                                                        'post_type' => 'dia_diem_local',
-                                                        'posts_per_page' => 64,
-                                                    ));
-                                                    $n_check2 = 0;
-                                                    if($query_khach_san->have_posts()) : while ($query_khach_san->have_posts()) : $query_khach_san->the_post();
-                                                        $n_check2++;
-                                                        if($n_check2 == 1){
-                                                            ?><option value="<?php the_title(); ?>" selected="selected"><?php the_title(); ?></option><?php
-                                                        }else{
-                                                            ?><option value="<?php the_title(); ?>"><?php the_title(); ?></option><?php
-                                                        }
-                                                    endwhile;
-                                                    endif;
-                                                    wp_reset_postdata();
-                                                    ?>
+                                    /*                                                    //List các địa điểm đi và đến
+                                                                                        $query_khach_san = new WP_Query(array(
+                                                                                            'post_type' => 'dia_diem_local',
+                                                                                            'posts_per_page' => 64,
+                                                                                        ));
+                                                                                        $n_check2 = 0;
+                                                                                        if($query_khach_san->have_posts()) : while ($query_khach_san->have_posts()) : $query_khach_san->the_post();
+                                                                                            $n_check2++;
+                                                                                            if($n_check2 == 1){
+                                                                                                */?><option value="<?php /*the_title(); */?>" selected="selected"><?php /*the_title(); */?></option><?php
+                                    /*                                                        }else{
+                                                                                                */?><option value="<?php /*the_title(); */?>"><?php /*the_title(); */?></option><?php
+                                    /*                                                        }
+                                                                                        endwhile;
+                                                                                        endif;
+                                                                                        wp_reset_postdata();
+                                                                                        */?>
                                                 </select>
                                             </td>
                                             <td>
                                                 <select name="noi_den_dt" class="noi_den_dt" required>
                                                     <?php
-                                                    //List các địa điểm đi và đến
-                                                    $query_khach_san = new WP_Query(array(
-                                                        'post_type' => 'dia_diem_local',
-                                                        'posts_per_page' => 64,
-                                                    ));
-                                                    $n_check2 = 1;
-                                                    if($query_khach_san->have_posts()) : while ($query_khach_san->have_posts()) : $query_khach_san->the_post();
-                                                        $n_check2++;
-                                                        if($n_check2 == 3){
-                                                            ?><option value="<?php the_title(); ?>" selected="selected"><?php the_title(); ?></option><?php
-                                                        }else{
-                                                            ?><option value="<?php the_title(); ?>"><?php the_title(); ?></option><?php
-                                                        }
-                                                    endwhile;
-                                                    endif;
-                                                    wp_reset_postdata();
-                                                    ?>
+                                    /*                                                    //List các địa điểm đi và đến
+                                                                                        $query_khach_san = new WP_Query(array(
+                                                                                            'post_type' => 'dia_diem_local',
+                                                                                            'posts_per_page' => 64,
+                                                                                        ));
+                                                                                        $n_check2 = 1;
+                                                                                        if($query_khach_san->have_posts()) : while ($query_khach_san->have_posts()) : $query_khach_san->the_post();
+                                                                                            $n_check2++;
+                                                                                            if($n_check2 == 3){
+                                                                                                */?><option value="<?php /*the_title(); */?>" selected="selected"><?php /*the_title(); */?></option><?php
+                                    /*                                                        }else{
+                                                                                                */?><option value="<?php /*the_title(); */?>"><?php /*the_title(); */?></option><?php
+                                    /*                                                        }
+                                                                                        endwhile;
+                                                                                        endif;
+                                                                                        wp_reset_postdata();
+                                                                                        */?>
                                                 </select>
                                             </td>
                                         </tr>
                                         </tbody>
-                                    </table>
+                                    </table>-->
                                 </td>
                             </tr>
                             <tr>
@@ -605,26 +656,19 @@ if($_SESSION['sucess'] == "sucess") {
                                             </td>
                                             <td>
                                                 <select name="trang_thai_bkk_voi_kh_gd" class="trang_thai_bkk_voi_kh_gd" autocomplete="off" required>
-                                                    <?php
-                                                    $arr = array(
-                                                        'post_type' => 'trang_thai',
-                                                        'order' => 'ASC',
-                                                        'posts_per_page' => 20,
-                                                    );
-
-                                                    $query = new WP_Query($arr);
-                                                    $bkk = 0;
-                                                    while ($query->have_posts()) : $query->the_post();
-                                                        $bkk++;
-                                                        if($bkk == 1){
-                                                            ?><option value="<?php the_title(); ?>"><?php the_title(); ?></option><?php
-                                                        }else{
-                                                            ?><option value="<?php the_title(); ?>"><?php the_title(); ?></option><?php
-                                                        }
-
-                                                    endwhile;
-                                                    wp_reset_postdata();
-                                                    ?>
+                                                    <option value="BKK - Tiềm năng" selected>BKK - Tiềm năng</option>
+                                                    <option value="BKK - Chuẩn bị cọc">BKK - Chuẩn bị cọc</option>
+                                                    <option value="BKK - Đã cọc">BKK - Đã cọc</option>
+                                                    <option value="BKK - Đã trả XN">BKK - Đã trả XN</option>
+                                                    <option value="Thay đổi - lần 1">Thay đổi - lần 1</option>
+                                                    <option value="Thay đổi - lần 2">Thay đổi - lần 2</option>
+                                                    <option value="Thay đổi - lần 3">Thay đổi - lần 3</option>
+                                                    <option value="Thay đổi - Đã trả XN">Thay đổi - Đã trả XN</option>
+                                                    <option value="VC - Chưa gửi, VC - Đã gửi KH">VC - Chưa gửi, VC - Đã gửi KH</option>
+                                                    <option value="VC - Đã gửi KS">VC - Đã gửi KS</option>
+                                                    <option value="VC - KH đã nhận">VC - KH đã nhận</option>
+                                                    <option value="VC - KS đã nhận">VC - KS đã nhận</option>
+                                                    <option value="TL">TL</option>
                                                 </select>
                                             </td>
                                         </tr>
@@ -646,25 +690,17 @@ if($_SESSION['sucess'] == "sucess") {
                                         <tr>
                                             <td width="40%">
                                                 <select name="trang_thai_bkk_voi_dt" class="trang_thai_bkk_voi_dt"  required>
-                                                    <?php
-                                                    $arr = array(
-                                                        'post_type' => 'trang_thai',
-                                                        'order' => 'ASC',
-                                                        'posts_per_page' => 20,
-                                                    );
-
-                                                    $query = new WP_Query($arr);
-                                                    $bkk2 = 0;
-                                                    while ($query->have_posts()) : $query->the_post();
-                                                        $bkk2++;
-                                                        if($bkk2 == 1){
-                                                            ?><option value="<?php the_title(); ?>" selected="selected"><?php the_title(); ?></option><?php
-                                                        }else{
-                                                            ?><option value="<?php the_title(); ?>"><?php the_title(); ?></option><?php
-                                                        }
-                                                    endwhile;
-                                                    wp_reset_postdata();
-                                                    ?>
+                                                    <option value="BKK - Yêu cầu gửi" selected>BKK - Yêu cầu gửi</option>
+                                                    <option value="BKK - Đang gửi">BKK - Đang gửi</option>
+                                                    <option value="BKK - Đang chờ XN">BKK - Đang chờ XN</option>
+                                                    <option value="BKK - Đã có XN">BKK - Đã có XN</option>
+                                                    <option value="Thay đổi - Đang gửi">Thay đổi - Đang gửi</option>
+                                                    <option value="Thay đổi - Đang chờ XN">Thay đổi - Đang chờ XN</option>
+                                                    <option value="Thay đổi - Đã có XN">Thay đổi - Đã có XN</option>
+                                                    <option value="Hủy - Yêu cầu gửi">Hủy - Yêu cầu gửi</option>
+                                                    <option value="Hủy - Đang gửi">Hủy - Đang gửi</option>
+                                                    <option value="Hủy - Đang chờ XN hủy">Hủy - Đang chờ XN hủy</option>
+                                                    <option value="Hủy - Đã có XN hủy">Hủy - Đã có XN hủy</option>
                                                 </select>
                                             </td>
                                             <td width="20%">
@@ -684,13 +720,13 @@ if($_SESSION['sucess'] == "sucess") {
                                             <td width="40%">Check-in (thứ 6,7 màu xanh, CN màu đỏ)</td>
                                             <td width="10%">Số đêm</td>
                                             <td width="40%">Check-out</td>
-                                            <td>Còn ? ngày</td>
+                                            <td></td>
                                         </tr>
                                         <tr>
                                             <td width="40%"><input type="text" name="ci_gd" data-date-format="dd/mm/yyyy" class="ci_gd datepicker-here" data-language='en' value="<?php echo get_field('ci_gd'); ?>" autocomplete="off" required /></td>
                                             <td width="10%"><input type="number" name="so_dem_gd" class="so_dem_gd" value="<?php echo get_field('so_dem_gd'); ?>" required /></td>
                                             <td width="40%"><input type="text" name="co_gd" data-date-format="dd/mm/yyyy" class="co_gd datepicker-here" data-language='en' value="<?php echo get_field('co_gd'); ?>" autocomplete="off" required /></td>
-                                            <td><input type="number" name="con_ngay_gd" class="con_ngay_gd" value="<?php echo get_field('con_ngay_gd'); ?>" required autocomplete="off" /></td>
+                                            <td>Còn <span class="con_ngay_gd_label">?</span> ngày<input type="hidden" name="con_ngay_gd" class="con_ngay_gd" value="<?php echo get_field('con_ngay_gd'); ?>" required autocomplete="off" /></td>
                                         </tr>
 
                                         </tbody>
@@ -698,22 +734,31 @@ if($_SESSION['sucess'] == "sucess") {
                                 </td>
                                 <td align="center" style="background-color: #f19315b3;">
                                     Hình thức book
-                                    <input type="text" name="hinh_thuc_book_gd" class="hinh_thuc_book_gd" style="background: #FFF;" value="<?php echo get_field('hinh_thuc_book_gd'); ?>" autocomplete="off"/">
+                                    <!--<input type="text" name="hinh_thuc_book_gd" class="hinh_thuc_book_gd" style="background: #FFF;" value="<?php /*echo get_field('hinh_thuc_book_gd'); */?>" autocomplete="off"/">-->
+                                    <select name="hinh_thuc_book_gd" class="hinh_thuc_book_gd">
+                                        <option value="CODE">CODE</option>
+                                        <option value="VC">VC</option>
+                                        <option value="HĐ">HĐ</option>
+                                        <option value="BK">BK</option>
+                                        <option value="AG">AG</option>
+                                        <option value="SERIES">SERIES</option>
+                                        <option value="HARDLOCK">HARDLOCK</option>
+                                    </select>
                                 </td>
                                 <td>
                                     <table width="100%" border="1">
                                         <tbody>
                                         <tr>
                                             <td width="40%">Ngày được hủy (hoàn tiền 100%)</td>
-                                            <td width="10%">Còn ? ngày</td>
+                                            <td width="10%"></td>
                                             <td width="40%">Ngày được thay đổi</td>
-                                            <td>Còn ? ngày</td>
+                                            <td></td>
                                         </tr>
                                         <tr>
-                                            <td width="40%"><input type="text" name="ngay_duoc_huy" data-date-format="dd/mm/yyyy" class="ngay_duoc_huy datepicker-here" data-language='en' value="<?php echo get_field('ngay_duoc_huy'); ?>" autocomplete="off" required /></td>
-                                            <td width="10%"><input type="number" name="con_ngay_dt" class="con_ngay_dt" value="<?php echo get_field('con_ngay_dt'); ?>" required /></td>
-                                            <td width="40%"><input type="text" name="ngay_duoc_thay_doi" data-date-format="dd/mm/yyyy" class="ngay_duoc_thay_doi datepicker-here" data-language='en' value="<?php echo get_field('ngay_duoc_thay_doi'); ?>" autocomplete="off" required /></td>
-                                            <td><input type="number" name="con_ngay_thay_doi_dt" class="con_ngay_thay_doi_dt" value="<?php echo get_field('con_ngay_thay_doi_dt'); ?>" autocomplete="off" required/></td>
+                                            <td width="40%"><input type="text" name="ngay_duoc_huy" data-date-format="dd/mm/yyyy" class="ngay_duoc_huy datepicker-here" data-language='en' value="<?php echo get_field('ngay_duoc_huy'); ?>" autocomplete="off" /></td>
+                                            <td width="10%">Còn <span class="con_ngay_dt_label">?</span> ngày<input type="hidden" name="con_ngay_dt" class="con_ngay_dt" value="0" /></td>
+                                            <td width="40%"><input type="text" name="ngay_duoc_thay_doi" data-date-format="dd/mm/yyyy" class="ngay_duoc_thay_doi datepicker-here" data-language='en' value="<?php echo get_field('ngay_duoc_thay_doi'); ?>" autocomplete="off" /></td>
+                                            <td>Còn <span class="con_ngay_thay_doi_dt_label">?</span> ngày<input type="hidden" name="con_ngay_thay_doi_dt" class="con_ngay_thay_doi_dt" value="0" autocomplete="off"/></td>
                                         </tr>
 
                                         </tbody>
@@ -749,10 +794,14 @@ if($_SESSION['sucess'] == "sucess") {
                                             <td width="20%"><input type="text" name="tong_gd" class="tong_gd" value="0" autocomplete="off" required /></td>
                                         </tr>
                                         <tr>
+                                            <td colspan="1" align="center">Ngày lock phòng</td>
                                             <td colspan="3" align="center">Gói DV - KM bán</td>
-                                            <td colspan="2" align="center">Mã KM</td>
+                                            <td colspan="1" align="center">Mã KM</td>
                                         </tr>
                                         <tr>
+                                            <td colspan="1">
+                                                <input type="text" data-date-format="dd/mm/yyyy" name="ngay_lock_phong_khach" class="ngay_lock_phong_khach datepicker-here" data-language='en' autocomplete="off"/>
+                                            </td>
                                             <td colspan="3" align="center">
                                                 <select name="goi_dv_km_ban_gd" class="goi_dv_km_ban_gd" required>
                                                     <option selected="selected" value="BB - Ăn sáng">BB - Ăn sáng</option>
@@ -761,7 +810,7 @@ if($_SESSION['sucess'] == "sucess") {
                                                     <option value="FBVS - Ăn 3 bữa + Vui chơi + Safari">FBVS - Ăn 3 bữa + Vui chơi + Safari</option>
                                                 </select>
                                             </td>
-                                            <td colspan="2" align="center"><input type="text" name="ma_pro_gd" class="ma_pro_gd" value="<?php echo get_field('ma_pro_gd'); ?>" autocomplete="off" /></td>
+                                            <td colspan="1" align="center"><input type="text" name="ma_pro_gd" class="ma_pro_gd" value="<?php echo get_field('ma_pro_gd'); ?>" autocomplete="off" /></td>
                                         </tr>
                                         <tr>
                                             <td colspan="5" align="center">Dịch vụ đi kèm</td>
@@ -784,9 +833,9 @@ if($_SESSION['sucess'] == "sucess") {
                                     <table width="100%" border="1">
                                         <tbody>
                                         <tr>
-                                            <td width="35%">Loại phòng bán</td>
+                                            <td width="35%">Loại phòng mua</td>
                                             <td width="10%">SL</td>
-                                            <td width="15%">Đơn giá bán</td>
+                                            <td width="15%">Đơn giá mua</td>
                                             <td width="20%">Đơn vị</td>
                                             <td width="20%">Tổng</td>
                                         </tr>
@@ -808,10 +857,14 @@ if($_SESSION['sucess'] == "sucess") {
                                             <td width="20%"><input type="text" name="tong_dt" class="tong_dt" value="<?php echo get_field('tong_dt'); ?>" required autocomplete="off"/></td>
                                         </tr>
                                         <tr>
-                                            <td colspan="3" align="center">Gói DV - KM bán</td>
-                                            <td colspan="2" align="center">Mã KM</td>
+                                            <td colspan="1" align="center">Ngày lock phòng</td>
+                                            <td colspan="3" align="center">Gói DV - KM mua</td>
+                                            <td colspan="1" align="center">Mã KM</td>
                                         </tr>
                                         <tr>
+                                            <td colspan="1">
+                                                <input type="text" data-date-format="dd/mm/yyyy" name="ngay_lock_phong_doi_tac" class="ngay_lock_phong_doi_tac datepicker-here" data-language='en' autocomplete="off"/>
+                                            </td>
                                             <td colspan="3" align="center">
                                                 <select name="goi_dv_km_ban_dt" class="goi_dv_km_ban_dt" required>
                                                     <option selected="selected" value="BB - Ăn sáng">BB - Ăn sáng</option>
@@ -820,7 +873,7 @@ if($_SESSION['sucess'] == "sucess") {
                                                     <option value="FBVS - Ăn 3 bữa + Vui chơi + Safari">FBVS - Ăn 3 bữa + Vui chơi + Safari</option>
                                                 </select>
                                             </td>
-                                            <td colspan="2" align="center"><input type="text" name="ma_pro_dt" class="ma_pro_dt" value="<?php echo get_field('ma_pro_dt'); ?>" autocomplete="off"/></td>
+                                            <td colspan="1" align="center"><input type="text" name="ma_pro_dt" class="ma_pro_dt" value="<?php echo get_field('ma_pro_dt'); ?>" autocomplete="off"/></td>
                                         </tr>
                                         <tr>
                                             <td colspan="5" align="center">Dịch vụ đi kèm</td>
@@ -884,7 +937,7 @@ if($_SESSION['sucess'] == "sucess") {
                             $ghi_chu_thanh_toan_1 = get_field('ghi_chu_thanh_toan_1');
                             $ghi_chu_thanh_toan_2 = get_field('ghi_chu_thanh_toan_2');
                             ?>
-                            <tr>
+                            <tr style="display:none;">
                                 <td colspan="3"><table width="100%" border="1" id="show_chat" class="show_chat_table" data-id="<?php echo get_the_ID(); ?>">
                                         <thead>
                                         <tr class="show_chat">
@@ -1264,12 +1317,12 @@ if($_SESSION['sucess'] == "sucess") {
                                             <td> KH TT PT tại?</td>
                                         </tr>
                                         <tr>
-                                            <td width="5%"><input type="t" style="background: #fff;" name="sl_nl" class="sl_nl" value="1" autocomplete="off" /></td>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="gp" class="gp" value="1" autocomplete="off" /></td>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="sl02" class="sl02" value="1" autocomplete="off" /></td>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="sl24" class="sl24" value="1" autocomplete="off" /></td>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="sl46" class="sl46" value="1" autocomplete="off" /></td>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="sl612" class="sl612" value="1" autocomplete="off" /></td>
+                                            <td width="5%"><input type="t" style="background: #fff;" name="sl_nl" class="sl_nl" value="2" autocomplete="off" /></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="gp" class="gp" value="0" autocomplete="off" /></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="sl02" class="sl02" value="0" autocomplete="off" /></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="sl24" class="sl24" value="0" autocomplete="off" /></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="sl46" class="sl46" value="0" autocomplete="off" /></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="sl612" class="sl612" value="0" autocomplete="off" /></td>
                                             <td width="10%"><input type="text" style="background: #fff;" name="pt_nguoi" class="pt_nguoi" value="0" autocomplete="off" /></td>
                                             <td width="10%"><input type="text" style="background: #fff;" name="pt_giai_doan" class="pt_giai_doan" value="0" autocomplete="off" /></td>
                                             <td width="10%"><input type="text" style="background: #fff;" name="pt_cuoi_tuan" class="pt_cuoi_tuan" value="0" autocomplete="off" /></td>
@@ -1439,7 +1492,7 @@ if($_SESSION['sucess'] == "sucess") {
                                         </tr>
                                         <tr>
                                             <td width="15%">
-                                                <input type="text" style="background: #FFF;" name="ten_kgd" class="ten_kgd" value="<?php echo $ten_kgd; ?>" required autocomplete="off"/>
+                                                <input type="text" style="background: #FFF;" name="ten_kgd" class="ten_kgd" value="<?php echo $ten_kgd; ?>" autocomplete="off"/>
                                                 <div class="popup_get_data_list pop_tenkgd">
                                                     <ul>
                                                         <li>Tên</li>
@@ -1454,7 +1507,7 @@ if($_SESSION['sucess'] == "sucess") {
                                                 </div>
                                             </td>
                                             <td width="8%">
-                                                <input type="text" style="background: #FFF;" name="nick_kgd" class="nick_kgd" value="<?php echo $nick_kgd; ?>" required autocomplete="off"/>
+                                                <input type="text" style="background: #FFF;" name="nick_kgd" class="nick_kgd" value="<?php echo $nick_kgd; ?>" autocomplete="off"/>
                                                 <div class="popup_get_data_list pop_nick_kgd">
                                                     <ul>
                                                         <li>Tên</li>
@@ -1469,7 +1522,7 @@ if($_SESSION['sucess'] == "sucess") {
                                                 </div>
                                             </td>
                                             <td width="8%">
-                                                <input type="number" style="background: #FFF;" name="sdt_kgd" class="sdt_kgd" value="<?php echo $sdt_kgd; ?>" required autocomplete="off"/>
+                                                <input type="number" style="background: #FFF;" name="sdt_kgd" class="sdt_kgd" value="<?php echo $sdt_kgd; ?>" autocomplete="off"/>
                                                 <div class="popup_get_data_list pop_sdt_kgd">
                                                     <ul>
                                                         <li>Tên</li>
@@ -1483,9 +1536,9 @@ if($_SESSION['sucess'] == "sucess") {
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td width="15%"><input type="email" style="background: #FFF;" name="email_kgd_duy_nhat" class="email_kgd_duy_nhat" value="<?php echo $email_kgd_duy_nhat; ?>" required autocomplete="off"/></td>
-                                            <td width="12%"><input type="number" style="background: #FFF;" name="tk_kgd" class="tk_kgd" value="<?php echo $tk_kgd; ?>" required autocomplete="off"/></td>
-                                            <td width="10%"><input type="text" style="background: #FFF;" name="ma_kgd" class="ma_kgd" value="<?php echo $ma_kgd; ?>" required autocomplete="off"/></td>
+                                            <td width="15%"><input type="email" style="background: #FFF;" name="email_kgd_duy_nhat" class="email_kgd_duy_nhat" value="<?php echo $email_kgd_duy_nhat; ?>" autocomplete="off"/></td>
+                                            <td width="12%"><input type="number" style="background: #FFF;" name="tk_kgd" class="tk_kgd" value="<?php echo $tk_kgd; ?>" autocomplete="off"/></td>
+                                            <td width="10%"><input type="text" style="background: #FFF;" name="ma_kgd" class="ma_kgd" value="<?php echo $ma_kgd; ?>" autocomplete="off"/></td>
                                             <td width="10%">
                                                 <select name="xep_hang_kgd" class="xep_hang_kgd" style="background: #FFF;" required>
                                                     <option value="1">1</option>

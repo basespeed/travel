@@ -83,6 +83,9 @@
     $da_thanh_toan_khac2 = get_field('da_thanh_toan_khac2');
     $bct_con_no_khac2 = get_field('bct_con_no_khac2');
     $ngay_phai_hoan_tat_tt_cho_ks_khac2 = get_field('ngay_phai_hoan_tat_tt_cho_ks_khac2');
+
+    $don_gia_ban_gd = get_field('don_gia_ban_gd');
+    $don_gia_ban_dt = get_field('don_gia_ban_dt');
 ?>
 <div id="content" class="<?php if(isset($_GET['view'])){echo "view_fix";} ?>">
     <div class="quantri_admin">
@@ -226,7 +229,6 @@
                             if(! isset($alert)){
                                 $update_giao_dich = array(
                                     'ID'           => $this_ID,
-                                    'post_title' => $_POST['ma_gd'],
                                 );
 
                                 $post_update = wp_update_post($update_giao_dich);
@@ -332,6 +334,20 @@
                                             $date = $date->format('Ymd');
                                             update_field('ngay_hoan_tien_2', $date, $post_update);
                                         }
+                                    }elseif($field['name'] == 'ngay_lock_phong_khach'){
+                                        $dob_str = $_POST['ngay_lock_phong_khach'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('ngay_lock_phong_khach', $date, $post_update);
+                                        }
+                                    }elseif($field['name'] == 'ngay_lock_phong_doi_tac'){
+                                        $dob_str = $_POST['ngay_lock_phong_doi_tac'];
+                                        if(!empty($dob_str)){
+                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                            $date = $date->format('Ymd');
+                                            update_field('ngay_lock_phong_doi_tac', $date, $post_update);
+                                        }
                                     }else{
                                         if($field['name'] != ""){
                                             update_field( $field['name'], $_POST[$field['name']], $post_update );
@@ -350,7 +366,7 @@
 
                             //lịch sử giao dịch
                             $add_lich_su_giao_dich = array(
-                                'post_title' => $_POST['ma_gd'],
+                                'post_title' => $_POST['title_new_post'],
                                 'post_status' => 'publish',
                                 'post_type' => 'history_giao_dich',
                             );
@@ -458,6 +474,20 @@
                                         $date = $date->format('Ymd');
                                         update_field('ngay_hoan_tien_2', $date, $post_lich_su_gd);
                                     }
+                                }elseif($field['name'] == 'ngay_lock_phong_khach'){
+                                    $dob_str = $_POST['ngay_lock_phong_khach'];
+                                    if(!empty($dob_str)){
+                                        $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                        $date = $date->format('Ymd');
+                                        update_field('ngay_lock_phong_khach', $date, $post_lich_su_gd);
+                                    }
+                                }elseif($field['name'] == 'ngay_lock_phong_doi_tac'){
+                                    $dob_str = $_POST['ngay_lock_phong_doi_tac'];
+                                    if(!empty($dob_str)){
+                                        $date = DateTime::createFromFormat('d/m/Y', $dob_str);
+                                        $date = $date->format('Ymd');
+                                        update_field('ngay_lock_phong_doi_tac', $date, $post_lich_su_gd);
+                                    }
                                 }else{
                                     if($field['name'] != ""){
                                         add_post_meta($post_lich_su_gd, $field['name'], $_POST[$field['name']], true);
@@ -508,6 +538,28 @@
                                                         }
                                                     }
                                                 ?>" required autocomplete="off">
+                                                <input type="hidden" value="<?php
+                                                if(!empty(get_field('ten_khach_san_gd'))){
+                                                    $ten_khach_san_gd = get_field('ten_khach_san_gd');
+                                                    if ( (int)$ten_khach_san_gd == $ten_khach_san_gd ) {
+                                                        $query_name_hotel = new WP_Query(array(
+                                                            'post_type' => 'hotel',
+                                                            'p' => get_field('ten_khach_san_gd'),
+                                                            'posts_per_page' => 1,
+                                                        ));
+
+                                                        if($query_name_hotel->have_posts()) : while ($query_name_hotel->have_posts()) : $query_name_hotel->the_post();
+                                                            echo get_the_title();
+                                                        endwhile;
+                                                        else :
+                                                            echo get_field('ten_khach_san_gd');
+                                                        endif;
+                                                        wp_reset_postdata();
+                                                    }else{
+                                                        echo get_field('ten_khach_san_gd');
+                                                    }
+                                                }
+                                                ?>" class="title_new_post" />
                                                 <input type="hidden" name="ten_khach_san_gd" class="ten_khach_san_gd" value="<?php echo get_field('ten_khach_san_gd'); ?>" autocomplete="off">
                                                 <div class="pop_ten_khach_san_gd">
                                                     <ul>
@@ -595,7 +647,7 @@
                                     </table>
                                 </td>
                                 <td align="center" style="background-color: #f19315b3;">
-                                    MGD LK
+                                    MLK
                                     <input name="ma_gd_con" class="ma_gd_con" value="<?php echo get_field('ma_gd_con'); ?>" style="background: #FFF;" required autocomplete="off"/>
                                     Mã giao dịch
                                     <input name="ma_gd_them_booking" class="ma_gd_them_booking" style="background: #FFF;" value="<?php echo get_field('ma_gd_them_booking'); ?>" autocomplete="off"/>
@@ -633,7 +685,7 @@
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <table width="100%" border="1">
+                                    <!--<table width="100%" border="1">
                                         <tbody>
                                         <tr>
                                             <td width="50%">Nơi đi (Hiển thị nếu chọn loại dịch vụ là VMB hoặc Xe)</td>
@@ -641,40 +693,40 @@
                                         </tr>
                                         <tr>
                                             <td width="50%">
-                                                <select name="noi_di_dt" class="noi_di_dt" data-check="<?php echo get_field('noi_di_dt'); ?>" required >
+                                                <select name="noi_di_dt" class="noi_di_dt" data-check="<?php /*echo get_field('noi_di_dt'); */?>" required >
                                                     <?php
-                                                    //List các địa điểm đi và đến
+/*                                                    //List các địa điểm đi và đến
                                                     $query_khach_san = new WP_Query(array(
                                                         'post_type' => 'dia_diem_local',
                                                         'posts_per_page' => 64,
                                                     ));
                                                     if($query_khach_san->have_posts()) : while ($query_khach_san->have_posts()) : $query_khach_san->the_post();
-                                                        ?><option value="<?php the_title(); ?>"><?php the_title(); ?></option><?php
-                                                    endwhile;
+                                                        */?><option value="<?php /*the_title(); */?>"><?php /*the_title(); */?></option><?php
+/*                                                    endwhile;
                                                     endif;
                                                     wp_reset_postdata();
-                                                    ?>
+                                                    */?>
                                                 </select>
                                             </td>
                                             <td>
-                                                <select name="noi_den_dt" class="noi_den_dt" data-check="<?php echo get_field('noi_den_dt'); ?>" required>
+                                                <select name="noi_den_dt" class="noi_den_dt" data-check="<?php /*echo get_field('noi_den_dt'); */?>" required>
                                                     <?php
-                                                    //List các địa điểm đi và đến
+/*                                                    //List các địa điểm đi và đến
                                                     $query_khach_san = new WP_Query(array(
                                                         'post_type' => 'dia_diem_local',
                                                         'posts_per_page' => 64,
                                                     ));
                                                     if($query_khach_san->have_posts()) : while ($query_khach_san->have_posts()) : $query_khach_san->the_post();
-                                                        ?><option value="<?php the_title(); ?>"><?php the_title(); ?></option><?php
-                                                    endwhile;
+                                                        */?><option value="<?php /*the_title(); */?>"><?php /*the_title(); */?></option><?php
+/*                                                    endwhile;
                                                     endif;
                                                     wp_reset_postdata();
-                                                    ?>
+                                                    */?>
                                                 </select>
                                             </td>
                                         </tr>
                                         </tbody>
-                                    </table>
+                                    </table>-->
                                 </td>
                             </tr>
                             <tr>
@@ -719,22 +771,19 @@
                                             </td>
                                             <td>
                                                 <select name="trang_thai_bkk_voi_kh_gd" class="trang_thai_bkk_voi_kh_gd" data-check="<?php echo get_field('trang_thai_bkk_voi_kh_gd'); ?>" required>
-                                                    <option value="" selected disabled hidden>Chọn trạng thái</option>
-                                                    <?php
-                                                    $arr = array(
-                                                        'post_type' => 'trang_thai',
-                                                        'order' => 'ASC',
-                                                        'posts_per_page' => 20,
-                                                    );
-
-                                                    $query = new WP_Query($arr);
-                                                    while ($query->have_posts()) : $query->the_post();
-                                                        ?>
-                                                        <option value="<?php the_title(); ?>"><?php the_title(); ?></option>
-                                                    <?php
-                                                    endwhile;
-                                                    wp_reset_postdata();
-                                                    ?>
+                                                    <option value="BKK - Tiềm năng" selected>BKK - Tiềm năng</option>
+                                                    <option value="BKK - Chuẩn bị cọc">BKK - Chuẩn bị cọc</option>
+                                                    <option value="BKK - Đã cọc">BKK - Đã cọc</option>
+                                                    <option value="BKK - Đã trả XN">BKK - Đã trả XN</option>
+                                                    <option value="Thay đổi - lần 1">Thay đổi - lần 1</option>
+                                                    <option value="Thay đổi - lần 2">Thay đổi - lần 2</option>
+                                                    <option value="Thay đổi - lần 3">Thay đổi - lần 3</option>
+                                                    <option value="Thay đổi - Đã trả XN">Thay đổi - Đã trả XN</option>
+                                                    <option value="VC - Chưa gửi, VC - Đã gửi KH">VC - Chưa gửi, VC - Đã gửi KH</option>
+                                                    <option value="VC - Đã gửi KS">VC - Đã gửi KS</option>
+                                                    <option value="VC - KH đã nhận">VC - KH đã nhận</option>
+                                                    <option value="VC - KS đã nhận">VC - KS đã nhận</option>
+                                                    <option value="TL">TL</option>
                                                 </select>
                                             </td>
                                         </tr>
@@ -756,22 +805,17 @@
                                         <tr>
                                             <td width="40%">
                                                 <select name="trang_thai_bkk_voi_dt" class="trang_thai_bkk_voi_dt" data-check="<?php echo get_field('trang_thai_bkk_voi_dt'); ?>" required>
-                                                    <option value="" selected disabled hidden>Chọn trạng thái</option>
-                                                    <?php
-                                                    $arr = array(
-                                                        'post_type' => 'trang_thai',
-                                                        'order' => 'ASC',
-                                                        'posts_per_page' => 20,
-                                                    );
-
-                                                    $query = new WP_Query($arr);
-                                                    while ($query->have_posts()) : $query->the_post();
-                                                        ?>
-                                                        <option value="<?php the_title(); ?>"><?php the_title(); ?></option>
-                                                    <?php
-                                                    endwhile;
-                                                    wp_reset_postdata();
-                                                    ?>
+                                                    <option value="BKK - Yêu cầu gửi" selected>BKK - Yêu cầu gửi</option>
+                                                    <option value="BKK - Đang gửi">BKK - Đang gửi</option>
+                                                    <option value="BKK - Đang chờ XN">BKK - Đang chờ XN</option>
+                                                    <option value="BKK - Đã có XN">BKK - Đã có XN</option>
+                                                    <option value="Thay đổi - Đang gửi">Thay đổi - Đang gửi</option>
+                                                    <option value="Thay đổi - Đang chờ XN">Thay đổi - Đang chờ XN</option>
+                                                    <option value="Thay đổi - Đã có XN">Thay đổi - Đã có XN</option>
+                                                    <option value="Hủy - Yêu cầu gửi">Hủy - Yêu cầu gửi</option>
+                                                    <option value="Hủy - Đang gửi">Hủy - Đang gửi</option>
+                                                    <option value="Hủy - Đang chờ XN hủy">Hủy - Đang chờ XN hủy</option>
+                                                    <option value="Hủy - Đã có XN hủy">Hủy - Đã có XN hủy</option>
                                                 </select>
                                             </td>
                                             <td width="20%">
@@ -788,7 +832,7 @@
                                     <table width="100%" border="1">
                                         <tbody>
                                         <tr>
-                                            <td width="40%">Check-in (thứ 6,7 màu xanh, CN màu đỏ)</td>
+                                            <td width="40%">Check-in</td><!--(thứ 6,7 màu xanh, CN màu đỏ)--!>
                                             <td width="10%">Số đêm</td>
                                             <td width="40%">Check-out</td>
                                             <td>Còn ? ngày</td>
@@ -805,7 +849,16 @@
                                 </td>
                                 <td align="center" style="background-color: #f19315b3;">
                                     Hình thức book
-                                    <input type="text" name="hinh_thuc_book_gd" class="hinh_thuc_book_gd" style="background: #FFF;" value="<?php echo get_field('hinh_thuc_book_gd'); ?>" autocomplete="off"/>
+                                    <!--<input type="text" name="hinh_thuc_book_gd" class="hinh_thuc_book_gd" style="background: #FFF;" value="<?php /*echo get_field('hinh_thuc_book_gd'); */?>" autocomplete="off"/>-->
+                                    <select name="hinh_thuc_book_gd" class="hinh_thuc_book_gd" data-check="<?php echo get_field('hinh_thuc_book_gd'); ?>">
+                                        <option value="CODE">CODE</option>
+                                        <option value="VC">VC</option>
+                                        <option value="HĐ" selected>HĐ</option>
+                                        <option value="BK">BK</option>
+                                        <option value="AG">AG</option>
+                                        <option value="SERIES">SERIES</option>
+                                        <option value="HARDLOCK">HARDLOCK</option>
+                                    </select>
                                 </td>
                                 <td>
                                     <table width="100%" border="1">
@@ -817,10 +870,10 @@
                                             <td>Còn ? ngày</td>
                                         </tr>
                                         <tr>
-                                            <td width="40%"><input type="text" name="ngay_duoc_huy" data-date-format="dd/mm/yyyy" class="ngay_duoc_huy datepicker-here" data-language='en' value="<?php echo get_field('ngay_duoc_huy'); ?>" required autocomplete="off"/></td>
-                                            <td width="10%"><input type="number" name="con_ngay_dt" class="con_ngay_dt" value="<?php echo get_field('con_ngay_dt'); ?>" required autocomplete="off"/></td>
-                                            <td width="40%"><input type="text" name="ngay_duoc_thay_doi" data-date-format="dd/mm/yyyy" class="ngay_duoc_thay_doi datepicker-here" data-language='en' value="<?php echo get_field('ngay_duoc_thay_doi'); ?>" required autocomplete="off"/></td>
-                                            <td><input type="number" name="con_ngay_thay_doi_dt" class="con_ngay_thay_doi_dt" value="<?php echo get_field('con_ngay_thay_doi_dt'); ?>" required autocomplete="off"/></td>
+                                            <td width="40%"><input type="text" name="ngay_duoc_huy" data-date-format="dd/mm/yyyy" class="ngay_duoc_huy datepicker-here" data-language='en' value="<?php echo get_field('ngay_duoc_huy'); ?>" autocomplete="off"/></td>
+                                            <td width="10%"><input type="number" name="con_ngay_dt" class="con_ngay_dt" value="<?php echo get_field('con_ngay_dt'); ?>" autocomplete="off"/></td>
+                                            <td width="40%"><input type="text" name="ngay_duoc_thay_doi" data-date-format="dd/mm/yyyy" class="ngay_duoc_thay_doi datepicker-here" data-language='en' value="<?php echo get_field('ngay_duoc_thay_doi'); ?>" autocomplete="off"/></td>
+                                            <td><input type="number" name="con_ngay_thay_doi_dt" class="con_ngay_thay_doi_dt" value="<?php echo get_field('con_ngay_thay_doi_dt'); ?>" autocomplete="off"/></td>
                                         </tr>
 
                                         </tbody>
@@ -852,7 +905,7 @@
 
                                                     if($query_room->have_posts()) : while ($query_room->have_posts()) : $query_room->the_post();
                                                         ?>
-                                                        <option value="<?php echo get_field('ten_phong'); ?>" data-price="<?php echo get_field('gia_tien'); ?>"><?php echo get_field('ten_phong'); ?></option>
+                                                        <option value="<?php echo get_field('ten_phong'); ?>" data-price1="<?php echo get_field('gia_tien_kh'); ?>" data-price2="<?php echo get_field('gia_tien_dt'); ?>"><?php echo get_field('ten_phong'); ?></option>
                                                         <?php
                                                     endwhile;
                                                     endif;
@@ -862,30 +915,34 @@
                                             </td>
                                             <td width="10%"><input type="number" name="sl_gd" class="sl_gd" value="<?php echo get_field('sl_gd'); ?>" required autocomplete="off"/></td>
                                             <td width="15%"><input type="text" name="don_gia_ban_gd" class="don_gia_ban_gd" value="<?php
-                                                $query_room = new WP_Query(array(
-                                                    'post_type' => 'room',
-                                                    'posts_per_page' => 10,
-                                                    'meta_query'	=> array(
-                                                        'relation'		=> 'AND',
-                                                        array(
-                                                            'key'	 	=> 'id_khach_san',
-                                                            'value'	  	=> get_field('ten_khach_san_gd'),
-                                                            'compare' 	=> '=',
+                                                if(empty($don_gia_ban_gd)){
+                                                    $query_room = new WP_Query(array(
+                                                        'post_type' => 'room',
+                                                        'posts_per_page' => 1,
+                                                        'meta_query'	=> array(
+                                                            'relation'		=> 'AND',
+                                                            array(
+                                                                'key'	 	=> 'id_khach_san',
+                                                                'value'	  	=> get_field('ten_khach_san_gd'),
+                                                                'compare' 	=> '=',
+                                                            ),
+                                                            array(
+                                                                'key'	  	=> 'ten_phong',
+                                                                'value'	  	=> get_field('loai_phong_ban_gd'),
+                                                                'compare' 	=> '=',
+                                                            ),
                                                         ),
-                                                        array(
-                                                            'key'	  	=> 'ten_phong',
-                                                            'value'	  	=> get_field('loai_phong_ban_gd'),
-                                                            'compare' 	=> '=',
-                                                        ),
-                                                    ),
-                                                    'order' => 'DESC'
-                                                ));
+                                                        'order' => 'DESC'
+                                                    ));
 
-                                                if($query_room->have_posts()) : while ($query_room->have_posts()) : $query_room->the_post();
-                                                    echo get_field('gia_tien');
-                                                endwhile;
-                                                endif;
-                                                wp_reset_postdata();
+                                                    if($query_room->have_posts()) : while ($query_room->have_posts()) : $query_room->the_post();
+                                                        echo get_field('gia_tien_kh');
+                                                    endwhile;
+                                                    endif;
+                                                    wp_reset_postdata();
+                                                }else{
+                                                    echo $don_gia_ban_gd;
+                                                }
                                                 ?>"  autocomplete="off"/></td>
                                             <td width="20%">
                                                 <select name="don_vi_gd" class="don_vi_gd" data-check="<?php echo get_field('don_vi_gd'); ?>" required >
@@ -898,10 +955,14 @@
                                             <td width="20%"><input type="text" name="tong_gd" class="tong_gd" value="<?php echo get_field('tong_gd'); ?>" required autocomplete="off"/></td>
                                         </tr>
                                         <tr>
+                                            <td colspan="1" align="center">Ngày lock phòng</td>
                                             <td colspan="3" align="center">Gói DV - KM bán</td>
-                                            <td colspan="2" align="center">Mã KM</td>
+                                            <td colspan="1" align="center">Mã KM</td>
                                         </tr>
                                         <tr>
+                                            <td colspan="1">
+                                                <input type="text" data-date-format="dd/mm/yyyy" name="ngay_lock_phong_khach" class="ngay_lock_phong_khach datepicker-here" data-language='en' value="<?php echo get_field('ngay_lock_phong_khach'); ?>" autocomplete="off"/>
+                                            </td>
                                             <td colspan="3" align="center">
                                                 <select name="goi_dv_km_ban_gd" class="goi_dv_km_ban_gd" data-check="<?php echo get_field('goi_dv_km_ban_gd'); ?>" required>
                                                     <option value="" selected disabled hidden>Chọn gói DV - KM</option>
@@ -911,7 +972,7 @@
                                                     <option value="FBVS - Ăn 3 bữa + Vui chơi + Safari">FBVS - Ăn 3 bữa + Vui chơi + Safari</option>
                                                 </select>
                                             </td>
-                                            <td colspan="2" align="center"><input type="text" name="ma_pro_gd" class="ma_pro_gd" value="<?php echo get_field('ma_pro_gd'); ?>" autocomplete="off"/></td>
+                                            <td colspan="1" align="center"><input type="text" name="ma_pro_gd" class="ma_pro_gd" value="<?php echo get_field('ma_pro_gd'); ?>" autocomplete="off"/></td>
                                         </tr>
                                         <tr>
                                             <td colspan="5" align="center">Dịch vụ đi kèm</td>
@@ -934,9 +995,9 @@
                                     <table width="100%" border="1">
                                         <tbody>
                                         <tr>
-                                            <td width="35%">Loại phòng bán</td>
+                                            <td width="35%">Loại phòng mua</td>
                                             <td width="10%">SL</td>
-                                            <td width="15%">Đơn giá bán</td>
+                                            <td width="15%">Đơn giá mua</td>
                                             <td width="20%">Đơn vị</td>
                                             <td width="20%">Tổng</td>
                                         </tr>
@@ -954,7 +1015,7 @@
 
                                                     if($query_room->have_posts()) : while ($query_room->have_posts()) : $query_room->the_post();
                                                         ?>
-                                                        <option value="<?php echo get_field('ten_phong'); ?>" data-price="<?php echo get_field('gia_tien'); ?>"><?php echo get_field('ten_phong'); ?></option>
+                                                        <option value="<?php echo get_field('ten_phong'); ?>" data-price1="<?php echo get_field('gia_tien_kh'); ?>" data-price2="<?php echo get_field('gia_tien_dt'); ?>"><?php echo get_field('ten_phong'); ?></option>
                                                     <?php
                                                     endwhile;
                                                     endif;
@@ -963,7 +1024,36 @@
                                                 </select>
                                             </td>
                                             <td width="10%"><input type="number" name="sl_dt" class="sl_dt" value="<?php echo get_field('sl_dt'); ?>" required autocomplete="off"/></td>
-                                            <td width="15%"><input type="text" name="don_gia_ban_dt" class="don_gia_ban_dt" value="<?php echo get_field('don_gia_ban_dt'); ?>" autocomplete="off"/></td>
+                                            <td width="15%"><input type="text" name="don_gia_ban_dt" class="don_gia_ban_dt" value="<?php
+                                                if(empty($don_gia_ban_dt)){
+                                                    $query_room = new WP_Query(array(
+                                                        'post_type' => 'room',
+                                                        'posts_per_page' => 1,
+                                                        'meta_query'	=> array(
+                                                            'relation'		=> 'AND',
+                                                            array(
+                                                                'key'	 	=> 'id_khach_san',
+                                                                'value'	  	=> get_field('ten_khach_san_gd'),
+                                                                'compare' 	=> '=',
+                                                            ),
+                                                            array(
+                                                                'key'	  	=> 'ten_phong',
+                                                                'value'	  	=> get_field('loai_phong_ban_gd'),
+                                                                'compare' 	=> '=',
+                                                            ),
+                                                        ),
+                                                        'order' => 'DESC'
+                                                    ));
+
+                                                    if($query_room->have_posts()) : while ($query_room->have_posts()) : $query_room->the_post();
+                                                        echo get_field('gia_tien_dt');
+                                                    endwhile;
+                                                    endif;
+                                                    wp_reset_postdata();
+                                                }else{
+                                                    echo $don_gia_ban_dt;
+                                                }
+                                                ?>" autocomplete="off"/></td>
                                             <td width="20%">
                                                 <select name="don_vi_dt" class="don_vi_dt" data-check="<?php echo get_field('don_vi_dt'); ?>" required >
                                                     <option value="" selected disabled hidden>Chọn đơn vị</option>
@@ -975,10 +1065,14 @@
                                             <td width="20%"><input type="text" name="tong_dt" class="tong_dt" value="<?php echo get_field('tong_dt'); ?>" required autocomplete="off"/></td>
                                         </tr>
                                         <tr>
-                                            <td colspan="3" align="center">Gói DV - KM bán</td>
-                                            <td colspan="2" align="center">Mã KM</td>
+                                            <td colspan="1" align="center">Ngày lock phòng</td>
+                                            <td colspan="3" align="center">Gói DV - KM mua</td>
+                                            <td colspan="1" align="center">Mã KM</td>
                                         </tr>
                                         <tr>
+                                            <td colspan="1">
+                                                <input type="text" data-date-format="dd/mm/yyyy" name="ngay_lock_phong_doi_tac" class="ngay_lock_phong_doi_tac datepicker-here" data-language='en' value="<?php echo get_field('ngay_lock_phong_doi_tac'); ?>" autocomplete="off"/>
+                                            </td>
                                             <td colspan="3" align="center">
                                                 <select name="goi_dv_km_ban_dt" class="goi_dv_km_ban_dt" data-check="<?php echo get_field('goi_dv_km_ban_dt'); ?>" required>
                                                     <option value="" selected disabled hidden>Chọn gói DV - KM</option>
@@ -988,7 +1082,7 @@
                                                     <option value="FBVS - Ăn 3 bữa + Vui chơi + Safari">FBVS - Ăn 3 bữa + Vui chơi + Safari</option>
                                                 </select>
                                             </td>
-                                            <td colspan="2" align="center"><input type="text" name="ma_pro_dt" class="ma_pro_dt" value="<?php echo get_field('ma_pro_dt'); ?>" /></td>
+                                            <td colspan="1" align="center"><input type="text" name="ma_pro_dt" class="ma_pro_dt" value="<?php echo get_field('ma_pro_dt'); ?>" /></td>
                                         </tr>
                                         <tr>
                                             <td colspan="5" align="center">Dịch vụ đi kèm</td>
@@ -1384,18 +1478,18 @@
                                             <td> KH TT PT tại?</td>
                                         </tr>
                                         <tr>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="sl_nl" class="sl_nl" value="<?php echo $sl_nl; ?>" autocomplete="off" /></td>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="gp" class="gp" value="<?php echo $gp; ?>"  autocomplete="off"/></td>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="sl02" class="sl02" value="<?php echo $sl02; ?>" autocomplete="off" /></td>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="sl24" class="sl24" value="<?php echo $sl24; ?>" autocomplete="off" /></td>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="sl46" class="sl46" value="<?php echo $sl46; ?>" autocomplete="off" /></td>
-                                            <td width="5%"><input type="number" style="background: #fff;" name="sl612" class="sl612" value="<?php echo $sl612; ?>"  autocomplete="off"/></td>
-                                            <td width="10%"><input type="text" style="background: #fff;" name="pt_nguoi" class="pt_nguoi" value="<?php echo $pt_nguoi; ?>" autocomplete="off" /></td>
-                                            <td width="10%"><input type="text" style="background: #fff;" name="pt_giai_doan" class="pt_giai_doan" value="<?php echo $pt_giai_doan; ?>" autocomplete="off" /></td>
-                                            <td width="10%"><input type="text" style="background: #fff;" name="pt_cuoi_tuan" class="pt_cuoi_tuan" value="<?php echo $pt_cuoi_tuan; ?>" autocomplete="off" /></td>
-                                            <td width="10%"><input type="text" style="background: #fff;" name="bua_an_bat_buoc" class="bua_an_bat_buoc" value="<?php echo $bua_an_bat_buoc; ?>" autocomplete="off" /></td>
-                                            <td width="10%"><input type="text" style="background: #fff;" name="dich_vu_khac" class="dich_vu_khac" value="<?php echo $dich_vu_khac; ?>" autocomplete="off" /></td>
-                                            <td width="10%"><input type="text" style="background: #fff;" name="tong_pt" class="tong_pt" value="<?php echo $tong_pt; ?>" autocomplete="off" /></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="sl_nl" class="sl_nl" value="<?php if(!empty($sl_nl)){echo $sl_nl;}else{echo 0;} ?>" autocomplete="off" /></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="gp" class="gp" value="<?php if(!empty($gp)){echo $gp;}else{echo 0;} ?>"  autocomplete="off" /></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="sl02" class="sl02" value="<?php if(!empty($sl02)){echo $sl02;}else{echo 0;} ?>" autocomplete="off" /></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="sl24" class="sl24" value="<?php if(!empty($sl24)){echo $sl24;}else{echo 0;} ?>" autocomplete="off" /></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="sl46" class="sl46" value="<?php if(!empty($sl46)){echo $sl46;}else{echo 0;} ?>" autocomplete="off" /></td>
+                                            <td width="5%"><input type="number" style="background: #fff;" name="sl612" class="sl612" value="<?php if(!empty($sl612)){echo $sl612;}else{echo 0;} ?>"  autocomplete="off" /></td>
+                                            <td width="10%"><input type="text" style="background: #fff;" name="pt_nguoi" class="pt_nguoi" value="<?php if(!empty($pt_nguoi)){echo $pt_nguoi;}else{echo 0;} ?>" autocomplete="off" /></td>
+                                            <td width="10%"><input type="text" style="background: #fff;" name="pt_giai_doan" class="pt_giai_doan" value="<?php if(!empty($pt_giai_doan)){echo $pt_giai_doan;}else{echo 0;} ?>" autocomplete="off" /></td>
+                                            <td width="10%"><input type="text" style="background: #fff;" name="pt_cuoi_tuan" class="pt_cuoi_tuan" value="<?php if(!empty($pt_cuoi_tuan)){echo $pt_cuoi_tuan;}else{echo 0;} ?>" autocomplete="off" /></td>
+                                            <td width="10%"><input type="text" style="background: #fff;" name="bua_an_bat_buoc" class="bua_an_bat_buoc" value="<?php if(!empty($bua_an_bat_buoc)){echo $bua_an_bat_buoc;}else{echo 0;} ?>" autocomplete="off" /></td>
+                                            <td width="10%"><input type="text" style="background: #fff;" name="dich_vu_khac" class="dich_vu_khac" value="<?php if(!empty($dich_vu_khac)){echo $dich_vu_khac;}else{echo 0;} ?>" autocomplete="off" /></td>
+                                            <td width="10%"><input type="text" style="background: #fff;" name="tong_pt" class="tong_pt" value="<?php if(!empty($tong_pt)){echo $tong_pt;}else{echo 0;} ?>" autocomplete="off" /></td>
                                             <td>
                                                 <select name="kh_tt_pt_tai" style="background: #fff;" class="kh_tt_pt_tai" data-check="<?php echo $kh_tt_pt_tai; ?>">
                                                     <option value="BTC">BTC</option>
@@ -1408,7 +1502,7 @@
                                     </table>
                                 </td>
                             </tr>
-                            <tr class="phu_thu_kh_vs_dt <?php if($kh_tt_pt_tai == 'Khách sạn'){echo 'hide';} ?>">
+                            <tr class="phu_thu_kh_vs_dt">
                                 <td>
                                     <table width="100%" border="1" style="background: #2e75bd63;">
                                         <tbody>

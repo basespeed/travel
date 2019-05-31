@@ -192,6 +192,9 @@ get_header();
                 }
 
                 $alert = "<p class='alert_tk_sucess'>Thêm khách sạn thành công !</p>";
+
+                wp_redirect(get_permalink($post_id));
+                exit;
             }
         }
         ?>
@@ -210,7 +213,7 @@ get_header();
                                     <ul>
                                         <li>
                                             <label>Hotel Id</label>
-                                            <input type="text" name="hotel_id" class="hotel_id" value="<?php echo get_the_ID(); ?>" autocomplete="off" required/>
+                                            <input type="text" name="hotel_id" class="hotel_id" value="<?php echo get_the_ID(); ?>" autocomplete="off"/>
                                         </li>
                                         <li>
                                             <label>Chain Id</label>
@@ -342,13 +345,13 @@ get_header();
                                         </li>
                                     </ul>
                                     <div class="acf-form-submit">
-                                        <input type="submit" name="sub_edit_khach_san" value="Cập nhập">
+                                        <input type="submit" name="sub_edit_khach_san" value="Thêm mới">
                                     </div>
                                 </div>
                                 <div class="item">
                                     <div class="view_detail_hotel">
                                         <label>URL: </label>
-                                        <input type="text" name="url" class="url" value="<?php echo get_field('url'); ?>" autocomplete="off" required/>
+                                        <input type="text" name="url" class="url" value="<?php echo get_field('url'); ?>" autocomplete="off"/>
                                         <button type="button"  data-url="<?php echo get_field('url'); ?>">Xem</button>
                                     </div>
                                 </div>
@@ -563,7 +566,12 @@ get_header();
 
                                                         <div class="item">
                                                             <!--<label>Price :</label>-->
-                                                            <input type="text" value="<?php echo get_field('gia_tien'); ?>" class="item_price" disabled>
+                                                            <input type="text" value="<?php echo get_field('gia_tien_kh'); ?>" class="gia_tien_kh" disabled>
+                                                        </div>
+
+                                                        <div class="item">
+                                                            <!--<label>Price :</label>-->
+                                                            <input type="text" value="<?php echo get_field('gia_tien_dt'); ?>" class="gia_tien_dt" disabled>
                                                         </div>
                                                     </div>
 
