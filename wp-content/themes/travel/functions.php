@@ -289,3 +289,7 @@ function to_slug($str) {
     $str = preg_replace('/([\s]+)/', '-', $str);
     return $str;
 }
+
+add_action('init', function() {
+    add_rewrite_rule('(/page/?([0-9]{1,})/?$', 'index.php?pagename=$matches[1]&paged=$matches[2]', 'top');
+});

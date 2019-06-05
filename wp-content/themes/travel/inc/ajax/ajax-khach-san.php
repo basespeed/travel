@@ -163,6 +163,9 @@ function add_type_room_booking() {
 
         $count++;
     endwhile;
+    else :
+        $data .= '<option>Phòng trống !</option>';
+        $data .= '<option value="link" data-link="'.get_permalink($id).'">Thêm phòng</option>';
     endif;
     wp_reset_postdata();
 
@@ -253,6 +256,512 @@ function search_hotel() {
     }else{
         echo 'empty';
     }
+
+    die();
+}
+
+
+
+
+add_action("wp_ajax_search_gd", "search_gd");
+add_action("wp_ajax_nopriv_search_gd", "search_gd");
+
+function search_gd() {
+    $keyword = $_POST['keyword'];
+
+    ?>
+    <table>
+    <tr>
+        <td><strong><a href="#">CODE</a></strong></td>
+        <td><strong>MLK</strong></td>
+        <td><strong>MGD</strong></td>
+        <td><strong>MBK</strong></td>
+        <td><strong>Khách đại diện</strong></td>
+        <td><strong>Tên Khách sạn</a></strong></td>
+        <td><strong>Check-in</strong></td>
+        <td><strong>Check-out</strong></td>
+        <td><strong>SLP</strong></td>
+        <td><strong>Loại phòng</strong></td>
+        <td><strong>Hình thức BKK</strong></td>
+        <td><strong>Còn nợ KS (cả PT)</strong></td>
+        <td><strong>Ngày phải TT hết</strong></td>
+        <td><strong>Ghi chú nội bộ</strong></td>
+        <td></td>
+    </tr>
+    <?php
+
+    global $wpdb,$data;
+    $keyword = $_POST['keyword'];
+    $search_query = $wpdb->get_results("
+                SELECT
+                    $wpdb->posts.post_title,
+                    $wpdb->posts.ID,
+                    $wpdb->posts.post_content
+                FROM
+                    $wpdb->posts,
+                    $wpdb->postmeta AS postmeta1
+                WHERE
+                    $wpdb->posts.ID = postmeta1.post_id
+                    AND $wpdb->posts.post_type = 'giao_dich'
+                    AND postmeta1.meta_key = 'ma_gd_con'
+                    AND postmeta1.meta_value LIKE '%$keyword%'
+                    ORDER BY post_date DESC
+                    LIMIT 200
+                ");
+
+    if($search_query){
+        foreach ($search_query as $data) {
+            $id = $data->ID;
+            $args = array(
+                'p'         => $id, // ID of a page, post, or custom type
+                'post_type' => 'giao_dich'
+            );
+            $query_hotel = new WP_Query($args);
+            while ($query_hotel->have_posts()) : $query_hotel->the_post();
+                $this_ID = get_the_ID();
+                $the_permalink = get_permalink();
+                $ten_khach_san_gd = get_field('ten_khach_san_gd');
+                $ci_gd = get_field('ci_gd');
+                $co_gd = get_field('co_gd');
+                $sl_gd = get_field('sl_gd');
+                $loai_phong_ban_dt = get_field('loai_phong_ban_dt');
+                $hinh_thuc_book_gd = get_field('hinh_thuc_book_gd');
+                $kh_con_no_khac = get_field('kh_con_no_khac');
+                $tong_gia_tri_khac = get_field('tong_gia_tri_khac');
+                $ngay_phai_hoan_tat_tt_cho_ks_khac2 = get_field('ngay_phai_hoan_tat_tt_cho_ks_khac2');
+                ?>
+                <tr>
+                    <td><?php echo get_field('ma_xac_nhan'); ?></td>
+                    <td><?php echo get_field('ma_gd_con'); ?></td>
+                    <td><?php echo get_field('ma_gd_them_booking'); ?></td>
+                    <td><?php echo get_field('ma_gd'); ?></td>
+                    <td><?php echo get_field('khach_dai_dien_gd'); ?></td>
+                    <td><?php
+                        if(!empty(get_field('ten_khach_san_gd'))){
+                            $ten_khach_san_gd = get_field('ten_khach_san_gd');
+                            if ( (int)$ten_khach_san_gd == $ten_khach_san_gd ) {
+                                $query_name_hotel = new WP_Query(array(
+                                    'post_type' => 'hotel',
+                                    'p' => get_field('ten_khach_san_gd'),
+                                    'posts_per_page' => 1,
+                                ));
+
+                                if($query_name_hotel->have_posts()) : while ($query_name_hotel->have_posts()) : $query_name_hotel->the_post();
+                                    echo get_the_title();
+                                endwhile;
+                                else :
+                                    echo get_field('ten_khach_san_gd');
+                                endif;
+                                wp_reset_postdata();
+                            }else{
+                                echo get_field('ten_khach_san_gd');
+                            }
+                        }
+                        ?></td>
+                    <td><?php
+                        echo $ci_gd;
+                        ?></td>
+                    <td><?php
+                        echo $co_gd;
+                        ?></td>
+                    <td><?php echo $sl_gd; ?></td>
+                    <td><?php echo $loai_phong_ban_dt; ?></td>
+                    <td><?php echo $hinh_thuc_book_gd; ?></td>
+                    <td><?php
+                        $a = $kh_con_no_khac;
+
+                        if (strpos($a, ',') === false) {
+                            echo number_format($kh_con_no_khac,'0',',',',');
+                        }else{
+                            echo $kh_con_no_khac;
+                        }
+                        ?></td>
+                    <td width="10%"><?php echo $ngay_phai_hoan_tat_tt_cho_ks_khac2; ?></td>
+                    <td width="12%"><?php
+                        $arr_chat = array(
+                            'post_type' => 'chat',
+                            'posts_per_page' => 1,
+                            'order' => 'DESC',
+                            'meta_key'		=> 'id_chat_gd',
+                            'meta_value' => '^' . preg_quote( $this_ID ),
+                            'meta_compare' => 'RLIKE',
+                        );
+                        $query_chat = get_posts($arr_chat);
+                        if( $query_chat ): foreach( $query_chat as $post ):
+                            setup_postdata( $post );
+                            echo get_field('tin_nhan_chat');
+                        endforeach;
+                        else :
+                            echo 'Dữ liệu trống !';
+                        endif;
+                        wp_reset_postdata();
+                        ?></td>
+                    <td>
+                        <a class="edit" href="<?php echo $the_permalink; ?>"><i
+                                    class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+            <?php
+            endwhile;
+            wp_reset_postdata();
+        }
+    }else{
+        $search_query = $wpdb->get_results("
+                                SELECT
+                                    $wpdb->posts.post_title,
+                                    $wpdb->posts.ID,
+                                    $wpdb->posts.post_content
+                                FROM
+                                    $wpdb->posts,
+                                    $wpdb->postmeta AS postmeta1
+                                WHERE
+                                    $wpdb->posts.ID = postmeta1.post_id
+                                    AND $wpdb->posts.post_type = 'giao_dich'
+                                    AND postmeta1.meta_key = 'ma_gd_them_booking'
+                                    AND postmeta1.meta_value LIKE '%$keyword%'
+                                    ORDER BY post_date DESC
+                                    LIMIT 200
+                                ");
+
+        if($search_query){
+            foreach ($search_query as $data) {
+                $id = $data->ID;
+                $args = array(
+                    'p'         => $id, // ID of a page, post, or custom type
+                    'post_type' => 'giao_dich'
+                );
+                $query_hotel = new WP_Query($args);
+                while ($query_hotel->have_posts()) : $query_hotel->the_post();
+                    $this_ID = get_the_ID();
+                    $the_permalink = get_permalink();
+                    $ten_khach_san_gd = get_field('ten_khach_san_gd');
+                    $ci_gd = get_field('ci_gd');
+                    $co_gd = get_field('co_gd');
+                    $sl_gd = get_field('sl_gd');
+                    $loai_phong_ban_dt = get_field('loai_phong_ban_dt');
+                    $hinh_thuc_book_gd = get_field('hinh_thuc_book_gd');
+                    $kh_con_no_khac = get_field('kh_con_no_khac');
+                    $tong_gia_tri_khac = get_field('tong_gia_tri_khac');
+                    $ngay_phai_hoan_tat_tt_cho_ks_khac2 = get_field('ngay_phai_hoan_tat_tt_cho_ks_khac2');
+                    ?>
+                    <tr>
+                        <td><?php echo get_field('ma_xac_nhan'); ?></td>
+                        <td><?php echo get_field('ma_gd_con'); ?></td>
+                        <td><?php echo get_field('ma_gd_them_booking'); ?></td>
+                        <td><?php echo get_field('ma_gd'); ?></td>
+                        <td><?php echo get_field('khach_dai_dien_gd'); ?></td>
+                        <td><?php
+                            if(!empty(get_field('ten_khach_san_gd'))){
+                                $ten_khach_san_gd = get_field('ten_khach_san_gd');
+                                if ( (int)$ten_khach_san_gd == $ten_khach_san_gd ) {
+                                    $query_name_hotel = new WP_Query(array(
+                                        'post_type' => 'hotel',
+                                        'p' => get_field('ten_khach_san_gd'),
+                                        'posts_per_page' => 1,
+                                    ));
+
+                                    if($query_name_hotel->have_posts()) : while ($query_name_hotel->have_posts()) : $query_name_hotel->the_post();
+                                        echo get_the_title();
+                                    endwhile;
+                                    else :
+                                        echo get_field('ten_khach_san_gd');
+                                    endif;
+                                    wp_reset_postdata();
+                                }else{
+                                    echo get_field('ten_khach_san_gd');
+                                }
+                            }
+                            ?></td>
+                        <td><?php
+                            echo $ci_gd;
+                            ?></td>
+                        <td><?php
+                            echo $co_gd;
+                            ?></td>
+                        <td><?php echo $sl_gd; ?></td>
+                        <td><?php echo $loai_phong_ban_dt; ?></td>
+                        <td><?php echo $hinh_thuc_book_gd; ?></td>
+                        <td><?php
+                            $a = $kh_con_no_khac;
+
+                            if (strpos($a, ',') === false) {
+                                echo number_format($kh_con_no_khac,'0',',',',');
+                            }else{
+                                echo $kh_con_no_khac;
+                            }
+                            ?></td>
+                        <td width="10%"><?php echo $ngay_phai_hoan_tat_tt_cho_ks_khac2; ?></td>
+                        <td width="12%"><?php
+                            $arr_chat = array(
+                                'post_type' => 'chat',
+                                'posts_per_page' => 1,
+                                'order' => 'DESC',
+                                'meta_key'		=> 'id_chat_gd',
+                                'meta_value' => '^' . preg_quote( $this_ID ),
+                                'meta_compare' => 'RLIKE',
+                            );
+                            $query_chat = get_posts($arr_chat);
+                            if( $query_chat ): foreach( $query_chat as $post ):
+                                setup_postdata( $post );
+                                echo get_field('tin_nhan_chat');
+                            endforeach;
+                            else :
+                                echo 'Dữ liệu trống !';
+                            endif;
+                            wp_reset_postdata();
+                            ?></td>
+                        <td>
+                            <a class="edit" href="<?php echo $the_permalink; ?>"><i
+                                        class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                        </td>
+                    </tr>
+                <?php
+                endwhile;
+                wp_reset_postdata();
+            }
+        }else{
+            $search_query = $wpdb->get_results("
+                            SELECT
+                                $wpdb->posts.post_title,
+                                $wpdb->posts.ID,
+                                $wpdb->posts.post_content
+                            FROM
+                                $wpdb->posts,
+                                $wpdb->postmeta AS postmeta1
+                            WHERE
+                                $wpdb->posts.ID = postmeta1.post_id
+                                AND $wpdb->posts.post_type = 'giao_dich'
+                                AND postmeta1.meta_key = 'ma_gd'
+                                AND postmeta1.meta_value LIKE '%$keyword%'
+                                ORDER BY post_date DESC
+                                LIMIT 200
+                            ");
+
+            if($search_query){
+                foreach ($search_query as $data) {
+                    $id = $data->ID;
+                    $args = array(
+                        'p'         => $id, // ID of a page, post, or custom type
+                        'post_type' => 'giao_dich'
+                    );
+                    $query_hotel = new WP_Query($args);
+                    while ($query_hotel->have_posts()) : $query_hotel->the_post();
+                        $this_ID = get_the_ID();
+                        $the_permalink = get_permalink();
+                        $ten_khach_san_gd = get_field('ten_khach_san_gd');
+                        $ci_gd = get_field('ci_gd');
+                        $co_gd = get_field('co_gd');
+                        $sl_gd = get_field('sl_gd');
+                        $loai_phong_ban_dt = get_field('loai_phong_ban_dt');
+                        $hinh_thuc_book_gd = get_field('hinh_thuc_book_gd');
+                        $kh_con_no_khac = get_field('kh_con_no_khac');
+                        $tong_gia_tri_khac = get_field('tong_gia_tri_khac');
+                        $ngay_phai_hoan_tat_tt_cho_ks_khac2 = get_field('ngay_phai_hoan_tat_tt_cho_ks_khac2');
+                        ?>
+                        <tr>
+                            <td><?php echo get_field('ma_xac_nhan'); ?></td>
+                            <td><?php echo get_field('ma_gd_con'); ?></td>
+                            <td><?php echo get_field('ma_gd_them_booking'); ?></td>
+                            <td><?php echo get_field('ma_gd'); ?></td>
+                            <td><?php echo get_field('khach_dai_dien_gd'); ?></td>
+                            <td><?php
+                                if(!empty(get_field('ten_khach_san_gd'))){
+                                    $ten_khach_san_gd = get_field('ten_khach_san_gd');
+                                    if ( (int)$ten_khach_san_gd == $ten_khach_san_gd ) {
+                                        $query_name_hotel = new WP_Query(array(
+                                            'post_type' => 'hotel',
+                                            'p' => get_field('ten_khach_san_gd'),
+                                            'posts_per_page' => 1,
+                                        ));
+
+                                        if($query_name_hotel->have_posts()) : while ($query_name_hotel->have_posts()) : $query_name_hotel->the_post();
+                                            echo get_the_title();
+                                        endwhile;
+                                        else :
+                                            echo get_field('ten_khach_san_gd');
+                                        endif;
+                                        wp_reset_postdata();
+                                    }else{
+                                        echo get_field('ten_khach_san_gd');
+                                    }
+                                }
+                                ?></td>
+                            <td><?php
+                                echo $ci_gd;
+                                ?></td>
+                            <td><?php
+                                echo $co_gd;
+                                ?></td>
+                            <td><?php echo $sl_gd; ?></td>
+                            <td><?php echo $loai_phong_ban_dt; ?></td>
+                            <td><?php echo $hinh_thuc_book_gd; ?></td>
+                            <td><?php
+                                $a = $kh_con_no_khac;
+
+                                if (strpos($a, ',') === false) {
+                                    echo number_format($kh_con_no_khac,'0',',',',');
+                                }else{
+                                    echo $kh_con_no_khac;
+                                }
+                                ?></td>
+                            <td><?php
+                                echo $kh_con_no_khac;
+                                ?></td>
+                            <td width="10%"><?php echo $ngay_phai_hoan_tat_tt_cho_ks_khac2; ?></td>
+                            <td width="12%"><?php
+                                $arr_chat = array(
+                                    'post_type' => 'chat',
+                                    'posts_per_page' => 1,
+                                    'order' => 'DESC',
+                                    'meta_key'		=> 'id_chat_gd',
+                                    'meta_value' => '^' . preg_quote( $this_ID ),
+                                    'meta_compare' => 'RLIKE',
+                                );
+                                $query_chat = get_posts($arr_chat);
+                                if( $query_chat ): foreach( $query_chat as $post ):
+                                    setup_postdata( $post );
+                                    echo get_field('tin_nhan_chat');
+                                endforeach;
+                                else :
+                                    echo 'Dữ liệu trống !';
+                                endif;
+                                wp_reset_postdata();
+                                ?></td>
+                            <td>
+                                <a class="edit" href="<?php echo $the_permalink; ?>"><i
+                                            class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                            </td>
+                        </tr>
+                    <?php
+                    endwhile;
+                    wp_reset_postdata();
+                }
+            }else{
+                $search_query = $wpdb->get_results("
+                                        SELECT
+                                            $wpdb->posts.post_title,
+                                            $wpdb->posts.ID,
+                                            $wpdb->posts.post_content
+                                        FROM
+                                            $wpdb->posts,
+                                            $wpdb->postmeta AS postmeta1
+                                        WHERE
+                                            $wpdb->posts.ID = postmeta1.post_id
+                                            AND $wpdb->posts.post_type = 'giao_dich'
+                                            AND postmeta1.meta_key = 'khach_dai_dien_gd'
+                                            AND postmeta1.meta_value LIKE '%$keyword%'
+                                            ORDER BY post_date DESC
+                                            LIMIT 200
+                                        ");
+
+                if($search_query){
+                    foreach ($search_query as $data) {
+                        $id = $data->ID;
+                        $args = array(
+                            'p'         => $id, // ID of a page, post, or custom type
+                            'post_type' => 'giao_dich'
+                        );
+                        $query_hotel = new WP_Query($args);
+                        while ($query_hotel->have_posts()) : $query_hotel->the_post();
+                            $this_ID = get_the_ID();
+                            $the_permalink = get_permalink();
+                            $ten_khach_san_gd = get_field('ten_khach_san_gd');
+                            $ci_gd = get_field('ci_gd');
+                            $co_gd = get_field('co_gd');
+                            $sl_gd = get_field('sl_gd');
+                            $loai_phong_ban_dt = get_field('loai_phong_ban_dt');
+                            $hinh_thuc_book_gd = get_field('hinh_thuc_book_gd');
+                            $kh_con_no_khac = get_field('kh_con_no_khac');
+                            $tong_gia_tri_khac = get_field('tong_gia_tri_khac');
+                            $ngay_phai_hoan_tat_tt_cho_ks_khac2 = get_field('ngay_phai_hoan_tat_tt_cho_ks_khac2');
+                            ?>
+                            <tr>
+                                <td><?php echo get_field('ma_xac_nhan'); ?></td>
+                                <td><?php echo get_field('ma_gd_con'); ?></td>
+                                <td><?php echo get_field('ma_gd_them_booking'); ?></td>
+                                <td><?php echo get_field('ma_gd'); ?></td>
+                                <td><?php echo get_field('khach_dai_dien_gd'); ?></td>
+                                <td><?php
+                                    if(!empty(get_field('ten_khach_san_gd'))){
+                                        $ten_khach_san_gd = get_field('ten_khach_san_gd');
+                                        if ( (int)$ten_khach_san_gd == $ten_khach_san_gd ) {
+                                            $query_name_hotel = new WP_Query(array(
+                                                'post_type' => 'hotel',
+                                                'p' => get_field('ten_khach_san_gd'),
+                                                'posts_per_page' => 1,
+                                            ));
+
+                                            if($query_name_hotel->have_posts()) : while ($query_name_hotel->have_posts()) : $query_name_hotel->the_post();
+                                                echo get_the_title();
+                                            endwhile;
+                                            else :
+                                                echo get_field('ten_khach_san_gd');
+                                            endif;
+                                            wp_reset_postdata();
+                                        }else{
+                                            echo get_field('ten_khach_san_gd');
+                                        }
+                                    }
+                                    ?></td>
+                                <td><?php
+                                    echo $ci_gd;
+                                    ?></td>
+                                <td><?php
+                                    echo $co_gd;
+                                    ?></td>
+                                <td><?php echo $sl_gd; ?></td>
+                                <td><?php echo $loai_phong_ban_dt; ?></td>
+                                <td><?php echo $hinh_thuc_book_gd; ?></td>
+                                <td><?php
+                                    $a = $kh_con_no_khac;
+
+                                    if (strpos($a, ',') === false) {
+                                        echo number_format($kh_con_no_khac,'0',',',',');
+                                    }else{
+                                        echo $kh_con_no_khac;
+                                    }
+                                    ?></td>
+                                <td><?php
+                                    echo $kh_con_no_khac;
+                                    ?></td>
+                                <td width="10%"><?php echo $ngay_phai_hoan_tat_tt_cho_ks_khac2; ?></td>
+                                <td width="12%"><?php
+                                    $arr_chat = array(
+                                        'post_type' => 'chat',
+                                        'posts_per_page' => 1,
+                                        'order' => 'DESC',
+                                        'meta_key'		=> 'id_chat_gd',
+                                        'meta_value' => '^' . preg_quote( $id ),
+                                        'meta_compare' => 'RLIKE',
+                                    );
+                                    $query_chat = get_posts($arr_chat);
+                                    if( $query_chat ): foreach( $query_chat as $post ):
+                                        setup_postdata( $post );
+                                        echo get_field('tin_nhan_chat');
+                                    endforeach;
+                                    else :
+                                        echo 'Dữ liệu trống !';
+                                    endif;
+                                    wp_reset_postdata();
+                                    ?></td>
+                                <td>
+                                    <a class="edit" href="<?php echo $the_permalink; ?>"><i
+                                                class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                </td>
+                            </tr>
+                        <?php
+                        endwhile;
+                        wp_reset_postdata();
+                    }
+                }
+            }
+        }
+    }
+
+
+    ?>
+    </table>
+    <?php
 
     die();
 }

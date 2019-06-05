@@ -1099,6 +1099,10 @@ table#show_chat {
   background: red !important;
 }
 
+.sl_gd,.don_gia_ban_gd,.tong_gd,.don_gia_ban_dt,.tong_dt,.sl_dt,.lai_lo_khac,.thue_vat_khac,.thue_tndn_khac{
+  padding: 0px !important;
+}
+
 .search_hotel{
   margin: 10px 0px;
   form{
@@ -1125,6 +1129,86 @@ table#show_chat {
     outline: none;
     border: none;
     background: #FFF;
+  }
+}
+
+.single-history_giao_dich{
+  .sub_tach_giao_dich{
+    display: none;
+  }
+  input,textarea,select{
+    background: #eaeaea !important;
+  }
+  .ma_gd_con,.ma_gd_them_booking,.ma_gd,.ma_xac_nhan,
+  .ly_giai_pt,.hinh_thuc_book_gd,.tin_nhan_chat,.bo_phan_chat,
+  .muc_do_uu_tien_chat,.trang_thai_chat,.ngay_can_nhac_lai_chat,
+  .sl_nl,.gp,.sl02,.sl46,.sl612,.sl24,.pt_nguoi,.pt_giai_doan,.bua_an_bat_buoc,
+  .dich_vu_khac,.tong_pt,.kh_tt_pt_tai,.pt_cuoi_tuan,.ten_kgd,.nick_kgd,.sdt_kgd,.email_kgd_duy_nhat
+  ,.tk_kgd,.ma_kgd,.xep_hang_kgd,.ma_ctv,.ma_nv,.ma_kho_popup_thong_tin_kho,.sl_lay_tu_kho,.lai_lo_khac
+  ,.thue_vat_khac,.thue_tndn_khac,.cp_marketing_khac,.cp_hau_can_khac,.cp_hau_mai_khac,.cp_co_dinh_khac{
+    background: #fff !important;
+  }
+}
+
+.acf-form-submit{
+  input{
+    padding: 0 10px !important;
+  }
+}
+
+.gd_price{
+  input{
+    background: #eaeaea !important;
+  }
+}
+
+.add_list_price_booking{
+  width: 100%;
+  overflow: hidden;
+  background: #FFF;
+  padding: 10px;
+  button{
+    border: none;
+    border-radius: 0px;
+    background: green;
+    color: #FFF;
+    text-transform: uppercase;
+    padding: 10px;
+    margin-top: 10px;
+    margin-left: 7.5px;
+    margin-bottom: 5px;
+    outline: none;
+    transition: 0.5s;
+    &:hover{
+      background: #2A7AFE;
+      cursor: pointer;
+    }
+  }
+  .list_price{
+    display: flex;
+    .item{
+      width: 100%;
+      padding: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      input{
+        width: 100%;
+        height: 35px;
+        border: none;
+        border-bottom:1px solid #2A7AFE;
+        background: none !important;
+        color: #000;
+        &::placeholder{
+          color: #000;
+        }
+      }
+      i{
+        text-align: center;
+        font-size: 20px;
+        color: green;
+      }
+    }
   }
 }
 

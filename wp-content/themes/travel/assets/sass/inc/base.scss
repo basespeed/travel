@@ -140,7 +140,7 @@ a:visited{
     display: block;
     width: 80%;
     height: 80%;
-    background: #2D6ABB !important;
+    background: green !important;
     z-index: -1;
     position: absolute;
   }
@@ -157,4 +157,8 @@ a:visited{
     z-index: -1;
     position: absolute;
   }
+}
+
+.datepicker--cells-days .sunday{
+  color: red !important;
 }

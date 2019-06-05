@@ -16,7 +16,7 @@ function send_mess() {
     $curren_url_chat = $_POST['curren_url_chat'].'#show_chat';
 
     $update_mess = array(
-        'ID'           => $id_reply,
+        'ID'           => $id_chat_gd,
     );
 
     $post_id_mess = wp_update_post($update_mess);
@@ -192,6 +192,7 @@ function load_chat_real_time() {
                             $ngay_can_nhac_lai_chat = get_field('ngay_can_nhac_lai_chat');
                             $button = get_field('button');
                             $reply_chat = get_field('reply_chat');
+                            $get_the_ID = get_the_ID();
                         ?>
                         <div class="cmt">
                            <div class="img"><img src="<?php
@@ -259,7 +260,7 @@ function load_chat_real_time() {
                     </td>
                     <td bgcolor="#EAF8FF"><input type="text" class="trang_thai_chat_mess" value="<?php echo $trang_thai_chat; ?>" disabled></td>
                     <td bgcolor="#EAF8FF"><input type="text" data-date-format="dd/mm/yyyy" data-position='top left' class="datepicker-here ngay_can_nhac_lai_chat_mess" value="<?php echo $ngay_can_nhac_lai_chat; ?>" data-language='en' disabled></td>
-                    <td bgcolor="#EAF8FF"><p class="change_update_send_mess" data-id="<?php echo get_the_ID(); ?>" data-name="<?php echo $ma_nhan_vien_chat; ?>">
+                    <td bgcolor="#EAF8FF"><p class="change_update_send_mess" data-id="<?php echo $get_the_ID; ?>" data-name="<?php echo $ma_nhan_vien_chat; ?>">
                             <?php
                             if($this_user == $ma_nhan_vien_chat && $button == 'true'){
                                 ?>
@@ -288,6 +289,7 @@ function load_chat_real_time() {
             );
             $query_chat_count = new WP_Query($arr_chat_count);
             if($query_chat_count->have_posts()) : while ($query_chat_count->have_posts()) : $query_chat_count->the_post();
+                $get_the_ID = get_the_ID();
                 if(get_field('count_chat') > 6){
                     ?>
                     <tr class="show_chat">

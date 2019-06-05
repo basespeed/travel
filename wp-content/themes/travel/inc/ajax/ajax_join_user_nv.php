@@ -28,12 +28,15 @@ function join_user_nv() {
             $id = $data->ID;
             $args = array(
                 'p'         => $id, // ID of a page, post, or custom type
-                'post_type' => 'nhan_vien'
+                'post_type' => 'nhan_vien',
             );
 
             $query = new WP_Query($args);
             $data = [];
             if($query->have_posts()) : while ($query->have_posts()) : $query->the_post();
+                if($data[0] == get_field('ten_nv')){
+                    continue;
+                }
                 array_push($data, get_field('ten_nv'));
                 array_push($data, get_field('sdt_nv'));
                 array_push($data, get_field('lien_ket_tai_khoan'));

@@ -169,7 +169,7 @@ if (isset($_POST['sub_update_user'])) {
                                     data-check="<?php /*echo get_field('email_tai_khoan'); */?>">
                                 <option value="<?php /*echo get_field('email_tai_khoan'); */?>"><?php /*echo get_field('email_tai_khoan'); */?></option>
                             </select>-->
-                            <input type="text" name="email_tai_khoan" value="<?php echo get_field('email_tai_khoan'); ?>" />
+                            <input type="text" name="email_tai_khoan" class="email_tai_khoan" value="<?php echo get_field('email_tai_khoan'); ?>" />
                         </li>
                         <li>
                             <label>Đổi mật khẩu</label>

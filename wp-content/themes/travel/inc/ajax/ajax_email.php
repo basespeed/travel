@@ -3,7 +3,10 @@ add_action("wp_ajax_forget_email", "forget_email");
 add_action("wp_ajax_nopriv_forget_email", "forget_email");
 
 function forget_email() {
+    global $token;
     $email_forget = $_POST['email_forget'];
+    $token = abs(crc32(uniqid()));
+    $token = $token;
 
     $query = new WP_Query(array(
         'post_type' => 'tai_khoan',
@@ -19,7 +22,8 @@ function forget_email() {
 
     if($query->have_posts()) : while ($query->have_posts()) : $query->the_post();
         $id_token = get_the_ID();
-        $token = abs(crc32(uniqid()));
+
+
 
         $update_token_forget = array(
             'ID'           => $id_token,

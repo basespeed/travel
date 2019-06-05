@@ -550,7 +550,7 @@ get_header();
                                 </ul>
                             </div>
                         </div>
-                        <div class="item type_room">
+                        <div class="item type_room" id="type_room">
                             <h1>Giá phòng và loại phòng</h1>
 
                             <ul>
