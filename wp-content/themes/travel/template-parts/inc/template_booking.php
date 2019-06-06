@@ -993,6 +993,11 @@
                             ?>
                             <input type="text" name="sl_gd" class="sl_gd" value="<?php echo $sl_gd; ?>" required autocomplete="off"/>
                             <?php
+                        }elseif(is_page(213) || is_page()){
+                            $sl_gd = $_POST['sl_gd'];
+                            ?>
+                            <input type="text" name="sl_gd" class="sl_gd" value="1" required autocomplete="off"/>
+                            <?php
                         }else{
                             ?>
                             <input type="text" name="sl_gd" class="sl_gd" value="<?php echo get_field('sl_gd'); ?>" required autocomplete="off"/>
@@ -1338,6 +1343,11 @@
                             $sl_dt = $_POST['sl_dt'];
                             ?>
                             <input type="number" name="sl_dt" class="sl_dt" value="<?php echo $sl_dt; ?>" required autocomplete="off"/>
+                            <?php
+                        }elseif(is_page(213) || is_page()){
+                            $sl_dt = $_POST['sl_dt'];
+                            ?>
+                            <input type="number" name="sl_dt" class="sl_dt" value="1" required autocomplete="off"/>
                             <?php
                         }else{
                             ?>
