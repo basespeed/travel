@@ -73,7 +73,7 @@ function travel_scripts() {
 	wp_enqueue_script( 'isotope-js', get_template_directory_uri() . '/assets/js/isotope.pkgd.min.js', array(), false, true );
 	wp_enqueue_script( 'parallax-js', get_template_directory_uri() . '/assets/js/parallax.js', array(), false, true );
 	wp_enqueue_script( 'nicescroll-js', get_template_directory_uri() . '/assets/js/jquery.nicescroll.min.js', array(), false, true );
-    wp_enqueue_script( 'iframehelper-js', get_template_directory_uri() . '/assets/js/jquery.nicescroll.iframehelper.min.js', array(), false, true );
+    //wp_enqueue_script( 'iframehelper-js', get_template_directory_uri() . '/assets/js/jquery.nicescroll.iframehelper.min.js', array(), false, true );
     wp_enqueue_script( 'jquery_form-js', get_template_directory_uri() . '/assets/js/jquery.form.js', array(), false, true );
     wp_enqueue_script( 'picturefill-js', get_template_directory_uri() . '/assets/js/picturefill.min.js', array(), false, true );
     wp_enqueue_script( 'lightgallery-js', get_template_directory_uri() . '/assets/js/lightgallery-all.min.js', array(), false, true );
@@ -173,6 +173,7 @@ require get_template_directory() . '/inc/ajax/ajax-khach-hang.php';
 require get_template_directory() . '/inc/ajax/ajax_email.php';
 require get_template_directory() . '/inc/ajax/excel_hotel.php';
 require get_template_directory() . '/inc/ajax/ajax-khach-san.php';
+require get_template_directory() . '/inc/ajax/ajax-add-price-booking.php';
 
 /**
  * ACF.

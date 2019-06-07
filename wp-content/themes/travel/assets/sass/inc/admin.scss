@@ -412,12 +412,12 @@ a.view{
       }
       .sub-menu{
         display: block;
-        li:nth-child(2){
+        /*li:nth-child(2){
           a{
             background: #000 !important;
             color: #FFF !important;
           }
-        }
+        }*/
       }
     }
   }
@@ -797,3 +797,4 @@ a.ho_so{
 .quantri_admin .them_giao_dich td{
   padding: 0 4px;
 }
+

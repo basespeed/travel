@@ -234,6 +234,15 @@
         var disable_edit_giao_dich2_view = $( ".view_fix select");
         var disable_edit_giao_dich3_view = $( ".view_fix textarea");
 
+        $('.so_dem_gd').prop('disabled', true);
+        $('.con_ngay_gd').prop('disabled', true);
+        //$('.don_gia_ban_gd').prop('disabled', true);
+        $('.tong_gd').prop('disabled', true);
+        //$('.don_gia_ban_dt').prop('disabled', true);
+        $('.tong_dt').prop('disabled', true);
+        $('.con_ngay_dt').prop('disabled', true);
+        $('.con_ngay_thay_doi_dt').prop('disabled', true);
+
         change_label_title.text('Tiêu đề');
         insert_icon_menu_admin.append('<i class="fa fa-caret-down" aria-hidden="true"></i>');
         disable_edit_giao_dich.prop( "disabled", true );
@@ -278,6 +287,7 @@
             'tong_gia_tri_khac2',
             'da_thanh_toan_khac2',
             'bct_con_no_khac2',
+            'don_gia_ban_gd',
         ];
         $.each(arr_input_number_class , function(index, val) {
             if($('.'+val).val() == 0 || $('.'+val).val() < 0 || $('.'+val).val() == ''){
@@ -437,6 +447,10 @@
         $('.gia_tien_dt_add').simpleMoneyFormat();
         $('.add_tien_coc').simpleMoneyFormat();
         $('.add_tien_coc_di').simpleMoneyFormat();
+        $('.tien_coc').simpleMoneyFormat();
+        $('.tien_coc_di').simpleMoneyFormat();
+        $(document).find('.tien_coc').simpleMoneyFormat();
+        $(document).find('.tien_coc_di').simpleMoneyFormat();
 
         //add price gd
         var today = new Date();
@@ -484,18 +498,18 @@
                 onSelect: function() {
                     var dateFormat = $(this).val();
                     var now = new Date(dateFormat);
-                    console.log(now);
+
                     var first_date = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
                     $('.ngay_lock_phong_doi_tac').val(first_date);
                 },
             });
         });
 
-        $('.pt_nguoi,.pt_giai_doan,.pt_cuoi_tuan,.bua_an_bat_buoc,.dich_vu_khac,.tien_chua_pt_khac,.don_gia_ban_gd,.don_gia_ban_dt,.tien_chua_pt_khac2,.giam_gia_cho_kh_khac,.giam_gia_cua_dt_khac2,.da_thanh_toan_khac,.da_thanh_toan_khac2,.tong_gd,.tong_phu_thu_khac,.tong_phu_thu_khac2,.kh_con_no_khac,.bct_con_no_khac2,.lai_lo_khac,.kh_tt_pt_tai').on('keyup', function(){
+        $('.sl_gd,.sl_dt,.pt_nguoi,.pt_giai_doan,.pt_cuoi_tuan,.bua_an_bat_buoc,.dich_vu_khac,.tien_chua_pt_khac,.don_gia_ban_gd,.don_gia_ban_dt,.tien_chua_pt_khac2,.giam_gia_cho_kh_khac,.giam_gia_cua_dt_khac2,.da_thanh_toan_khac,.da_thanh_toan_khac2,.tong_gd,.tong_phu_thu_khac,.tong_phu_thu_khac2,.kh_con_no_khac,.bct_con_no_khac2,.lai_lo_khac,.kh_tt_pt_tai').on('keyup', function(){
             base_total_hotel_tonight();
             base_change_count_gd();
         });
-        $('.pt_nguoi,.pt_giai_doan,.pt_cuoi_tuan,.bua_an_bat_buoc,.dich_vu_khac,.tien_chua_pt_khac,.don_gia_ban_gd,.don_gia_ban_dt,.tien_chua_pt_khac2,.giam_gia_cho_kh_khac,.giam_gia_cua_dt_khac2,.da_thanh_toan_khac,.da_thanh_toan_khac2,.tong_gd,.tong_phu_thu_khac,.tong_phu_thu_khac2,.kh_con_no_khac,.bct_con_no_khac2,.lai_lo_khac,.kh_tt_pt_tai').on('change', function(){
+        $('.sl_gd,.sl_dt,.pt_nguoi,.pt_giai_doan,.pt_cuoi_tuan,.bua_an_bat_buoc,.dich_vu_khac,.tien_chua_pt_khac,.don_gia_ban_gd,.don_gia_ban_dt,.tien_chua_pt_khac2,.giam_gia_cho_kh_khac,.giam_gia_cua_dt_khac2,.da_thanh_toan_khac,.da_thanh_toan_khac2,.tong_gd,.tong_phu_thu_khac,.tong_phu_thu_khac2,.kh_con_no_khac,.bct_con_no_khac2,.lai_lo_khac,.kh_tt_pt_tai').on('change', function(){
             base_total_hotel_tonight();
             base_change_count_gd();
         });
@@ -786,6 +800,9 @@
             $('td input.ma_dich_vu_gd_val').val(slug+'-'+id_ks_gd);
 
             $('.pop_ten_khach_san_gd').hide();
+
+            base_total_hotel_tonight();
+            base_change_count_gd();
         });
 
 
@@ -1042,7 +1059,7 @@
                         $('.lien_ket_tai_khoan').val(response.data[2]);
                         $('.bo_phan_tai_khoan').val(response.data[3]);
                         $('.email_tai_khoan').append(new Option(response.data[4], response.data[4]));
-                        console.log(response);
+
                     }
                 });
             }
@@ -1071,49 +1088,51 @@
 
     //Kiểm tra xem tài khoản nào đang online, offline
     function checkOnline() {
-        setInterval(function () {
-            var search_user_chat = $('.search_user_chat');
-            if(search_user_chat.val() == ""){
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: my_ajax_object.ajax_url,
-                    data: {action: "check_online"},
-                    success: function(response){
-                        var input_gd = $('input.search_gd');
-                        var slt_search_giao_dich = $(".slt_search_giao_dich");
+        if($('.single').hasClass('single-giao_dich') || $('.page-template').hasClass('page-template-tach-booking') || $('.page-template').hasClass('page-template-them-booking')){
+            setInterval(function () {
+                var search_user_chat = $('.search_user_chat');
+                if(search_user_chat.val() == ""){
+                    $.ajax({
+                        type: "post",
+                        dataType: "json",
+                        url: my_ajax_object.ajax_url,
+                        data: {action: "check_online"},
+                        success: function(response){
+                            var input_gd = $('input.search_gd');
+                            var slt_search_giao_dich = $(".slt_search_giao_dich");
 
-                        $('.my_friend .list_user_on').html(response.data);
-                        //console.log(response);
+                            $('.my_friend .list_user_on').html(response.data);
+                            //console.log(response);
 
-                        $('.chatbox .my_friend ul li').on('click', function (e) {
-                            e.preventDefault();
-                            var data_name = $(this).attr('data-name');
+                            $('.chatbox .my_friend ul li').on('click', function (e) {
+                                e.preventDefault();
+                                var data_name = $(this).attr('data-name');
 
-                            $('.form_chat h2 span').text(data_name);
-                        });
-                    }
-                });
-            }else{
-                var val_user_on = search_user_chat.val();
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: my_ajax_object.ajax_url,
-                    data: {action: "search_user_online",val_user_on:val_user_on},
-                    success: function(response){
-                        $('.my_friend .list_user_on').html(response.data);
+                                $('.form_chat h2 span').text(data_name);
+                            });
+                        }
+                    });
+                }else{
+                    var val_user_on = search_user_chat.val();
+                    $.ajax({
+                        type: "post",
+                        dataType: "json",
+                        url: my_ajax_object.ajax_url,
+                        data: {action: "search_user_online",val_user_on:val_user_on},
+                        success: function(response){
+                            $('.my_friend .list_user_on').html(response.data);
 
-                        $('.chatbox .my_friend ul li').on('click', function (e) {
-                            e.preventDefault();
-                            var data_name = $(this).attr('data-name');
+                            $('.chatbox .my_friend ul li').on('click', function (e) {
+                                e.preventDefault();
+                                var data_name = $(this).attr('data-name');
 
-                            $('.form_chat h2 span').text(data_name);
-                        });
-                    }
-                });
-            }
-        },3000);
+                                $('.form_chat h2 span').text(data_name);
+                            });
+                        }
+                    });
+                }
+            },3000);
+        }
 
         window.addEventListener('beforeunload', function (e) {
             // Cancel the event
@@ -1136,7 +1155,7 @@
         var btn_send_chat = $('.btn_send_chat');
 
         btn_send_chat.on('click',function (e) {
-           e.preventDefault();
+            e.preventDefault();
             var tin_nhan_chat = $('.tin_nhan_chat').val();
             var bo_phan_chat = $('.bo_phan_chat').val();
             var muc_do_uu_tien_chat = $('.muc_do_uu_tien_chat').val();
@@ -1213,7 +1232,7 @@
         });
 
         //Hiện các tin nhắn ở phần giao dịch real time
-        //if($('.them_giao_dich').hasClass('sua_giao_dich')) {
+        if($('.single').hasClass('single-giao_dich') || $('.page-template').hasClass('page-template-tach-booking') || $('.page-template').hasClass('page-template-them-booking')){
             var loadListMess = setInterval(function () {
                 var show_chat_id = $('.them_giao_dich.sua_giao_dich .show_chat_table').attr('data-id');
                 var count_chat = parseInt($('table.show_chat_table tbody .count_chat').attr('data-count'));
@@ -1240,8 +1259,8 @@
                         }
                     }
                 });
-            }, 10000);
-            
+            }, 1000);
+
             var selectCheck = setInterval(function () {
                 $('.muc_do_uu_tien_chat_mess').filter(function () {
                     $(this).val($(this).attr('data-check'));
@@ -1249,31 +1268,8 @@
                 $('select.bo_phan_chat_mess').filter(function () {
                     $(this).val($(this).attr('data-check'));
                 });
-            },10000);
-
-            
-            //Hiển thị thông báo thì có tin nhắn mới giao dịch
-            setInterval(function () {
-                var show_chat_id = $('.them_giao_dich.sua_giao_dich .show_chat_table').attr('data-id');
-                var count_chat = parseInt($('table.show_chat_table tbody .count_chat').attr('data-count'));
-                var ma_nhan_vien_chat = $('.ma_nhan_vien_chat').val();
-
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: my_ajax_object.ajax_url,
-                    data: {
-                        action: "load_chat_notifications",
-                        show_chat_id:show_chat_id,
-                        count_chat:count_chat,
-                        ma_nhan_vien_chat:ma_nhan_vien_chat
-                    },
-                    success: function (response) {
-
-                    }
-                });
-            },3000);
-        //}
+            },1000);
+        }
 
         //Click update tin nhắn sẽ tạm dừng real time tin nhắn
         $(document).on('click','.btn_edit_chat',function (e) {
@@ -1321,45 +1317,47 @@
         });
 
         //Update tin nhắn giao dịch
-        $(document).on('click','.btn_update_chat',function (e) {
-            e.preventDefault();
-            $(this).parent().html('<button type="button" class="btn_edit_chat"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>');
-            loadListMess = setInterval(function () {
-                var show_chat_id = $('.them_giao_dich.sua_giao_dich .show_chat_table').attr('data-id');
-                var count_chat = parseInt($('table.show_chat_table tbody .count_chat').attr('data-count'));
+        if($('.single').hasClass('single-giao_dich') || $('.page-template').hasClass('page-template-tach-booking') || $('.page-template').hasClass('page-template-them-booking')){
+            $(document).on('click', '.btn_update_chat', function (e) {
+                e.preventDefault();
+                $(this).parent().html('<button type="button" class="btn_edit_chat"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>');
+                loadListMess = setInterval(function () {
+                    var show_chat_id = $('.them_giao_dich.sua_giao_dich .show_chat_table').attr('data-id');
+                    var count_chat = parseInt($('table.show_chat_table tbody .count_chat').attr('data-count'));
 
-                $.ajax({
-                    type: "post",
-                    dataType: "html",
-                    url: my_ajax_object.ajax_url,
-                    data: {
-                        action: "load_chat_real_time",
-                        show_chat_id:show_chat_id,
-                        count_chat:count_chat
-                    },
-                    success: function (response) {
-                        if(response != "stop"){
-                            $('.them_giao_dich.sua_giao_dich .show_chat_table tbody').html(response);
-                            $('.muc_do_uu_tien_chat_mess').filter(function () {
-                                $(this).val($(this).attr('data-check'));
-                            });
-                            $('select.bo_phan_chat_mess').filter(function () {
-                                $(this).val($(this).attr('data-check'));
-                            });
+                    $.ajax({
+                        type: "post",
+                        dataType: "html",
+                        url: my_ajax_object.ajax_url,
+                        data: {
+                            action: "load_chat_real_time",
+                            show_chat_id: show_chat_id,
+                            count_chat: count_chat
+                        },
+                        success: function (response) {
+                            if (response != "stop") {
+                                $('.them_giao_dich.sua_giao_dich .show_chat_table tbody').html(response);
+                                $('.muc_do_uu_tien_chat_mess').filter(function () {
+                                    $(this).val($(this).attr('data-check'));
+                                });
+                                $('select.bo_phan_chat_mess').filter(function () {
+                                    $(this).val($(this).attr('data-check'));
+                                });
+                            }
                         }
-                    }
-                });
-            }, 10000);
+                    });
+                }, 1000);
 
-            selectCheck = setInterval(function () {
-                $('.muc_do_uu_tien_chat_mess').filter(function () {
-                    $(this).val($(this).attr('data-check'));
-                });
-                $('select.bo_phan_chat_mess').filter(function () {
-                    $(this).val($(this).attr('data-check'));
-                });
-            },10000);
-        });
+                selectCheck = setInterval(function () {
+                    $('.muc_do_uu_tien_chat_mess').filter(function () {
+                        $(this).val($(this).attr('data-check'));
+                    });
+                    $('select.bo_phan_chat_mess').filter(function () {
+                        $(this).val($(this).attr('data-check'));
+                    });
+                }, 1000);
+            });
+        }
 
         //Không cho nhập thông tin chat nếu người dùng ko ấn vào nút edit chat
         $(document).on('click','.show_chat',function (e) {
@@ -1464,37 +1462,39 @@
             });
         });
 
-        //Thông báo đã sửa tin nhắn
-        setInterval(function () {
-            $.ajax({
-                type: "post",
-                dataType: "json",
-                url: my_ajax_object.ajax_url,
-                data: {
-                    action: "notifications_edit_chat_showing",
-                },
-                success: function (response) {
-                    if(response.data != 'stop'){
-                        let notify;
-                        if(Notification.permission === 'default'){
-                            //alert('Please allow notification before doing this');
-                        }else {
-                            notify = new Notification(response.data[0]+' đã sửa tin nhắn', {
-                                body: response.data[1],
-                                image: $('.acf-form-submit').attr('data-img'),
-                                icon: response.data[3]
-                            });
+        //Thông báo tin nhắn
+        if($('.single').hasClass('single-giao_dich') || $('.page-template').hasClass('page-template-tach-booking') || $('.page-template').hasClass('page-template-them-booking')){
+            setInterval(function () {
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: my_ajax_object.ajax_url,
+                    data: {
+                        action: "notifications_edit_chat_showing",
+                    },
+                    success: function (response) {
+                        if (response.data != 'stop') {
+                            let notify;
+                            if (Notification.permission === 'default') {
+                                //alert('Please allow notification before doing this');
+                            } else {
+                                notify = new Notification(response.data[0] + ' đã sửa tin nhắn', {
+                                    body: response.data[1],
+                                    image: $('.acf-form-submit').attr('data-img'),
+                                    icon: response.data[3]
+                                });
 
-                            notify.onclick = function (ev) {
-                                //console.log(this);
-                                var url_current = response.data[2];
-                                window.open(url_current, '_blank');
+                                notify.onclick = function (ev) {
+                                    //console.log(this);
+                                    var url_current = response.data[2];
+                                    window.open(url_current, '_blank');
+                                }
                             }
                         }
                     }
-                }
-            });
-        },5000);
+                });
+            }, 1000);
+        }
 
         $('.show_chat').filter(function () {
             $('select.muc_do_uu_tien_chat_mess').on('change', function () {
@@ -1510,7 +1510,7 @@
             $(this).find('.bo_phan_chat_mess').val($(this).find('.bo_phan_chat_mess').attr('data-check'));
         });
     }
-    
+
     //Thêm phòng và giá khách sạn
     function AddTypeRoom() {
         var btn_add_rom = $('.add_rom');
@@ -1968,14 +1968,6 @@
 
         //Tính số đêm ở, ngày sắp đến check in, ngày được hủy, ngày đc thay đổi khi chọn lịch
         function CountGetData(){
-            $('.so_dem_gd').prop('disabled', true);
-            $('.con_ngay_gd').prop('disabled', true);
-            //$('.don_gia_ban_gd').prop('disabled', true);
-            $('.tong_gd').prop('disabled', true);
-            //$('.don_gia_ban_dt').prop('disabled', true);
-            $('.tong_dt').prop('disabled', true);
-            $('.con_ngay_dt').prop('disabled', true);
-            $('.con_ngay_thay_doi_dt').prop('disabled', true);
 
             if(! $('.page-template-them_giao_dich .them_giao_dich').hasClass('sua_giao_dich')){
                 var date_in = $('.ci_gd').val();
@@ -2205,6 +2197,8 @@
                         onSelect: function (formattedDate, date, inst) {
                             $('.datepicker').removeClass('active');
                             CountGetData();
+                            base_total_hotel_tonight();
+                            base_change_count_gd();
                         },
                         onRenderCell: function (date, cellType) {
                             if (date.getDay() == 0) {
@@ -2271,7 +2265,7 @@
         var sub_not_code = $('.sub_not_code');
 
         sub_forget.on('click', function (e) {
-           e.preventDefault();
+            e.preventDefault();
             var email_forget = $('.email_forget').val();
             var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
@@ -2302,9 +2296,9 @@
         });
 
         sub_pass_forget.on('click', function (e) {
-             e.preventDefault();
-             var code_forget = $('.code_forget').val();
-             var pass_forget = $('.pass_forget').val();
+            e.preventDefault();
+            var code_forget = $('.code_forget').val();
+            var pass_forget = $('.pass_forget').val();
 
             $(this).hide();
             $('button.load_forget').show();
@@ -2546,6 +2540,108 @@
         window.onerror=silentErrorHandler;
     }
 
+    //Thêm giao dịch tiền
+    function CountAddPriceBooking(){
+        var total_price_1 = 0;
+        $('.list_price_1 .item').each(function (i,val) {
+            val = parseInt($(this).attr('data-price'));
+            total_price_1 += val;
+
+        });
+        $('.total_price_1 span').text(total_price_1.format(0, 3, ','));
+
+        var total_price_2 = 0;
+        $('.list_price_2 .item').each(function (i,val) {
+            val = parseInt($(this).attr('data-price'));
+            total_price_2 += val;
+
+        });
+        $('.total_price_2 span').text(total_price_2.format(0, 3, ','));
+    }
+
+    function AddPriceBooking(){
+        $(window).load(function () {
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: my_ajax_object.ajax_url,
+                data: {
+                    action: "load_price_booking",
+                },
+                success: function (response) {
+
+                }
+            });
+        });
+
+
+
+        $('.btn_add_price_gd').on('click', function(){
+            var ma_gd_them_booking = $('.ma_gd_them_booking').val();
+            var id = $(this).attr('data-id');
+
+            var add_tien_coc = $('.add_tien_coc').val();
+            var add_ngay_coc  = $('.add_ngay_coc ').val();
+            var add_tk_coc = $('.add_tk_coc').val();
+
+            var add_tien_coc_di = $('.add_tien_coc_di').val();
+            var add_ngay_phai_coc_di  = $('.add_ngay_phai_coc_di ').val();
+            var add_tk_coc_di  = $('.add_tk_coc_di ').val();
+
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: my_ajax_object.ajax_url,
+                data: {
+                    action: "add_price_booking",
+                    add_tien_coc: add_tien_coc,
+                    add_ngay_coc: add_ngay_coc,
+                    add_tk_coc: add_tk_coc,
+                    add_tien_coc_di: add_tien_coc_di,
+                    add_ngay_phai_coc_di: add_ngay_phai_coc_di,
+                    add_tk_coc_di: add_tk_coc_di,
+                    ma_gd_them_booking: ma_gd_them_booking,
+                },
+                success: function (response) {
+                    $('.list_price_1').append(response.data[0]);
+                    $('.list_price_2').append(response.data[1]);
+                    $(document).find('.tien_coc').simpleMoneyFormat();
+                    $(document).find('.tien_coc_di').simpleMoneyFormat();
+                    CountAddPriceBooking();
+                    $('.da_thanh_toan_khac').val($('.total_price_1 span').text());
+                    $('.da_thanh_toan_khac2').val($('.total_price_2 span').text());
+                    base_change_count_gd();
+
+                    setTimeout(function(){
+                        var update_thanh_toan1 = $('.total_price_1 span').text();
+                        var update_thanh_toan2 = $('.total_price_1 span').text();
+                        $.ajax({
+                            type: "post",
+                            dataType: "json",
+                            url: my_ajax_object.ajax_url,
+                            data: {
+                                action: "update_gd_price",
+                                id: id,
+                            },
+                            success: function (response) {
+                                alert('update');
+                            }
+                        });
+                    },100);
+                }
+            });
+        });
+
+        $('.tien_coc,.ma_gd_coc_di').on('keyup', function(){
+            CountAddPriceBooking();
+            $('.da_thanh_toan_khac').val($('.total_price_1 span').text());
+            $('.da_thanh_toan_khac2').val($('.total_price_2 span').text());
+            base_change_count_gd();
+        });
+
+        CountAddPriceBooking();
+    }
+
     function _init() {
         base();
         datePicker();
@@ -2555,7 +2651,7 @@
         checkLogin();
         checklogout();
         parallax();
-        NiceScroll();
+        //NiceScroll();
         search_email();
         //checkOnline();
         SendMessage();
@@ -2565,6 +2661,7 @@
         forget_email();
         Excel_Hotel();
         Calendar_price_hotel();
+        AddPriceBooking();
         //googleSheet();
         //DisableErrorJavaScript();
     }

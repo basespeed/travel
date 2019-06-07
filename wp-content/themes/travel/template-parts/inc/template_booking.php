@@ -869,7 +869,7 @@
                     <td width="40%">
                         <?php
                         if(isset($_POST['add_edit_giao_dich']) || isset($_POST['sub_tach_giao_dich'])){
-                            $con_ngay_dt = $_POST['con_ngay_dt'];
+                            $con_ngay_dt = $_POST['ngay_duoc_thay_doi'];
                             ?>
                             <input type="text" name="ngay_duoc_thay_doi" data-date-format="dd/mm/yyyy" class="ngay_duoc_thay_doi datepicker-here" data-language='en' value="<?php echo $con_ngay_dt; ?>" autocomplete="off"/>
                             <?php
@@ -1121,7 +1121,7 @@
                             <?php
                         }else{
                             ?>
-                            <input type="text" name="tong_gd" class="tong_gd" value="<?php echo get_field('tong_gd'); ?>" required autocomplete="off"/>
+                            <input type="text" name="tong_gd" class="tong_gd" value="<?php echo get_field('tien_chua_pt_khac'); ?>" required autocomplete="off"/>
                             <?php
                         }
                         ?>
@@ -1472,7 +1472,7 @@
                             <?php
                         }else{
                             ?>
-                            <input type="text" name="tong_dt" class="tong_dt" value="<?php echo get_field('tong_dt'); ?>" required autocomplete="off"/>
+                            <input type="text" name="tong_dt" class="tong_dt" value="<?php echo get_field('tien_chua_pt_khac2'); ?>" required autocomplete="off"/>
                             <?php
                         }
                         ?>
@@ -1574,19 +1574,20 @@
         </td>
     </tr>
 
+    <?php
+        if( !is_page(213)) :
+    ?>
     <tr>
         <td colspan="3"><table width="100%" border="1" id="show_chat" class="show_chat_table" data-id="<?php echo $ma_gd_them_booking; ?>">
-                <thead>
+                <tbody>
                 <tr class="show_chat">
                     <td width="40%" align="center" bgcolor="#EAF8FF">Ô nhập lời nhắn</td>
-                    <td align="center" bgcolor="#EAF8FF">Bộ phận</td>
-                    <td align="center" bgcolor="#EAF8FF">Mức độ ưu tiên</td>
-                    <td align="center" bgcolor="#EAF8FF">Trạng thái</td>
-                    <td align="center" bgcolor="#EAF8FF">Ngày cần nhắc lại</td>
-                    <td align="center" bgcolor="#EAF8FF">Nhập</td>
+                    <td width="12%" align="center" bgcolor="#EAF8FF">Bộ phận</td>
+                    <td width="12%" align="center" bgcolor="#EAF8FF">Mức độ ưu tiên</td>
+                    <td width="12%" align="center" bgcolor="#EAF8FF">Trạng thái</td>
+                    <td width="12%" align="center" bgcolor="#EAF8FF">Ngày cần nhắc lại</td>
+                    <td width="12%" align="center" bgcolor="#EAF8FF">Nhập</td>
                 </tr>
-                </thead>
-                <tbody>
                 <?php
                 //list chat
                 $arr_chat = array(
@@ -1615,7 +1616,7 @@
                             echo 'check_color';
                         }
                         ?>" data-id="<?php echo get_the_ID(); ?>" data-count="<?php if(empty(get_field('count_chat'))){echo 0;}else{echo get_field('count_chat');} ?>">
-                            <td bgcolor="#EAF8FF">
+                            <td width="40%" bgcolor="#EAF8FF">
                                 <?php
                                 if(!empty(get_field('reply_chat'))){
                                     ?>
@@ -1674,7 +1675,7 @@
                                     <textarea class="tn" cols="1" rows="1" disabled><?php echo $tin_nhan_chat; ?></textarea>
                                 </p>
                             </td>
-                            <td bgcolor="#EAF8FF">
+                            <td width="12%" bgcolor="#EAF8FF">
                                 <select class="bo_phan_chat_mess" data-check="<?php echo $bo_phan_chat; ?>" disabled>
                                     <option value="" selected disabled hidden>Chọn bộ phận</option>
                                     <?php
@@ -1691,16 +1692,16 @@
                                     ?>
                                 </select>
                             </td>
-                            <td bgcolor="#EAF8FF">
+                            <td width="12%" bgcolor="#EAF8FF">
                                 <select class="muc_do_uu_tien_chat_mess" data-check="<?php echo $muc_do_uu_tien_chat; ?>" disabled>
                                     <option value="Thông thường" selected>Thông thường</option>
                                     <option value="Luôn và ngay">Luôn và ngay</option>
                                     <option value="Trong ngày">Trong ngày</option>
                                 </select>
                             </td>
-                            <td bgcolor="#EAF8FF"><input type="text" class="trang_thai_chat_mess" value="<?php echo $trang_thai_chat; ?>" disabled></td>
-                            <td bgcolor="#EAF8FF"><input type="text" data-date-format="dd/mm/yyyy" data-position='top left' class="datepicker-here ngay_can_nhac_lai_chat_mess" value="<?php echo $ngay_can_nhac_lai_chat; ?>" data-language='en' disabled></td>
-                            <td bgcolor="#EAF8FF"><p class="change_update_send_mess" data-id="<?php echo get_field('ma_gd_them_booking'); ?>" data-name="<?php echo $ma_nhan_vien_chat; ?>">
+                            <td width="12%" bgcolor="#EAF8FF"><input type="text" class="trang_thai_chat_mess" value="<?php echo $trang_thai_chat; ?>" disabled></td>
+                            <td width="12%" bgcolor="#EAF8FF"><input type="text" data-date-format="dd/mm/yyyy" data-position='top left' class="datepicker-here ngay_can_nhac_lai_chat_mess" value="<?php echo $ngay_can_nhac_lai_chat; ?>" data-language='en' disabled></td>
+                            <td width="12%" bgcolor="#EAF8FF"><p class="change_update_send_mess" data-id="<?php echo get_field('ma_gd_them_booking'); ?>" data-name="<?php echo $ma_nhan_vien_chat; ?>">
                                     <?php
                                     if($this_user == $ma_nhan_vien_chat && $button == 'true'){
                                         ?>
@@ -1718,163 +1719,6 @@
                         <?php
                     }
                 endforeach;
-
-                    $arr_chat_count = array(
-                        'post_type' => 'chat',
-                        'posts_per_page' => 1,
-                        'order' => 'DESC',
-                        'meta_key'		=> 'id_chat_gd',
-                        'meta_value' => '^' . preg_quote( $ma_gd_them_booking ),
-                        'meta_compare' => 'RLIKE',
-                    );
-                    $query_chat_count = get_posts($arr_chat_count);
-                    if( $query_chat_count ): foreach( $query_chat_count as $post ):
-                        setup_postdata( $post );
-                        if(get_field('count_chat') > 6){
-                            ?>
-                            <tr class="show_chat">
-                                <td bgcolor="#EAF8FF">...</td>
-                                <td bgcolor="#EAF8FF">...</td>
-                                <td bgcolor="#EAF8FF">...</td>
-                                <td bgcolor="#EAF8FF">...</td>
-                                <td bgcolor="#EAF8FF">...</td>
-                                <td bgcolor="#EAF8FF">...</td>
-                            </tr>
-                            <?php
-                            $arr_chat_late = array(
-                                'post_type' => 'chat',
-                                'posts_per_page' => 1,
-                                'order' => 'ASC',
-                                'meta_key'		=> 'id_chat_gd',
-                                'meta_value' => '^' . preg_quote( $ma_gd_them_booking ),
-                                'meta_compare' => 'RLIKE',
-                            );
-
-                            $query_chat_late = get_posts($arr_chat_late);
-
-                            if( $query_chat_late ): foreach( $query_chat_late as $post ):
-                                setup_postdata( $post );
-
-                                $muc_do_uu_tien_chat = get_field('muc_do_uu_tien_chat');
-                                $trang_thai_chat = get_field('trang_thai_chat');
-                                $ngay_can_nhac_lai_chat = get_field('ngay_can_nhac_lai_chat');
-                                $reply_chat = get_field('reply_chat');
-
-                                if($this_ID == get_field('id_chat_gd')){
-                                    ?>
-                                    <tr class="show_chat count_chat <?php
-                                    if($this_user == get_field('ma_nhan_vien_chat')){
-                                        echo 'check_color';
-                                    }
-                                    ?>" data-id="<?php echo get_the_ID(); ?>" data-count="<?php if(empty(get_field('count_chat'))){echo 0;}else{echo get_field('count_chat');} ?>">
-                                        <td bgcolor="#EAF8FF">
-                                            <?php
-                                            if(!empty(get_field('reply_chat'))){
-                                                ?>
-                                                <span class="reply_chat"><span><?php echo get_field('reply_chat'); ?></span></span>
-                                                <?php
-                                            }
-                                            ?>
-                                            <?php
-                                            $ngay_nhap_vao_chat = get_field('ngay_nhap_vao_chat');
-                                            $ma_nhan_vien_chat = get_field('ma_nhan_vien_chat');
-                                            $tin_nhan_chat = get_field('tin_nhan_chat');
-                                            $bo_phan_chat = get_field('bo_phan_chat');
-                                            $muc_do_uu_tien_chat = get_field('muc_do_uu_tien_chat');
-                                            $trang_thai_chat = get_field('trang_thai_chat');
-                                            $ngay_can_nhac_lai_chat = get_field('ngay_can_nhac_lai_chat');
-                                            $button = get_field('button');
-                                            $reply_chat = get_field('reply_chat');
-                                            ?>
-                                            <div class="cmt">
-                                                <div class="img"><img src="<?php
-                                                    $arr_avatar = array(
-                                                        'post_type' => 'tai_khoan',
-                                                        'posts_per_page' => 6,
-                                                        'meta_query'	=> array(
-                                                            'relation'		=> 'AND',
-                                                            array(
-                                                                'key'	 	=> 'email_tai_khoan',
-                                                                'value'	  	=> get_field('ma_nhan_vien_chat'),
-                                                                'compare' 	=> '=',
-                                                            ),
-                                                        ),
-                                                    );
-
-                                                    $query_avatar = new WP_Query($arr_avatar);
-
-                                                    if($query_avatar->have_posts()) : while ($query_avatar->have_posts()) : $query_avatar->the_post();
-                                                        $img_a = get_field('hinh_anh_tai_khoan');
-                                                        if(!empty($img_a)){
-                                                            echo $img_a;
-                                                        }else{
-                                                            echo get_template_directory_uri().'/assets/images/user.jpg';
-                                                        }
-                                                    endwhile;
-                                                    else:
-                                                        echo get_template_directory_uri().'/assets/images/user.jpg';
-                                                    endif;
-                                                    wp_reset_postdata();
-                                                    ?>" alt="avatar"></div>
-                                                <div class="content">Ngày nhập vào :
-                                                    <span><?php echo $ngay_nhap_vao_chat; ?></span> # Mã NV :
-                                                    <span><?php echo $ma_nhan_vien_chat; ?></span> # Lời nhắn cũ nhất :
-                                                    <span class="tn"><?php echo $tin_nhan_chat; ?></span>
-                                                </div>
-                                            </div>
-                                            <p class="edit_mess_tn">
-                                                <textarea class="tn" cols="1" rows="1" disabled><?php echo $tin_nhan_chat; ?></textarea>
-                                            </p>
-                                        </td>
-                                        <td bgcolor="#EAF8FF">
-                                            <select class="bo_phan_chat_mess" data-check="<?php echo $bo_phan_chat; ?>" disabled>
-                                                <option value="" selected disabled hidden>Chọn bộ phận</option>
-                                                <?php
-                                                $query_bp = get_posts(array(
-                                                    'post_type' => 'bo_phan',
-                                                ));
-                                                if( $query_bp ):
-                                                    foreach( $query_bp as $bp ):
-                                                        ?>
-                                                        <option value="<?php echo $bp->post_title; ?>"><?php echo $bp->post_title; ?></option>
-                                                    <?php
-                                                    endforeach;
-                                                    wp_reset_postdata();
-                                                endif;
-                                                ?>
-                                            </select>
-                                        </td>
-                                        <td bgcolor="#EAF8FF">
-                                            <select class="muc_do_uu_tien_chat_mess" data-check="<?php echo $muc_do_uu_tien_chat; ?>" disabled>
-                                                <option value="Thông thường" selected>Thông thường</option>
-                                                <option value="Luôn và ngay">Luôn và ngay</option>
-                                                <option value="Trong ngày">Trong ngày</option>
-                                            </select>
-                                        </td>
-                                        <td bgcolor="#EAF8FF"><input type="text" class="trang_thai_chat_mess" value="<?php echo $trang_thai_chat; ?>" disabled></td>
-                                        <td bgcolor="#EAF8FF"><input type="text" data-date-format="dd/mm/yyyy" data-position="top left" class="datepicker-here ngay_can_nhac_lai_chat_mess" value="<?php echo $ngay_can_nhac_lai_chat; ?>" data-language='en' disabled></td>
-                                        <td bgcolor="#EAF8FF"><p class="change_update_send_mess" data-id="<?php echo get_field('ma_gd_them_booking'); ?>" data-name="<?php echo $ma_nhan_vien_chat; ?>">
-                                                <?php
-                                                if($this_user == $ma_nhan_vien_chat && $button == 'true'){
-                                                    ?>
-                                                    <button type="button" class="btn_edit_chat"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>
-                                                    <?php
-                                                }
-                                                ?>
-                                                <?php
-                                                if(empty($reply_chat)){
-                                                    ?><button type="button" class="reply"><i class="fa fa-reply" aria-hidden="true"></i> Trả lời</button><?php
-                                                }
-                                                ?>
-                                            </p></td>
-                                    </tr>
-                                    <?php
-                                }
-                            endforeach;
-                            endif;
-                        }
-                    endforeach;
-                    endif;
                 else :
                     ?>
                     <tr class="show_chat count_chat" data-count="0"><td bgcolor="#EAF8FF" class="empy" colspan="6">Dữ liệu trống !</td></tr>
@@ -1933,6 +1777,9 @@
                 </tfoot>
             </table></td>
     </tr>
+    <?php
+        endif;
+    ?>
 
     <tr>
         <td colspan="3">
@@ -2777,74 +2624,66 @@
 
     <tr class="gd_price">
         <td>
-            <table width="100%" border="1">
-                <tbody>
-                <tr>
-                    <td width="25%">Mã GD cọc</td>
-                    <td width="25%">Tiền cọc</td>
-                    <td width="25%">Ngày cọc</td>
-                    <td>TK cọc</td>
-                </tr>
-                <tr>
-                    <td width="25%">
-                        <?php
-                        if(isset($_POST['add_edit_giao_dich']) || isset($_POST['sub_tach_giao_dich'])){
-                            $ma_gd_coc_1 = $_POST['ma_gd_coc_1'];
-                            ?>
-                            <input type="text" name="ma_gd_coc_1" class="ma_gd_coc_1" value="<?php echo $ma_gd_coc_1; ?>" autocomplete="off" />
+            <div class="list_price_1">
+                <?php
+                $query_gd_tien = new WP_Query(array(
+                    'post_type' => 'tien',
+                    'order' => 'DESC',
+                    'posts_per_page' => 50,
+                    'meta_key'		=> 'id_gd',
+                    'meta_value'	=> get_field('ma_gd_them_booking')
+                ));
+
+                $post_count = $query_gd_tien->post_count;
+
+                $order = 0;
+                $data_count_list = 0;
+
+                if($query_gd_tien->have_posts()) : while ($query_gd_tien->have_posts()) : $query_gd_tien->the_post();
+                    $data_count_list++;
+                    ?>
+                    <div class="item" style="order:<?php echo $order--; ?>;" data-price="<?php echo get_field('tien_coc'); ?>">
+                        <table width="100%" border="1">
+                            <tbody>
                             <?php
-                        }else{
+                            if($data_count_list == $post_count){
+                                ?>
+                                <tr class="first">
+                                    <td width="25%">Mã GD cọc đi</td>
+                                    <td width="25%">Tiền cọc đi</td>
+                                    <td width="25%">Ngày phải cọc đi</td>
+                                    <td width="25%">TK cọc đi</td>
+                                </tr>
+                                <?php
+                            }
                             ?>
-                            <input type="text" name="ma_gd_coc_1" class="ma_gd_coc_1" value="<?php echo $ma_gd_coc_1; ?>" autocomplete="off" />
-                            <?php
-                        }
-                        ?>
-                    </td>
-                    <td width="25%">
-                        <?php
-                        if(isset($_POST['add_edit_giao_dich']) || isset($_POST['sub_tach_giao_dich'])){
-                            $tien_coc_1 = $_POST['tien_coc_1'];
-                            ?>
-                            <input type="number" name="tien_coc_1" class="tien_coc_1" value="<?php echo $tien_coc_1; ?>" autocomplete="off" />
-                            <?php
-                        }else{
-                            ?>
-                            <input type="number" name="tien_coc_1" class="tien_coc_1" value="<?php echo $tien_coc_1; ?>" autocomplete="off" />
-                            <?php
-                        }
-                        ?>
-                    </td>
-                    <td width="25%">
-                        <?php
-                        if(isset($_POST['add_edit_giao_dich']) || isset($_POST['sub_tach_giao_dich'])){
-                            $ngay_coc_1 = $_POST['ngay_coc_1'];
-                            ?>
-                            <input type="text" name="ngay_coc_1" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_coc_1 datepicker-here" data-language='en' value="<?php echo $ngay_coc_1; ?>" autocomplete="off" />
-                            <?php
-                        }else{
-                            ?>
-                            <input type="text" name="ngay_coc_1" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_coc_1 datepicker-here" data-language='en' value="<?php echo $ngay_coc_1; ?>" autocomplete="off" />
-                            <?php
-                        }
-                        ?>
-                    </td>
-                    <td>
-                        <?php
-                        if(isset($_POST['add_edit_giao_dich']) || isset($_POST['sub_tach_giao_dich'])){
-                            $tk_coc_1 = $_POST['tk_coc_1'];
-                            ?>
-                            <input type="number" name="tk_coc_1" class="tk_coc_1" value="<?php echo $tk_coc_1; ?>"  autocomplete="off"/>
-                            <?php
-                        }else{
-                            ?>
-                            <input type="number" name="tk_coc_1" class="tk_coc_1" value="<?php echo $tk_coc_1; ?>"  autocomplete="off"/>
-                            <?php
-                        }
-                        ?>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                            <tr>
+                                <td width="25%">
+                                    <input type="text" name="ma_gd_coc" class="ma_gd_coc" value="<?php echo get_field('ma_gd_coc'); ?>" autocomplete="off" />
+                                </td>
+                                <td width="25%">
+                                    <input type="text" name="tien_coc" class="tien_coc" value="<?php echo get_field('tien_coc'); ?>" autocomplete="off" />
+                                </td>
+                                <td width="25%">
+                                    <input type="text" name="ngay_coc" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_coc datepicker-here" data-language='en' value="<?php echo get_field('ngay_coc'); ?>" autocomplete="off" />
+                                </td>
+                                <td>
+                                    <input type="number" name="tk_coc" class="tk_coc" value="<?php echo get_field('tk_coc'); ?>"  autocomplete="off"/>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                <?php
+                endwhile;
+                endif;
+                wp_reset_postdata();
+                ?>
+            </div>
+
+            <div class="total_price_1">
+                <strong>Tổng : </strong><span>21321321231</span>
+            </div>
         </td>
         <td align="center" style="background-color: #f19315b3;padding-top: 5px;">
             Mã Kho (popup thông tin kho)
@@ -2874,76 +2713,58 @@
                 <?php
             }
             ?>
+            <br>
         </td>
         <td>
-            <table width="100%" border="1">
-                <tbody>
-                <tr>
-                    <td width="25%">Mã GD cọc đi</td>
-                    <td width="25%">Tiền cọc đi</td>
-                    <td width="25%">Ngày phải cọc đi</td>
-                    <td>TK cọc đi</td>
-                </tr>
-                <tr>
-                    <td width="25%">
-                        <?php
-                        if(isset($_POST['add_edit_giao_dich']) || isset($_POST['sub_tach_giao_dich'])){
-                            $ma_gd_coc_di_2 = $_POST['ma_gd_coc_di_2'];
-                            ?>
-                            <input type="text" name="ma_gd_coc_di_2" class="ma_gd_coc_di_2" value="<?php echo $ma_gd_coc_di_2; ?>" autocomplete="off" />
+            <div class="list_price_2">
+                <?php
+                $order = 0;
+                $data_count_list = 0;
+                if($query_gd_tien->have_posts()) : while ($query_gd_tien->have_posts()) : $query_gd_tien->the_post();
+                    $tien_coc_di = get_field('tien_coc_di');
+                    $data_count_list++;
+                    ?>
+                    <div class="item" style="order:<?php echo $order--; ?>;" data-price="<?php echo get_field('tien_coc_di'); ?>">
+                        <table width="100%" border="1">
+                            <tbody>
                             <?php
-                        }else{
+                                if($data_count_list == $post_count){
+                                    ?>
+                                    <tr class="first">
+                                        <td width="25%">Mã GD cọc đi</td>
+                                        <td width="25%">Tiền cọc đi</td>
+                                        <td width="25%">Ngày phải cọc đi</td>
+                                        <td width="25%">TK cọc đi</td>
+                                    </tr>
+                                    <?php
+                                }
                             ?>
-                            <input type="text" name="ma_gd_coc_di_2" class="ma_gd_coc_di_2" value="<?php echo $ma_gd_coc_di_2; ?>" autocomplete="off" />
-                            <?php
-                        }
-                        ?>
-                    </td>
-                    <td width="25%">
-                        <?php
-                        if(isset($_POST['add_edit_giao_dich']) || isset($_POST['sub_tach_giao_dich'])){
-                            $ma_gd_coc_di_2 = $_POST['ma_gd_coc_di_2'];
-                            ?>
-                            <input type="number" name="tien_coc_di_2" class="tien_coc_di_2" value="<?php echo $tien_coc_di_2; ?>" autocomplete="off" />
-                            <?php
-                        }else{
-                            ?>
-                            <input type="number" name="tien_coc_di_2" class="tien_coc_di_2" value="<?php echo $tien_coc_di_2; ?>" autocomplete="off" />
-                            <?php
-                        }
-                        ?>
-                    </td>
-                    <td width="25%">
-                        <?php
-                        if(isset($_POST['add_edit_giao_dich']) || isset($_POST['sub_tach_giao_dich'])){
-                            $ngay_phai_coc_di_2 = $_POST['ngay_phai_coc_di_2'];
-                            ?>
-                            <input type="text" name="ngay_phai_coc_di_2" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_phai_coc_di_2 datepicker-here" data-language='en' value="<?php echo $ngay_phai_coc_di_2; ?>" autocomplete="off" />
-                            <?php
-                        }else{
-                            ?>
-                            <input type="text" name="ngay_phai_coc_di_2" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_phai_coc_di_2 datepicker-here" data-language='en' value="<?php echo $ngay_phai_coc_di_2; ?>" autocomplete="off" />
-                            <?php
-                        }
-                        ?>
-                    </td>
-                    <td>
-                        <?php
-                        if(isset($_POST['add_edit_giao_dich']) || isset($_POST['sub_tach_giao_dich'])){
-                            $tk_coc_di_2 = $_POST['tk_coc_di_2'];
-                            ?>
-                            <input type="number" name="tk_coc_di_2" class="tk_coc_di_2" value="<?php echo $tk_coc_di_2; ?>" autocomplete="off" />
-                            <?php
-                        }else{
-                            ?>
-                            <input type="number" name="tk_coc_di_2" class="tk_coc_di_2" value="<?php echo $tk_coc_di_2; ?>" autocomplete="off" />
-                            <?php
-                        }
-                        ?>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                            <tr>
+                                <td width="25%">
+                                    <input type="text" name="ma_gd_coc_di" class="ma_gd_coc_di" value="<?php echo get_field('ma_gd_coc_di'); ?>" autocomplete="off" />
+                                </td>
+                                <td width="25%">
+                                    <input type="text" name="tien_coc_di" class="tien_coc_di" value="<?php echo get_field('tien_coc_di'); ?>" autocomplete="off" />
+                                </td>
+                                <td width="25%">
+                                    <input type="text" name="ngay_phai_coc_di" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_phai_coc_di datepicker-here" data-language='en' value="<?php echo get_field('ngay_phai_coc_di'); ?>" autocomplete="off" />
+                                </td>
+                                <td>
+                                    <input type="number" name="tk_coc_di" class="tk_coc_di" value="<?php echo get_field('tk_coc_di'); ?>" autocomplete="off" />
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                <?php
+                endwhile;
+                endif;
+                wp_reset_postdata();
+                ?>
+            </div>
+            <div class="total_price_2">
+                <strong>Tổng : </strong><span>213231213</span>
+            </div>
         </td>
     </tr>
     </tbody>
@@ -2976,8 +2797,8 @@
             <input type="text" class="add_ngay_phai_coc_di datepicker-here" data-position='top left' data-date-format="dd/mm/yyyy" data-language='en' placeholder="Ngày phải cọc đi">
         </div>
         <div class="item">
-            <input type="text" class="add_tk_coc" placeholder="TK cọc đi">
+            <input type="text" class="add_tk_coc_di" placeholder="TK cọc đi">
         </div>
     </div>
-    <button type="button" class="btn_add_price_gd">Thêm tiền cọc</button>
+    <button type="button" class="btn_add_price_gd" data-id="<?php echo get_the_ID(); ?>">Thêm tiền cọc</button>
 </div>

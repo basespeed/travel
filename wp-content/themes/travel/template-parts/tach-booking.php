@@ -121,6 +121,7 @@ if($_SESSION['sucess'] == "sucess") {
                                         }
                                     }elseif($field['name'] == 'ngay_duoc_thay_doi'){
                                         $dob_str = $_POST['ngay_duoc_thay_doi'];
+                                        var_dump($dob_str);
                                         if(!empty($dob_str)){
                                             $date = DateTime::createFromFormat('d/m/Y', $dob_str);
                                             $date = $date->format('Ymd');
@@ -128,6 +129,7 @@ if($_SESSION['sucess'] == "sucess") {
                                         }
                                     }elseif($field['name'] == 'ngay_yeu_cau_kh_hoan_tat_tt_khac'){
                                         $dob_str = $_POST['ngay_yeu_cau_kh_hoan_tat_tt_khac'];
+                                        var_dump($dob_str);
                                         if(!empty($dob_str)){
                                             $date = DateTime::createFromFormat('d/m/Y', $dob_str);
                                             $date = $date->format('Ymd');
