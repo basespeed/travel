@@ -2625,191 +2625,225 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
         </td>
     </tr>
 
-    <tr class="gd_price">
-        <td>
-            <div class="list_price_1">
-                <?php
-                $query_gd_tien = new WP_Query(array(
-                    'post_type' => 'tien',
-                    'order' => 'DESC',
-                    'posts_per_page' => 50,
-                    'meta_key'		=> 'id_gd',
-                    'meta_value'	=> $ma_gd_them_booking
-                ));
+    <?php
+        if(!empty($ma_gd_them_booking)) {
+            ?>
+            <tr class="gd_price">
+                <td>
+                    <div class="list_price_1">
+                        <?php
+                        $query_gd_tien = new WP_Query(array(
+                            'post_type' => 'tien',
+                            'order' => 'DESC',
+                            'posts_per_page' => 50,
+                            'meta_key' => 'id_gd',
+                            'meta_value' => $ma_gd_them_booking
+                        ));
 
-                $post_count = $query_gd_tien->post_count;
+                        $post_count = $query_gd_tien->post_count;
 
-                $order = 0;
-                $data_count_list = 0;
+                        $order = 0;
+                        $data_count_list = 0;
 
-                if($query_gd_tien->have_posts()) : while ($query_gd_tien->have_posts()) : $query_gd_tien->the_post();
-                    $data_count_list++;
-                    ?>
-                    <div class="item" style="order:<?php echo $order--; ?>;" data-price="<?php echo get_field('tien_coc'); ?>" data-id="<?php the_ID(); ?>">
-                        <table width="100%" border="1">
-                            <tbody>
-                            <?php
-                            if($data_count_list == $post_count){
-                                ?>
-                                <tr class="first">
-                                    <td width="25%">Mã GD cọc đi</td>
-                                    <td width="25%">Tiền cọc đi</td>
-                                    <td width="25%">Ngày phải cọc đi</td>
-                                    <td width="25%">TK cọc đi</td>
-                                </tr>
-                                <?php
-                            }
+                        if ($query_gd_tien->have_posts()) : while ($query_gd_tien->have_posts()) : $query_gd_tien->the_post();
+                            $data_count_list++;
                             ?>
-                            <tr>
-                                <td width="25%">
-                                    <input type="text" name="ma_gd_coc" class="ma_gd_coc" value="<?php echo get_field('ma_gd_coc'); ?>" autocomplete="off" />
-                                </td>
-                                <td width="25%">
-                                    <input type="text" name="tien_coc" class="tien_coc" value="<?php echo get_field('tien_coc'); ?>" autocomplete="off" />
-                                </td>
-                                <td width="25%">
-                                    <input type="text" name="ngay_coc" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_coc datepicker-here" data-language='en' value="<?php echo get_field('ngay_coc'); ?>" autocomplete="off" />
-                                </td>
-                                <td>
-                                    <input type="number" name="tk_coc" class="tk_coc" value="<?php echo get_field('tk_coc'); ?>"  autocomplete="off"/>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                <?php
-                endwhile;
-                endif;
-                wp_reset_postdata();
-                ?>
-            </div>
-
-            <div class="total_price_1">
-                <strong>Tổng : </strong><span>21321321231</span>
-            </div>
-            <div class="save_price_1">
-                <span></span>
-                <i class="fa fa-floppy-o" aria-hidden="true"></i>
-            </div>
-        </td>
-        <td align="center" style="background-color: #f19315b3;padding-top: 5px;">
-            Mã Kho (popup thông tin kho)
-            <?php
-            if(isset($_POST['add_edit_giao_dich']) || isset($_POST['sub_tach_giao_dich'])){
-                $ma_kho_popup_thong_tin_kho = $_POST['ma_kho_popup_thong_tin_kho'];
-                ?>
-                <input type="text" style="background: #FFF !important;" name="ma_kho_popup_thong_tin_kho" class="ma_kho_popup_thong_tin_kho" value="<?php echo $ma_kho_popup_thong_tin_kho; ?>" autocomplete="off" />
-                <?php
-            }else{
-                ?>
-                <input type="text" style="background: #FFF !important;" name="ma_kho_popup_thong_tin_kho" class="ma_kho_popup_thong_tin_kho" value="<?php echo $ma_kho_popup_thong_tin_kho; ?>" autocomplete="off" />
-                <?php
-            }
-            ?>
-
-            SL lấy từ kho
-            <?php
-            if(isset($_POST['add_edit_giao_dich']) || isset($_POST['sub_tach_giao_dich'])){
-                $sl_lay_tu_kho = $_POST['sl_lay_tu_kho'];
-                ?>
-                <input type="number" style="background: #FFF !important;" name="sl_lay_tu_kho" class="sl_lay_tu_kho" value="<?php echo $sl_lay_tu_kho; ?>" autocomplete="off" />
-                <?php
-            }else{
-                ?>
-                <input type="number" style="background: #FFF !important;" name="sl_lay_tu_kho" class="sl_lay_tu_kho" value="<?php echo $sl_lay_tu_kho; ?>" autocomplete="off" />
-                <?php
-            }
-            ?>
-            <br>
-        </td>
-        <td>
-            <div class="list_price_2">
-                <?php
-                $order = 0;
-                $data_count_list = 0;
-                if($query_gd_tien->have_posts()) : while ($query_gd_tien->have_posts()) : $query_gd_tien->the_post();
-                    $tien_coc_di = get_field('tien_coc_di');
-                    $data_count_list++;
-                    ?>
-                    <div class="item" style="order:<?php echo $order--; ?>;" data-price="<?php echo get_field('tien_coc_di'); ?>" data-id="<?php the_ID(); ?>">
-                        <table width="100%" border="1">
-                            <tbody>
-                            <?php
-                                if($data_count_list == $post_count){
-                                    ?>
-                                    <tr class="first">
-                                        <td width="25%">Mã GD cọc đi</td>
-                                        <td width="25%">Tiền cọc đi</td>
-                                        <td width="25%">Ngày phải cọc đi</td>
-                                        <td width="25%">TK cọc đi</td>
-                                    </tr>
+                            <div class="item" style="order:<?php echo $order--; ?>;"
+                                 data-price="<?php echo get_field('tien_coc'); ?>" data-id="<?php the_ID(); ?>">
+                                <table width="100%" border="1">
+                                    <tbody>
                                     <?php
-                                }
-                            ?>
-                            <tr>
-                                <td width="25%">
-                                    <input type="text" name="ma_gd_coc_di" class="ma_gd_coc_di" value="<?php echo get_field('ma_gd_coc_di'); ?>" autocomplete="off" />
-                                </td>
-                                <td width="25%">
-                                    <input type="text" name="tien_coc_di" class="tien_coc_di" value="<?php echo get_field('tien_coc_di'); ?>" autocomplete="off" />
-                                </td>
-                                <td width="25%">
-                                    <input type="text" name="ngay_phai_coc_di" data-date-format="dd/mm/yyyy" data-position="top left" class="ngay_phai_coc_di datepicker-here" data-language='en' value="<?php echo get_field('ngay_phai_coc_di'); ?>" autocomplete="off" />
-                                </td>
-                                <td>
-                                    <input type="number" name="tk_coc_di" class="tk_coc_di" value="<?php echo get_field('tk_coc_di'); ?>" autocomplete="off" />
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                                    if ($data_count_list == $post_count) {
+                                        ?>
+                                        <tr class="first">
+                                            <td width="25%">Mã GD cọc đi</td>
+                                            <td width="25%">Tiền cọc đi</td>
+                                            <td width="25%">Ngày phải cọc đi</td>
+                                            <td width="25%">TK cọc đi</td>
+                                        </tr>
+                                        <?php
+                                    }
+                                    ?>
+                                    <tr>
+                                        <td width="25%">
+                                            <input type="text" name="ma_gd_coc" class="ma_gd_coc"
+                                                   value="<?php echo get_field('ma_gd_coc'); ?>" autocomplete="off"/>
+                                        </td>
+                                        <td width="25%">
+                                            <input type="text" name="tien_coc" class="tien_coc"
+                                                   value="<?php echo get_field('tien_coc'); ?>" autocomplete="off"/>
+                                        </td>
+                                        <td width="25%">
+                                            <input type="text" name="ngay_coc" data-date-format="dd/mm/yyyy"
+                                                   data-position="top left" class="ngay_coc datepicker-here"
+                                                   data-language='en' value="<?php echo get_field('ngay_coc'); ?>"
+                                                   autocomplete="off"/>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="tk_coc" class="tk_coc"
+                                                   value="<?php echo get_field('tk_coc'); ?>" autocomplete="off"/>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <?php
+                        endwhile;
+                        endif;
+                        wp_reset_postdata();
+                        ?>
                     </div>
-                <?php
-                endwhile;
-                endif;
-                wp_reset_postdata();
-                ?>
-            </div>
-            <div class="total_price_2">
-                <strong>Tổng : </strong><span>213231213</span>
-            </div>
-            <div class="save_price_2">
-                <span></span>
-                <i class="fa fa-floppy-o" aria-hidden="true"></i>
-            </div>
-        </td>
-    </tr>
+
+                    <div class="total_price_1">
+                        <strong>Tổng : </strong><span>21321321231</span>
+                    </div>
+                    <div class="save_price_1">
+                        <span></span>
+                        <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                    </div>
+                </td>
+                <td align="center" style="background-color: #f19315b3;padding-top: 5px;">
+                    Mã Kho (popup thông tin kho)
+                    <?php
+                    if (isset($_POST['add_edit_giao_dich']) || isset($_POST['sub_tach_giao_dich'])) {
+                        $ma_kho_popup_thong_tin_kho = $_POST['ma_kho_popup_thong_tin_kho'];
+                        ?>
+                        <input type="text" style="background: #FFF !important;" name="ma_kho_popup_thong_tin_kho"
+                               class="ma_kho_popup_thong_tin_kho" value="<?php echo $ma_kho_popup_thong_tin_kho; ?>"
+                               autocomplete="off"/>
+                        <?php
+                    } else {
+                        ?>
+                        <input type="text" style="background: #FFF !important;" name="ma_kho_popup_thong_tin_kho"
+                               class="ma_kho_popup_thong_tin_kho" value="<?php echo $ma_kho_popup_thong_tin_kho; ?>"
+                               autocomplete="off"/>
+                        <?php
+                    }
+                    ?>
+
+                    SL lấy từ kho
+                    <?php
+                    if (isset($_POST['add_edit_giao_dich']) || isset($_POST['sub_tach_giao_dich'])) {
+                        $sl_lay_tu_kho = $_POST['sl_lay_tu_kho'];
+                        ?>
+                        <input type="number" style="background: #FFF !important;" name="sl_lay_tu_kho"
+                               class="sl_lay_tu_kho" value="<?php echo $sl_lay_tu_kho; ?>" autocomplete="off"/>
+                        <?php
+                    } else {
+                        ?>
+                        <input type="number" style="background: #FFF !important;" name="sl_lay_tu_kho"
+                               class="sl_lay_tu_kho" value="<?php echo $sl_lay_tu_kho; ?>" autocomplete="off"/>
+                        <?php
+                    }
+                    ?>
+                    <br>
+                </td>
+                <td>
+                    <div class="list_price_2">
+                        <?php
+                        $order = 0;
+                        $data_count_list = 0;
+                        if ($query_gd_tien->have_posts()) : while ($query_gd_tien->have_posts()) : $query_gd_tien->the_post();
+                            $tien_coc_di = get_field('tien_coc_di');
+                            $data_count_list++;
+                            ?>
+                            <div class="item" style="order:<?php echo $order--; ?>;"
+                                 data-price="<?php echo get_field('tien_coc_di'); ?>" data-id="<?php the_ID(); ?>">
+                                <table width="100%" border="1">
+                                    <tbody>
+                                    <?php
+                                    if ($data_count_list == $post_count) {
+                                        ?>
+                                        <tr class="first">
+                                            <td width="25%">Mã GD cọc đi</td>
+                                            <td width="25%">Tiền cọc đi</td>
+                                            <td width="25%">Ngày phải cọc đi</td>
+                                            <td width="25%">TK cọc đi</td>
+                                        </tr>
+                                        <?php
+                                    }
+                                    ?>
+                                    <tr>
+                                        <td width="25%">
+                                            <input type="text" name="ma_gd_coc_di" class="ma_gd_coc_di"
+                                                   value="<?php echo get_field('ma_gd_coc_di'); ?>" autocomplete="off"/>
+                                        </td>
+                                        <td width="25%">
+                                            <input type="text" name="tien_coc_di" class="tien_coc_di"
+                                                   value="<?php echo get_field('tien_coc_di'); ?>" autocomplete="off"/>
+                                        </td>
+                                        <td width="25%">
+                                            <input type="text" name="ngay_phai_coc_di" data-date-format="dd/mm/yyyy"
+                                                   data-position="top left" class="ngay_phai_coc_di datepicker-here"
+                                                   data-language='en'
+                                                   value="<?php echo get_field('ngay_phai_coc_di'); ?>"
+                                                   autocomplete="off"/>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="tk_coc_di" class="tk_coc_di"
+                                                   value="<?php echo get_field('tk_coc_di'); ?>" autocomplete="off"/>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <?php
+                        endwhile;
+                        endif;
+                        wp_reset_postdata();
+                        ?>
+                    </div>
+                    <div class="total_price_2">
+                        <strong>Tổng : </strong><span>213231213</span>
+                    </div>
+                    <div class="save_price_2">
+                        <span></span>
+                        <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                    </div>
+                </td>
+            </tr>
+            <?php
+        }
+    ?>
     </tbody>
 </table>
-
-<div class="add_list_price_booking">
-    <div class="list_price">
-        <div class="item">
-            <input type="text" class="add_ma_gd_coc" placeholder="Mã GD cọc">
+<?php
+    if(!empty($ma_gd_them_booking)) {
+        ?>
+        <div class="add_list_price_booking">
+            <div class="list_price">
+                <div class="item">
+                    <input type="text" class="add_ma_gd_coc" placeholder="Mã GD cọc">
+                </div>
+                <div class="item">
+                    <input type="text" class="add_tien_coc" placeholder="Tiền cọc">
+                </div>
+                <div class="item">
+                    <input type="text" class="add_ngay_coc datepicker-here" data-position='top left'
+                           data-date-format="dd/mm/yyyy" data-language='en' placeholder="Ngày cọc">
+                </div>
+                <div class="item">
+                    <input type="text" class="add_tk_coc" placeholder="TK cọc">
+                </div>
+                <div class="item">
+                    <i class="fa fa-exchange" aria-hidden="true"></i>
+                </div>
+                <div class="item">
+                    <input type="text" class="add_ma_gd_coc_di" placeholder="Mã GD cọc đi">
+                </div>
+                <div class="item">
+                    <input type="text" class="add_tien_coc_di" placeholder="Tiền cọc đi">
+                </div>
+                <div class="item">
+                    <input type="text" class="add_ngay_phai_coc_di datepicker-here" data-position='top left'
+                           data-date-format="dd/mm/yyyy" data-language='en' placeholder="Ngày phải cọc đi">
+                </div>
+                <div class="item">
+                    <input type="text" class="add_tk_coc_di" placeholder="TK cọc đi">
+                </div>
+            </div>
+            <button type="button" class="btn_add_price_gd" data-id="<?php echo get_the_ID(); ?>">Thêm tiền cọc</button>
         </div>
-        <div class="item">
-            <input type="text" class="add_tien_coc" placeholder="Tiền cọc">
-        </div>
-        <div class="item">
-            <input type="text" class="add_ngay_coc datepicker-here" data-position='top left' data-date-format="dd/mm/yyyy" data-language='en'  placeholder="Ngày cọc">
-        </div>
-        <div class="item">
-            <input type="text" class="add_tk_coc" placeholder="TK cọc">
-        </div>
-        <div class="item">
-            <i class="fa fa-exchange" aria-hidden="true"></i>
-        </div>
-        <div class="item">
-            <input type="text" class="add_ma_gd_coc_di" placeholder="Mã GD cọc đi">
-        </div>
-        <div class="item">
-            <input type="text" class="add_tien_coc_di" placeholder="Tiền cọc đi">
-        </div>
-        <div class="item">
-            <input type="text" class="add_ngay_phai_coc_di datepicker-here" data-position='top left' data-date-format="dd/mm/yyyy" data-language='en' placeholder="Ngày phải cọc đi">
-        </div>
-        <div class="item">
-            <input type="text" class="add_tk_coc_di" placeholder="TK cọc đi">
-        </div>
-    </div>
-    <button type="button" class="btn_add_price_gd" data-id="<?php echo get_the_ID(); ?>">Thêm tiền cọc</button>
-</div>
+        <?php
+    }
+?>
