@@ -1249,6 +1249,7 @@ table#show_chat {
 .list_price_1,.list_price_2{
   display: flex;
   flex-wrap: wrap;
+  position: relative;
   .item{
     width: 100%;
     .first td{
@@ -1276,5 +1277,29 @@ table#show_chat {
   }
   span{
     color: red;
+  }
+}
+
+.save_price_1,.save_price_2{
+  position: absolute;
+  right: 16px;
+  bottom: 10px;
+  display: flex;
+  align-items: center;
+  span{
+    margin-right: 5px;
+    color: green;
+  }
+  .color{
+    color: red;
+  }
+  i{
+    font-size: 20px;
+    color: green;
+    transition:0.5s;
+    &:hover{
+      cursor: pointer;
+      color: red;
+    }
   }
 }

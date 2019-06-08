@@ -1,3 +1,6 @@
+<?php
+$ma_gd_them_booking = get_field('ma_gd_them_booking');
+?>
 <table width="100%" border="1">
     <tbody>
     <tr>
@@ -2631,7 +2634,7 @@
                     'order' => 'DESC',
                     'posts_per_page' => 50,
                     'meta_key'		=> 'id_gd',
-                    'meta_value'	=> get_field('ma_gd_them_booking')
+                    'meta_value'	=> $ma_gd_them_booking
                 ));
 
                 $post_count = $query_gd_tien->post_count;
@@ -2642,7 +2645,7 @@
                 if($query_gd_tien->have_posts()) : while ($query_gd_tien->have_posts()) : $query_gd_tien->the_post();
                     $data_count_list++;
                     ?>
-                    <div class="item" style="order:<?php echo $order--; ?>;" data-price="<?php echo get_field('tien_coc'); ?>">
+                    <div class="item" style="order:<?php echo $order--; ?>;" data-price="<?php echo get_field('tien_coc'); ?>" data-id="<?php the_ID(); ?>">
                         <table width="100%" border="1">
                             <tbody>
                             <?php
@@ -2684,6 +2687,10 @@
             <div class="total_price_1">
                 <strong>Tổng : </strong><span>21321321231</span>
             </div>
+            <div class="save_price_1">
+                <span></span>
+                <i class="fa fa-floppy-o" aria-hidden="true"></i>
+            </div>
         </td>
         <td align="center" style="background-color: #f19315b3;padding-top: 5px;">
             Mã Kho (popup thông tin kho)
@@ -2724,7 +2731,7 @@
                     $tien_coc_di = get_field('tien_coc_di');
                     $data_count_list++;
                     ?>
-                    <div class="item" style="order:<?php echo $order--; ?>;" data-price="<?php echo get_field('tien_coc_di'); ?>">
+                    <div class="item" style="order:<?php echo $order--; ?>;" data-price="<?php echo get_field('tien_coc_di'); ?>" data-id="<?php the_ID(); ?>">
                         <table width="100%" border="1">
                             <tbody>
                             <?php
@@ -2764,6 +2771,10 @@
             </div>
             <div class="total_price_2">
                 <strong>Tổng : </strong><span>213231213</span>
+            </div>
+            <div class="save_price_2">
+                <span></span>
+                <i class="fa fa-floppy-o" aria-hidden="true"></i>
             </div>
         </td>
     </tr>

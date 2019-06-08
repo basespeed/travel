@@ -2546,97 +2546,248 @@
         $('.list_price_1 .item').each(function (i,val) {
             val = parseInt($(this).attr('data-price'));
             total_price_1 += val;
-
         });
+
         $('.total_price_1 span').text(total_price_1.format(0, 3, ','));
 
         var total_price_2 = 0;
         $('.list_price_2 .item').each(function (i,val) {
             val = parseInt($(this).attr('data-price'));
             total_price_2 += val;
-
         });
+
         $('.total_price_2 span').text(total_price_2.format(0, 3, ','));
     }
 
     function AddPriceBooking(){
-        $(window).load(function () {
-            $.ajax({
-                type: "post",
-                dataType: "json",
-                url: my_ajax_object.ajax_url,
-                data: {
-                    action: "load_price_booking",
-                },
-                success: function (response) {
+        $(document).on('keyup','.tien_coc,.tien_coc_di', function(){
+            var price = $(this).val();
+            price = price.replace(',','');
+            price = price.replace(',','');
 
-                }
-            });
+            $(this).parents('.item').attr('data-price',price);
+            CountAddPriceBooking();
+            $('.da_thanh_toan_khac').val($('.total_price_1 span').text());
+            $('.da_thanh_toan_khac2').val($('.total_price_2 span').text());
+            base_change_count_gd();
+
         });
 
+        $(document).on('keyup','.tien_coc', function(){
+            $('.save_price_1 span').text('Chưa lưu !');
+            $('.save_price_1 span').addClass('color');
+        });
 
+        $(document).on('keyup','.tien_coc_di', function(){
+            $('.save_price_2 span').text('Chưa lưu !');
+            $('.save_price_2 span').addClass('color');
+        });
+
+        $(document).on('keyup','.ma_gd_coc', function(){
+            var code = $(this).val();
+            $(this).parents('.item').attr('data-code',code);
+            $('.save_price_1 span').text('Chưa lưu !');
+            $('.save_price_1 span').addClass('color');
+        });
+        $(document).on('click','.ngay_coc.datepicker-here', function(){
+            var setThis = $(this);
+            $(this).datepicker({
+                onSelect: function() {
+                    var date = setThis.val();
+                    setThis.parents('.item').attr('data-date',date);
+                    $('.save_price_1 span').text('Chưa lưu !');
+                    $('.save_price_1 span').addClass('color');
+                },
+            });
+        });
+        $(document).on('keyup','.tk_coc', function(){
+            var tk = $(this).val();
+            $(this).parents('.item').attr('data-tk',tk);
+            $('.save_price_1 span').text('Chưa lưu !');
+            $('.save_price_1 span').addClass('color');
+        });
+
+        $(document).on('keyup','.ma_gd_coc_di', function(){
+            var code = $(this).val();
+            $(this).parents('.item').attr('data-code',code);
+            $('.save_price_2 span').text('Chưa lưu !');
+            $('.save_price_2 span').addClass('color');
+        });
+        $(document).on('click','.ngay_phai_coc_di.datepicker-here', function(){
+            var setThis = $(this);
+            $(this).datepicker({
+                onSelect: function() {
+                    var date = setThis.val();
+                    setThis.parents('.item').attr('data-date',date);
+                    $('.save_price_2 span').text('Chưa lưu !');
+                    $('.save_price_2 span').addClass('color');
+                },
+            });
+        });
+        $(document).on('keyup','.tk_coc_di', function(){
+            var tk = $(this).val();
+            $(this).parents('.item').attr('data-tk',tk);
+            $('.save_price_2 span').text('Chưa lưu !');
+            $('.save_price_2 span').addClass('color');
+        });
+
+        $(document).on('click','.save_price_1', function(){
+            $('.save_price_1 span').text('Đã lưu !');
+            $('.save_price_1 span').removeClass('color');
+        });
+
+        $(document).on('click','.save_price_2', function(){
+            $('.save_price_2 span').text('Đã lưu !');
+            $('.save_price_2 span').removeClass('color');
+        });
+
+        $(document).on('click','.save_price_1, .save_price_2', function(){
+            var update_thanh_toan1 = $('.total_price_1 span').text();
+            var update_thanh_toan2 = $('.total_price_2 span').text();
+            var kh_con_no_khac = $('.kh_con_no_khac').val();
+            var bct_con_no_khac2 = $('.bct_con_no_khac2').val();
+
+            $('.list_price_1 .item').each(function (i,val) {
+                var id = $(this).attr('data-id');
+                var add_ma_gd_coc = $(this).attr('data-code');
+                var add_tien_coc = $(this).attr('data-price');
+                var add_ngay_coc  = $(this).attr('data-date');
+                var add_tk_coc  = $(this).attr('data-tk');
+
+                var id_gd = $('.btn_add_price_gd').attr('data-id');
+                var update_thanh_toan1 = $('.total_price_1 span').text();
+                var update_thanh_toan2 = $('.total_price_2 span').text();
+                var kh_con_no_khac = $('.kh_con_no_khac').val();
+                var bct_con_no_khac2 = $('.bct_con_no_khac2').val();
+
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: my_ajax_object.ajax_url,
+                    data: {
+                        action: "update_price_booking",
+                        id:id,
+                        id_gd:id_gd,
+                        add_ma_gd_coc:add_ma_gd_coc,
+                        add_tien_coc:add_tien_coc,
+                        add_ngay_coc:add_ngay_coc,
+                        add_tk_coc:add_tk_coc,
+                        update_thanh_toan1: update_thanh_toan1,
+                        update_thanh_toan2: update_thanh_toan2,
+                        kh_con_no_khac: kh_con_no_khac,
+                        bct_con_no_khac2: bct_con_no_khac2,
+                    },
+                    success: function (response) {
+
+                    }
+                });
+            });
+
+            $('.list_price_2 .item').each(function (i,val) {
+                var id = $(this).attr('data-id');
+                var add_ma_gd_coc_di = $(this).attr('data-code');
+                var add_tien_coc_di = $(this).attr('data-price');
+                var add_ngay_coc_di  = $(this).attr('data-date');
+                var add_tk_coc_di  = $(this).attr('data-tk');
+
+                var id_gd = $('.btn_add_price_gd').attr('data-id');
+                var update_thanh_toan1 = $('.total_price_1 span').text();
+                var update_thanh_toan2 = $('.total_price_2 span').text();
+                var kh_con_no_khac = $('.kh_con_no_khac').val();
+                var bct_con_no_khac2 = $('.bct_con_no_khac2').val();
+
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: my_ajax_object.ajax_url,
+                    data: {
+                        action: "update_price_booking",
+                        id:id,
+                        id_gd:id_gd,
+                        add_ma_gd_coc_di:add_ma_gd_coc_di,
+                        add_tien_coc_di:add_tien_coc_di,
+                        add_ngay_coc_di:add_ngay_coc_di,
+                        add_tk_coc_di:add_tk_coc_di,
+                        update_thanh_toan1: update_thanh_toan1,
+                        update_thanh_toan2: update_thanh_toan2,
+                        kh_con_no_khac: kh_con_no_khac,
+                        bct_con_no_khac2: bct_con_no_khac2,
+                    },
+                    success: function (response) {
+
+                    }
+                });
+            });
+        });
 
         $('.btn_add_price_gd').on('click', function(){
             var ma_gd_them_booking = $('.ma_gd_them_booking').val();
             var id = $(this).attr('data-id');
 
+            var add_ma_gd_coc = $('.add_ma_gd_coc').val();
             var add_tien_coc = $('.add_tien_coc').val();
             var add_ngay_coc  = $('.add_ngay_coc ').val();
             var add_tk_coc = $('.add_tk_coc').val();
 
+            var add_ma_gd_coc_di = $('.add_ma_gd_coc_di').val();
             var add_tien_coc_di = $('.add_tien_coc_di').val();
             var add_ngay_phai_coc_di  = $('.add_ngay_phai_coc_di ').val();
             var add_tk_coc_di  = $('.add_tk_coc_di ').val();
 
-            $.ajax({
-                type: "post",
-                dataType: "json",
-                url: my_ajax_object.ajax_url,
-                data: {
-                    action: "add_price_booking",
-                    add_tien_coc: add_tien_coc,
-                    add_ngay_coc: add_ngay_coc,
-                    add_tk_coc: add_tk_coc,
-                    add_tien_coc_di: add_tien_coc_di,
-                    add_ngay_phai_coc_di: add_ngay_phai_coc_di,
-                    add_tk_coc_di: add_tk_coc_di,
-                    ma_gd_them_booking: ma_gd_them_booking,
-                },
-                success: function (response) {
-                    $('.list_price_1').append(response.data[0]);
-                    $('.list_price_2').append(response.data[1]);
-                    $(document).find('.tien_coc').simpleMoneyFormat();
-                    $(document).find('.tien_coc_di').simpleMoneyFormat();
-                    CountAddPriceBooking();
-                    $('.da_thanh_toan_khac').val($('.total_price_1 span').text());
-                    $('.da_thanh_toan_khac2').val($('.total_price_2 span').text());
-                    base_change_count_gd();
+            if(add_ma_gd_coc == '' || add_tien_coc == '' || add_ngay_coc == '' || add_tk_coc == '' || add_ma_gd_coc_di == '' || add_tien_coc_di == '' || add_ngay_phai_coc_di == '' || add_tk_coc_di == ''){
+                alert('Giá trị bị trống !');
+            }else{
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: my_ajax_object.ajax_url,
+                    data: {
+                        action: "add_price_booking",
+                        add_tien_coc: add_tien_coc,
+                        add_ngay_coc: add_ngay_coc,
+                        add_tk_coc: add_tk_coc,
+                        add_tien_coc_di: add_tien_coc_di,
+                        add_ngay_phai_coc_di: add_ngay_phai_coc_di,
+                        add_tk_coc_di: add_tk_coc_di,
+                        ma_gd_them_booking: ma_gd_them_booking,
+                        add_ma_gd_coc: add_ma_gd_coc,
+                        add_ma_gd_coc_di: add_ma_gd_coc_di,
+                    },
+                    success: function (response) {
+                        $('.list_price_1').append(response.data[0]);
+                        $('.list_price_2').append(response.data[1]);
+                        $(document).find('.tien_coc').simpleMoneyFormat();
+                        $(document).find('.tien_coc_di').simpleMoneyFormat();
+                        CountAddPriceBooking();
+                        $('.da_thanh_toan_khac').val($('.total_price_1 span').text());
+                        $('.da_thanh_toan_khac2').val($('.total_price_2 span').text());
+                        base_change_count_gd();
 
-                    setTimeout(function(){
-                        var update_thanh_toan1 = $('.total_price_1 span').text();
-                        var update_thanh_toan2 = $('.total_price_1 span').text();
-                        $.ajax({
-                            type: "post",
-                            dataType: "json",
-                            url: my_ajax_object.ajax_url,
-                            data: {
-                                action: "update_gd_price",
-                                id: id,
-                            },
-                            success: function (response) {
-                                alert('update');
-                            }
-                        });
-                    },100);
-                }
-            });
-        });
+                        setTimeout(function(){
+                            var update_thanh_toan1 = $('.total_price_1 span').text();
+                            var update_thanh_toan2 = $('.total_price_2 span').text();
+                            var kh_con_no_khac = $('.kh_con_no_khac').val();
+                            var bct_con_no_khac2 = $('.bct_con_no_khac2').val();
+                            $.ajax({
+                                type: "post",
+                                dataType: "json",
+                                url: my_ajax_object.ajax_url,
+                                data: {
+                                    action: "update_gd_price",
+                                    id: id,
+                                    update_thanh_toan1: update_thanh_toan1,
+                                    update_thanh_toan2: update_thanh_toan2,
+                                    kh_con_no_khac: kh_con_no_khac,
+                                    bct_con_no_khac2: bct_con_no_khac2,
+                                },
+                                success: function (response) {
 
-        $('.tien_coc,.ma_gd_coc_di').on('keyup', function(){
-            CountAddPriceBooking();
-            $('.da_thanh_toan_khac').val($('.total_price_1 span').text());
-            $('.da_thanh_toan_khac2').val($('.total_price_2 span').text());
-            base_change_count_gd();
+                                }
+                            });
+                        },100);
+                    }
+                });
+            }
         });
 
         CountAddPriceBooking();

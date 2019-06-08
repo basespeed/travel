@@ -34,7 +34,7 @@ function add_price_booking() {
 
     add_post_meta($post_id, 'id_gd', $ma_gd_them_booking, true);
     add_post_meta($post_id, 'ma_gd_coc', $add_ma_gd_coc, true);
-    add_post_meta($post_id, 'add_ma_gd_coc_di', $add_ma_gd_coc_di, true);
+    add_post_meta($post_id, 'ma_gd_coc_di', $add_ma_gd_coc_di, true);
     add_post_meta($post_id, 'tien_coc', $add_tien_coc, true);
     add_post_meta($post_id, 'tk_coc', $add_tk_coc, true);
     add_post_meta($post_id, 'tien_coc_di', $add_tien_coc_di, true);
@@ -56,7 +56,7 @@ function add_price_booking() {
     $array_data = array();
 
     $data1 = '';
-    $data1 .= '<div class="item" data-price="'.$add_tien_coc.'">';
+    $data1 .= '<div class="item" data-price="'.$add_tien_coc.'" data-id="'.$post_id.'">';
     $data1 .= '<table width="100%" border="1">';
     $data1 .= '<tbody>';
     $data1 .= '<tr>';
@@ -126,6 +126,8 @@ function update_gd_price() {
     $id = $_POST['id'];
     $update_thanh_toan1 = $_POST['update_thanh_toan1'];
     $update_thanh_toan2 = $_POST['update_thanh_toan2'];
+    $kh_con_no_khac = $_POST['kh_con_no_khac'];
+    $bct_con_no_khac2 = $_POST['bct_con_no_khac2'];
     $update_giao_dich = array(
         'ID'           => $id,
     );
@@ -134,6 +136,90 @@ function update_gd_price() {
 
     update_field( 'da_thanh_toan_khac', $update_thanh_toan1, $post_update );
     update_field( 'da_thanh_toan_khac2', $update_thanh_toan2, $post_update );
+    update_field( 'kh_con_no_khac', $kh_con_no_khac, $post_update );
+    update_field( 'bct_con_no_khac2', $bct_con_no_khac2, $post_update );
+
+    die();
+}
+
+
+
+
+add_action("wp_ajax_update_price_booking", "update_price_booking");
+add_action("wp_ajax_nopriv_update_price_booking", "update_price_booking");
+
+function update_price_booking() {
+    $id_gd = $_POST['id_gd'];
+
+    $update_thanh_toan1 = $_POST['update_thanh_toan1'];
+    $update_thanh_toan2 = $_POST['update_thanh_toan2'];
+    $kh_con_no_khac = $_POST['kh_con_no_khac'];
+    $bct_con_no_khac2 = $_POST['bct_con_no_khac2'];
+
+    $id = $_POST['id'];
+    $add_ma_gd_coc = $_POST['add_ma_gd_coc'];
+    $add_tien_coc = $_POST['add_tien_coc'];
+    $add_ngay_coc = $_POST['add_ngay_coc'];
+    $add_tk_coc = $_POST['add_tk_coc'];
+
+    $add_ma_gd_coc_di = $_POST['add_ma_gd_coc_di'];
+    $add_tien_coc_di = $_POST['add_tien_coc_di'];
+    $add_ngay_coc_di = $_POST['add_ngay_coc_di'];
+    $add_tk_coc_di = $_POST['add_tk_coc_di'];
+
+    $update_price = array(
+        'ID'           => $id,
+    );
+
+    $post_update = wp_update_post($update_price);
+
+    if(!empty($add_ma_gd_coc) && isset($add_ma_gd_coc)){
+        update_field( 'ma_gd_coc', $add_ma_gd_coc, $post_update );
+    }
+
+    if(!empty($add_tien_coc) && isset($add_tien_coc)){
+        update_field( 'tien_coc', $add_tien_coc, $post_update );
+    }
+
+    if(!empty($add_ngay_coc) && isset($add_ngay_coc)){
+        $date = DateTime::createFromFormat('d/m/Y', $add_ngay_coc);
+        $date = $date->format('Ymd');
+        update_field( 'ngay_coc', $date, $post_update );
+    }
+
+    if(!empty($add_tk_coc) && isset($add_tk_coc)){
+        update_field( 'tk_coc', $add_tk_coc, $post_update );
+    }
+
+    if(!empty($add_ma_gd_coc_di) && isset($add_ma_gd_coc_di)){
+        update_field( 'ma_gd_coc_di', $add_ma_gd_coc_di, $post_update );
+    }
+
+    if(!empty($add_tien_coc_di) && isset($add_tien_coc_di)){
+        update_field( 'tien_coc_di', $add_tien_coc_di, $post_update );
+    }
+
+    if(!empty($add_ngay_coc_di) && isset($add_ngay_coc_di)){
+        $date = DateTime::createFromFormat('d/m/Y', $add_ngay_coc_di);
+        $date = $date->format('Ymd');
+        update_field( 'ngay_phai_coc_di', $date, $post_update );
+    }
+
+    if(!empty($add_tk_coc_di) && isset($add_tk_coc_di)){
+        update_field( 'tk_coc_di', $add_tk_coc_di, $post_update );
+    }
+
+
+    $update_giao_dich = array(
+        'ID'           => $id_gd,
+    );
+
+    $post_update_gd = wp_update_post($update_giao_dich);
+
+    update_field( 'da_thanh_toan_khac', $update_thanh_toan1, $post_update_gd );
+    update_field( 'da_thanh_toan_khac2', $update_thanh_toan2, $post_update_gd );
+    update_field( 'kh_con_no_khac', $kh_con_no_khac, $post_update_gd );
+    update_field( 'bct_con_no_khac2', $bct_con_no_khac2, $post_update_gd );
 
     die();
 }
