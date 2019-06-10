@@ -107,7 +107,89 @@ function send_mess() {
     add_post_meta($post_id_note, 'url', $url_current, true);
     add_post_meta($post_id_note, 'image', $image_avatar, true);
 
-    wp_send_json_success($post_id_note);
+    $data = array();
+    array_push($data,$post_id_note);
+
+    $arr_avatar = array(
+        'post_type' => 'tai_khoan',
+        'posts_per_page' => 6,
+        'meta_query'	=> array(
+            'relation'		=> 'AND',
+            array(
+                'key'	 	=> 'email_tai_khoan',
+                'value'	  	=> $ma_nhan_vien_chat,
+                'compare' 	=> '=',
+            ),
+        ),
+    );
+
+    $query_avatar = new WP_Query($arr_avatar);
+
+    if($query_avatar->have_posts()) : while ($query_avatar->have_posts()) : $query_avatar->the_post();
+        $img_a = get_field('hinh_anh_tai_khoan');
+        if(!empty($img_a)){
+            $img = $img_a;
+        }else{
+            $img = get_template_directory_uri().'/assets/images/user.jpg';
+        }
+    endwhile;
+    else:
+        echo get_template_directory_uri().'/assets/images/user.jpg';
+    endif;
+    wp_reset_postdata();
+
+    $slt = '';
+    $query_bp = get_posts(array(
+        'post_type' => 'bo_phan',
+    ));
+    if( $query_bp ):
+        foreach( $query_bp as $bp ):
+            $slt .= '<option value="<?php echo $bp->post_title; ?>"><?php echo $bp->post_title; ?></option>';
+        endforeach;
+    endif;
+
+    $html = '<tr class="show_chat count_chat check_color" data-id="<?php echo $post_id; ?>">';
+    $html = '<td width="40%" bgcolor="#EAF8FF">';
+    if(!empty($reply_chat)){
+        $html = '<span class="reply_chat"><span>'.$reply_chat.'</span></span>';
+    }
+    $html = '<div class="cmt">';
+    $html = '<div class="img"><img src="'.$img.'" alt="avatar"></div>';
+    $html = ' <div class="content">Ngày nhập vào :';
+    $html = ' <span>'.$date.'</span> # Mã NV :';
+    $html = '<span>'.$ma_nhan_vien_chat.'</span> # Lời nhắn :';
+    $html = '<span class="tn">'.$tin_nhan_chat.'</span>';
+    $html = '</div>';
+    $html = '</div>';
+    $html = '<p class="edit_mess_tn">';
+    $html = '<textarea class="tn" cols="1" rows="1" disabled>'.$tin_nhan_chat.'</textarea>';
+    $html = '</p>';
+    $html = '</td>';
+    $html = '<td width="12%" bgcolor="#EAF8FF">';
+    $html = '<select class="bo_phan_chat_mess" data-check="'.$bo_phan_chat.'" disabled>';
+    $html = $slt;
+    $html = '</select>';
+    $html = '</td>';
+    $html = '<td width="12%" bgcolor="#EAF8FF">';
+    $html = '<select class="muc_do_uu_tien_chat_mess" data-check="'.$muc_do_uu_tien_chat.'" disabled>';
+    $html = '<option value="Thông thường" selected>Thông thường</option>';
+    $html = '<option value="Luôn và ngay">Luôn và ngay</option>';
+    $html = '<option value="Trong ngày">Trong ngày</option>';
+    $html = '</select>';
+    $html = '</td>';
+    $html = '<td width="12%" bgcolor="#EAF8FF"><input type="text" class="trang_thai_chat_mess" value="'.$trang_thai_chat.'" disabled></td>';
+    $html = '<td width="12%" bgcolor="#EAF8FF"><input type="text" data-date-format="dd/mm/yyyy" data-position=\'top left\' class="datepicker-here ngay_can_nhac_lai_chat_mess" value="'.$ngay_can_nhac_lai_chat.'" data-language=\'en\' disabled></td>';
+    $html = '<td width="12%" bgcolor="#EAF8FF"><p class="change_update_send_mess" data-id="'.get_field('ma_gd_them_booking').'" data-name="'.$ma_nhan_vien_chat.'">';
+    $html = '<button type="button" class="btn_edit_chat"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>';
+    if(empty($reply_chat)){
+        $html = '<button type="button" class="reply"><i class="fa fa-reply" aria-hidden="true"></i> Trả lời</button>';
+    }
+    $html = '</p></td>';
+    $html = '</tr>';
+
+    array_push($data,$html);
+
+    wp_send_json_success($data);
 
     die();
 }

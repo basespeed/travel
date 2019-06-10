@@ -47,24 +47,26 @@ function excel_hotel()
             }
         }
         $n=0;
+        $data_check = array();
         foreach ($data as $item){
-            $add_post_hotel = array(
-                'post_title' => $item[5],
-                'post_status' => 'publish',
-                'post_type' => 'hotel',
-            );
+            if(!empty($item[1])){
+                $add_post_kh = array(
+                    'post_title' => $item[1],
+                    'post_status' => 'publish',
+                    'post_type' => 'khach_hang',
+                );
 
-            $post_id = wp_insert_post($add_post_hotel);
-            //19.20
-
-            add_post_meta($post_id, 'hotel_id', $item[0], true);
-            $group_ID = '1555';
-            $fields = acf_get_fields($group_ID);
-            $n = 0;
-            foreach ($fields as $field){
-                if($field['name'] != ""){
-                    add_post_meta($post_id, $field['name'], $item[$n++], true);
-                }
+                $post_id = wp_insert_post($add_post_kh);
+                //19.20
+                add_post_meta($post_id, 'ma_kgd', 'MKH_'.$post_id, true);
+                add_post_meta($post_id, 'ten_kgd', $item[1], true);
+                add_post_meta($post_id, 'sdt_kgd', $item[2], true);
+                add_post_meta($post_id, 'email_kgd_duy_nhat', $item[3], true);
+                add_post_meta($post_id, 'tk_kgd', $item[7], true);
+                add_post_meta($post_id, 'don_vi_cong_tac_kh', $item[8], true);
+                add_post_meta($post_id, 'loai_tai_khoan_khach_gd', $item[9], true);
+                add_post_meta($post_id, 'nick_kgd', $item[4], true);
+                add_post_meta($post_id, 'link_facebook_khach_gd', $item[10], true);
             }
         }
 
@@ -75,7 +77,7 @@ function excel_hotel()
         $data = 'error';
     }
 
-    wp_send_json_success($n);
+    wp_send_json_success($data_check);
 
     die();
 }

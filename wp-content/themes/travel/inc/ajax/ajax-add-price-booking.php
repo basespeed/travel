@@ -32,13 +32,33 @@ function add_price_booking() {
 
     $post_id = wp_insert_post($add_new_giao_dich);
 
-    add_post_meta($post_id, 'id_gd', $ma_gd_them_booking, true);
-    add_post_meta($post_id, 'ma_gd_coc', $add_ma_gd_coc, true);
-    add_post_meta($post_id, 'ma_gd_coc_di', $add_ma_gd_coc_di, true);
-    add_post_meta($post_id, 'tien_coc', $add_tien_coc, true);
-    add_post_meta($post_id, 'tk_coc', $add_tk_coc, true);
-    add_post_meta($post_id, 'tien_coc_di', $add_tien_coc_di, true);
-    add_post_meta($post_id, 'tk_coc_di', $add_tk_coc_di, true);
+    if(!empty($ma_gd_them_booking)){
+        add_post_meta($post_id, 'id_gd', $ma_gd_them_booking, true);
+    }
+
+    if(!empty($add_ma_gd_coc)){
+        add_post_meta($post_id, 'ma_gd_coc', $add_ma_gd_coc, true);
+    }
+
+    if(!empty($add_ma_gd_coc_di)){
+        add_post_meta($post_id, 'ma_gd_coc_di', $add_ma_gd_coc_di, true);
+    }
+
+    if(!empty($add_tien_coc)){
+        add_post_meta($post_id, 'tien_coc', $add_tien_coc, true);
+    }
+
+    if(!empty($add_tk_coc)){
+        add_post_meta($post_id, 'tk_coc', $add_tk_coc, true);
+    }
+
+    if(!empty($add_tien_coc_di)){
+        add_post_meta($post_id, 'tien_coc_di', $add_tien_coc_di, true);
+    }
+
+    if(!empty($add_tk_coc_di)){
+        add_post_meta($post_id, 'tk_coc_di', $add_tk_coc_di, true);
+    }
 
     if(!empty($add_ngay_coc)){
         $date = DateTime::createFromFormat('d/m/Y', $add_ngay_coc);
@@ -134,10 +154,22 @@ function update_gd_price() {
 
     $post_update = wp_update_post($update_giao_dich);
 
-    update_field( 'da_thanh_toan_khac', $update_thanh_toan1, $post_update );
-    update_field( 'da_thanh_toan_khac2', $update_thanh_toan2, $post_update );
-    update_field( 'kh_con_no_khac', $kh_con_no_khac, $post_update );
-    update_field( 'bct_con_no_khac2', $bct_con_no_khac2, $post_update );
+    if(!empty($update_thanh_toan1)){
+        update_field( 'da_thanh_toan_khac', $update_thanh_toan1, $post_update );
+    }
+
+    if(!empty($update_thanh_toan2)){
+        update_field( 'da_thanh_toan_khac2', $update_thanh_toan2, $post_update );
+    }
+
+    if(!empty($kh_con_no_khac)){
+        update_field( 'kh_con_no_khac', $kh_con_no_khac, $post_update );
+    }
+
+    if(!empty($bct_con_no_khac2)){
+        update_field( 'bct_con_no_khac2', $bct_con_no_khac2, $post_update );
+    }
+
 
     die();
 }

@@ -441,7 +441,43 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                         if(isset($_POST['add_edit_giao_dich']) || isset($_POST['sub_tach_giao_dich'])){
                             $khach_dai_dien_gd = $_POST['khach_dai_dien_gd'];
                             ?>
-                            <input type="text" name="khach_dai_dien_gd" class="khach_dai_dien_gd" value="<?php echo $khach_dai_dien_gd; ?>" required autocomplete="off"/>
+                            <input type="text" name="khach_dai_dien_gd_val" class="khach_dai_dien_gd_val" value="<?php
+                                $args = array(
+                                    'p'         => $khach_dai_dien_gd, // ID of a page, post, or custom type
+                                    'post_type' => 'khach_hang'
+                                );
+                                $query_kh = new WP_Query($args);
+                                if($query_kh->have_posts()) :
+                                while ($query_kh->have_posts()) : $query_kh->the_post();
+                                    if (!empty(get_field('ten_kgd'))){
+                                        echo get_field('ten_kgd');
+                                    }else{
+                                        echo $khach_dai_dien_gd;
+                                    }
+                                endwhile;
+                                else :
+                                    echo $khach_dai_dien_gd;
+                                endif;
+                                wp_reset_postdata();
+                            ?>" required autocomplete="off"/>
+                            <input type="hidden" name="khach_dai_dien_gd" class="khach_dai_dien_gd" value="<?php echo $khach_dai_dien_gd; ?>" required autocomplete="off"/>
+                            <div class="popup_get_data_list pop_ten">
+                                <ul>
+                                    <li>Tên</li>
+                                    <li>SĐT</li>
+                                    <li>Email</li>
+                                    <li>TK</li>
+                                    <li>Link Facebook</li>
+                                </ul>
+                                <div class="list_show">
+                                    <p>Không tìm thấy dữ liệu !</p>
+                                </div>
+                            </div>
+                            <?php
+                        }elseif(is_page(213)){
+                            ?>
+                            <input type="text" name="khach_dai_dien_gd_val" class="khach_dai_dien_gd_val" value="" required autocomplete="off"/>
+                            <input type="hidden" name="khach_dai_dien_gd" class="khach_dai_dien_gd" value="" required autocomplete="off"/>
                             <div class="popup_get_data_list pop_ten">
                                 <ul>
                                     <li>Tên</li>
@@ -457,7 +493,30 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                             <?php
                         }else{
                             ?>
-                            <input type="text" name="khach_dai_dien_gd" class="khach_dai_dien_gd" value="<?php echo get_field('khach_dai_dien_gd'); ?>" required autocomplete="off"/>
+                            <input type="text" name="khach_dai_dien_gd_val" class="khach_dai_dien_gd_val" value="<?php
+                                if((int)get_field('khach_dai_dien_gd')){
+                                    $args = array(
+                                        'p'         => get_field('khach_dai_dien_gd'), // ID of a page, post, or custom type
+                                        'post_type' => 'khach_hang'
+                                    );
+                                    $query_kh = new WP_Query($args);
+                                    if($query_kh->have_posts()) :
+                                        while ($query_kh->have_posts()) : $query_kh->the_post();
+                                            if (!empty(get_field('ten_kgd'))){
+                                                echo get_field('ten_kgd');
+                                            }else{
+                                                echo get_field('khach_dai_dien_gd');
+                                            }
+                                        endwhile;
+                                    else :
+                                        echo get_field('khach_dai_dien_gd');
+                                    endif;
+                                }else{
+                                    echo get_field('khach_dai_dien_gd');
+                                }
+                                wp_reset_postdata();
+                            ?>" required autocomplete="off"/>
+                            <input type="hidden" name="khach_dai_dien_gd" class="khach_dai_dien_gd" value="<?php echo get_field('khach_dai_dien_gd'); ?>" required autocomplete="off"/>
                             <div class="popup_get_data_list pop_ten">
                                 <ul>
                                     <li>Tên</li>
@@ -479,7 +538,43 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                         if(isset($_POST['add_edit_giao_dich']) || isset($_POST['sub_tach_giao_dich'])){
                             $sdt_gd = $_POST['sdt_gd'];
                             ?>
-                            <input type="number" name="sdt_gd" class="sdt_gd" value="<?php echo $sdt_gd; ?>" required autocomplete="off"/>
+                            <input type="number" name="sdt_gd_val" class="sdt_gd_val" value="<?php
+                                $args = array(
+                                    'p'         => $sdt_gd, // ID of a page, post, or custom type
+                                    'post_type' => 'khach_hang'
+                                );
+                                $query_kh = new WP_Query($args);
+                                if($query_kh->have_posts()) :
+                                while ($query_kh->have_posts()) : $query_kh->the_post();
+                                    if (!empty(get_field('sdt_kgd'))){
+                                        echo get_field('sdt_kgd');
+                                    }else{
+                                        echo $sdt_gd;
+                                    }
+                                endwhile;
+                                else :
+                                    echo $sdt_gd;
+                                endif;
+                                wp_reset_postdata();
+                            ?>" required autocomplete="off"/>
+                            <input type="hidden" name="sdt_gd" class="sdt_gd" value="<?php echo get_field('sdt_gd'); ?>" required autocomplete="off"/>
+                            <div class="popup_get_data_list pop_sdt">
+                                <ul>
+                                    <li>Tên</li>
+                                    <li>SĐT</li>
+                                    <li>Email</li>
+                                    <li>TK</li>
+                                    <li>Link Facebook</li>
+                                </ul>
+                                <div class="list_show">
+                                    <p>Không tìm thấy dữ liệu !</p>
+                                </div>
+                            </div>
+                            <?php
+                        }elseif(is_page(213)){
+                            ?>
+                            <input type="number" name="sdt_gd_val" class="sdt_gd_val" value="" required autocomplete="off"/>
+                            <input type="hidden" name="sdt_gd" class="sdt_gd" value="" required autocomplete="off"/>
                             <div class="popup_get_data_list pop_sdt">
                                 <ul>
                                     <li>Tên</li>
@@ -495,7 +590,26 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                             <?php
                         }else{
                             ?>
-                            <input type="number" name="sdt_gd" class="sdt_gd" value="<?php echo get_field('sdt_gd'); ?>" required autocomplete="off"/>
+                            <input type="number" name="sdt_gd_val" class="sdt_gd_val" value="<?php
+                                $args = array(
+                                    'p'         => get_field('sdt_gd'), // ID of a page, post, or custom type
+                                    'post_type' => 'khach_hang'
+                                );
+                                $query_kh = new WP_Query($args);
+                                if($query_kh->have_posts()) :
+                                while ($query_kh->have_posts()) : $query_kh->the_post();
+                                    if (!empty(get_field('sdt_kgd'))){
+                                        echo get_field('sdt_kgd');
+                                    }else{
+                                        echo get_field('sdt_gd');
+                                    }
+                                endwhile;
+                                else :
+                                    echo get_field('sdt_gd');
+                                endif;
+                                wp_reset_postdata();
+                            ?>" required autocomplete="off"/>
+                            <input type="hidden" name="sdt_gd" class="sdt_gd" value="<?php echo get_field('sdt_gd'); ?>" required autocomplete="off"/>
                             <div class="popup_get_data_list pop_sdt">
                                 <ul>
                                     <li>Tên</li>
@@ -1597,8 +1711,7 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                     'post_type' => 'chat',
                     'posts_per_page' => 6,
                     'meta_key'		=> 'id_chat_gd',
-                    'meta_value' => '^' . preg_quote( $ma_gd_them_booking ),
-                    'meta_compare' => 'RLIKE',
+                    'meta_value' => $ma_gd_them_booking,
                 );
 
                 $query_chat = get_posts($arr_chat);
@@ -2440,11 +2553,51 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                         if(isset($_POST['add_edit_giao_dich']) || isset($_POST['sub_tach_giao_dich'])){
                             $ten_kgd = $_POST['ten_kgd'];
                             ?>
-                            <input type="text" style="background: #FFF;" name="ten_kgd" class="ten_kgd" value="<?php echo $ten_kgd; ?>"  autocomplete="off"/>
+                            <input type="text" style="background: #FFF;" name="ten_kgd_val" class="ten_kgd_val" value="<?php
+                                $args = array(
+                                    'p'         => $ten_kgd, // ID of a page, post, or custom type
+                                    'post_type' => 'khach_hang'
+                                );
+                                $query_kh = new WP_Query($args);
+                                if($query_kh->have_posts()) :
+                                while ($query_kh->have_posts()) : $query_kh->the_post();
+                                    echo get_field('ten_kgd');
+                                endwhile;
+                                else :
+                                    echo $ten_kgd;
+                                endif;
+                                wp_reset_postdata();
+                            ?>"  autocomplete="off"/>
+                            <input type="hidden" style="background: #FFF;" name="ten_kgd" class="ten_kgd" value="<?php echo $ten_kgd; ?>"  autocomplete="off"/>
+                            <?php
+                        }elseif(is_page(213)){
+                            ?>
+                            <input type="text" style="background: #FFF;" name="ten_kgd_val" class="ten_kgd_val" value=""  autocomplete="off"/>
+                            <input type="hidden" style="background: #FFF;" name="ten_kgd" class="ten_kgd" value=""  autocomplete="off"/>
                             <?php
                         }else{
                             ?>
-                            <input type="text" style="background: #FFF;" name="ten_kgd" class="ten_kgd" value="<?php echo $ten_kgd; ?>"  autocomplete="off"/>
+                            <input type="text" style="background: #FFF;" name="ten_kgd_val" class="ten_kgd_val" value="<?php
+                                if((int)$ten_kgd){
+                                    $args = array(
+                                        'p'         => $ten_kgd, // ID of a page, post, or custom type
+                                        'post_type' => 'khach_hang'
+                                    );
+                                    $query_kh = new WP_Query($args);
+                                    if($query_kh->have_posts()) :
+                                        while ($query_kh->have_posts()) : $query_kh->the_post();
+                                            echo get_field('ten_kgd');
+                                        endwhile;
+                                    else :
+                                        echo $ten_kgd;
+                                    endif;
+                                }else{
+                                    echo $ten_kgd;
+                                }
+
+                                wp_reset_postdata();
+                            ?>"  autocomplete="off"/>
+                            <input type="hidden" style="background: #FFF;" name="ten_kgd" class="ten_kgd" value="<?php echo $ten_kgd; ?>"  autocomplete="off"/>
                             <?php
                         }
                         ?>
@@ -2466,11 +2619,50 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                         if(isset($_POST['add_edit_giao_dich']) || isset($_POST['sub_tach_giao_dich'])){
                             $nick_kgd = $_POST['nick_kgd'];
                             ?>
-                            <input type="text" style="background: #FFF;" name="nick_kgd" class="nick_kgd" value="<?php echo $nick_kgd; ?>"  autocomplete="off"/>
+                            <input type="text" style="background: #FFF;" name="nick_kgd_val" class="nick_kgd_val" value="<?php
+                                $args = array(
+                                    'p'         => $nick_kgd, // ID of a page, post, or custom type
+                                    'post_type' => 'khach_hang'
+                                );
+                                $query_kh = new WP_Query($args);
+                                if($query_kh->have_posts()) :
+                                while ($query_kh->have_posts()) : $query_kh->the_post();
+                                    echo get_field('nick_kgd');
+                                endwhile;
+                                else :
+                                    echo $nick_kgd;
+                                endif;
+                                wp_reset_postdata();
+                            ?>"  autocomplete="off"/>
+                            <input type="hidden" style="background: #FFF;" name="nick_kgd" class="nick_kgd" value="<?php echo $nick_kgd; ?>"  autocomplete="off"/>
+                            <?php
+                        }elseif(is_page(213)){
+                            ?>
+                            <input type="text" style="background: #FFF;" name="nick_kgd_val" class="nick_kgd_val" value=""  autocomplete="off"/>
+                            <input type="hidden" style="background: #FFF;" name="nick_kgd" class="nick_kgd" value=""  autocomplete="off"/>
                             <?php
                         }else{
                             ?>
-                            <input type="text" style="background: #FFF;" name="nick_kgd" class="nick_kgd" value="<?php echo $nick_kgd; ?>"  autocomplete="off"/>
+                            <input type="text" style="background: #FFF;" name="nick_kgd_val" class="nick_kgd_val" value="<?php
+                                if((int)get_field('nick_kgd')){
+                                    $args = array(
+                                        'p'         => get_field('nick_kgd'), // ID of a page, post, or custom type
+                                        'post_type' => 'khach_hang'
+                                    );
+                                    $query_kh = new WP_Query($args);
+                                    if($query_kh->have_posts()) :
+                                        while ($query_kh->have_posts()) : $query_kh->the_post();
+                                            echo get_field('nick_kgd');
+                                        endwhile;
+                                    else :
+                                        echo get_field('nick_kgd');
+                                    endif;
+                                }else{
+                                    echo get_field('nick_kgd');
+                                }
+                                wp_reset_postdata();
+                            ?>"  autocomplete="off"/>
+                            <input type="hidden" style="background: #FFF;" name="nick_kgd" class="nick_kgd" value="<?php echo get_field('nick_kgd'); ?>"  autocomplete="off"/>
                             <?php
                         }
                         ?>
@@ -2492,11 +2684,46 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                         if(isset($_POST['add_edit_giao_dich']) || isset($_POST['sub_tach_giao_dich'])){
                             $sdt_kgd = $_POST['sdt_kgd'];
                             ?>
-                            <input type="number" style="background: #FFF;" name="sdt_kgd" class="sdt_kgd" value="<?php echo $sdt_kgd; ?>" autocomplete="off" />
+                            <input type="number" style="background: #FFF;" name="sdt_kgd_val" class="sdt_kgd_val" value="<?php
+                                $args = array(
+                                    'p'         => $sdt_kgd, // ID of a page, post, or custom type
+                                    'post_type' => 'khach_hang'
+                                );
+                                $query_kh = new WP_Query($args);
+                                if($query_kh->have_posts()) :
+                                while ($query_kh->have_posts()) : $query_kh->the_post();
+                                    echo get_field('sdt_kgd');
+                                endwhile;
+                                else :
+                                    echo $sdt_kgd;
+                                endif;
+                                wp_reset_postdata();
+                            ?>" autocomplete="off" />
+                            <input type="hidden" style="background: #FFF;" name="sdt_kgd" class="sdt_kgd" value="<?php echo $sdt_kgd; ?>" autocomplete="off" />
+                            <?php
+                        }elseif(is_page(213)){
+                            ?>
+                            <input type="number" style="background: #FFF;" name="sdt_kgd_val" class="sdt_kgd_val" value="" autocomplete="off" />
+                            <input type="hidden" style="background: #FFF;" name="sdt_kgd" class="sdt_kgd" value="" autocomplete="off" />
                             <?php
                         }else{
                             ?>
-                            <input type="number" style="background: #FFF;" name="sdt_kgd" class="sdt_kgd" value="<?php echo $sdt_kgd; ?>" autocomplete="off" />
+                            <input type="number" style="background: #FFF;" name="sdt_kgd_val" class="sdt_kgd_val" value="<?php
+                                $args = array(
+                                    'p'         => get_field('sdt_kgd'), // ID of a page, post, or custom type
+                                    'post_type' => 'khach_hang'
+                                );
+                                $query_kh = new WP_Query($args);
+                                if($query_kh->have_posts()) :
+                                while ($query_kh->have_posts()) : $query_kh->the_post();
+                                    echo get_field('sdt_kgd');
+                                endwhile;
+                                else :
+                                    echo get_field('sdt_kgd');
+                                endif;
+                                wp_reset_postdata();
+                            ?>" autocomplete="off" />
+                            <input type="hidden" style="background: #FFF;" name="sdt_kgd" class="sdt_kgd" value="<?php echo get_field('sdt_kgd'); ?>" autocomplete="off" />
                             <?php
                         }
                         ?>
@@ -2518,11 +2745,50 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                         if(isset($_POST['add_edit_giao_dich']) || isset($_POST['sub_tach_giao_dich'])){
                             $email_kgd_duy_nhat = $_POST['email_kgd_duy_nhat'];
                             ?>
-                            <input type="email" style="background: #FFF;" name="email_kgd_duy_nhat" class="email_kgd_duy_nhat" value="<?php echo $email_kgd_duy_nhat; ?>" autocomplete="off" />
+                            <input type="email" style="background: #FFF;" name="email_kgd_duy_nhat_val" class="email_kgd_duy_nhat" value="<?php
+                                $args = array(
+                                    'p'         => $email_kgd_duy_nhat, // ID of a page, post, or custom type
+                                    'post_type' => 'khach_hang'
+                                );
+                                $query_kh = new WP_Query($args);
+                                if($query_kh->have_posts()) :
+                                while ($query_kh->have_posts()) : $query_kh->the_post();
+                                    echo get_field('email_kgd_duy_nhat');
+                                endwhile;
+                                else :
+                                    echo $email_kgd_duy_nhat;
+                                endif;
+                                wp_reset_postdata();
+                            ?>" autocomplete="off" />
+                            <input type="hidden" style="background: #FFF;" name="email_kgd_duy_nhat" class="email_kgd_duy_nhat" value="<?php echo $email_kgd_duy_nhat; ?>" autocomplete="off" />
+                            <?php
+                        }elseif(is_page(213)){
+                            ?>
+                            <input type="email" style="background: #FFF;" name="email_kgd_duy_nhat_val" class="email_kgd_duy_nhat_val" value="" autocomplete="off" />
+                            <input type="hidden" style="background: #FFF;" name="email_kgd_duy_nhat" class="email_kgd_duy_nhat" value="" autocomplete="off" />
                             <?php
                         }else{
                             ?>
-                            <input type="email" style="background: #FFF;" name="email_kgd_duy_nhat" class="email_kgd_duy_nhat" value="<?php echo $email_kgd_duy_nhat; ?>" autocomplete="off" />
+                            <input type="email" style="background: #FFF;" name="email_kgd_duy_nhat_val" class="email_kgd_duy_nhat_val" value="<?php
+                                if((int)get_field('email_kgd_duy_nhat')){
+                                    $args = array(
+                                        'p'         => get_field('email_kgd_duy_nhat'), // ID of a page, post, or custom type
+                                        'post_type' => 'khach_hang'
+                                    );
+                                    $query_kh = new WP_Query($args);
+                                    if($query_kh->have_posts()) :
+                                        while ($query_kh->have_posts()) : $query_kh->the_post();
+                                            echo get_field('email_kgd_duy_nhat');
+                                        endwhile;
+                                    else :
+                                        echo get_field('email_kgd_duy_nhat');
+                                    endif;
+                                }else{
+                                    echo get_field('email_kgd_duy_nhat');
+                                }
+                                wp_reset_postdata();
+                            ?>" autocomplete="off" />
+                            <input type="hidden" style="background: #FFF;" name="email_kgd_duy_nhat" class="email_kgd_duy_nhat" value="<?php echo get_field('email_kgd_duy_nhat'); ?>" autocomplete="off" />
                             <?php
                         }
                         ?>
@@ -2532,11 +2798,46 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                         if(isset($_POST['add_edit_giao_dich']) || isset($_POST['sub_tach_giao_dich'])){
                             $tk_kgd = $_POST['tk_kgd'];
                             ?>
-                            <input type="number" style="background: #FFF;" name="tk_kgd" class="tk_kgd" value="<?php echo $tk_kgd; ?>" autocomplete="off" />
+                            <input type="number" style="background: #FFF;" name="tk_kgd_val" class="tk_kgd_val" value="<?php
+                                $args = array(
+                                    'p'         => $tk_kgd, // ID of a page, post, or custom type
+                                    'post_type' => 'khach_hang'
+                                );
+                                $query_kh = new WP_Query($args);
+                                if($query_kh->have_posts()) :
+                                while ($query_kh->have_posts()) : $query_kh->the_post();
+                                    echo get_field('email_kgd_duy_nhat');
+                                endwhile;
+                                else :
+                                    echo $tk_kgd;
+                                endif;
+                                wp_reset_postdata();
+                            ?>" autocomplete="off" />
+                            <input type="hidden" style="background: #FFF;" name="tk_kgd" class="tk_kgd" value="<?php echo $tk_kgd; ?>" autocomplete="off" />
+                            <?php
+                        }elseif(is_page(213)){
+                            ?>
+                            <input type="number" style="background: #FFF;" name="tk_kgd_val" class="tk_kgd_val" value="" autocomplete="off" />
+                            <input type="hidden" style="background: #FFF;" name="tk_kgd" class="tk_kgd" value="" autocomplete="off" />
                             <?php
                         }else{
                             ?>
-                            <input type="number" style="background: #FFF;" name="tk_kgd" class="tk_kgd" value="<?php echo $tk_kgd; ?>" autocomplete="off" />
+                            <input type="number" style="background: #FFF;" name="tk_kgd_val" class="tk_kgd_val" value="<?php
+                                $args = array(
+                                    'p'         => get_field('tk_kgd'), // ID of a page, post, or custom type
+                                    'post_type' => 'khach_hang'
+                                );
+                                $query_kh = new WP_Query($args);
+                                if($query_kh->have_posts()) :
+                                while ($query_kh->have_posts()) : $query_kh->the_post();
+                                    echo get_field('tk_kgd');
+                                endwhile;
+                                else :
+                                    echo get_field('tk_kgd');
+                                endif;
+                                wp_reset_postdata();
+                            ?>" autocomplete="off" />
+                            <input type="hidden" style="background: #FFF;" name="tk_kgd" class="tk_kgd" value="<?php echo get_field('tk_kgd'); ?>" autocomplete="off" />
                             <?php
                         }
                         ?>
@@ -2546,11 +2847,46 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                         if(isset($_POST['add_edit_giao_dich']) || isset($_POST['sub_tach_giao_dich'])){
                             $ma_kgd = $_POST['ma_kgd'];
                             ?>
-                            <input type="text" style="background: #FFF;" name="ma_kgd" class="ma_kgd" value="<?php echo $ma_kgd; ?>" autocomplete="off" />
+                            <input type="text" style="background: #FFF;" name="ma_kgd_val" class="ma_kgd_val" value="<?php
+                                $args = array(
+                                    'p'         => $ma_kgd, // ID of a page, post, or custom type
+                                    'post_type' => 'khach_hang'
+                                );
+                                $query_kh = new WP_Query($args);
+                                if($query_kh->have_posts()) :
+                                while ($query_kh->have_posts()) : $query_kh->the_post();
+                                    echo get_field('ma_kgd');
+                                endwhile;
+                                else :
+                                    echo $ma_kgd;
+                                endif;
+                                wp_reset_postdata();
+                            ?>" autocomplete="off" />
+                            <input type="hidden" style="background: #FFF;" name="ma_kgd" class="ma_kgd" value="<?php echo $ma_kgd; ?>" autocomplete="off" />
+                            <?php
+                        }elseif(is_page(213)){
+                            ?>
+                            <input type="text" style="background: #FFF;" name="ma_kgd_val" class="ma_kgd_val" value="" autocomplete="off" />
+                            <input type="hidden" style="background: #FFF;" name="ma_kgd" class="ma_kgd" value="" autocomplete="off" />
                             <?php
                         }else{
                             ?>
-                            <input type="text" style="background: #FFF;" name="ma_kgd" class="ma_kgd" value="<?php echo $ma_kgd; ?>" autocomplete="off" />
+                            <input type="text" style="background: #FFF;" name="ma_kgd_val" class="ma_kgd_val" value="<?php
+                                $args = array(
+                                    'p'         => get_field('ma_kgd'), // ID of a page, post, or custom type
+                                    'post_type' => 'khach_hang'
+                                );
+                                $query_kh = new WP_Query($args);
+                                if($query_kh->have_posts()) :
+                                while ($query_kh->have_posts()) : $query_kh->the_post();
+                                    echo get_field('ma_kgd');
+                                endwhile;
+                                else :
+                                    echo get_field('ma_kgd');
+                                endif;
+                                wp_reset_postdata();
+                            ?>" autocomplete="off" />
+                            <input type="hidden" style="background: #FFF;" name="ma_kgd" class="ma_kgd" value="<?php echo get_field('ma_kgd'); ?>" autocomplete="off" />
                             <?php
                         }
                         ?>
@@ -2629,69 +2965,75 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
         if(!empty($ma_gd_them_booking)) {
             ?>
             <tr class="gd_price">
-                <td>
+                <td class="td_fix">
                     <div class="list_price_1">
-                        <?php
-                        $query_gd_tien = new WP_Query(array(
-                            'post_type' => 'tien',
-                            'order' => 'DESC',
-                            'posts_per_page' => 50,
-                            'meta_key' => 'id_gd',
-                            'meta_value' => $ma_gd_them_booking
-                        ));
+                        <div class="item">
+                            <table>
+                                <tbody>
+                                <tr class="first">
+                                    <td width="25%">Mã tiền đến</td>
+                                    <td width="25%">Tiền đến</td>
+                                    <td width="25%">Ngày đến</td>
+                                    <td width="25%">TK đến</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="content">
+                            <?php
+                            $query_gd_tien = new WP_Query(array(
+                                'post_type' => 'tien',
+                                'order' => 'DESC',
+                                'posts_per_page' => 50,
+                                'meta_key' => 'id_gd',
+                                'meta_value' => $ma_gd_them_booking
+                            ));
 
-                        $post_count = $query_gd_tien->post_count;
+                            $order = 0;
+                            $data_count_list = 0;
 
-                        $order = 0;
-                        $data_count_list = 0;
-
-                        if ($query_gd_tien->have_posts()) : while ($query_gd_tien->have_posts()) : $query_gd_tien->the_post();
-                            $data_count_list++;
-                            ?>
-                            <div class="item" style="order:<?php echo $order--; ?>;"
-                                 data-price="<?php echo get_field('tien_coc'); ?>" data-id="<?php the_ID(); ?>">
-                                <table width="100%" border="1">
-                                    <tbody>
-                                    <?php
-                                    if ($data_count_list == $post_count) {
-                                        ?>
-                                        <tr class="first">
-                                            <td width="25%">Mã GD cọc đi</td>
-                                            <td width="25%">Tiền cọc đi</td>
-                                            <td width="25%">Ngày phải cọc đi</td>
-                                            <td width="25%">TK cọc đi</td>
-                                        </tr>
-                                        <?php
-                                    }
+                            if ($query_gd_tien->have_posts()) : while ($query_gd_tien->have_posts()) : $query_gd_tien->the_post();
+                                $data_count_list++;
+                                if(!empty(get_field('ma_gd_coc')) || !empty(get_field('tien_coc')) || !empty(get_field('ngay_coc')) || !empty(get_field('tk_coc'))) {
+                                    $post_count = $query_gd_tien->post_count;
                                     ?>
-                                    <tr>
-                                        <td width="25%">
-                                            <input type="text" name="ma_gd_coc" class="ma_gd_coc"
-                                                   value="<?php echo get_field('ma_gd_coc'); ?>" autocomplete="off"/>
-                                        </td>
-                                        <td width="25%">
-                                            <input type="text" name="tien_coc" class="tien_coc"
-                                                   value="<?php echo get_field('tien_coc'); ?>" autocomplete="off"/>
-                                        </td>
-                                        <td width="25%">
-                                            <input type="text" name="ngay_coc" data-date-format="dd/mm/yyyy"
-                                                   data-position="top left" class="ngay_coc datepicker-here"
-                                                   data-language='en' value="<?php echo get_field('ngay_coc'); ?>"
-                                                   autocomplete="off"/>
-                                        </td>
-                                        <td>
-                                            <input type="number" name="tk_coc" class="tk_coc"
-                                                   value="<?php echo get_field('tk_coc'); ?>" autocomplete="off"/>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <?php
-                        endwhile;
-                        endif;
-                        wp_reset_postdata();
-                        ?>
+                                    <div class="item" style="order:<?php echo $order--; ?>;"
+                                         data-price="<?php echo get_field('tien_coc'); ?>" data-id="<?php the_ID(); ?>">
+                                        <table width="100%" border="1">
+                                            <tbody>
+                                            <tr>
+                                                <td width="25%">
+                                                    <input type="text" name="ma_gd_coc" class="ma_gd_coc"
+                                                           value="<?php echo get_field('ma_gd_coc'); ?>"
+                                                           autocomplete="off"/>
+                                                </td>
+                                                <td width="25%">
+                                                    <input type="text" name="tien_coc" class="tien_coc"
+                                                           value="<?php echo get_field('tien_coc'); ?>" autocomplete="off"/>
+                                                </td>
+                                                <td width="25%">
+                                                    <input type="text" name="ngay_coc" data-date-format="dd/mm/yyyy"
+                                                           data-position="top left" class="ngay_coc datepicker-here"
+                                                           data-language='en' value="<?php echo get_field('ngay_coc'); ?>"
+                                                           autocomplete="off"/>
+                                                </td>
+                                                <td>
+                                                    <input type="number" name="tk_coc" class="tk_coc"
+                                                           value="<?php echo get_field('tk_coc'); ?>" autocomplete="off"/>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
+                            <?php
+                            endwhile;
+                            endif;
+                            wp_reset_postdata();
+                            ?>
+                        </div>
                     </div>
 
                     <div class="total_price_1">
@@ -2738,60 +3080,81 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                     ?>
                     <br>
                 </td>
-                <td>
+                <td class="td_fix">
                     <div class="list_price_2">
-                        <?php
-                        $order = 0;
-                        $data_count_list = 0;
-                        if ($query_gd_tien->have_posts()) : while ($query_gd_tien->have_posts()) : $query_gd_tien->the_post();
-                            $tien_coc_di = get_field('tien_coc_di');
-                            $data_count_list++;
-                            ?>
-                            <div class="item" style="order:<?php echo $order--; ?>;"
-                                 data-price="<?php echo get_field('tien_coc_di'); ?>" data-id="<?php the_ID(); ?>">
-                                <table width="100%" border="1">
-                                    <tbody>
-                                    <?php
-                                    if ($data_count_list == $post_count) {
-                                        ?>
-                                        <tr class="first">
-                                            <td width="25%">Mã GD cọc đi</td>
-                                            <td width="25%">Tiền cọc đi</td>
-                                            <td width="25%">Ngày phải cọc đi</td>
-                                            <td width="25%">TK cọc đi</td>
-                                        </tr>
-                                        <?php
-                                    }
+                        <div class="item">
+                            <table>
+                                <tbody>
+                                <tr class="first">
+                                    <td width="25%">Mã tiền đi</td>
+                                    <td width="25%">Tiền đi</td>
+                                    <td width="25%">Ngày đi</td>
+                                    <td width="25%">TK đi</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="content">
+                            <?php
+                            $order = 0;
+                            $data_count_list2 = 0;
+                            if ($query_gd_tien->have_posts()) : while ($query_gd_tien->have_posts()) : $query_gd_tien->the_post();
+                                $tien_coc_di = get_field('tien_coc_di');
+                                $data_count_list2++;
+                                if(!empty(get_field('ma_gd_coc_di')) || !empty(get_field('tien_coc_di')) || !empty(get_field('ngay_phai_coc_di')) || !empty(get_field('tk_coc_di'))) {
                                     ?>
-                                    <tr>
-                                        <td width="25%">
-                                            <input type="text" name="ma_gd_coc_di" class="ma_gd_coc_di"
-                                                   value="<?php echo get_field('ma_gd_coc_di'); ?>" autocomplete="off"/>
-                                        </td>
-                                        <td width="25%">
-                                            <input type="text" name="tien_coc_di" class="tien_coc_di"
-                                                   value="<?php echo get_field('tien_coc_di'); ?>" autocomplete="off"/>
-                                        </td>
-                                        <td width="25%">
-                                            <input type="text" name="ngay_phai_coc_di" data-date-format="dd/mm/yyyy"
-                                                   data-position="top left" class="ngay_phai_coc_di datepicker-here"
-                                                   data-language='en'
-                                                   value="<?php echo get_field('ngay_phai_coc_di'); ?>"
-                                                   autocomplete="off"/>
-                                        </td>
-                                        <td>
-                                            <input type="number" name="tk_coc_di" class="tk_coc_di"
-                                                   value="<?php echo get_field('tk_coc_di'); ?>" autocomplete="off"/>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <?php
-                        endwhile;
-                        endif;
-                        wp_reset_postdata();
-                        ?>
+                                    <div class="item" style="order:<?php echo $order--; ?>;"
+                                         data-price="<?php echo get_field('tien_coc_di'); ?>" data-id="<?php the_ID(); ?>">
+                                        <table width="100%" border="1">
+                                            <tbody>
+                                            <?php
+                                            if ($data_count_list2 == $post_count) {
+                                                ?>
+                                                <tr class="first">
+                                                    <td width="25%">Mã GD cọc đi</td>
+                                                    <td width="25%">Tiền cọc đi</td>
+                                                    <td width="25%">Ngày phải cọc đi</td>
+                                                    <td width="25%">TK cọc đi</td>
+                                                </tr>
+                                                <?php
+                                            }
+                                            ?>
+                                            <tr>
+                                                <td width="25%">
+                                                    <input type="text" name="ma_gd_coc_di" class="ma_gd_coc_di"
+                                                           value="<?php echo get_field('ma_gd_coc_di'); ?>"
+                                                           autocomplete="off"/>
+                                                </td>
+                                                <td width="25%">
+                                                    <input type="text" name="tien_coc_di" class="tien_coc_di"
+                                                           value="<?php echo get_field('tien_coc_di'); ?>"
+                                                           autocomplete="off"/>
+                                                </td>
+                                                <td width="25%">
+                                                    <input type="text" name="ngay_phai_coc_di" data-date-format="dd/mm/yyyy"
+                                                           data-position="top left" class="ngay_phai_coc_di datepicker-here"
+                                                           data-language='en'
+                                                           value="<?php echo get_field('ngay_phai_coc_di'); ?>"
+                                                           autocomplete="off"/>
+                                                </td>
+                                                <td>
+                                                    <input type="number" name="tk_coc_di" class="tk_coc_di"
+                                                           value="<?php echo get_field('tk_coc_di'); ?>"
+                                                           autocomplete="off"/>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
+                            <?php
+                            endwhile;
+                            endif;
+                            wp_reset_postdata();
+                            ?>
+                        </div>
                     </div>
                     <div class="total_price_2">
                         <strong>Tổng : </strong><span>213231213</span>
@@ -2812,37 +3175,46 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
         ?>
         <div class="add_list_price_booking">
             <div class="list_price">
-                <div class="item">
-                    <input type="text" class="add_ma_gd_coc" placeholder="Mã GD cọc">
+                <div class="content">
+                    <div class="item">
+                        <input type="text" class="add_ma_gd_coc" placeholder="Mã GD cọc">
+                    </div>
+                    <div class="item">
+                        <input type="text" class="add_tien_coc" placeholder="Tiền cọc">
+                    </div>
+                    <div class="item">
+                        <input type="text" class="add_ngay_coc datepicker-here" data-position='top left'
+                               data-date-format="dd/mm/yyyy" data-language='en' placeholder="Ngày cọc">
+                    </div>
+                    <div class="item">
+                        <input type="text" class="add_tk_coc" placeholder="TK cọc">
+                    </div>
                 </div>
-                <div class="item">
-                    <input type="text" class="add_tien_coc" placeholder="Tiền cọc">
-                </div>
-                <div class="item">
-                    <input type="text" class="add_ngay_coc datepicker-here" data-position='top left'
-                           data-date-format="dd/mm/yyyy" data-language='en' placeholder="Ngày cọc">
-                </div>
-                <div class="item">
-                    <input type="text" class="add_tk_coc" placeholder="TK cọc">
-                </div>
+                <button type="button" class="btn_add_price_gd" data-id="<?php echo get_the_ID(); ?>">Thêm tiền cọc</button>
+            </div>
+            <div class="list_price">
                 <div class="item">
                     <i class="fa fa-exchange" aria-hidden="true"></i>
                 </div>
-                <div class="item">
-                    <input type="text" class="add_ma_gd_coc_di" placeholder="Mã GD cọc đi">
-                </div>
-                <div class="item">
-                    <input type="text" class="add_tien_coc_di" placeholder="Tiền cọc đi">
-                </div>
-                <div class="item">
-                    <input type="text" class="add_ngay_phai_coc_di datepicker-here" data-position='top left'
-                           data-date-format="dd/mm/yyyy" data-language='en' placeholder="Ngày phải cọc đi">
-                </div>
-                <div class="item">
-                    <input type="text" class="add_tk_coc_di" placeholder="TK cọc đi">
-                </div>
             </div>
-            <button type="button" class="btn_add_price_gd" data-id="<?php echo get_the_ID(); ?>">Thêm tiền cọc</button>
+            <div class="list_price">
+                <div class="content">
+                    <div class="item">
+                        <input type="text" class="add_ma_gd_coc_di" placeholder="Mã GD cọc đi">
+                    </div>
+                    <div class="item">
+                        <input type="text" class="add_tien_coc_di" placeholder="Tiền cọc đi">
+                    </div>
+                    <div class="item">
+                        <input type="text" class="add_ngay_phai_coc_di datepicker-here" data-position='top left'
+                               data-date-format="dd/mm/yyyy" data-language='en' placeholder="Ngày phải cọc đi">
+                    </div>
+                    <div class="item">
+                        <input type="text" class="add_tk_coc_di" placeholder="TK cọc đi">
+                    </div>
+                </div>
+                <button type="button" class="btn_add_price_gd2" data-id="<?php echo get_the_ID(); ?>">Thêm tiền cọc</button>
+            </div>
         </div>
         <?php
     }

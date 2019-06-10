@@ -42,7 +42,7 @@ if($_SESSION['sucess'] == "sucess") {
                         $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
                         $arr = array(
                             'post_type' => 'khach_hang',
-                            'posts_per_page' => 10,
+                            'posts_per_page' => 200,
                             'order' => 'DESC',
                             'paged' => $paged,
                         );
@@ -70,7 +70,9 @@ if($_SESSION['sucess'] == "sucess") {
                                     <td><?php echo get_field('sdt_kgd'); ?></td>
                                     <td><?php echo get_field('email_kgd_duy_nhat'); ?></td>
                                     <td><?php echo get_field('tk_kgd'); ?></td>
-                                    <td><?php echo get_field('loai_tai_khoan_khach_gd'); ?></td>
+                                    <td><?php
+                                        echo get_field('loai_tai_khoan_khach_gd');
+                                    ?></td>
                                     <td>
                                         <a class="edit" href="<?php the_permalink(); ?>"><i
                                                 class="fa fa-pencil-square-o" aria-hidden="true"></i></a>

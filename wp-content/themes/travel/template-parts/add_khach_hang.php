@@ -50,8 +50,6 @@ if($_SESSION['sucess'] == "sucess") {
                         $alert = "<p class='alert_tk_fail'>Email khách hàng đã tồn tại !</p>";
                     }elseif (get_field('sdt_kgd') == $_POST['sdt_kgd']) {
                         $alert = "<p class='alert_tk_fail'>Số điện thoại đã tồn tại !</p>";
-                    }elseif (get_field('tk_kgd') == $_POST['tk_kgd']) {
-                        $alert = "<p class='alert_tk_fail'>Số tài khoản đã tồn tại !</p>";
                     }elseif (get_field('ma_kgd') == $_POST['ma_kgd']) {
                         $alert = "<p class='alert_tk_fail'>Mã khách giao dịch đã tồn tại !</p>";
                     }
@@ -89,7 +87,7 @@ if($_SESSION['sucess'] == "sucess") {
                             <ul>
                                 <li>
                                     <label>Mã khách giao dịch</label>
-                                    <input type="text" name="ma_kgd" class="ma_kgd" value="MKGD_<?php echo abs( crc32( uniqid() ) ); ?>" required>
+                                    <input type="text" name="ma_kgd" class="ma_kgd" value="MKH_<?php echo abs( crc32( uniqid() ) ); ?>" required>
                                 </li>
                                 <li>
                                     <label>Tên khách giao dịch</label>
@@ -114,8 +112,17 @@ if($_SESSION['sucess'] == "sucess") {
                                 <li>
                                     <label>Loại tài khoản</label>
                                     <select name="loai_tai_khoan_khach_gd" class="loai_tai_khoan_khach_gd">
-                                        <option value="Thường">Thường</option>
-                                        <option value="Vip">Vip</option>
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
                                     </select>
                                 </li>
                                 <li>

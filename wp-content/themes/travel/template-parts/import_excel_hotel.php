@@ -33,6 +33,11 @@ get_header();
                 'menu_id' => 'primary-menu',
                 'menu' => 'Admin'
             ));
+
+            /*$allposts= get_posts( array('post_type'=>'khach_hang','numberposts'=>-1) );
+            foreach ($allposts as $eachpost) {
+                wp_delete_post( $eachpost->ID, true );
+            }*/
             ?>
         </div>
 

@@ -895,7 +895,7 @@ table#show_chat {
 .thue_tndn_khac,.cp_marketing_khac,.cp_hau_can_khac,.cp_hau_mai_khac,
 .cp_co_dinh_khac,.tien_coc_1,.tien_tt_lan_2_1,.tien_tt_lan_3_1,
 .so_tien_hoan_1,.tien_coc_di_2,.tien_di_lan_2_2,.tien_di_lan_3_2,
-.so_tien_hoan_2,.bua_an_bat_buoc,.dich_vu_khac,.ngay_yeu_cau_kh_hoan_tat_tt_khac,.ngay_phai_hoan_tat_tt_cho_ks_khac2{
+.so_tien_hoan_2,.bua_an_bat_buoc,.dich_vu_khac,.ngay_yeu_cau_kh_hoan_tat_tt_khac,.ngay_phai_hoan_tat_tt_cho_ks_khac2,.tien_coc,.tien_coc_di{
   text-align: right;
 }
 .so_dem_gd,.con_ngay_gd,.sl_gd,.con_ngay_dt,.con_ngay_thay_doi_dt,
@@ -1192,7 +1192,7 @@ table#show_chat {
     border-radius: 0px;
     background: green;
     color: #FFF;
-    text-transform: uppercase;
+    text-transform: initial;
     padding: 10px;
     margin-top: 10px;
     margin-left: 7.5px;
@@ -1250,6 +1250,9 @@ table#show_chat {
   display: flex;
   flex-wrap: wrap;
   position: relative;
+  .content{
+    width: 100%;
+  }
   .item{
     width: 100%;
     .first td{
@@ -1301,5 +1304,32 @@ table#show_chat {
       cursor: pointer;
       color: red;
     }
+  }
+}
+
+.add_list_price_booking{
+  display: flex;
+  .list_price{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .list_price:nth-child(2){
+    width: 110px;
+  }
+  .list_price:nth-child(3){
+    justify-content: flex-end;
+    .btn_add_price_gd2 {
+      margin-left: 0px;
+      margin-right: 7.5px;
+    }
+  }
+  .content{
+    width: 100%;
+    display: flex;
+  }
+}
+.gd_price{
+  td.td_fix{
+    display: block;
   }
 }

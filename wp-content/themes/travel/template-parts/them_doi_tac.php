@@ -51,12 +51,6 @@ if($_SESSION['sucess'] == "sucess") {
                             $alert = "<p class='alert_tk_fail'>ID đã tồn tại !</p>";
                         } elseif (get_field('ma_dt') == $_POST['ma_dt']) {
                             $alert = "<p class='alert_tk_fail'>Mã đã tồn tại !</p>";
-                        } elseif (get_field('email_dt') == $_POST['email_dt']) {
-                            $alert = "<p class='alert_tk_fail'>Email đã tồn tại !</p>";
-                        } elseif (get_field('stk_dt') == $_POST['stk_dt']) {
-                            $alert = "<p class='alert_tk_fail'>STK đã tồn tại !</p>";
-                        } elseif (get_field('sdt_dt') == $_POST['sdt_dt']) {
-                            $alert = "<p class='alert_tk_fail'>SĐT đã tồn tại !</p>";
                         }
                     endwhile;
                     wp_reset_postdata();
@@ -104,11 +98,11 @@ if($_SESSION['sucess'] == "sucess") {
                             </li>
                             <li>
                                 <label>Tên DT</label>
-                                <input type="text" name="ten_dt" class="ten_dt" required>
+                                <input type="text" name="ten_dt" class="ten_dt">
                             </li>
                             <li>
                                 <label>Email DT</label>
-                                <input type="email" name="email_dt" class="email_dt" required>
+                                <input type="email" name="email_dt" class="email_dt">
                             </li>
                             <li>
                                 <label>STK DT</label>

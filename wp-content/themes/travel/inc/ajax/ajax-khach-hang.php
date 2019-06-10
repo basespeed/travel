@@ -38,7 +38,6 @@ function setKhachDaiDien() {
                 <ul>
                     <li><?php
                         $str = get_field('ten_kgd');
-                        $str = str_replace($keyword, " <strong> " . $keyword . " </strong> ", $str);
                         echo $str;
                         ?></li>
                     <li><input type="text" value="<?php echo get_field('sdt_kgd'); ?>"></li>
@@ -53,6 +52,7 @@ function setKhachDaiDien() {
                         <input type="hidden" class="tk" value="<?php echo get_field('tk_kgd'); ?>">
                         <input type="hidden" class="nick" value="<?php echo get_field('nick_kgd'); ?>">
                         <input type="hidden" class="link" value="<?php echo get_field('link_facebook_khach_gd'); ?>">
+                        <input type="hidden" class="id_kh_show" value="<?php echo get_the_ID(); ?>">
                     </li>
                 </ul>
             <?php
@@ -112,7 +112,6 @@ function setKhachDaiDienSDT() {
                     <li><?php echo get_field('ten_kgd'); ?></li>
                     <li><?php
                         $str = get_field('sdt_kgd');
-                        $str = str_replace($keyword, " <strong> " . $keyword . " </strong> ", $str);
                         echo $str;
                         ?></li>
                     <li><input type="email" value="<?php echo get_field('email_kgd_duy_nhat'); ?>"></li>
@@ -126,6 +125,7 @@ function setKhachDaiDienSDT() {
                         <input type="hidden" class="tk" value="<?php echo get_field('tk_kgd'); ?>">
                         <input type="hidden" class="nick" value="<?php echo get_field('nick_kgd'); ?>">
                         <input type="hidden" class="link" value="<?php echo get_field('link_facebook_khach_gd'); ?>">
+                        <input type="hidden" class="id_kh_show" value="<?php echo get_the_ID(); ?>">
                     </li>
                 </ul>
             <?php
@@ -185,7 +185,6 @@ function setKhachDaiDienTenKgd() {
                     <li><input type="text" value="<?php echo get_field('sdt_kgd'); ?>"></li>
                     <li><?php
                         $str = get_field('email_kgd_duy_nhat');
-                        $str = str_replace($keyword, " <strong> " . $keyword . " </strong> ", $str);
                         echo $str;
                         ?></li>
                     <li><input type="text" value="<?php echo get_field('tk_kgd'); ?>"></li>
@@ -198,6 +197,7 @@ function setKhachDaiDienTenKgd() {
                         <input type="hidden" class="tk" value="<?php echo get_field('tk_kgd'); ?>">
                         <input type="hidden" class="nick" value="<?php echo get_field('nick_kgd'); ?>">
                         <input type="hidden" class="link" value="<?php echo get_field('link_facebook_khach_gd'); ?>">
+                        <input type="hidden" class="id_kh_show" value="<?php echo get_the_ID(); ?>">
                     </li>
                 </ul>
             <?php
@@ -256,7 +256,6 @@ function setNickKgd() {
                 <ul>
                     <li><?php
                         $str = get_field('ten_kgd');
-                        $str = str_replace($keyword, " <strong> " . $keyword . " </strong> ", $str);
                         echo $str;
                         ?></li>
                     <li><input type="text" value="<?php echo get_field('sdt_kgd'); ?>"></li>
@@ -271,6 +270,7 @@ function setNickKgd() {
                         <input type="hidden" class="tk" value="<?php echo get_field('tk_kgd'); ?>">
                         <input type="hidden" class="nick" value="<?php echo get_field('nick_kgd'); ?>">
                         <input type="hidden" class="link" value="<?php echo get_field('link_facebook_khach_gd'); ?>">
+                        <input type="hidden" class="id_kh_show" value="<?php echo get_the_ID(); ?>">
                     </li>
                 </ul>
             <?php
@@ -326,7 +326,6 @@ function setSdtKgd() {
                 <ul>
                     <li><?php
                         $str = get_field('ten_kgd');
-                        $str = str_replace($keyword, " <strong> " . $keyword . " </strong> ", $str);
                         echo $str;
                         ?></li>
                     <li><input type="text" value="<?php echo get_field('sdt_kgd'); ?>"></li>
@@ -341,6 +340,7 @@ function setSdtKgd() {
                         <input type="hidden" class="tk" value="<?php echo get_field('tk_kgd'); ?>">
                         <input type="hidden" class="nick" value="<?php echo get_field('nick_kgd'); ?>">
                         <input type="hidden" class="link" value="<?php echo get_field('link_facebook_khach_gd'); ?>">
+                        <input type="hidden" class="id_kh_show" value="<?php echo get_the_ID(); ?>">
                     </li>
                 </ul>
             <?php
@@ -393,7 +393,6 @@ function setEmail_kgd_duy_nhat() {
                 <ul>
                     <li><?php
                         $str = get_field('ten_kgd');
-                        $str = str_replace($keyword, " <strong> " . $keyword . " </strong> ", $str);
                         echo $str;
                         ?></li>
                     <li><input type="text" value="<?php echo get_field('sdt_kgd'); ?>"></li>
@@ -408,6 +407,7 @@ function setEmail_kgd_duy_nhat() {
                         <input type="hidden" class="tk" value="<?php echo get_field('tk_kgd'); ?>">
                         <input type="hidden" class="nick" value="<?php echo get_field('nick_kgd'); ?>">
                         <input type="hidden" class="link" value="<?php echo get_field('link_facebook_khach_gd'); ?>">
+                        <input type="hidden" class="id_kh_show" value="<?php echo get_the_ID(); ?>">
                     </li>
                 </ul>
             <?php
@@ -465,7 +465,6 @@ function setTk_kgd() {
                 <ul>
                     <li><?php
                         $str = get_field('ten_kgd');
-                        $str = str_replace($keyword, " <strong> " . $keyword . " </strong> ", $str);
                         echo $str;
                         ?></li>
                     <li><input type="text" value="<?php echo get_field('sdt_kgd'); ?>"></li>
@@ -480,6 +479,7 @@ function setTk_kgd() {
                         <input type="hidden" class="tk" value="<?php echo get_field('tk_kgd'); ?>">
                         <input type="hidden" class="nick" value="<?php echo get_field('nick_kgd'); ?>">
                         <input type="hidden" class="link" value="<?php echo get_field('link_facebook_khach_gd'); ?>">
+                        <input type="hidden" class="id_kh_show" value="<?php echo get_the_ID(); ?>">
                     </li>
                 </ul>
             <?php
@@ -536,7 +536,6 @@ function setMa_kgd() {
                 <ul>
                     <li><?php
                         $str = get_field('ten_kgd');
-                        $str = str_replace($keyword, "<strong> " . $keyword . " </strong> ", $str);
                         echo $str;
                         ?></li>
                     <li><input type="text" value="<?php echo get_field('sdt_kgd'); ?>"></li>
@@ -551,6 +550,7 @@ function setMa_kgd() {
                         <input type="hidden" class="tk" value="<?php echo get_field('tk_kgd'); ?>">
                         <input type="hidden" class="nick" value="<?php echo get_field('nick_kgd'); ?>">
                         <input type="hidden" class="link" value="<?php echo get_field('link_facebook_khach_gd'); ?>">
+                        <input type="hidden" class="id_kh_show" value="<?php echo get_the_ID(); ?>">
                     </li>
                 </ul>
             <?php
@@ -606,7 +606,6 @@ function set_pop_ten_dt_gui_book_dt() {
                 <ul>
                     <li><?php
                         $str = get_field('ten_dt');
-                        $str = str_replace($keyword, "<strong> " . $keyword . " </strong> ", $str);
                         echo $str;
                         ?></li>
                     <li><input type="text" value="<?php echo get_field('sdt_dt'); ?>"></li>
@@ -621,6 +620,7 @@ function set_pop_ten_dt_gui_book_dt() {
                         <input type="hidden" class="tk" value="<?php echo get_field('stk_dt'); ?>">
                         <input type="hidden" class="don_vi_cong_tac_dt" value="<?php echo get_field('don_vi_cong_tac_dt'); ?>">
                         <input type="hidden" class="mdt" value="<?php echo get_field('ma_dt'); ?>">
+                        <input type="hidden" class="id_kh_show" value="<?php echo get_the_ID(); ?>">
                     </li>
                 </ul>
             <?php
@@ -680,7 +680,6 @@ function setMGDLK() {
                 <ul>
                     <li><?php
                         $str = get_field('ten_kgd');
-                        $str = str_replace($keyword, "<strong> " . $keyword . " </strong>", $str);
                         echo $str;
                         ?></li>
                     <li><input type="text" value="<?php echo get_field('sdt_kgd'); ?>"></li>
@@ -695,6 +694,7 @@ function setMGDLK() {
                         <input type="hidden" class="tk" value="<?php echo get_field('tk_kgd'); ?>">
                         <input type="hidden" class="nick" value="<?php echo get_field('nick_kgd'); ?>">
                         <input type="hidden" class="link" value="<?php echo get_field('link_facebook_khach_gd'); ?>">
+                        <input type="hidden" class="id_kh_show" value="<?php echo get_the_ID(); ?>">
                     </li>
                 </ul>
             <?php
@@ -755,7 +755,6 @@ function pop_ten_khach_san_gd() {
             <ul>
                 <li><span><?php
                     $str = get_field('hotel_name');
-                    $str = str_replace($keyword,"<strong>".$keyword."</strong>",$str);
                     echo $str;
                 ?></span></li>
                 <li><input type="text" value="<?php echo get_field('numberrooms'); ?>"></li>

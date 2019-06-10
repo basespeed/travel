@@ -54,12 +54,6 @@ get_header();
                         $alert = "<p class='alert_tk_fail'>Mã ĐT đã tồn tại !</p>";
                     } elseif (get_field('id_dt') == $_POST['id_dt'] and $this_id_dt != $_POST['id_dt']) {
                         $alert = "<p class='alert_tk_fail'>ID đã tồn tại !</p>";
-                    } elseif (get_field('email_dt') == $_POST['email_dt'] and $this_email_dt != $_POST['email_dt']) {
-                        $alert = "<p class='alert_tk_fail'>Email đã tồn tại !</p>";
-                    } elseif (get_field('sdt_dt') == $_POST['sdt_dt'] and $this_sdt_dt != $_POST['sdt_dt']) {
-                        $alert = "<p class='alert_tk_fail'>Số điện thoại đã tồn tại !</p>";
-                    } elseif (get_field('stk_dt') == $_POST['stk_dt'] and $this_stk_dt != $_POST['stk_dt']) {
-                        $alert = "<p class='alert_tk_fail'>STK đã tồn tại !</p>";
                     }
                 endwhile;
                 wp_reset_postdata();
@@ -114,7 +108,7 @@ get_header();
                         <li>
                             <label>Email DT</label>
                             <input type="email" name="email_dt" class="email_dt"
-                                   value="<?php echo get_field('email_dt'); ?>" required>
+                                   value="<?php echo get_field('email_dt'); ?>">
                         </li>
                         <li>
                             <label>STK DT</label>

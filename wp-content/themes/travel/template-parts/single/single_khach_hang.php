@@ -55,8 +55,6 @@ get_header();
                         $alert = "<p class='alert_tk_fail'>Email khách hàng đã tồn tại !</p>";
                     }elseif(get_field('sdt_kgd') == $_POST['sdt_kgd'] and $sdt_kgd != $_POST['sdt_kgd']){
                         $alert = "<p class='alert_tk_fail'>Số điện thoại đã tồn tại !</p>";
-                    }elseif(get_field('tk_kgd') == $_POST['tk_kgd'] and $tk_kgd != $_POST['tk_kgd']){
-                        $alert = "<p class='alert_tk_fail'>Số tài khoản đã tồn tại !</p>";
                     }elseif(get_field('ma_kgd') == $_POST['ma_kgd'] and $ma_kgd != $_POST['ma_kgd']){
                         $alert = "<p class='alert_tk_fail'>Mã khách giao dịch đã tồn tại !</p>";
                     }
@@ -118,8 +116,17 @@ get_header();
                                     <label>Loại tài khoản</label>
                                     <select name="loai_tai_khoan_khach_gd" class="loai_tai_khoan_khach_gd" data-check="<?php echo get_field('loai_tai_khoan_khach_gd'); ?>">
                                         <option value="" selected disabled hidden>Chọn loại tài khoản</option>
-                                        <option value="Thường">Thường</option>
-                                        <option value="Vip">Vip</option>
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
                                     </select>
                                 </li>
                                 <li>

@@ -1204,9 +1204,12 @@
                             id_reply:id_reply
                         },
                         success: function(response){
+
+                            $('table#show_chat tbody').append(response.data[1]);
+
                             $('.send_chat td textarea').val();
 
-                            var id_del = response.data;
+                            var id_del = response.data[0];
 
 
                             setTimeout(function () {
@@ -1259,7 +1262,7 @@
                         }
                     }
                 });
-            }, 1000);
+            }, 30000);
 
             var selectCheck = setInterval(function () {
                 $('.muc_do_uu_tien_chat_mess').filter(function () {
@@ -1636,7 +1639,32 @@
 
     //Lấy dữ liệu khách hàng khi nhập đúng tên khách vào phần nhập giao dịch
     function getDataClient() {
-        $('.khach_dai_dien_gd').keyup(delay(function (e) {
+        $('.khach_dai_dien_gd_val').on('keyup', function(){
+            $('.khach_dai_dien_gd').val($(this).val());
+        });
+        $('.sdt_gd_val').on('keyup', function(){
+            $('.sdt_gd').val($(this).val());
+        });
+        $('.ten_kgd_val').on('keyup', function(){
+            $('.ten_kgd').val($(this).val());
+        });
+        $('.nick_kgd_val').on('keyup', function(){
+            $('.nick_kgd').val($(this).val());
+        });
+        $('.sdt_kgd_val').on('keyup', function(){
+            $('.sdt_kgd').val($(this).val());
+        });
+        $('.email_kgd_duy_nhat_val').on('keyup', function(){
+            $('.email_kgd_duy_nhat').val($(this).val());
+        });
+        $('.tk_kgd_val').on('keyup', function(){
+            $('.tk_kgd').val($(this).val());
+        });
+        $('.ma_kgd_val').on('keyup', function(){
+            $('.ma_kgd').val($(this).val());
+        });
+
+        $('.khach_dai_dien_gd_val').keyup(delay(function (e) {
             var keyword = $(this).val();
             $.ajax({
                 type: "post",
@@ -1672,7 +1700,7 @@
             });
         }, 500));
 
-        $('.sdt_gd').keyup(delay(function (e) {
+        $('.sdt_gd_val').keyup(delay(function (e) {
             var keyword = $(this).val();
             if(keyword != ''){
                 $.ajax({
@@ -1699,7 +1727,7 @@
 
         },500));
 
-        $('.ten_kgd').keyup(delay(function (e) {
+        $('.ten_kgd_val').keyup(delay(function (e) {
             var keyword = $(this).val();
             if(keyword != ''){
                 $.ajax({
@@ -1721,7 +1749,7 @@
             }
         },500));
 
-        $('.nick_kgd').keyup(delay(function (e) {
+        $('.nick_kgd_val').keyup(delay(function (e) {
             var keyword = $(this).val();
             if(keyword != ''){
                 $.ajax({
@@ -1747,7 +1775,7 @@
             }
         },500));
 
-        $('.sdt_kgd').keyup(delay(function (e) {
+        $('.sdt_kgd_val').keyup(delay(function (e) {
             var keyword = $(this).val();
             if(keyword != ''){
                 $.ajax({
@@ -1773,7 +1801,7 @@
             }
         },500));
 
-        $('.email_kgd_duy_nhat').keyup(delay(function (e) {
+        $('.email_kgd_duy_nhat_val').keyup(delay(function (e) {
             var keyword = $(this).val();
             if(keyword != ''){
                 $.ajax({
@@ -1799,7 +1827,7 @@
             }
         },500));
 
-        $('.tk_kgd').keyup(delay(function (e) {
+        $('.tk_kgd_val').keyup(delay(function (e) {
             var keyword = $(this).val();
             if(keyword != ''){
                 $.ajax({
@@ -1873,9 +1901,12 @@
             var ma_kgd = $(this).find('.ma_kgd').val();
             var ten = $(this).find('.ten').val();
             var sdt = $(this).find('.sdt').val();
+            var id = $(this).find('.id_kh_show').val();
 
-            $('.khach_dai_dien_gd').val(ten);
-            $('.sdt_gd').val(sdt);
+            $('.khach_dai_dien_gd_val').val(ten);
+            $('.khach_dai_dien_gd').val(id);
+            $('.sdt_gd_val').val(sdt);
+            $('.sdt_gd').val(id);
 
             $('.popup_get_data_list').hide();
         });
@@ -1884,9 +1915,12 @@
             var ma_kgd = $(this).find('.ma_kgd').val();
             var ten = $(this).find('.ten').val();
             var sdt = $(this).find('.sdt').val();
+            var id = $(this).find('.id_kh_show').val();
 
-            $('.khach_dai_dien_gd').val(ten);
-            $('.sdt_gd').val(sdt);
+            $('.khach_dai_dien_gd_val').val(ten);
+            $('.khach_dai_dien_gd').val(id);
+            $('.sdt_gd_val').val(sdt);
+            $('.sdt_gd').val(id);
 
             $('.popup_get_data_list').hide();
         });
@@ -1907,13 +1941,20 @@
             var tk = $(this).find('.tk').val();
             var nick = $(this).find('.nick').val();
             var link = $(this).find('.link').val();
+            var id = $(this).find('.id_kh_show').val();
 
-            $('.email_kgd_duy_nhat').val(email);
-            $('.sdt_kgd').val(sdt);
-            $('.nick_kgd').val(nick);
-            $('.ten_kgd').val(ten);
-            $('.tk_kgd').val(tk);
-            $('.ma_kgd').val(ma_kgd);
+            $('.email_kgd_duy_nhat').val(id);
+            $('.email_kgd_duy_nhat_val').val(email);
+            $('.sdt_kgd').val(id);
+            $('.sdt_kgd_val').val(sdt);
+            $('.nick_kgd').val(id);
+            $('.nick_kgd_val').val(nick);
+            $('.ten_kgd_val').val(ten);
+            $('.ten_kgd').val(id);
+            $('.tk_kgd').val(id);
+            $('.tk_kgd_val').val(tk);
+            $('.ma_kgd').val(id);
+            $('.ma_kgd_val').val(ma_kgd);
 
             $('.popup_get_data_list').hide();
         });
@@ -1926,13 +1967,20 @@
             var tk = $(this).find('.tk').val();
             var nick = $(this).find('.nick').val();
             var link = $(this).find('.link').val();
+            var id = $(this).find('.id_kh_show').val();
 
-            $('.email_kgd_duy_nhat').val(email);
-            $('.sdt_kgd').val(sdt);
-            $('.nick_kgd').val(nick);
-            $('.ten_kgd').val(ten);
-            $('.tk_kgd').val(tk);
-            $('.ma_kgd').val(ma_kgd);
+            $('.email_kgd_duy_nhat').val(id);
+            $('.email_kgd_duy_nhat_val').val(email);
+            $('.sdt_kgd_val').val(sdt);
+            $('.sdt_kgd').val(id);
+            $('.nick_kgd').val(id);
+            $('.nick_kgd_val').val(nick);
+            $('.ten_kgd_val').val(ten);
+            $('.ten_kgd').val(id);
+            $('.tk_kgd').val(id);
+            $('.tk_kgd_val').val(tk);
+            $('.ma_kgd').val(id);
+            $('.ma_kgd_val').val(ma_kgd);
 
             $('.popup_get_data_list').hide();
         });
@@ -1945,13 +1993,19 @@
             var tk = $(this).find('.tk').val();
             var nick = $(this).find('.nick').val();
             var link = $(this).find('.link').val();
+            var id = $(this).find('.id_kh_show').val();
 
-            $('.email_kgd_duy_nhat').val(email);
-            $('.sdt_kgd').val(sdt);
-            $('.nick_kgd').val(nick);
+            $('.email_kgd_duy_nhat').val(id);
+            $('.email_kgd_duy_nhat_val').val(email);
+            $('.sdt_kgd').val(id);
+            $('.sdt_kgd_val').val(sdt);
+            $('.nick_kgd').val(id);
+            $('.nick_kgd_val').val(nick);
             $('.ten_kgd').val(ten);
-            $('.tk_kgd').val(tk);
-            $('.ma_kgd').val(ma_kgd);
+            $('.tk_kgd').val(id);
+            $('.tk_kgd_val').val(tk);
+            $('.ma_kgd').val(id);
+            $('.ma_kgd_val').val(ma_kgd);
 
             $('.popup_get_data_list').hide();
         });
@@ -2372,7 +2426,8 @@
                 processData: false,
                 data: form_data,
                 success: function (response) {
-                    $('.page-template-import_excel_hotel .progress .total_import').text(response.data);
+                    //$('.page-template-import_excel_hotel .progress .total_import').text(response.data);
+                    console.log(response.data);
                 },
             });
         });
@@ -2400,7 +2455,7 @@
                     if(response.data == 'error'){
                         alert('Sai định dạng !');
                     }else{
-
+                        console.log(response.data);
                     }
                 },
             });
@@ -2543,17 +2598,21 @@
     //Thêm giao dịch tiền
     function CountAddPriceBooking(){
         var total_price_1 = 0;
-        $('.list_price_1 .item').each(function (i,val) {
-            val = parseInt($(this).attr('data-price'));
-            total_price_1 += val;
+        var val_price;
+        $('.list_price_1 .content .item').each(function (i,val) {
+            val_price = parseInt($(this).attr('data-price'));
+            total_price_1 += val_price;
+            console.log(val_price);
         });
 
         $('.total_price_1 span').text(total_price_1.format(0, 3, ','));
-
+    }
+    function CountAddPriceBooking2(){
         var total_price_2 = 0;
-        $('.list_price_2 .item').each(function (i,val) {
-            val = parseInt($(this).attr('data-price'));
-            total_price_2 += val;
+        var val_price;
+        $('.list_price_2 .content .item').each(function (i,val) {
+            val_price = parseInt($(this).attr('data-price'));
+            total_price_2 += val_price;
         });
 
         $('.total_price_2 span').text(total_price_2.format(0, 3, ','));
@@ -2729,12 +2788,7 @@
             var add_ngay_coc  = $('.add_ngay_coc ').val();
             var add_tk_coc = $('.add_tk_coc').val();
 
-            var add_ma_gd_coc_di = $('.add_ma_gd_coc_di').val();
-            var add_tien_coc_di = $('.add_tien_coc_di').val();
-            var add_ngay_phai_coc_di  = $('.add_ngay_phai_coc_di ').val();
-            var add_tk_coc_di  = $('.add_tk_coc_di ').val();
-
-            if(add_ma_gd_coc == '' || add_tien_coc == '' || add_ngay_coc == '' || add_tk_coc == '' || add_ma_gd_coc_di == '' || add_tien_coc_di == '' || add_ngay_phai_coc_di == '' || add_tk_coc_di == ''){
+            if(add_ma_gd_coc == '' || add_tien_coc == '' || add_ngay_coc == '' || add_tk_coc == ''){
                 alert('Giá trị bị trống !');
             }else{
                 $.ajax({
@@ -2746,28 +2800,20 @@
                         add_tien_coc: add_tien_coc,
                         add_ngay_coc: add_ngay_coc,
                         add_tk_coc: add_tk_coc,
-                        add_tien_coc_di: add_tien_coc_di,
-                        add_ngay_phai_coc_di: add_ngay_phai_coc_di,
-                        add_tk_coc_di: add_tk_coc_di,
                         ma_gd_them_booking: ma_gd_them_booking,
                         add_ma_gd_coc: add_ma_gd_coc,
-                        add_ma_gd_coc_di: add_ma_gd_coc_di,
                     },
                     success: function (response) {
-                        $('.list_price_1').append(response.data[0]);
-                        $('.list_price_2').append(response.data[1]);
+                        $('.list_price_1 .content').append(response.data[0]);
                         $(document).find('.tien_coc').simpleMoneyFormat();
                         $(document).find('.tien_coc_di').simpleMoneyFormat();
                         CountAddPriceBooking();
                         $('.da_thanh_toan_khac').val($('.total_price_1 span').text());
-                        $('.da_thanh_toan_khac2').val($('.total_price_2 span').text());
                         base_change_count_gd();
 
                         setTimeout(function(){
                             var update_thanh_toan1 = $('.total_price_1 span').text();
-                            var update_thanh_toan2 = $('.total_price_2 span').text();
                             var kh_con_no_khac = $('.kh_con_no_khac').val();
-                            var bct_con_no_khac2 = $('.bct_con_no_khac2').val();
                             $.ajax({
                                 type: "post",
                                 dataType: "json",
@@ -2776,8 +2822,61 @@
                                     action: "update_gd_price",
                                     id: id,
                                     update_thanh_toan1: update_thanh_toan1,
-                                    update_thanh_toan2: update_thanh_toan2,
                                     kh_con_no_khac: kh_con_no_khac,
+                                },
+                                success: function (response) {
+
+                                }
+                            });
+                        },100);
+                    }
+                });
+            }
+        });
+
+        $('.btn_add_price_gd2').on('click', function(){
+            var ma_gd_them_booking = $('.ma_gd_them_booking').val();
+            var id = $(this).attr('data-id');
+
+            var add_ma_gd_coc_di = $('.add_ma_gd_coc_di').val();
+            var add_tien_coc_di = $('.add_tien_coc_di').val();
+            var add_ngay_phai_coc_di  = $('.add_ngay_phai_coc_di ').val();
+            var add_tk_coc_di  = $('.add_tk_coc_di ').val();
+
+            if(add_ma_gd_coc_di == '' || add_tien_coc_di == '' || add_ngay_phai_coc_di == '' || add_tk_coc_di == ''){
+                alert('Giá trị bị trống !');
+            }else{
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: my_ajax_object.ajax_url,
+                    data: {
+                        action: "add_price_booking",
+                        add_tien_coc_di: add_tien_coc_di,
+                        add_ngay_phai_coc_di: add_ngay_phai_coc_di,
+                        add_tk_coc_di: add_tk_coc_di,
+                        ma_gd_them_booking: ma_gd_them_booking,
+                        add_ma_gd_coc_di: add_ma_gd_coc_di,
+                    },
+                    success: function (response) {
+                        $('.list_price_2 .content').append(response.data[1]);
+                        $(document).find('.tien_coc').simpleMoneyFormat();
+                        $(document).find('.tien_coc_di').simpleMoneyFormat();
+                        CountAddPriceBooking2();
+                        $('.da_thanh_toan_khac2').val($('.total_price_2 span').text());
+                        base_change_count_gd();
+
+                        setTimeout(function(){
+                            var update_thanh_toan2 = $('.total_price_2 span').text();
+                            var bct_con_no_khac2 = $('.bct_con_no_khac2').val();
+                            $.ajax({
+                                type: "post",
+                                dataType: "json",
+                                url: my_ajax_object.ajax_url,
+                                data: {
+                                    action: "update_gd_price",
+                                    id: id,
+                                    update_thanh_toan2: update_thanh_toan2,
                                     bct_con_no_khac2: bct_con_no_khac2,
                                 },
                                 success: function (response) {
@@ -2791,6 +2890,7 @@
         });
 
         CountAddPriceBooking();
+        CountAddPriceBooking2();
     }
 
     function _init() {
