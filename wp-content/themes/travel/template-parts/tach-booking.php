@@ -622,10 +622,9 @@ if($_SESSION['sucess'] == "sucess") {
                         include get_template_directory().'/template-parts/inc/template_booking.php';
                         ?>
 
-                        <div class="acf-form-submit">
-                            <input type="submit" name="sub_new_giao_dich" class="sub_new_giao_dich" value="Lưu lại">
+                        <div class="acf-form-submit save_tach_bk">
+                            <input type="submit" name="sub_new_giao_dich" class="sub_new_giao_dich" value="Lưu tách booking">
                         </div>
-
                     </form>
                 </div>
             </div>

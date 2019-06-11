@@ -45,16 +45,6 @@ if($_SESSION['sucess'] == "sucess") {
 
                 $query = new WP_Query($array_user);
 
-                if ($query->have_posts()) {
-                    while ($query->have_posts()) : $query->the_post();
-                        if (get_field('id_dt') == $_POST['id_dt']) {
-                            $alert = "<p class='alert_tk_fail'>ID đã tồn tại !</p>";
-                        } elseif (get_field('ma_dt') == $_POST['ma_dt']) {
-                            $alert = "<p class='alert_tk_fail'>Mã đã tồn tại !</p>";
-                        }
-                    endwhile;
-                    wp_reset_postdata();
-                }
 
                 if (!isset($alert)) {
                     $add_new_khach_san = array(
@@ -90,11 +80,11 @@ if($_SESSION['sucess'] == "sucess") {
                         <ul>
                             <li>
                                 <label>ID DT</label>
-                                <input type="text" name="id_dt" class="id_dt" value="<?php echo get_the_ID(); ?>" required>
+                                <input type="text" name="id_dt" class="id_dt" value="<?php echo get_the_ID(); ?>">
                             </li>
                             <li>
                                 <label>Mã DT</label>
-                                <input type="text" name="ma_dt" class="ma_dt" value="MDT_<?php echo abs( crc32( uniqid() ) ); ?>" required>
+                                <input type="text" name="ma_dt" class="ma_dt" value="MDT_<?php echo abs( crc32( uniqid() ) ); ?>">
                             </li>
                             <li>
                                 <label>Tên DT</label>

@@ -3,6 +3,11 @@ add_action("wp_ajax_add_price_booking", "add_price_booking");
 add_action("wp_ajax_nopriv_add_price_booking", "add_price_booking");
 
 function add_price_booking() {
+    $ma_kgd = $_POST['ma_kgd'];
+    $ma_dt = $_POST['ma_dt'];
+    $ma_ctv = $_POST['ma_ctv'];
+    $ma_nv = $_POST['ma_nv'];
+
     $add_ma_gd_coc = $_POST['add_ma_gd_coc'];
     $add_ma_gd_coc_di = $_POST['add_ma_gd_coc_di'];
     $add_tien_coc = $_POST['add_tien_coc'];
@@ -58,6 +63,22 @@ function add_price_booking() {
 
     if(!empty($add_tk_coc_di)){
         add_post_meta($post_id, 'tk_coc_di', $add_tk_coc_di, true);
+    }
+
+    if(!empty($ma_kgd)){
+        add_post_meta($post_id, 'id_khach_hang', $ma_kgd, true);
+    }
+
+    if(!empty($ma_dt)){
+        add_post_meta($post_id, 'id_doi_tac', $ma_dt, true);
+    }
+
+    if(!empty($ma_ctv)){
+        add_post_meta($post_id, 'id_ctv', $ma_ctv, true);
+    }
+
+    if(!empty($ma_nv)){
+        add_post_meta($post_id, 'id_nv', $ma_nv, true);
     }
 
     if(!empty($add_ngay_coc)){
@@ -183,6 +204,11 @@ add_action("wp_ajax_nopriv_update_price_booking", "update_price_booking");
 function update_price_booking() {
     $id_gd = $_POST['id_gd'];
 
+    $ma_kgd = $_POST['ma_kgd'];
+    $ma_dt = $_POST['ma_dt'];
+    $ma_ctv = $_POST['ma_ctv'];
+    $ma_nv = $_POST['ma_nv'];
+
     $update_thanh_toan1 = $_POST['update_thanh_toan1'];
     $update_thanh_toan2 = $_POST['update_thanh_toan2'];
     $kh_con_no_khac = $_POST['kh_con_no_khac'];
@@ -205,39 +231,55 @@ function update_price_booking() {
 
     $post_update = wp_update_post($update_price);
 
-    if(!empty($add_ma_gd_coc) && isset($add_ma_gd_coc)){
+    if(!empty($add_ma_gd_coc)){
         update_field( 'ma_gd_coc', $add_ma_gd_coc, $post_update );
     }
 
-    if(!empty($add_tien_coc) && isset($add_tien_coc)){
+    if(!empty($add_tien_coc)){
         update_field( 'tien_coc', $add_tien_coc, $post_update );
     }
 
-    if(!empty($add_ngay_coc) && isset($add_ngay_coc)){
+    if(!empty($add_ngay_coc)){
         $date = DateTime::createFromFormat('d/m/Y', $add_ngay_coc);
         $date = $date->format('Ymd');
         update_field( 'ngay_coc', $date, $post_update );
     }
 
-    if(!empty($add_tk_coc) && isset($add_tk_coc)){
+    if(!empty($add_tk_coc)){
         update_field( 'tk_coc', $add_tk_coc, $post_update );
     }
 
-    if(!empty($add_ma_gd_coc_di) && isset($add_ma_gd_coc_di)){
+    if(!empty($add_ma_gd_coc_di)){
         update_field( 'ma_gd_coc_di', $add_ma_gd_coc_di, $post_update );
     }
 
-    if(!empty($add_tien_coc_di) && isset($add_tien_coc_di)){
+    if(!empty($add_tien_coc_di)){
         update_field( 'tien_coc_di', $add_tien_coc_di, $post_update );
     }
 
-    if(!empty($add_ngay_coc_di) && isset($add_ngay_coc_di)){
+    if(!empty($ma_kgd)){
+        update_field( 'id_khach_hang', $ma_kgd, $post_update );
+    }
+
+    if(!empty($ma_dt)){
+        update_field( 'id_doi_tac', $ma_dt, $post_update );
+    }
+
+    if(!empty($ma_ctv)){
+        update_field( 'id_ctv', $ma_ctv, $post_update );
+    }
+
+    if(!empty($ma_nv)){
+        update_field( 'id_nv', $ma_nv, $post_update );
+    }
+
+    if(!empty($add_ngay_coc_di)){
         $date = DateTime::createFromFormat('d/m/Y', $add_ngay_coc_di);
         $date = $date->format('Ymd');
         update_field( 'ngay_phai_coc_di', $date, $post_update );
     }
 
-    if(!empty($add_tk_coc_di) && isset($add_tk_coc_di)){
+    if(!empty($add_tk_coc_di)){
         update_field( 'tk_coc_di', $add_tk_coc_di, $post_update );
     }
 

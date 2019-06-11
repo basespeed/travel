@@ -324,7 +324,7 @@ select{
 .pop_ten_khach_san_gd{
   ul{
     li{
-      width: 13.33% !important;
+      width: 15% !important;
       justify-content: center;
       input{
         text-align: center;
@@ -336,11 +336,8 @@ select{
       }
     }
     li:nth-child(1){
-      width: 30% !important;
+      width: 55% !important;
       justify-content: start;
-    }
-    li:nth-child(4){
-      width: 30% !important;
     }
   }
 }
@@ -1252,6 +1249,15 @@ table#show_chat {
   position: relative;
   .content{
     width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    .item{
+      table{
+        .first{
+          display: none;
+        }
+      }
+    }
   }
   .item{
     width: 100%;
@@ -1280,6 +1286,13 @@ table#show_chat {
   }
   span{
     color: red;
+  }
+}
+
+.acf-form-submit.save_tach_bk {
+  left: 5px !important;
+  .sub_new_giao_dich{
+    text-transform: capitalize !important;
   }
 }
 

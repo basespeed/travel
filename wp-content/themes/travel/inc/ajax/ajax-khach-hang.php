@@ -758,10 +758,9 @@ function pop_ten_khach_san_gd() {
                     echo $str;
                 ?></span></li>
                 <li><input type="text" value="<?php echo get_field('numberrooms'); ?>"></li>
-                <li><input type="text" value="<?php echo get_field('city'); ?>"></li>
-                <li><input type="text" value="<?php echo get_field('state'); ?>"></li>
+                <li><input type="text" value="<?php echo get_field('numberfloors'); ?>"></li>
                 <li>
-                    <input type="text" value="<?php echo get_field('country'); ?>">
+                    <input type="text" value="<?php echo get_field('state'); ?>">
                     <input type="hidden" class="id_ks_gd" value="<?php echo get_the_ID(); ?>"/>
                     <input type="hidden" class="hotel_name" value="<?php echo get_field('hotel_name'); ?>"/>
                 </li>

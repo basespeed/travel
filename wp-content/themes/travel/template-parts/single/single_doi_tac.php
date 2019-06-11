@@ -48,17 +48,6 @@ get_header();
 
             $query = new WP_Query($array_user);
 
-            if ($query->have_posts()) {
-                while ($query->have_posts()) : $query->the_post();
-                    if (get_field('ma_dt') == $_POST['ma_dt'] and $this_ma_dt != $_POST['ma_dt']) {
-                        $alert = "<p class='alert_tk_fail'>Mã ĐT đã tồn tại !</p>";
-                    } elseif (get_field('id_dt') == $_POST['id_dt'] and $this_id_dt != $_POST['id_dt']) {
-                        $alert = "<p class='alert_tk_fail'>ID đã tồn tại !</p>";
-                    }
-                endwhile;
-                wp_reset_postdata();
-            }
-
             if (!isset($alert)) {
                 $update_dt = array(
                     'ID' => get_the_ID(),
@@ -93,17 +82,17 @@ get_header();
                         <li>
                             <label>ID DT</label>
                             <input type="text" name="id_dt" class="id_dt" value="<?php echo get_field('id_dt'); ?>"
-                                   required>
+                                   >
                         </li>
                         <li>
                             <label>Mã DT</label>
                             <input type="text" name="ma_dt" class="ma_dt" value="<?php echo get_field('ma_dt'); ?>"
-                                   required>
+                                   >
                         </li>
                         <li>
                             <label>Tên DT</label>
                             <input type="text" name="ten_dt" class="ten_dt" value="<?php echo get_field('ten_dt'); ?>"
-                                   required>
+                                   >
                         </li>
                         <li>
                             <label>Email DT</label>

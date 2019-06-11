@@ -112,6 +112,10 @@ a:visited{
   color: royalblue;
 }
 
+.datepicker--nav-title{
+  color: #000 !important;
+}
+
 .datepicker{
   border: none !important;
   border-radius: 0px !important;
@@ -122,7 +126,7 @@ a:visited{
     border-right: 1px solid #eaeaea !important;
   }
   .datepicker--cell{
-    color: #666 !important;
+    color: #000 !important;
   }
 }
 

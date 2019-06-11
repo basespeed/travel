@@ -44,18 +44,6 @@ if($_SESSION['sucess'] == "sucess") {
 
             $query = new WP_Query($array_user);
 
-            if ($query->have_posts()) {
-                while ($query->have_posts()) : $query->the_post();
-                    if (get_field('email_kgd_duy_nhat') == $_POST['email_kgd_duy_nhat']) {
-                        $alert = "<p class='alert_tk_fail'>Email khách hàng đã tồn tại !</p>";
-                    }elseif (get_field('sdt_kgd') == $_POST['sdt_kgd']) {
-                        $alert = "<p class='alert_tk_fail'>Số điện thoại đã tồn tại !</p>";
-                    }elseif (get_field('ma_kgd') == $_POST['ma_kgd']) {
-                        $alert = "<p class='alert_tk_fail'>Mã khách giao dịch đã tồn tại !</p>";
-                    }
-                endwhile;
-                wp_reset_postdata();
-            }
 
             if (!isset($alert)) {
                 $add_new_khach_san = array(
@@ -87,11 +75,11 @@ if($_SESSION['sucess'] == "sucess") {
                             <ul>
                                 <li>
                                     <label>Mã khách giao dịch</label>
-                                    <input type="text" name="ma_kgd" class="ma_kgd" value="MKH_<?php echo abs( crc32( uniqid() ) ); ?>" required>
+                                    <input type="text" name="ma_kgd" class="ma_kgd" value="MKH_<?php echo abs( crc32( uniqid() ) ); ?>">
                                 </li>
                                 <li>
                                     <label>Tên khách giao dịch</label>
-                                    <input type="text" name="ten_kgd" class="ten_kgd" required>
+                                    <input type="text" name="ten_kgd" class="ten_kgd">
                                 </li>
                                 <li>
                                     <label>SĐT Khách giao dịch</label>
@@ -99,7 +87,7 @@ if($_SESSION['sucess'] == "sucess") {
                                 </li>
                                 <li>
                                     <label>Email khách giao dịch</label>
-                                    <input type="email" name="email_kgd_duy_nhat" class="email_kgd_duy_nhat" required>
+                                    <input type="email" name="email_kgd_duy_nhat" class="email_kgd_duy_nhat">
                                 </li>
                                 <li>
                                     <label>TK khách giao dịch</label>

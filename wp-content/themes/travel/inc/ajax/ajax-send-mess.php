@@ -144,48 +144,49 @@ function send_mess() {
     ));
     if( $query_bp ):
         foreach( $query_bp as $bp ):
-            $slt .= '<option value="<?php echo $bp->post_title; ?>"><?php echo $bp->post_title; ?></option>';
+            $slt .= '<option value="'.$bp->post_title.'">'.$bp->post_title.'</option>';
         endforeach;
     endif;
 
-    $html = '<tr class="show_chat count_chat check_color" data-id="<?php echo $post_id; ?>">';
-    $html = '<td width="40%" bgcolor="#EAF8FF">';
+    $html = '';
+    $html .= '<tr class="show_chat count_chat check_color" data-id="'.$post_id.'" data-count="'.$data_count.'">';
+    $html .= '<td width="40%" bgcolor="#EAF8FF">';
     if(!empty($reply_chat)){
-        $html = '<span class="reply_chat"><span>'.$reply_chat.'</span></span>';
+        $html .= '<span class="reply_chat"><span>'.$reply_chat.'</span></span>';
     }
-    $html = '<div class="cmt">';
-    $html = '<div class="img"><img src="'.$img.'" alt="avatar"></div>';
-    $html = ' <div class="content">Ngày nhập vào :';
-    $html = ' <span>'.$date.'</span> # Mã NV :';
-    $html = '<span>'.$ma_nhan_vien_chat.'</span> # Lời nhắn :';
-    $html = '<span class="tn">'.$tin_nhan_chat.'</span>';
-    $html = '</div>';
-    $html = '</div>';
-    $html = '<p class="edit_mess_tn">';
-    $html = '<textarea class="tn" cols="1" rows="1" disabled>'.$tin_nhan_chat.'</textarea>';
-    $html = '</p>';
-    $html = '</td>';
-    $html = '<td width="12%" bgcolor="#EAF8FF">';
-    $html = '<select class="bo_phan_chat_mess" data-check="'.$bo_phan_chat.'" disabled>';
-    $html = $slt;
-    $html = '</select>';
-    $html = '</td>';
-    $html = '<td width="12%" bgcolor="#EAF8FF">';
-    $html = '<select class="muc_do_uu_tien_chat_mess" data-check="'.$muc_do_uu_tien_chat.'" disabled>';
-    $html = '<option value="Thông thường" selected>Thông thường</option>';
-    $html = '<option value="Luôn và ngay">Luôn và ngay</option>';
-    $html = '<option value="Trong ngày">Trong ngày</option>';
-    $html = '</select>';
-    $html = '</td>';
-    $html = '<td width="12%" bgcolor="#EAF8FF"><input type="text" class="trang_thai_chat_mess" value="'.$trang_thai_chat.'" disabled></td>';
-    $html = '<td width="12%" bgcolor="#EAF8FF"><input type="text" data-date-format="dd/mm/yyyy" data-position=\'top left\' class="datepicker-here ngay_can_nhac_lai_chat_mess" value="'.$ngay_can_nhac_lai_chat.'" data-language=\'en\' disabled></td>';
-    $html = '<td width="12%" bgcolor="#EAF8FF"><p class="change_update_send_mess" data-id="'.get_field('ma_gd_them_booking').'" data-name="'.$ma_nhan_vien_chat.'">';
-    $html = '<button type="button" class="btn_edit_chat"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>';
+    $html .= '<div class="cmt">';
+    $html .= '<div class="img"><img src="'.$img.'" alt="avatar"></div>';
+    $html .= ' <div class="content">Ngày nhập vào :';
+    $html .= ' <span>'.$date.'</span> # Mã NV :';
+    $html .= '<span>'.$ma_nhan_vien_chat.'</span> # Lời nhắn :';
+    $html .= '<span class="tn">'.$tin_nhan_chat.'</span>';
+    $html .= '</div>';
+    $html .= '</div>';
+    $html .= '<p class="edit_mess_tn">';
+    $html .= '<textarea class="tn" cols="1" rows="1" disabled>'.$tin_nhan_chat.'</textarea>';
+    $html .= '</p>';
+    $html .= '</td>';
+    $html .= '<td width="12%" bgcolor="#EAF8FF">';
+    $html .= '<select class="bo_phan_chat_mess" data-check="'.$bo_phan_chat.'">';
+    $html .= $slt;
+    $html .= '</select>';
+    $html .= '</td>';
+    $html .= '<td width="12%" bgcolor="#EAF8FF">';
+    $html .= '<select class="muc_do_uu_tien_chat_mess" data-check="'.$muc_do_uu_tien_chat.'" disabled>';
+    $html .= '<option value="Thông thường" selected>Thông thường</option>';
+    $html .= '<option value="Luôn và ngay">Luôn và ngay</option>';
+    $html .= '<option value="Trong ngày">Trong ngày</option>';
+    $html .= '</select>';
+    $html .= '</td>';
+    $html .= '<td width="12%" bgcolor="#EAF8FF"><input type="text" class="trang_thai_chat_mess" value="'.$trang_thai_chat.'" disabled></td>';
+    $html .= '<td width="12%" bgcolor="#EAF8FF"><input type="text" data-date-format="dd/mm/yyyy" data-position=\'top left\' class="datepicker-here ngay_can_nhac_lai_chat_mess" value="'.$ngay_can_nhac_lai_chat.'" data-language=\'en\' disabled></td>';
+    $html .= '<td width="12%" bgcolor="#EAF8FF"><p class="change_update_send_mess" data-id="'.get_field('ma_gd_them_booking').'" data-name="'.$ma_nhan_vien_chat.'">';
+    $html .= '<button type="button" class="btn_edit_chat"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>';
     if(empty($reply_chat)){
-        $html = '<button type="button" class="reply"><i class="fa fa-reply" aria-hidden="true"></i> Trả lời</button>';
+        $html .= '<button type="button" class="reply"><i class="fa fa-reply" aria-hidden="true"></i> Trả lời</button>';
     }
-    $html = '</p></td>';
-    $html = '</tr>';
+    $html .= '</p></td>';
+    $html .= '</tr>';
 
     array_push($data,$html);
 
@@ -249,7 +250,7 @@ function load_chat_real_time() {
         $this_ID = $show_chat_id;
 
         ?>
-        <tr class="show_chat">
+        <tr class="show_chat" style="order: -9999;">
             <td width="40%" align="center" bgcolor="#EAF8FF">Ô nhập lời nhắn</td>
             <td width="12%" align="center" bgcolor="#EAF8FF">Bộ phận</td>
             <td width="12%" align="center" bgcolor="#EAF8FF">Mức độ ưu tiên</td>
@@ -258,6 +259,7 @@ function load_chat_real_time() {
             <td width="12%" align="center" bgcolor="#EAF8FF">Nhập</td>
         </tr>
         <?php
+        $count = 0;
         if($query_chat->have_posts()) : while ($query_chat->have_posts()) : $query_chat->the_post();
             if($this_ID == get_field('id_chat_gd')){
                 ?>
@@ -265,7 +267,7 @@ function load_chat_real_time() {
                 if(get_field('ma_nhan_vien_chat') == $_SESSION['mnv']){
                     echo 'check_color';
                 }
-                ?>" data-id="<?php echo get_the_ID(); ?>" style="width: 100%;order:<?php echo get_field('count_chat'); ?>;" data-count="<?php if(empty(get_field('count_chat'))){echo 0;}else{echo get_field('count_chat');} ?>">
+                ?>" data-id="<?php echo get_the_ID(); ?>" style="width: 100%;order:<?php echo $count--; ?>;">
                     <td width="40%" bgcolor="#EAF8FF">
                         <?php
                             if(!empty(get_field('reply_chat'))){

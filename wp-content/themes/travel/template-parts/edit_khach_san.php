@@ -59,6 +59,7 @@ get_header();
                             if ($the_query->have_posts()) :
                                 ?>
                                 <tr class="header_edit_hotel_list">
+                                    <td><strong>Status</strong></td>
                                     <td><strong>Hotel ID</strong></td>
                                     <td><strong>Hotel name</strong></td>
                                     <td><strong>Brand name</strong></td>
@@ -75,6 +76,7 @@ get_header();
                                 while ($the_query->have_posts()) : $the_query->the_post();
                                     ?>
                                     <tr class="list_hotel">
+                                        <td><input type="checkbox" name="status_ks" class="status_ks" data-id="<?php echo get_the_ID(); ?>"></td>
                                         <td><?php echo get_field('hotel_id'); ?></td>
                                         <td><a class="title"
                                                href="<?php the_permalink(); ?>"><?php echo get_field('hotel_name'); ?></a></td>

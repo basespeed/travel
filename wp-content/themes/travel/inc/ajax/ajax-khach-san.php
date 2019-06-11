@@ -766,4 +766,22 @@ function search_gd() {
     die();
 }
 
+add_action("wp_ajax_checkStatusHotel", "checkStatusHotel");
+add_action("wp_ajax_nopriv_checkStatusHotel", "checkStatusHotel");
+
+function checkStatusHotel() {
+    $id = $_POST['id'];
+    $status = $_POST['status'];
+
+    $update_ks = array(
+        'ID'           => $id,
+    );
+
+    $post_update = wp_update_post($update_ks);
+
+    update_field( 'status_ks', $status, $post_update );
+    //wp_send_json_success();
+
+    die();
+}
 
