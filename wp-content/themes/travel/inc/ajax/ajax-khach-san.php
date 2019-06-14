@@ -205,6 +205,7 @@ function search_hotel() {
         ?>
         <table>
         <tr class="header_edit_hotel_list">
+            <td><strong>Status</strong></td>
             <td><strong>Hotel ID</strong></td>
             <td><strong>Hotel name</strong></td>
             <td><strong>Brand name</strong></td>
@@ -228,6 +229,7 @@ function search_hotel() {
             while ($query_hotel->have_posts()) : $query_hotel->the_post();
                 ?>
                 <tr>
+                    <td><input type="checkbox" name="status_ks" class="status_ks" <?php if(get_field('status_ks') == true){echo 'checked';} ?> data-id="<?php echo get_the_ID(); ?>"></td>
                     <td><?php echo get_field('hotel_id'); ?></td>
                     <td><a class="title"
                            href="<?php the_permalink(); ?>"><?php echo get_field('hotel_name'); ?></a></td>

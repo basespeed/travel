@@ -856,10 +856,6 @@ table#show_chat {
 }
 
 .page-template-tach-booking,.page-template-them-booking{
-  .menu_admin ul li:nth-child(2) .sub-menu li:nth-child(2) a {
-    background: #000 !important;
-    color: #FFF !important;
-  }
   .quantri_admin .menu_admin ul li:nth-child(2) .sub-menu{
     display: block !important;
   }
@@ -881,6 +877,10 @@ table#show_chat {
 
 .ly_giai_pt{
   background: #9bb552a6 !important;
+}
+
+.show_all_price{
+  position: relative;
 }
 
 .don_gia_ban_gd,.tong_gd,.don_gia_ban_dt,.tong_dt,.pt_nguoi,

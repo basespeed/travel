@@ -509,6 +509,10 @@
             base_total_hotel_tonight();
             base_change_count_gd();
         });
+        $('.sl_gd,.sl_dt,.pt_nguoi,.pt_giai_doan,.pt_cuoi_tuan,.bua_an_bat_buoc,.dich_vu_khac,.tien_chua_pt_khac,.don_gia_ban_gd,.don_gia_ban_dt,.tien_chua_pt_khac2,.giam_gia_cho_kh_khac,.giam_gia_cua_dt_khac2,.da_thanh_toan_khac,.da_thanh_toan_khac2,.tong_gd,.tong_phu_thu_khac,.tong_phu_thu_khac2,.kh_con_no_khac,.bct_con_no_khac2,.lai_lo_khac,.kh_tt_pt_tai').on('click', function(){
+            base_total_hotel_tonight();
+            base_change_count_gd();
+        });
         $('.sl_gd,.sl_dt,.pt_nguoi,.pt_giai_doan,.pt_cuoi_tuan,.bua_an_bat_buoc,.dich_vu_khac,.tien_chua_pt_khac,.don_gia_ban_gd,.don_gia_ban_dt,.tien_chua_pt_khac2,.giam_gia_cho_kh_khac,.giam_gia_cua_dt_khac2,.da_thanh_toan_khac,.da_thanh_toan_khac2,.tong_gd,.tong_phu_thu_khac,.tong_phu_thu_khac2,.kh_con_no_khac,.bct_con_no_khac2,.lai_lo_khac,.kh_tt_pt_tai').on('change', function(){
             base_total_hotel_tonight();
             base_change_count_gd();
@@ -733,7 +737,17 @@
 
         $('.loai_phong_ban_gd').on('change', function(){
             var price1 = $(this).find('option:selected', this).attr('data-price1');
+            if(price1 == ''){
+                price1 = 0;
+            }else{
+                price1 = $(this).find('option:selected', this).attr('data-price1');
+            }
             var price2 = $(this).find('option:selected', this).attr('data-price2');
+            if(price2 == ''){
+                price2 = 0;
+            }else{
+                price2 = $(this).find('option:selected', this).attr('data-price2');
+            }
             $('.don_gia_ban_dt').val(price2);
             $('.don_gia_ban_gd').val(price1);
             $('.loai_phong_ban_dt').val($(this).val());
@@ -769,20 +783,27 @@
 
         $('.ten_khach_san_gd_val').keyup(delay(function (e) {
             var keyword = $(this).val();
-            $.ajax({
-                type: "post",
-                dataType: "html",
-                url: my_ajax_object.ajax_url,
-                data: {
-                    action: "pop_ten_khach_san_gd",
-                    keyword:keyword
-                },
-                success: function (response) {
-                    $('.pop_ten_khach_san_gd').show();
-                    $('.pop_ten_khach_san_gd .list_show').empty();
-                    $('.pop_ten_khach_san_gd .list_show').html(response);
-                }
-            });
+            if(keyword != ''){
+                $.ajax({
+                    type: "post",
+                    dataType: "html",
+                    url: my_ajax_object.ajax_url,
+                    data: {
+                        action: "pop_ten_khach_san_gd",
+                        keyword:keyword
+                    },
+                    success: function (response) {
+                        $('.pop_ten_khach_san_gd').show();
+                        $('.pop_ten_khach_san_gd .list_show').empty();
+                        $('.pop_ten_khach_san_gd .list_show').html(response);
+                        //console.log(response);
+                    }
+                });
+            }else{
+                $('.pop_ten_khach_san_gd').hide();
+                $('.pop_ten_khach_san_gd .list_show').empty();
+            }
+
 
 
         }, 500));
@@ -801,8 +822,11 @@
 
             $('.pop_ten_khach_san_gd').hide();
 
-            base_total_hotel_tonight();
-            base_change_count_gd();
+
+            setTimeout(function(){
+                base_total_hotel_tonight();
+                base_change_count_gd();
+            },1500);
         });
 
 
@@ -1206,7 +1230,13 @@
                         success: function(response){
 
                             $('table#show_chat tbody').append(response.data[1]);
-                            console.log(response.data[1]);
+
+
+                            $('table#show_chat td').filter(function(){
+                                if($(this).text() == 'Dữ liệu trống !'){
+                                    $(this).parent().hide();
+                                }
+                            });
 
                             $('.send_chat td textarea').val();
 
@@ -1561,8 +1591,23 @@
                 success: function (response) {
                     $('.loai_phong_ban_gd').html(response.data);
                     $('.loai_phong_ban_dt').html(response.data);
-                    $('.don_gia_ban_gd').val($(document).find('.loai_phong_ban_gd option:selected').attr('data-price1'));
-                    $('.don_gia_ban_dt').val($(document).find('.loai_phong_ban_dt option:selected').attr('data-price2'));
+                    var price1 = $(document).find('.loai_phong_ban_gd option:selected').attr('data-price1');
+                    if(price1 != ''){
+                        price1 = $(document).find('.loai_phong_ban_gd option:selected').attr('data-price1');
+                    }else{
+                        price1 = 0;
+                    }
+                    var price2 = $(document).find('.loai_phong_ban_dt option:selected').attr('data-price2');
+                    if(price2 != ''){
+                        price2 = $(document).find('.loai_phong_ban_dt option:selected').attr('data-price2');
+                    }else{
+                        price2 = 0;
+                    }
+                    $('.don_gia_ban_gd').val(price1);
+                    $('.don_gia_ban_dt').val(price2);
+                    setTimeout(function(){
+                        base_change_count_gd();
+                    },100);
                 }
             });
         });
@@ -2295,11 +2340,11 @@
         var submit = $("#submit-form");
         submit.click(function()
         {
-            var data = $('form#test-form').serialize();
+            var data = $('form.frm_sheet').serialize();
             $.ajax({
-                type : 'GET',
-                url : 'https://script.google.com/macros/s/AKfycbwWHOx8dLoZTrkVaKXvpYMihR1vJoTqKT3zHrWL9BeNYgtctaFZ/exec',
-                dataType:'json',
+                type: "post",
+                url : 'https://script.google.com/macros/s/AKfycbzIwIYd0AgIVHpZ3E59fN_7IF6_6iEyWAPxtMkDJMvdZcG-34xT/exec',
+                dataType:'jsonp',
                 crossDomain : true,
                 data : data,
                 success : function(data)
@@ -2433,7 +2478,7 @@
                 data: form_data,
                 success: function (response) {
                     //$('.page-template-import_excel_hotel .progress .total_import').text(response.data);
-                    console.log(response.data);
+                    //console.log(response.data);
                 },
             });
         });
@@ -2461,7 +2506,7 @@
                     if(response.data == 'error'){
                         alert('Sai định dạng !');
                     }else{
-                        console.log(response.data);
+                        //console.log(response.data);
                     }
                 },
             });
@@ -2939,7 +2984,7 @@
     }
 
     function checkStatusHotel(){
-        $('.status_ks').change(function(){
+        $(document).on('change','.status_ks',function(){
             var status = $(this).prop('checked');
             var id = $(this).attr('data-id');
             $.ajax({
@@ -2979,7 +3024,7 @@
         Calendar_price_hotel();
         AddPriceBooking();
         checkStatusHotel();
-        //googleSheet();
+        googleSheet();
         //DisableErrorJavaScript();
     }
 

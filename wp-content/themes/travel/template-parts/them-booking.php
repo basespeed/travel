@@ -190,12 +190,13 @@ if($_SESSION['sucess'] == "sucess") {
                                 }
 
                                 //lịch sử giao dịch
-                                $add_lich_su_giao_dich = array(
+                                $add_lich_su = array(
                                     'post_title' => $_POST['ma_gd'],
+                                    'post_status' => 'publish',
                                     'post_type' => 'history_giao_dich',
                                 );
 
-                                $post_lich_su_gd = wp_insert_post($add_lich_su_giao_dich);
+                                $post_lich_su_gd = wp_insert_post($add_lich_su);
 
                                 add_post_meta($post_lich_su_gd, 'ma_gd_them_booking', $_POST['ma_gd_them_booking'], true);
 

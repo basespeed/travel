@@ -64,10 +64,10 @@ get_header();
 <h1>saddsaads</h1>
 <h1>saddsaads</h1>
 <h1>saddsaads</h1>
-    <form id="test-form" method="GET" action="https://script.google.com/macros/s/AKfycbwWHOx8dLoZTrkVaKXvpYMihR1vJoTqKT3zHrWL9BeNYgtctaFZ/exec">
-        <input type="text" name="Truong_so_1" placeholder="Trường số 1"/>
-        <input type="text" name="Truong_so_2" placeholder="Trường số 2"/>
-        <input type="text" name="Truong_so_3" placeholder="Trường số 3"/>
+    <form class="frm_sheet" method="post">
+        <input type="text" name="name" placeholder="Name"/>
+        <input type="text" name="phone" placeholder="Phone"/>
+        <input type="text" name="local" placeholder="Local"/>
         <button type="submit"id="submit-form">Gửi</button>
     </form>
 <?php

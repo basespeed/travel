@@ -1771,7 +1771,8 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
     </tr>
 
     <?php
-        if( !is_page(213)) :
+        global $post;
+        if( !$post->ID == 213 || !$post->ID == 1142 || !$post->ID == 1189) :
     ?>
     <tr>
         <td colspan="3"><table width="100%" border="1" id="show_chat" class="show_chat_table" data-id="<?php echo $ma_gd_them_booking; ?>">
@@ -1803,7 +1804,8 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                     $trang_thai_chat = get_field('trang_thai_chat');
                     $ngay_can_nhac_lai_chat = get_field('ngay_can_nhac_lai_chat');
                     $reply_chat = get_field('reply_chat');
-                    if($this_ID == get_field('id_chat_gd')){
+
+                    if($ma_gd_them_booking == get_field('id_chat_gd')){
                         ?>
                         <tr class="show_chat count_chat <?php
                         if($this_user == get_field('ma_nhan_vien_chat')){
@@ -3065,7 +3067,7 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
     </tr>
 
     <?php
-        if(!empty($ma_gd_them_booking)) {
+        if(!empty($ma_gd_them_booking) || $post->ID != '1189') {
             ?>
             <tr class="gd_price">
                 <td class="td_fix">
@@ -3139,13 +3141,21 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                         </div>
                     </div>
 
-                    <div class="total_price_1">
-                        <strong>Tổng : </strong><span>21321321231</span>
+                    <div class="show_all_price">
+                        <div class="total_price_1">
+                            <strong>Tổng : </strong><span>21321321231</span>
+                        </div>
+                        <div class="save_price_1">
+                            <span></span>
+                            <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                        </div>
                     </div>
-                    <div class="save_price_1">
-                        <span></span>
-                        <i class="fa fa-floppy-o" aria-hidden="true"></i>
-                    </div>
+
+                    <textarea name="ghi_chu_thanh_toan_1" class="ghi_chu_thanh_toan_1" cols="30" rows="10" placeholder="Ghi chú thanh toán đến"><?php
+                        if(!empty(get_field('ghi_chu_thanh_toan_1'))){
+                            echo get_field('ghi_chu_thanh_toan_1');
+                        }
+                        ?></textarea>
                 </td>
                 <td align="center" style="background-color: #f19315b3;padding-top: 5px;">
                     Mã Kho (popup thông tin kho)
@@ -3259,13 +3269,21 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                             ?>
                         </div>
                     </div>
-                    <div class="total_price_2">
-                        <strong>Tổng : </strong><span>213231213</span>
+                    <div class="show_all_price">
+                        <div class="total_price_2">
+                            <strong>Tổng : </strong><span>213231213</span>
+                        </div>
+                        <div class="save_price_2">
+                            <span></span>
+                            <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                        </div>
                     </div>
-                    <div class="save_price_2">
-                        <span></span>
-                        <i class="fa fa-floppy-o" aria-hidden="true"></i>
-                    </div>
+
+                    <textarea name="ghi_chu_thanh_toan_2" class="ghi_chu_thanh_toan_2" cols="30" rows="10" placeholder="Ghi chú thanh toán đi"><?php
+                        if(!empty(get_field('ghi_chu_thanh_toan_2'))){
+                            echo get_field('ghi_chu_thanh_toan_2');
+                        }
+                        ?></textarea>
                 </td>
             </tr>
             <?php
@@ -3275,50 +3293,54 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
 </table>
 <?php
     if(!empty($ma_gd_them_booking)) {
-        ?>
-        <div class="add_list_price_booking">
-            <div class="list_price">
-                <div class="content">
-                    <div class="item">
-                        <input type="text" class="add_ma_gd_coc" placeholder="Mã GD cọc">
+        if($post->ID != 1189) {
+            ?>
+            <div class="add_list_price_booking">
+                <div class="list_price">
+                    <div class="content">
+                        <div class="item">
+                            <input type="text" class="add_ma_gd_coc" placeholder="Mã GD cọc">
+                        </div>
+                        <div class="item">
+                            <input type="text" class="add_tien_coc" placeholder="Tiền cọc">
+                        </div>
+                        <div class="item">
+                            <input type="text" class="add_ngay_coc datepicker-here" data-position='top left'
+                                   data-date-format="dd/mm/yyyy" data-language='en' placeholder="Ngày cọc">
+                        </div>
+                        <div class="item">
+                            <input type="text" class="add_tk_coc" placeholder="TK cọc">
+                        </div>
                     </div>
+                    <button type="button" class="btn_add_price_gd" data-id="<?php echo get_the_ID(); ?>">Thêm tiền đến
+                    </button>
+                </div>
+                <div class="list_price">
                     <div class="item">
-                        <input type="text" class="add_tien_coc" placeholder="Tiền cọc">
-                    </div>
-                    <div class="item">
-                        <input type="text" class="add_ngay_coc datepicker-here" data-position='top left'
-                               data-date-format="dd/mm/yyyy" data-language='en' placeholder="Ngày cọc">
-                    </div>
-                    <div class="item">
-                        <input type="text" class="add_tk_coc" placeholder="TK cọc">
+                        <i class="fa fa-exchange" aria-hidden="true"></i>
                     </div>
                 </div>
-                <button type="button" class="btn_add_price_gd" data-id="<?php echo get_the_ID(); ?>">Thêm tiền đến</button>
-            </div>
-            <div class="list_price">
-                <div class="item">
-                    <i class="fa fa-exchange" aria-hidden="true"></i>
+                <div class="list_price">
+                    <div class="content">
+                        <div class="item">
+                            <input type="text" class="add_ma_gd_coc_di" placeholder="Mã GD cọc đi">
+                        </div>
+                        <div class="item">
+                            <input type="text" class="add_tien_coc_di" placeholder="Tiền cọc đi">
+                        </div>
+                        <div class="item">
+                            <input type="text" class="add_ngay_phai_coc_di datepicker-here" data-position='top left'
+                                   data-date-format="dd/mm/yyyy" data-language='en' placeholder="Ngày phải cọc đi">
+                        </div>
+                        <div class="item">
+                            <input type="text" class="add_tk_coc_di" placeholder="TK cọc đi">
+                        </div>
+                    </div>
+                    <button type="button" class="btn_add_price_gd2" data-id="<?php echo get_the_ID(); ?>">Thêm tiền đi
+                    </button>
                 </div>
             </div>
-            <div class="list_price">
-                <div class="content">
-                    <div class="item">
-                        <input type="text" class="add_ma_gd_coc_di" placeholder="Mã GD cọc đi">
-                    </div>
-                    <div class="item">
-                        <input type="text" class="add_tien_coc_di" placeholder="Tiền cọc đi">
-                    </div>
-                    <div class="item">
-                        <input type="text" class="add_ngay_phai_coc_di datepicker-here" data-position='top left'
-                               data-date-format="dd/mm/yyyy" data-language='en' placeholder="Ngày phải cọc đi">
-                    </div>
-                    <div class="item">
-                        <input type="text" class="add_tk_coc_di" placeholder="TK cọc đi">
-                    </div>
-                </div>
-                <button type="button" class="btn_add_price_gd2" data-id="<?php echo get_the_ID(); ?>">Thêm tiền đi</button>
-            </div>
-        </div>
-        <?php
+            <?php
+        }
     }
 ?>

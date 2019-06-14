@@ -718,7 +718,7 @@ add_action("wp_ajax_nopriv_pop_ten_khach_san_gd", "pop_ten_khach_san_gd");
 function pop_ten_khach_san_gd() {
     global $wpdb,$data;
     $keyword = $_POST['keyword'];
-    $search_query = $wpdb->get_results("
+    /*$search_query = $wpdb->get_results("
                 SELECT
                     $wpdb->posts.post_title,
                     $wpdb->posts.ID,
@@ -734,29 +734,41 @@ function pop_ten_khach_san_gd() {
                     AND postmeta1.meta_value LIKE '%$keyword%'
                     ORDER BY post_date DESC
                     LIMIT 10
-                ");
-    /*foreach ($search_query as $data){
-        setup_postdata($data);
-        the_title();
-        echo '</br>';
-        wp_reset_postdata();
-    }*/
-
-    if($search_query){
-        foreach ($search_query as $data) {
-            $id = $data->ID;
-            $args = array(
-                'p'         => $id, // ID of a page, post, or custom type
-                'post_type' => 'hotel'
-            );
-            $query_hotel = new WP_Query($args);
-            while ($query_hotel->have_posts()) : $query_hotel->the_post();
+                ");*/
+    $search_query = new WP_Query(array(
+        'post_type' => 'hotel',
+        'order' => 'DESC',
+        'posts_per_page' => 10,
+        'meta_key' => 'numberrooms',
+        'orderby'   => 'meta_value_num', //or 'meta_value_num'
+        'meta_query'	=> array(
+            'relation'		=> 'AND',
+            array(
+                'key'		=> 'hotel_name',
+                'value'		=> $keyword,
+                'compare'	=> 'LIKE'
+            ),
+            array(
+                'key'		=> 'status_ks',
+                'value'		=> 'true',
+                'compare'	=> '='
+            ),
+        )
+    ));
+    if($search_query->have_posts()) : while ($search_query->have_posts()) : $search_query->the_post();
+        $id = get_the_ID();
+        $args = array(
+            'p'         => $id, // ID of a page, post, or custom type
+            'post_type' => 'hotel'
+        );
+        $query_hotel = new WP_Query($args);
+        while ($query_hotel->have_posts()) : $query_hotel->the_post();
             ?>
             <ul>
                 <li><span><?php
-                    $str = get_field('hotel_name');
-                    echo $str;
-                ?></span></li>
+                        $str = get_field('hotel_name');
+                        echo $str;
+                        ?></span></li>
                 <li><input type="text" value="<?php echo get_field('numberrooms'); ?>"></li>
                 <li><input type="text" value="<?php echo get_field('numberfloors'); ?>"></li>
                 <li>
@@ -765,18 +777,22 @@ function pop_ten_khach_san_gd() {
                     <input type="hidden" class="hotel_name" value="<?php echo get_field('hotel_name'); ?>"/>
                 </li>
             </ul>
-            <?php
-            endwhile;
-            wp_reset_postdata();
-        }
-    }else{
+        <?php
+        endwhile;
+        wp_reset_postdata();
+    endwhile;
+    else :
         ?>
         <p>
             <span>Khách sạn không tồn tại ! </span>
             <a href="<?php echo get_home_url(); ?>/them-moi-khach-san" target="_blank">Thêm khách sạn</a>
         </p>
-        <?php
-    }
+    <?php
+    endif;
+    wp_reset_postdata();
+
+
+
     //wp_send_json_success('ajax');
 
 

@@ -76,7 +76,7 @@ get_header();
                                 while ($the_query->have_posts()) : $the_query->the_post();
                                     ?>
                                     <tr class="list_hotel">
-                                        <td><input type="checkbox" name="status_ks" class="status_ks" data-id="<?php echo get_the_ID(); ?>"></td>
+                                        <td><input type="checkbox" name="status_ks" class="status_ks" <?php if(get_field('status_ks') == true){echo 'checked';} ?> data-id="<?php echo get_the_ID(); ?>"></td>
                                         <td><?php echo get_field('hotel_id'); ?></td>
                                         <td><a class="title"
                                                href="<?php the_permalink(); ?>"><?php echo get_field('hotel_name'); ?></a></td>

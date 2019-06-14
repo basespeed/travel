@@ -180,6 +180,8 @@ if($_SESSION['sucess'] == "sucess") {
                                     'post_type' => 'giao_dich',
                                     'posts_per_page' => 200,
                                     'order' => 'DESC',
+                                    'meta_key' => 'ma_gd_them_booking',
+                                    'orderby' => 'meta_value',
                                     'paged' => $paged,
                                 );
                             }
