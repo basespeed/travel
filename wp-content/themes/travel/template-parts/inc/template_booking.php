@@ -711,7 +711,7 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                         if(isset($_POST['add_edit_giao_dich']) || isset($_POST['sub_tach_giao_dich'])){
                             $trang_thai_bkk_voi_kh_gd = $_POST['trang_thai_bkk_voi_kh_gd'];
                             ?>
-                            <select name="trang_thai_bkk_voi_kh_gd" class="trang_thai_bkk_voi_kh_gd" data-check="<?php echo $trang_thai_bkk_voi_kh_gd; ?>" required>
+                            <select name="trang_thai_bkk_voi_kh_gd" class="trang_thai_bkk_voi_kh_gd" data-check="<?php echo $trang_thai_bkk_voi_kh_gd; ?>">
                                 <option value="BKK - Tiềm năng" selected>BKK - Tiềm năng</option>
                                 <option value="BKK - Chuẩn bị cọc">BKK - Chuẩn bị cọc</option>
                                 <option value="BKK - Đã cọc">BKK - Đã cọc</option>
@@ -730,7 +730,7 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                         }elseif(is_page(213) || is_page()){
                             $trang_thai_bkk_voi_kh_gd = $_POST['trang_thai_bkk_voi_kh_gd'];
                             ?>
-                            <select name="trang_thai_bkk_voi_kh_gd" class="trang_thai_bkk_voi_kh_gd" required>
+                            <select name="trang_thai_bkk_voi_kh_gd" class="trang_thai_bkk_voi_kh_gd">
                                 <option value="BKK - Tiềm năng" selected>BKK - Tiềm năng</option>
                                 <option value="BKK - Chuẩn bị cọc">BKK - Chuẩn bị cọc</option>
                                 <option value="BKK - Đã cọc">BKK - Đã cọc</option>
@@ -748,7 +748,7 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                             <?php
                         }else{
                             ?>
-                            <select name="trang_thai_bkk_voi_kh_gd" class="trang_thai_bkk_voi_kh_gd" data-check="<?php echo get_field('trang_thai_bkk_voi_kh_gd'); ?>" required>
+                            <select name="trang_thai_bkk_voi_kh_gd" class="trang_thai_bkk_voi_kh_gd" data-check="<?php echo get_field('trang_thai_bkk_voi_kh_gd'); ?>">
                                 <option value="BKK - Tiềm năng" selected>BKK - Tiềm năng</option>
                                 <option value="BKK - Chuẩn bị cọc">BKK - Chuẩn bị cọc</option>
                                 <option value="BKK - Đã cọc">BKK - Đã cọc</option>
@@ -811,7 +811,7 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                         if(isset($_POST['add_edit_giao_dich']) || isset($_POST['sub_tach_giao_dich'])){
                             $trang_thai_bkk_voi_dt = $_POST['trang_thai_bkk_voi_dt'];
                             ?>
-                            <select name="trang_thai_bkk_voi_dt" class="trang_thai_bkk_voi_dt" data-check="<?php echo $trang_thai_bkk_voi_dt; ?>" required>
+                            <select name="trang_thai_bkk_voi_dt" class="trang_thai_bkk_voi_dt" data-check="<?php echo $trang_thai_bkk_voi_dt; ?>">
                                 <option value="BKK - Yêu cầu gửi" selected>BKK - Yêu cầu gửi</option>
                                 <option value="BKK - Đang gửi">BKK - Đang gửi</option>
                                 <option value="BKK - Đang chờ XN">BKK - Đang chờ XN</option>
@@ -827,7 +827,7 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                             <?php
                         }elseif(is_page(213) || is_page()){
                             ?>
-                            <select name="trang_thai_bkk_voi_dt" class="trang_thai_bkk_voi_dt" required>
+                            <select name="trang_thai_bkk_voi_dt" class="trang_thai_bkk_voi_dt">
                                 <option value="BKK - Yêu cầu gửi" selected>BKK - Yêu cầu gửi</option>
                                 <option value="BKK - Đang gửi">BKK - Đang gửi</option>
                                 <option value="BKK - Đang chờ XN">BKK - Đang chờ XN</option>
@@ -843,7 +843,7 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                             <?php
                         }else{
                             ?>
-                            <select name="trang_thai_bkk_voi_dt" class="trang_thai_bkk_voi_dt" data-check="<?php echo get_field('trang_thai_bkk_voi_dt'); ?>" required>
+                            <select name="trang_thai_bkk_voi_dt" class="trang_thai_bkk_voi_dt" data-check="<?php echo get_field('trang_thai_bkk_voi_dt'); ?>">
                                 <option value="BKK - Yêu cầu gửi" selected>BKK - Yêu cầu gửi</option>
                                 <option value="BKK - Đang gửi">BKK - Đang gửi</option>
                                 <option value="BKK - Đang chờ XN">BKK - Đang chờ XN</option>

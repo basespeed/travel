@@ -75,6 +75,8 @@ if($_SESSION['sucess'] == "sucess") {
                             }
 
                             if(! isset($alert)){
+                                $_SESSION['add_google_sheets'] = "true";
+
                                 $group_ID = '6';
                                 $fields = acf_get_fields($group_ID);
                                 foreach ($fields as $field){
@@ -204,7 +206,6 @@ if($_SESSION['sucess'] == "sucess") {
                                             add_post_meta($post_id, $field['name'], $_POST[$field['name']], true);
                                         }
                                     }
-
                                 }
 
                                 //lịch sử giao dịch
@@ -373,7 +374,9 @@ if($_SESSION['sucess'] == "sucess") {
                         ?>
 
                         <div class="acf-form-submit">
-                            <input type="submit" name="sub_new_giao_dich" value="Thêm mới">
+                            <input type="submit" name="sub_new_giao_dich" class="sub_new_giao_dich" value="Thêm mới">
+                            <!--<button type="button" class="btn_load_icon"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                            <button type="button" class="btn_load_add_gd" data-status="Thêm mới booking">load</button>-->
                         </div>
 
                     </form>

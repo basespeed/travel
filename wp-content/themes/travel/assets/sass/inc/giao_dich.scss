@@ -1346,3 +1346,59 @@ table#show_chat {
     display: block;
   }
 }
+
+.btn_load_icon,.btn_load_add_gd{
+  position: absolute;
+  width: 100%;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  background: green;
+  left: 5px;
+  top: 5px;
+  padding: 0px;
+  border: none;
+  border-radius: 0px;
+  font-size: 18px;
+  color: #FFF;
+  display: none;
+  outline: none;
+}
+
+.btn_load_icon{
+  i{
+    -webkit-animation: load_animation 1s infinite; /* Safari 4.0 - 8.0 */
+    animation: load_animation 1s infinite;
+  }
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes load_animation {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(360deg);}
+}
+
+/* Standard syntax */
+@keyframes load_animation {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(360deg);}
+}
+
+.btn_load_add_gd{
+  display: block;
+}
+
+.btn_edit_ks{
+  display: flex;
+  border-bottom: none !important;
+  border-left: none !important;
+}
+
+.page-template-edit_khach_san{
+  .giao_dich_moi table td{
+      padding: 0px 5px;
+  }
+  .giao_dich_moi table tr:first-child td{
+      padding: 5px 5px;
+  }
+}

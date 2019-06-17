@@ -2337,7 +2337,7 @@
     }
 
     function googleSheet() {
-        var submit = $("#submit-form");
+        /*var submit = $("#submit-form");
         submit.click(function()
         {
             var data = $('form.frm_sheet').serialize();
@@ -2358,7 +2358,146 @@
                 }
             });
             return false;
-        });
+        });*/
+
+        var script_url = "https://script.google.com/macros/s/AKfycbzIwIYd0AgIVHpZ3E59fN_7IF6_6iEyWAPxtMkDJMvdZcG-34xT/exec";
+        // Make an AJAX call to Google Script
+
+        if($('.single').hasClass('single-giao_dich')){
+            setTimeout(function(){
+                var check_add_google_sheet = $('div#content #content').attr('data-check');
+                if(check_add_google_sheet == 'true'){
+                    $('.btn_load_icon').show();
+                    $(this).hide();
+                    var today = new Date();
+                    var dd = String(today.getDate()).padStart(2, '0');
+                    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                    var yyyy = today.getFullYear();
+                    var H = today.getHours();
+                    var i = today.getMinutes();
+                    var s = today.getSeconds();
+                    today = mm + '/' + dd + '/' + yyyy + ' '+H+':'+i+':'+s;
+
+                    var ten_khach_san_gd = $('.ten_khach_san_gd_val').val();
+                    var trang_thai = 'Thêm mới giao dịch';
+                    var ma_lk = $('.ma_gd_con').val();
+                    var ma_gd = $('.ma_gd_them_booking').val();
+                    var mbk = $('.ma_gd').val();
+                    var ma_xac_nhan = $('.ma_xac_nhan').val();
+                    var ma_dich_vu_gd = $('.ma_dich_vu_gd_val').val();
+                    var noi_di_gd = $('.noi_di_gd').val();
+                    var noi_den_gd = $('.noi_den_gd').val();
+                    var khach_dai_dien_gd = $('.khach_dai_dien_gd_val').val();
+                    var sdt_gd = $('.sdt_gd_val').val();
+                    var trang_thai_bkk_voi_kh_gd = $('.trang_thai_bkk_voi_kh_gd').val();
+                    var ci_gd  = $('.ci_gd ').val();
+                    var co_gd  = $('.co_gd ').val();
+                    var so_dem_gd  = $('.so_dem_gd ').val();
+                    var loai_phong_ban_gd  = $('.loai_phong_ban_gd ').val();
+                    var sl_gd  = $('.sl_gd ').val();
+                    var don_gia_ban_gd  = $('.don_gia_ban_gd ').val();
+                    var don_vi_gd  = $('.don_vi_gd ').val();
+                    var tong_gd  = $('.tong_gd ').val();
+                    var ngay_lock_phong_khach  = $('.ngay_lock_phong_khach ').val();
+                    var goi_dv_km_ban_gd  = $('.goi_dv_km_ban_gd ').val();
+                    var ma_pro_gd  = $('.ma_pro_gd ').val();
+                    var dich_vu_di_kem_gd  = $('.dich_vu_di_kem_gd ').val();
+                    var ten_dt_gui_book_dt  = $('.ten_dt_gui_book_dt_val ').val();
+                    var ma_dt  = $('.ma_dt_val ').val();
+                    var trang_thai_bkk_voi_dt  = $('.trang_thai_bkk_voi_dt').val();
+                    var nick_dt  = $('.nick_dt ').val();
+                    var ten_nv_dat_phong_dt  = $('.ten_nv_dat_phong_dt').val();
+                    var sdt_bpdp  = $('.sdt_bpdp').val();
+                    var ngay_duoc_huy  = $('.ngay_duoc_huy').val();
+                    var con_ngay_dt  = $('.con_ngay_dt').val();
+                    var ngay_duoc_thay_doi  = $('.ngay_duoc_thay_doi').val();
+                    var con_ngay_thay_doi_dt  = $('.con_ngay_thay_doi_dt').val();
+                    var loai_phong_ban_dt  = $('.loai_phong_ban_dt').val();
+                    var sl_dt  = $('.sl_dt').val();
+                    var don_gia_ban_dt  = $('.don_gia_ban_dt').val();
+                    var don_vi_dt  = $('.don_vi_dt').val();
+                    var tong_dt  = $('.tong_dt').val();
+                    var ngay_lock_phong_doi_tac  = $('.ngay_lock_phong_doi_tac').val();
+                    var goi_dv_km_ban_dt  = $('.goi_dv_km_ban_dt').val();
+                    var ma_pro_dt  = $('.ma_pro_dt').val();
+                    var dich_vu_di_kem_dt  = $('.dich_vu_di_kem_dt').val();
+                    var sl_nl  = $('.sl_nl').val();
+                    var gp  = $('.gp').val();
+                    var sl02  = $('.sl02').val();
+                    var sl24  = $('.sl24').val();
+                    var sl46  = $('.sl46').val();
+                    var sl612  = $('.sl612').val();
+                    var pt_nguoi  = $('.pt_nguoi').val();
+                    var pt_giai_doan  = $('.pt_giai_doan').val();
+                    var pt_cuoi_tuan  = $('.pt_cuoi_tuan').val();
+                    var bua_an_bat_buoc  = $('.bua_an_bat_buoc').val();
+                    var dich_vu_khac  = $('.dich_vu_khac').val();
+                    var tong_pt  = $('.tong_pt').val();
+                    var kh_tt_pt_tai  = $('.kh_tt_pt_tai').val();
+                    var ly_giai_pt  = $('.ly_giai_pt').val();
+                    var danh_sach_doan_yeu_cau_khac  = $('.danh_sach_doan_yeu_cau_khac').val();
+                    var tien_chua_pt_khac  = $('.tien_chua_pt_khac').val();
+                    var tong_phu_thu_khac  = $('.tong_phu_thu_khac').val();
+                    var giam_gia_cho_kh_khac  = $('.giam_gia_cho_kh_khac').val();
+                    var tong_gia_tri_khac  = $('.tong_gia_tri_khac').val();
+                    var da_thanh_toan_khac  = $('.da_thanh_toan_khac').val();
+                    var kh_con_no_khac  = $('.kh_con_no_khac').val();
+                    var ngay_yeu_cau_kh_hoan_tat_tt_khac  = $('.ngay_yeu_cau_kh_hoan_tat_tt_khac').val();
+                    var lai_lo_khac  = $('.lai_lo_khac').val();
+                    var thue_vat_khac  = $('.thue_vat_khac').val();
+                    var thue_tndn_khac  = $('.thue_tndn_khac').val();
+                    var cp_marketing_khac  = $('.cp_marketing_khac').val();
+                    var cp_hau_can_khac  = $('.cp_hau_can_khac').val();
+                    var cp_hau_mai_khac  = $('.cp_hau_mai_khac').val();
+                    var cp_co_dinh_khac  = $('.cp_co_dinh_khac').val();
+                    var tien_chua_pt_khac2  = $('.tien_chua_pt_khac2').val();
+                    var tong_phu_thu_khac2  = $('.tong_phu_thu_khac2').val();
+                    var giam_gia_cua_dt_khac2  = $('.giam_gia_cua_dt_khac2').val();
+                    var tong_gia_tri_khac2  = $('.tong_gia_tri_khac2').val();
+                    var da_thanh_toan_khac2  = $('.da_thanh_toan_khac2').val();
+                    var bct_con_no_khac2  = $('.bct_con_no_khac2').val();
+                    var ngay_phai_hoan_tat_tt_cho_ks_khac2  = $('.ngay_phai_hoan_tat_tt_cho_ks_khac2').val();
+                    var ghi_chu_cua_dt_khac2  = $('.ghi_chu_cua_dt_khac2').val();
+                    var ten_kgd  = $('.ten_kgd_val').val();
+                    var nick_kgd  = $('.nick_kgd_val').val();
+                    var sdt_kgd  = $('.sdt_kgd_val').val();
+                    var email_kgd  = $('.email_kgd_duy_nhat_val').val();
+                    var tk_kgd  = $('.tk_kgd_val').val();
+                    var ma_kgd  = $('.ma_kgd_val').val();
+                    var xep_hang_kgd  = $('.xep_hang_kgd').val();
+                    var ma_ctv  = $('.ma_ctv').val();
+                    var ma_nv  = $('.ma_nv').val();
+                    var ma_kho_popup_thong_tin_kho  = $('.ma_kho_popup_thong_tin_kho').val();
+                    var sl_lay_tu_kho  = $('.sl_lay_tu_kho').val();
+
+                    if($('.ten_khach_san_gd_val').val() != '' || $('.ma_dich_vu_gd_val').val() != '' || $('.noi_di_gd').val() != '' || $('.noi_den_gd').val() != '' || $('.ma_gd_con').val() != '' || $('.ma_gd_them_booking').val() != '' || $('.khach_dai_dien_gd_val').val() != '' || $('.ma_gd').val() != '' || $('.ci_gd').val() != '' || $('.so_dem_gd').val() != '' || $('.co_gd').val() != '' || $('.sl_gd').val() != '' || $('.don_vi_gd').val() != '' || $('.tong_gd').val() != '' || $('.goi_dv_km_ban_gd').val() != '' || $('.sl_dt').val() != '' || $('.don_vi_dt').val() != '' || $('.tong_dt').val() != '' || $('.goi_dv_km_ban_dt').val() != ''){
+                        var url = script_url+"?callback=ctrlq&thoi_gian="+today+"&trang_thai="+trang_thai+"&ma_lk="+ma_lk+"&ma_gd="+ma_gd+"&mbk="+mbk+"&ma_xac_nhan="+ma_xac_nhan+"&ten_khach_san_gd="+ten_khach_san_gd+"&ma_dich_vu_gd="+ma_dich_vu_gd+"&noi_di_gd="+noi_di_gd+"&noi_den_gd="+noi_den_gd+"&khach_dai_dien_gd="+khach_dai_dien_gd+"&sdt_gd="+sdt_gd+"&trang_thai_bkk_voi_kh_gd="+trang_thai_bkk_voi_kh_gd+"&ci_gd="+ci_gd +"&co_gd="+co_gd +"&so_dem_gd="+so_dem_gd +"&loai_phong_ban_gd="+loai_phong_ban_gd +"&sl_gd ="+sl_gd +"&don_gia_ban_gd="+don_gia_ban_gd +"&don_vi_gd="+don_vi_gd +"&tong_gd="+tong_gd +"&ngay_lock_phong_khach="+ngay_lock_phong_khach +"&goi_dv_km_ban_gd="+goi_dv_km_ban_gd +"&ma_pro_gd="+ma_pro_gd +"&dich_vu_di_kem_gd="+dich_vu_di_kem_gd +"&ten_dt_gui_book_dt="+ten_dt_gui_book_dt+"&ma_dt ="+ma_dt+"&trang_thai_bkk_voi_dt="+trang_thai_bkk_voi_dt+"&nick_dt="+nick_dt+"&ten_nv_dat_phong_dt="+ten_nv_dat_phong_dt+"&sdt_bpdp="+sdt_bpdp+"&ngay_duoc_huy="+ngay_duoc_huy+"&con_ngay_dt="+con_ngay_dt+"&ngay_duoc_thay_doi="+ngay_duoc_thay_doi+"&con_ngay_thay_doi_dt="+con_ngay_thay_doi_dt+"&loai_phong_ban_dt="+loai_phong_ban_dt+"&sl_dt="+sl_dt+"&don_gia_ban_dt="+don_gia_ban_dt+"&don_vi_dt="+don_vi_dt+"&tong_dt="+tong_dt+"&ngay_lock_phong_doi_tac="+ngay_lock_phong_doi_tac+"&goi_dv_km_ban_dt="+goi_dv_km_ban_dt+"&ma_pro_dt="+ma_pro_dt+"&dich_vu_di_kem_dt="+dich_vu_di_kem_dt+"&sl_nl="+sl_nl+"&gp="+gp+"&sl02="+sl02+"&sl24="+sl24+"&sl46="+sl46+"&sl612="+sl612+"&pt_nguoi="+pt_nguoi+"&pt_giai_doan="+pt_giai_doan+"&pt_cuoi_tuan="+pt_cuoi_tuan+"&bua_an_bat_buoc="+bua_an_bat_buoc+"&dich_vu_khac="+dich_vu_khac+"&tong_pt="+tong_pt+"&kh_tt_pt_tai="+kh_tt_pt_tai+"&ly_giai_pt="+ly_giai_pt+"&danh_sach_doan_yeu_cau_khac="+danh_sach_doan_yeu_cau_khac+"&tien_chua_pt_khac="+tien_chua_pt_khac+"&tong_phu_thu_khac="+tong_phu_thu_khac+"&giam_gia_cho_kh_khac="+giam_gia_cho_kh_khac+"&tong_gia_tri_khac="+tong_gia_tri_khac+"&da_thanh_toan_khac="+da_thanh_toan_khac+"&kh_con_no_khac="+kh_con_no_khac+"&ngay_yeu_cau_kh_hoan_tat_tt_khac="+ngay_yeu_cau_kh_hoan_tat_tt_khac+"&lai_lo_khac="+lai_lo_khac+"&thue_vat_khac="+thue_vat_khac+"&thue_tndn_khac="+thue_tndn_khac+"&cp_marketing_khac="+cp_marketing_khac+"&cp_hau_can_khac="+cp_hau_can_khac+"&cp_hau_mai_khac="+cp_hau_mai_khac+"&cp_co_dinh_khac="+cp_co_dinh_khac+"&tien_chua_pt_khac2="+tien_chua_pt_khac2+"&tong_phu_thu_khac2="+tong_phu_thu_khac2+"&giam_gia_cua_dt_khac2="+giam_gia_cua_dt_khac2+"&tong_gia_tri_khac2="+tong_gia_tri_khac2+"&da_thanh_toan_khac2="+da_thanh_toan_khac2+"&bct_con_no_khac2="+bct_con_no_khac2+"&ngay_phai_hoan_tat_tt_cho_ks_khac2="+ngay_phai_hoan_tat_tt_cho_ks_khac2+"&ghi_chu_cua_dt_khac2="+ghi_chu_cua_dt_khac2+"&ten_kgd="+ten_kgd+"&nick_kgd="+nick_kgd+"&sdt_kgd="+sdt_kgd+"&email_kgd="+email_kgd+"&tk_kgd="+tk_kgd+"&ma_kgd="+ma_kgd+"&xep_hang_kgd="+xep_hang_kgd+"&ma_ctv="+ma_ctv+"&ma_nv="+ma_nv+"&ma_kho_popup_thong_tin_kho="+ma_kho_popup_thong_tin_kho+"&sl_lay_tu_kho="+sl_lay_tu_kho+"&action=insert";
+                        $.ajax({
+                            crossDomain: true,
+                            url: url ,
+                            method: "GET",
+                            dataType: "jsonp",
+                        });
+
+                        setTimeout(function(){
+                            $.ajax({
+                                type: "post",
+                                dataType: "json",
+                                url: my_ajax_object.ajax_url,
+                                data: {
+                                    action: "removeSessionAddGoogleSheet",
+                                },
+                                success: function (response) {
+                                }
+                            });
+                        },500);
+                    }else{
+                        $('.btn_load_icon').hide();
+                        $(this).show();
+                    }
+                }
+            },2000);
+        }
     }
 
     //Gửi mã code vào email để lấy lại mật khẩu
@@ -3002,6 +3141,8 @@
             });
         });
     }
+
+
 
     function _init() {
         base();

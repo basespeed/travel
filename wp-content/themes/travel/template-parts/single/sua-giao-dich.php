@@ -89,7 +89,7 @@
 
     $trang_thai_add_booking = get_field('trang_thai_add_booking');
 ?>
-<div id="content" class="<?php if(isset($_GET['view'])){echo "view_fix";} ?>">
+<div id="content" data-check="<?php if(isset($_SESSION['add_google_sheets'])){echo $_SESSION['add_google_sheets'];} ?>" class="<?php if(isset($_GET['view'])){echo "view_fix";} ?>">
     <div class="quantri_admin">
         <div class="menu_admin">
             <div class="info_user">

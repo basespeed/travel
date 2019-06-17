@@ -51,6 +51,8 @@ get_header();
                                 'post_type' => 'hotel',
                                 'posts_per_page' => 200,
                                 'order' => 'DESC',
+                                'meta_key'			=> 'numberrooms',
+                                'orderby'			=> 'meta_value_num',
                                 'paged' => $paged,
                             );
 
@@ -88,7 +90,7 @@ get_header();
                                         <td><?php echo get_field('country'); ?></td>
                                         <td><?php echo get_field('countryisocode'); ?></td>
                                         <td><?php echo get_field('numberrooms'); ?></td>
-                                        <td>
+                                        <td class="btn_edit_ks">
                                             <a class="edit" href="<?php the_permalink(); ?>"><i
                                                         class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                             <a onclick="return confirm('Bạn có chắc muốn xóa nó');" class="delete" href="<?php echo get_delete_post_link(get_the_ID()); ?>"><i

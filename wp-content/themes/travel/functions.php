@@ -174,6 +174,7 @@ require get_template_directory() . '/inc/ajax/ajax_email.php';
 require get_template_directory() . '/inc/ajax/excel_hotel.php';
 require get_template_directory() . '/inc/ajax/ajax-khach-san.php';
 require get_template_directory() . '/inc/ajax/ajax-add-price-booking.php';
+require get_template_directory() . '/inc/ajax/ajax_google_sheets.php';
 
 /**
  * ACF.
