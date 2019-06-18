@@ -46,6 +46,8 @@ if($_SESSION['sucess'] == "sucess") {
                         $slp_tach = (int)$_POST['so_phong_goc'] - (int)$_POST['sl_gd'];
 
                         if (isset($_POST['sub_new_giao_dich'])) {
+                            $_SESSION['number_cup_booking'] = $slp_tach;
+
                             $so_phong_goc = $_POST['so_phong_goc'];
                             $slp_tach = (int)$_POST['so_phong_goc'] - (int)$_POST['sl_gd'];
 
@@ -81,6 +83,8 @@ if($_SESSION['sucess'] == "sucess") {
                             }
 
                             if(! isset($alert)){
+                                $_SESSION['cut_google_sheets'] = 'true';
+
                                 $update_trang_thai_tach_booking = array(
                                     'ID'           => $_POST['id_gd_goc'],
                                 );

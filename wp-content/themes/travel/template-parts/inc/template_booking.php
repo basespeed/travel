@@ -3097,13 +3097,14 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                             $order = 0;
                             $data_count_list = 0;
 
-                            if ($query_gd_tien->have_posts()) : while ($query_gd_tien->have_posts()) : $query_gd_tien->the_post();
+                            if(!is_page(213)) :
+                                if ($query_gd_tien->have_posts()) : while ($query_gd_tien->have_posts()) : $query_gd_tien->the_post();
                                 $data_count_list++;
                                 if(!empty(get_field('ma_gd_coc')) || !empty(get_field('tien_coc')) || !empty(get_field('ngay_coc')) || !empty(get_field('tk_coc'))) {
                                     $post_count = $query_gd_tien->post_count;
                                     ?>
                                     <div class="item" style="order:<?php echo $order--; ?>;"
-                                         data-price="<?php echo get_field('tien_coc'); ?>" data-id="<?php the_ID(); ?>">
+                                         data-price="<?php echo get_field('tien_coc'); ?>" data-code="<?php echo get_field('ma_gd_coc'); ?>" data-date="<?php echo get_field('ngay_coc'); ?>" data-tk="<?php echo get_field('tk_coc'); ?>" data-id="<?php the_ID(); ?>">
                                         <table width="100%" border="1">
                                             <tbody>
                                             <tr>
@@ -3137,6 +3138,7 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                             endwhile;
                             endif;
                             wp_reset_postdata();
+                            endif;
                             ?>
                         </div>
                     </div>
@@ -3217,7 +3219,7 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                                 if(!empty(get_field('ma_gd_coc_di')) || !empty(get_field('tien_coc_di')) || !empty(get_field('ngay_phai_coc_di')) || !empty(get_field('tk_coc_di'))) {
                                     ?>
                                     <div class="item" style="order:<?php echo $order--; ?>;"
-                                         data-price="<?php echo get_field('tien_coc_di'); ?>" data-id="<?php the_ID(); ?>">
+                                         data-price="<?php echo get_field('tien_coc_di'); ?>" data-code="<?php echo get_field('ma_gd_coc_di'); ?>" data-date="<?php echo get_field('ngay_phai_coc_di'); ?>" data-tk="<?php echo get_field('tk_coc_di'); ?>" data-id="<?php the_ID(); ?>">
                                         <table width="100%" border="1">
                                             <tbody>
                                             <?php
@@ -3309,7 +3311,7 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                                    data-date-format="dd/mm/yyyy" data-language='en' placeholder="Ngày cọc">
                         </div>
                         <div class="item">
-                            <input type="text" class="add_tk_coc" placeholder="TK cọc">
+                            <input type="number" class="add_tk_coc" placeholder="TK cọc">
                         </div>
                     </div>
                     <button type="button" class="btn_add_price_gd" data-id="<?php echo get_the_ID(); ?>">Thêm tiền đến
@@ -3333,7 +3335,7 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                                    data-date-format="dd/mm/yyyy" data-language='en' placeholder="Ngày phải cọc đi">
                         </div>
                         <div class="item">
-                            <input type="text" class="add_tk_coc_di" placeholder="TK cọc đi">
+                            <input type="number" class="add_tk_coc_di" placeholder="TK cọc đi">
                         </div>
                     </div>
                     <button type="button" class="btn_add_price_gd2" data-id="<?php echo get_the_ID(); ?>">Thêm tiền đi

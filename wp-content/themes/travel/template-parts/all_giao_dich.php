@@ -172,6 +172,18 @@ if($_SESSION['sucess'] == "sucess") {
                                     'posts_per_page' => 15,
                                     'meta_key' => $meta_key,
                                     'orderby' => $meta_value_num,
+                                    'meta_query' => array(
+                                        'relation' => 'AND',
+                                        'sort_list_booking' => array(
+                                            'key' => $meta_key,
+                                            'compare' => 'EXISTS',
+                                        ),
+                                        'sort_list_booking' => array(
+                                            'key' => 'ma_gd_them_booking',
+                                            'compare' => 'EXISTS',
+                                        ),
+                                    ),
+                                    'orderby' => 'sort_list_booking',
                                     'order' => $order,
                                     'paged' => $paged,
                                 );

@@ -67,6 +67,8 @@ if($_SESSION['sucess'] == "sucess") {
                                 $post_update_trang_thai_tach_booking = wp_update_post($update_trang_thai_tach_booking);
                                 update_field( 'trang_thai_tach_booking', 'true', $post_update_trang_thai_tach_booking );*/
 
+                                $_SESSION['ses_add_booking'] = 'true';
+
                                 $add_new_booking = array(
                                     'post_title' => $_POST['ma_gd'],
                                     'post_status' => 'publish',
