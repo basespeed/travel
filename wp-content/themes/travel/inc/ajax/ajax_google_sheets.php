@@ -8,5 +8,6 @@ function removeSessionAddGoogleSheet() {
     unset($_SESSION['cut_google_sheets']);
     unset($_SESSION['number_cup_booking']);
     unset($_SESSION['ses_add_booking']);
+    unset($_SESSION['cup_mkb']);
     die();
 }

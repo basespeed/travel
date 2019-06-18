@@ -614,7 +614,7 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                     </td>
                     <td width="20%">
                         <?php
-                        if(isset($_POST['add_edit_giao_dich']) || isset($_POST['sub_tach_giao_dich'])){
+                        if(isset($_POST['add_edit_giao_dich'])){
                             $sdt_gd = $_POST['sdt_gd'];
                             ?>
                             <input type="number" name="sdt_gd_val" class="sdt_gd_val" value="<?php
@@ -636,7 +636,42 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                                 endif;
                                 wp_reset_postdata();
                             ?>" autocomplete="off"/>
-                            <input type="hidden" name="sdt_gd" class="sdt_gd" value="<?php echo get_field('sdt_gd'); ?>" autocomplete="off"/>
+                            <input type="hidden" name="sdt_gd" class="sdt_gd" value="<?php echo $sdt_gd; ?>" autocomplete="off"/>
+                            <div class="popup_get_data_list pop_sdt">
+                                <ul>
+                                    <li>Tên</li>
+                                    <li>SĐT</li>
+                                    <li>Email</li>
+                                    <li>Nick Zalo</li>
+                                    <li>FB</li>
+                                </ul>
+                                <div class="list_show">
+                                    <p>Không tìm thấy dữ liệu !</p>
+                                </div>
+                            </div>
+                            <?php
+                        }elseif(isset($_POST['sub_tach_giao_dich'])){
+                            ?>
+                            <input type="number" name="sdt_gd_val" class="sdt_gd_val" value="<?php
+                            $args = array(
+                                'p'         => $_POST['sdt_gd'], // ID of a page, post, or custom type
+                                'post_type' => 'khach_hang'
+                            );
+                            $query_kh = new WP_Query($args);
+                            if($query_kh->have_posts()) :
+                                while ($query_kh->have_posts()) : $query_kh->the_post();
+                                    if (!empty(get_field('sdt_kgd'))){
+                                        echo get_field('sdt_kgd');
+                                    }else{
+                                        echo $_POST['sdt_gd'];
+                                    }
+                                endwhile;
+                            else :
+                                echo $_POST['sdt_gd'];
+                            endif;
+                            wp_reset_postdata();
+                            ?>" autocomplete="off"/>
+                            <input type="hidden" name="sdt_gd" class="sdt_gd" value="<?php echo $_POST['sdt_gd']; ?>" autocomplete="off"/>
                             <div class="popup_get_data_list pop_sdt">
                                 <ul>
                                     <li>Tên</li>
@@ -688,7 +723,7 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                                 endif;
                                 wp_reset_postdata();
                             ?>" autocomplete="off"/>
-                            <input type="hidden" name="sdt_gd" class="sdt_gd" value="<?php echo get_field('sdt_gd'); ?>" autocomplete="off"/>
+                            <input type="hidden" name="sdt_gd" class="sdt_gd" value="<?php echo $_POST['sdt_gd']; ?>" autocomplete="off"/>
                             <div class="popup_get_data_list pop_sdt">
                                 <ul>
                                     <li>Tên</li>
@@ -1310,10 +1345,14 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                     </td>
                     <td width="20%">
                         <?php
-                        if(isset($_POST['add_edit_giao_dich']) || isset($_POST['sub_tach_giao_dich'])){
+                        if(isset($_POST['add_edit_giao_dich'])){
                             $tong_gd = $_POST['tong_gd'];
                             ?>
                             <input type="text" name="tong_gd" class="tong_gd" value="<?php echo $tong_gd; ?>" required autocomplete="off"/>
+                            <?php
+                        }elseif(isset($_POST['sub_tach_giao_dich'])){
+                            ?>
+                            <input type="text" name="tong_gd" class="tong_gd" value="<?php echo $_POST['tong_gd']; ?>" required autocomplete="off"/>
                             <?php
                         }else{
                             ?>

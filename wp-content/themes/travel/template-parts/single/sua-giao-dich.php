@@ -89,7 +89,7 @@
 
     $trang_thai_add_booking = get_field('trang_thai_add_booking');
 ?>
-<div id="content" data-number="<?php if(isset($_SESSION['number_cup_booking'])){echo $_SESSION['number_cup_booking'];} ?>"  data-addbooking="<?php if(isset($_SESSION['ses_add_booking'])){echo $_SESSION['ses_add_booking'];} ?>" data-edit="<?php if(isset($_SESSION['edit_google_sheets'])){echo $_SESSION['edit_google_sheets'];} ?>" data-cut="<?php if(isset($_SESSION['cut_google_sheets'])){echo $_SESSION['cut_google_sheets'];} ?>" data-check="<?php if(isset($_SESSION['add_google_sheets'])){echo $_SESSION['add_google_sheets'];} ?>" class="<?php if(isset($_GET['view'])){echo "view_fix";} ?>">
+<div id="content" data-number="<?php if(isset($_SESSION['number_cup_booking'])){echo $_SESSION['number_cup_booking'];} ?>" data-idb2="<?php if(isset($_SESSION['cup_mkb'])){echo $_SESSION['cup_mkb'];} ?>"  data-addbooking="<?php if(isset($_SESSION['ses_add_booking'])){echo $_SESSION['ses_add_booking'];} ?>" data-edit="<?php if(isset($_SESSION['edit_google_sheets'])){echo $_SESSION['edit_google_sheets'];} ?>" data-cut="<?php if(isset($_SESSION['cut_google_sheets'])){echo $_SESSION['cut_google_sheets'];} ?>" data-check="<?php if(isset($_SESSION['add_google_sheets'])){echo $_SESSION['add_google_sheets'];} ?>" class="<?php if(isset($_GET['view'])){echo "view_fix";} ?>">
     <div class="quantri_admin">
         <div class="menu_admin">
             <div class="info_user">

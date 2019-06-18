@@ -354,6 +354,8 @@ if($_SESSION['sucess'] == "sucess") {
 
                                 $post_id_2 = wp_insert_post($add_new_giao_dich_2);
 
+                                $_SESSION['cup_mkb'] = 'MBK_'.$post_id_2;
+
                                 $group_ID_2 = '6';
                                 $fields_2 = acf_get_fields($group_ID_2);
                                 foreach ($fields_2 as $field){
