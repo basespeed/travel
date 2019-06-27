@@ -58,11 +58,12 @@
       }
     }
     .acf-form-submit{
-      text-align: center;
-      position: fixed;
-      bottom:15px;
-      left: 40px;
+      text-align: left;
+      position: relative;
+      bottom:0px;
+      left: 0px;
       z-index: 100;
+      margin-top: 5px;
       input{
         padding: 0px;
         width: 120px;
@@ -81,4 +82,13 @@
       }
     }
   }
+}
+
+.acf-form-submit {
+  text-align: left !important;
+  position: relative !important;
+  bottom:0px !important;
+  left: 0px !important;
+  z-index: 100;
+  margin-top: 5px;
 }

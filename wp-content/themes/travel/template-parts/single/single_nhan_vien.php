@@ -3,32 +3,7 @@ get_header();
 ?>
 <div id="content">
     <div class="quantri_admin">
-        <div class="menu_admin">
-            <div class="info_user">
-                <div class="avatar">
-                    <?php
-                    if(isset($_SESSION['avatar'])){
-                        echo '<img src="'.$_SESSION['avatar'].'" alt="Ảnh đại diện">';
-                    }else{
-                        echo '<img src="'.get_template_directory_uri().'/assets/images/user.png" alt="Ảnh đại diện">';
-                    }
-                    ?>
-
-                </div>
-                <div class="info">
-                    <p><strong>Hi: </strong><?php if(isset($_SESSION['name'])){echo $_SESSION['name'];} ?> !</p>
-                    <button class="logout">Logout</button>
-                </div>
-            </div>
-            <a href="<?php echo home_url('/') ?>ho-so" class="ho_so"><span class="dashicons dashicons-id"></span> Hồ sơ</a>
-            <?php
-            wp_nav_menu( array(
-                'theme_location' => 'menu-1',
-                'menu_id'        => 'primary-menu',
-                'menu' => 'Admin'
-            ) );
-            ?>
-        </div>
+        <?php include get_template_directory(). '/template-parts/inc/template_menu.php'; ?>
         <?php
 
         $this_ma_nv = get_field('ma_nv');
@@ -153,6 +128,9 @@ get_header();
                         <li>
                             <label>Link FB NV</label>
                             <input type="text" name="link_fb_nv" class="link_fb_nv" value="<?php echo get_field('link_fb_nv'); ?>">
+                            <div class="acf-form-submit" style="margin-top: 15px;">
+                                <input type="submit" name="sub_edit_nhan_vien" value="Cập nhập">
+                            </div>
                         </li>
                         <li>
                             <label>UIDFB NV</label>
@@ -161,9 +139,6 @@ get_header();
                         <div class="get_alert" style="text-align: center;"></div>
                         <?php if($alert){echo $alert;} ?>
                     </ul>
-                    <div class="acf-form-submit">
-                        <input type="submit" name="sub_edit_nhan_vien" value="Cập nhập">
-                    </div>
                 </form>
             </div>
         </div>

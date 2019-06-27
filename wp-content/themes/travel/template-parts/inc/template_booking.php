@@ -723,7 +723,7 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                                 endif;
                                 wp_reset_postdata();
                             ?>" autocomplete="off"/>
-                            <input type="hidden" name="sdt_gd" class="sdt_gd" value="<?php echo $_POST['sdt_gd']; ?>" autocomplete="off"/>
+                            <input type="hidden" name="sdt_gd" class="sdt_gd" value="<?php echo get_field('sdt_gd'); ?>" autocomplete="off"/>
                             <div class="popup_get_data_list pop_sdt">
                                 <ul>
                                     <li>Tên</li>
@@ -1356,7 +1356,7 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                             <?php
                         }else{
                             ?>
-                            <input type="text" name="tong_gd" class="tong_gd" value="<?php echo get_field('tien_chua_pt_khac'); ?>" required autocomplete="off"/>
+                            <input type="text" name="tong_gd" class="tong_gd" value="<?php echo get_field('tong_gd'); ?>" required autocomplete="off"/>
                             <?php
                         }
                         ?>
@@ -3125,13 +3125,19 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                         </div>
                         <div class="content">
                             <?php
-                            $query_gd_tien = new WP_Query(array(
-                                'post_type' => 'tien',
-                                'order' => 'DESC',
-                                'posts_per_page' => 50,
-                                'meta_key' => 'id_gd',
-                                'meta_value' => $ma_gd_them_booking
-                            ));
+                            if(!empty($ma_gd_them_booking)){
+                                $query_gd_tien = new WP_Query(array(
+                                    'post_type' => 'tien',
+                                    'order' => 'DESC',
+                                    'posts_per_page' => 50,
+                                    'meta_key' => 'id_gd',
+                                    'meta_value' => $ma_gd_them_booking
+                                ));
+                            }else{
+                                $query_gd_tien = new WP_Query(array(
+                                    'posts_per_page' => 0,
+                                ));
+                            }
 
                             $order = 0;
                             $data_count_list = 0;

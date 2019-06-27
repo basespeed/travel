@@ -295,3 +295,26 @@ function to_slug($str) {
 add_action('init', function() {
     add_rewrite_rule('(/page/?([0-9]{1,})/?$', 'index.php?pagename=$matches[1]&paged=$matches[2]', 'top');
 });
+
+class AutoActivator {
+
+    const ACTIVATION_KEY = 'youractivationkeyhere';
+
+    /**
+     * AutoActivator constructor.
+     * This will update the license field option on acf
+     * Works only on backend to not attack performance on frontend
+     */
+    public function __construct() {
+        if (
+            function_exists( 'acf' ) &&
+            is_admin() &&
+            !acf_pro_get_license_key()
+        ) {
+            acf_pro_update_license(self::ACTIVATION_KEY);
+        }
+    }
+
+}
+
+new AutoActivator();

@@ -91,103 +91,11 @@
 ?>
 <div id="content" data-number="<?php if(isset($_SESSION['number_cup_booking'])){echo $_SESSION['number_cup_booking'];} ?>" data-idb2="<?php if(isset($_SESSION['cup_mkb'])){echo $_SESSION['cup_mkb'];} ?>"  data-addbooking="<?php if(isset($_SESSION['ses_add_booking'])){echo $_SESSION['ses_add_booking'];} ?>" data-edit="<?php if(isset($_SESSION['edit_google_sheets'])){echo $_SESSION['edit_google_sheets'];} ?>" data-cut="<?php if(isset($_SESSION['cut_google_sheets'])){echo $_SESSION['cut_google_sheets'];} ?>" data-check="<?php if(isset($_SESSION['add_google_sheets'])){echo $_SESSION['add_google_sheets'];} ?>" class="<?php if(isset($_GET['view'])){echo "view_fix";} ?>">
     <div class="quantri_admin">
-        <div class="menu_admin">
-            <div class="info_user">
-                <div class="avatar">
-                    <?php
-                    if(isset($_SESSION['avatar'])){
-                        echo '<img src="'.$_SESSION['avatar'].'" alt="Ảnh đại diện">';
-                    }else{
-                        echo '<img src="'.get_template_directory_uri().'/assets/images/user.png" alt="Ảnh đại diện">';
-                    }
-                    ?>
-                </div>
-                <div class="info">
-                    <p><strong>Hi: </strong><?php if(isset($_SESSION['name'])){echo $_SESSION['name'];} ?> !</p>
-                    <button class="logout">Logout</button>
-                </div>
-            </div>
-            <a href="<?php echo home_url('/') ?>ho-so" class="ho_so"><span class="dashicons dashicons-id"></span> Hồ sơ</a>
-            <?php
-            wp_nav_menu(array(
-                'theme_location' => 'menu-1',
-                'menu_id' => 'primary-menu',
-                'menu' => 'Admin'
-            ));
-            ?>
-        </div>
+        <?php include get_template_directory(). '/template-parts/inc/template_menu.php'; ?>
 
         <div class="content_admin">
             <div class="giao_dich_moi">
                 <div class="them_giao_dich sua_giao_dich">
-                    <?php
-                        $trang_thai_tach_booking = get_field('trang_thai_tach_booking');
-                        $booking_lk = get_field('booking_lk');
-                        $sl_dt = get_field('sl_dt');
-                        $sl_gd = get_field('sl_gd');
-                        if(get_field('trang_thai_tach_booking') != 'true') :
-                            if($sl_dt > 1 || $sl_gd > 1){
-                                ?>
-                                <form action="<?php echo get_home_url('/'); ?>/tach-booking" method="post">
-                                    <div class="acf-form-submit <?php if ($booking_lk == 'true') {
-                                        echo 'fix_tach_gd';
-                                    } ?>" style="bottom: 105px;">
-                                        <?php
-                                        $group_ID = '6';
-                                        $fields = acf_get_fields($group_ID);
-                                        foreach ($fields as $field) {
-                                            ?>
-                                            <input type="hidden" class="<?php echo $field['name'].'_t'; ?>" name="<?php echo $field['name']; ?>"
-                                                   value="<?php echo get_field($field['name']); ?>">
-                                            <?php
-                                        }
-                                        ?>
-                                        <input type="hidden" name="so_phong_goc"
-                                               value="<?php echo get_field('sl_gd'); ?>">
-                                        <input type="hidden" name="id_gd_goc" value="<?php echo get_the_ID(); ?>">
-
-                                        <?php
-                                        if(get_field('trang_thai_add_booking') != 'true'){
-                                            ?>
-                                            <input type="submit" name="sub_tach_giao_dich" class="sub_tach_giao_dich"
-                                                   value="Tách Giao dịch">
-                                            <?php
-                                        }
-                                        ?>
-                                    </div>
-                                </form>
-                                <?php
-                            }
-                        endif;
-                    ?>
-                    <?php
-                    if($trang_thai_tach_booking != 'true'){
-                        if($booking_lk != 'true'){
-                            ?>
-                            <form action="<?php echo get_home_url('/'); ?>/add-booking" method="post">
-                                <div class="acf-form-submit" style="bottom: 60px;">
-                                    <?php
-                                    $group_ID = '6';
-                                    $fields = acf_get_fields($group_ID);
-                                    foreach ($fields as $field) {
-                                        ?>
-                                        <input type="hidden" class="<?php echo $field['name'] . '_add'; ?>"
-                                               name="<?php echo $field['name']; ?>"
-                                               value="<?php echo get_field($field['name']); ?>">
-                                        <?php
-                                    }
-                                    ?>
-                                    <?php
-                                        if(get_field('trang_thai_add_booking') != 'true'){
-                                            ?><input type="submit" name="add_edit_giao_dich" class="add_edit_giao_dich" value="Thêm giao dịch"><?php
-                                        }
-                                    ?>
-                                </div>
-                            </form>
-                            <?php
-                        }
-                    }
-                    ?>
                     <form action="<?php echo get_the_permalink(); ?>" method="post">
                         <?php
                         if(isset($_POST['sub_edit_giao_dich'])){
@@ -544,6 +452,74 @@
                         }
                         ?>
                     </form>
+                    <?php
+                    $trang_thai_tach_booking = get_field('trang_thai_tach_booking');
+                    $booking_lk = get_field('booking_lk');
+                    $sl_dt = get_field('sl_dt');
+                    $sl_gd = get_field('sl_gd');
+                    if(get_field('trang_thai_tach_booking') != 'true') :
+                        if($sl_dt > 1 || $sl_gd > 1){
+                            ?>
+                            <form action="<?php echo get_home_url('/'); ?>/tach-booking" method="post">
+                                <div class="acf-form-submit <?php if ($booking_lk == 'true') {
+                                    echo 'fix_tach_gd';
+                                } ?>" style="bottom: 105px;">
+                                    <?php
+                                    $group_ID = '6';
+                                    $fields = acf_get_fields($group_ID);
+                                    foreach ($fields as $field) {
+                                        ?>
+                                        <input type="hidden" class="<?php echo $field['name'].'_t'; ?>" name="<?php echo $field['name']; ?>"
+                                               value="<?php echo get_field($field['name']); ?>">
+                                        <?php
+                                    }
+                                    ?>
+                                    <input type="hidden" name="so_phong_goc"
+                                           value="<?php echo get_field('sl_gd'); ?>">
+                                    <input type="hidden" name="id_gd_goc" value="<?php echo get_the_ID(); ?>">
+
+                                    <?php
+                                    if(get_field('trang_thai_add_booking') != 'true'){
+                                        ?>
+                                        <input type="submit" name="sub_tach_giao_dich" class="sub_tach_giao_dich"
+                                               value="Tách Giao dịch">
+                                        <?php
+                                    }
+                                    ?>
+                                </div>
+                            </form>
+                            <?php
+                        }
+                    endif;
+                    ?>
+                    <?php
+                    if($trang_thai_tach_booking != 'true'){
+                        if($booking_lk != 'true'){
+                            ?>
+                            <form action="<?php echo get_home_url('/'); ?>/add-booking" method="post">
+                                <div class="acf-form-submit" style="bottom: 60px;">
+                                    <?php
+                                    $group_ID = '6';
+                                    $fields = acf_get_fields($group_ID);
+                                    foreach ($fields as $field) {
+                                        ?>
+                                        <input type="hidden" class="<?php echo $field['name'] . '_add'; ?>"
+                                               name="<?php echo $field['name']; ?>"
+                                               value="<?php echo get_field($field['name']); ?>">
+                                        <?php
+                                    }
+                                    ?>
+                                    <?php
+                                    if(get_field('trang_thai_add_booking') != 'true'){
+                                        ?><input type="submit" name="add_edit_giao_dich" class="add_edit_giao_dich" style="<?php if(get_field('trang_thai_tach_booking') != 'true') {echo 'left:150px;';} ?>" value="Thêm giao dịch"><?php
+                                    }
+                                    ?>
+                                </div>
+                            </form>
+                            <?php
+                        }
+                    }
+                    ?>
                 </div>
             </div>
         </div>

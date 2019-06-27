@@ -792,7 +792,7 @@ ul.price_count{
   position: fixed;
   width: 140px;
   bottom: 15px;
-  left: 6px !important;
+  left: -5px !important;
   z-index: 100;
   .sub_tach_giao_dich{
     background: #ECB254;
@@ -1127,25 +1127,28 @@ table#show_chat {
   }
   button{
     display: block;
-    height: 35px;
-    width: 35px;
+    height: 30px;
+    width: 30px;
     background: #2D74BB;
     border-radius: 0px;
     outline: none;
     border: none;
     cursor: pointer;
+    padding: 0px;
     i{
       color: #FFF;
     }
   }
-  input{
+  input,select{
     display: block;
-    width: 300px;
-    height: 35px;
+    width: 150px;
+    height: 30px;
     border-radius: 0px;
     outline: none;
     border: none;
     background: #FFF;
+    margin-right: 10px;
+    font-size: 14px;
   }
 }
 
@@ -1327,7 +1330,7 @@ table#show_chat {
     flex-wrap: wrap;
   }
   .list_price:nth-child(2){
-    width: 110px;
+    width: 160px;
   }
   .list_price:nth-child(3){
     justify-content: flex-end;
@@ -1400,5 +1403,51 @@ table#show_chat {
   }
   .giao_dich_moi table tr:first-child td{
       padding: 5px 5px;
+  }
+}
+
+.page .giao_dich_moi table tr:first-child td strong{
+  display: flex;
+  justify-content: center;
+  a{
+    transition: 0.5s;
+    &:hover{
+      color: #F19214;
+    }
+  }
+}
+
+.single-giao_dich .quantri_admin .them_giao_dich .acf-form-submit .sub_tach_giao_dich {
+  position: absolute;
+  top: -15px;
+  left: 150px;
+}
+
+input.add_edit_giao_dich {
+  position: absolute;
+  top: -50px;
+  left: 300px;
+}
+
+.acf-form-submit.save_tach_bk .sub_new_giao_dich,input.sub_new_giao_dich.add_bk,input.sub_new_giao_dich.add_new_bk {
+  width: auto !important;
+  margin: 0px;
+}
+input.sub_new_giao_dich.add_bk,.input.sub_new_giao_dich{
+  margin-top: -15px;
+  position: absolute;
+}
+input.sub_new_giao_dich.add_new_bk {
+  position: absolute;
+  top: -15px;
+}
+.acf-form-submit.save_tach_bk{
+  left: 0px !important;
+  top: -20px !important;
+}
+
+@media screen and (max-width: 1389px){
+  .page .giao_dich_moi table td{
+    font-size: 11px;
   }
 }

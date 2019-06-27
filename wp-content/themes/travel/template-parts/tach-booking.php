@@ -9,32 +9,7 @@ if($_SESSION['sucess'] == "sucess") {
     ?>
     <div id="content">
         <div class="quantri_admin">
-            <div class="menu_admin">
-                <div class="info_user">
-                    <div class="avatar">
-                        <?php
-                        if(isset($_SESSION['avatar'])){
-                            echo '<img src="'.$_SESSION['avatar'].'" alt="Ảnh đại diện">';
-                        }else{
-                            echo '<img src="'.get_template_directory_uri().'/assets/images/user.png" alt="Ảnh đại diện">';
-                        }
-                        ?>
-
-                    </div>
-                    <div class="info">
-                        <p><strong>Hi: </strong><?php if(isset($_SESSION['name'])){echo $_SESSION['name'];} ?> !</p>
-                        <button class="logout">Logout</button>
-                    </div>
-                </div>
-                <a href="<?php echo home_url('/') ?>ho-so" class="ho_so"><span class="dashicons dashicons-id"></span> Hồ sơ</a>
-                <?php
-                wp_nav_menu(array(
-                    'theme_location' => 'menu-1',
-                    'menu_id' => 'primary-menu',
-                    'menu' => 'Admin'
-                ));
-                ?>
-            </div>
+            <?php include 'inc/template_menu.php'; ?>
 
             <div class="content_admin">
                 <div class="them_giao_dich">
@@ -356,6 +331,58 @@ if($_SESSION['sucess'] == "sucess") {
 
                                 $_SESSION['cup_mkb'] = 'MBK_'.$post_id_2;
 
+                                $sl_gd_cup = $slp_tach;
+                                $so_dem_gd_cup = (int)$_POST['so_dem_gd'];
+                                $don_gia_ban_gd_cup = $_POST['don_gia_ban_gd'];
+                                $don_gia_ban_gd_cup = str_replace(',','',$don_gia_ban_gd_cup);
+                                $don_gia_ban_gd_cup = str_replace(',','',$don_gia_ban_gd_cup);
+                                $don_gia_ban_gd_cup = str_replace(',','',$don_gia_ban_gd_cup);
+
+                                $don_gia_ban_dt_cup = $_POST['don_gia_ban_dt'];
+                                $don_gia_ban_dt_cup = str_replace(',','',$don_gia_ban_dt_cup);
+                                $don_gia_ban_dt_cup = str_replace(',','',$don_gia_ban_dt_cup);
+                                $don_gia_ban_dt_cup = str_replace(',','',$don_gia_ban_dt_cup);
+
+                                $tong_phu_thu_khac = $_POST['tong_phu_thu_khac'];
+                                $tong_phu_thu_khac = str_replace(',','',$tong_phu_thu_khac);
+                                $tong_phu_thu_khac = str_replace(',','',$tong_phu_thu_khac);
+                                $tong_phu_thu_khac = str_replace(',','',$tong_phu_thu_khac);
+
+                                $giam_gia_cho_kh_khac = $_POST['giam_gia_cho_kh_khac'];
+                                $giam_gia_cho_kh_khac = str_replace(',','',$giam_gia_cho_kh_khac);
+                                $giam_gia_cho_kh_khac = str_replace(',','',$giam_gia_cho_kh_khac);
+                                $giam_gia_cho_kh_khac = str_replace(',','',$giam_gia_cho_kh_khac);
+
+                                $giam_gia_cua_dt_khac2 = $_POST['giam_gia_cua_dt_khac2'];
+                                $giam_gia_cua_dt_khac2 = str_replace(',','',$giam_gia_cua_dt_khac2);
+                                $giam_gia_cua_dt_khac2 = str_replace(',','',$giam_gia_cua_dt_khac2);
+                                $giam_gia_cua_dt_khac2 = str_replace(',','',$giam_gia_cua_dt_khac2);
+
+                                $da_thanh_toan_khac = $_POST['da_thanh_toan_khac'];
+                                $da_thanh_toan_khac = str_replace(',','',$da_thanh_toan_khac);
+                                $da_thanh_toan_khac = str_replace(',','',$da_thanh_toan_khac);
+                                $da_thanh_toan_khac = str_replace(',','',$da_thanh_toan_khac);
+
+                                $da_thanh_toan_khac2 = $_POST['da_thanh_toan_khac2'];
+                                $da_thanh_toan_khac2 = str_replace(',','',$da_thanh_toan_khac2);
+                                $da_thanh_toan_khac2 = str_replace(',','',$da_thanh_toan_khac2);
+                                $da_thanh_toan_khac2 = str_replace(',','',$da_thanh_toan_khac2);
+
+                                $tong_gd_cup = $don_gia_ban_gd_cup * $sl_gd_cup;
+                                $tong_gd_cup = $tong_gd_cup * $so_dem_gd_cup;
+
+                                $tong_dt_cup = $don_gia_ban_dt_cup * $sl_gd_cup;
+                                $tong_dt_cup = $tong_dt_cup * $so_dem_gd_cup;
+
+                                $tong_gia_tri_khac = $tong_phu_thu_khac + $tong_gd_cup;
+                                $tong_gia_tri_khac = $tong_gia_tri_khac - $giam_gia_cho_kh_khac;
+
+                                $tong_gia_tri_khac2 = $tong_phu_thu_khac + $tong_dt_cup;
+                                $tong_gia_tri_khac2 = $tong_gia_tri_khac2 - $giam_gia_cua_dt_khac2;
+
+                                $kh_con_no_khac = $tong_gia_tri_khac - $da_thanh_toan_khac;
+                                $bct_con_no_khac2 = $tong_gia_tri_khac2 - $da_thanh_toan_khac2;
+
                                 $group_ID_2 = '6';
                                 $fields_2 = acf_get_fields($group_ID_2);
                                 foreach ($fields_2 as $field){
@@ -363,6 +390,24 @@ if($_SESSION['sucess'] == "sucess") {
                                         add_post_meta($post_id_2, 'sl_gd', $slp_tach, true);
                                     }elseif($field['name'] == 'sl_dt'){
                                         add_post_meta($post_id_2, 'sl_dt', $slp_tach, true);
+                                    }elseif($field['name'] == 'tong_gd'){
+                                        add_post_meta($post_id_2, 'tong_gd', $tong_gd_cup, true);
+                                    }elseif($field['name'] == 'tong_dt'){
+                                        add_post_meta($post_id_2, 'tong_dt', $tong_dt_cup, true);
+                                    }elseif($field['name'] == 'tien_chua_pt_khac2'){
+                                        add_post_meta($post_id_2, 'tien_chua_pt_khac2', $tong_dt_cup, true);
+                                    }elseif($field['name'] == 'tong_gia_tri_khac2'){
+                                        add_post_meta($post_id_2, 'tong_gia_tri_khac2', $tong_gia_tri_khac2, true);
+                                    }elseif($field['name'] == 'tien_chua_pt_khac2'){
+                                        add_post_meta($post_id_2, 'tien_chua_pt_khac2', $tong_dt_cup, true);
+                                    }elseif($field['name'] == 'tien_chua_pt_khac'){
+                                        add_post_meta($post_id_2, 'tien_chua_pt_khac', $tong_gd_cup, true);
+                                    }elseif($field['name'] == 'tong_gia_tri_khac'){
+                                        add_post_meta($post_id_2, 'tong_gia_tri_khac', $tong_gia_tri_khac, true);
+                                    }elseif($field['name'] == 'kh_con_no_khac'){
+                                        add_post_meta($post_id_2, 'kh_con_no_khac', $kh_con_no_khac, true);
+                                    }elseif($field['name'] == 'bct_con_no_khac2'){
+                                        add_post_meta($post_id_2, 'bct_con_no_khac2', $bct_con_no_khac2, true);
                                     }elseif($field['name'] == 'ci_gd'){
                                         $dob_str = $_POST['ci_gd'];
                                         if(!empty($dob_str)){

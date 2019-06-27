@@ -225,6 +225,20 @@
     }
 
     function base() {
+        //toggle menu admin
+        $('.toggle_menu_setting').on('click', function(){
+            $('.quantri_admin .menu_admin').addClass('menu_left');
+            $('.quantri_admin .menu_admin').removeClass('menu_right');
+            $(this).hide();
+            $('.toggle_menu_setting2').show();
+        });
+        $('.toggle_menu_setting2').on('click', function(){
+            $('.quantri_admin .menu_admin').removeClass('menu_left');
+            $('.quantri_admin .menu_admin').addClass('menu_right');
+            $(this).hide();
+            $('.toggle_menu_setting').show();
+        });
+
         var change_label_title =  $('.acf-field--post-title .acf-label label');
         var insert_icon_menu_admin = $('.menu-item-has-children');
         var disable_edit_giao_dich = $( ".single-history_giao_dich input");
@@ -234,33 +248,33 @@
         var disable_edit_giao_dich2_view = $( ".view_fix select");
         var disable_edit_giao_dich3_view = $( ".view_fix textarea");
 
-        $('.so_dem_gd').prop('disabled', true);
-        $('.con_ngay_gd').prop('disabled', true);
+        $('.so_dem_gd').prop('readonly', 'readonly');
+        $('.con_ngay_gd').prop('readonly', 'readonly');
         //$('.don_gia_ban_gd').prop('disabled', true);
-        $('.tong_gd').prop('disabled', true);
+        $('.tong_gd').prop('readonly', 'readonly');
         //$('.don_gia_ban_dt').prop('disabled', true);
-        $('.tong_dt').prop('disabled', true);
-        $('.con_ngay_dt').prop('disabled', true);
-        $('.con_ngay_thay_doi_dt').prop('disabled', true);
+        $('.tong_dt').prop('readonly', 'readonly');
+        $('.con_ngay_dt').prop('readonly', 'readonly');
+        $('.con_ngay_thay_doi_dt').prop('readonly', 'readonly');
 
         change_label_title.text('Tiêu đề');
         insert_icon_menu_admin.append('<i class="fa fa-caret-down" aria-hidden="true"></i>');
-        disable_edit_giao_dich.prop( "disabled", true );
-        disable_edit_giao_dich2.prop( "disabled", true );
-        disable_edit_giao_dich3.prop( "disabled", true );
+        disable_edit_giao_dich.prop('readonly', 'readonly');
+        disable_edit_giao_dich2.prop('readonly', 'readonly');
+        disable_edit_giao_dich3.prop('readonly', 'readonly');
 
-        disable_edit_giao_dich_view.prop( "disabled", true );
-        disable_edit_giao_dich2_view.prop( "disabled", true );
-        disable_edit_giao_dich3_view.prop( "disabled", true );
+        disable_edit_giao_dich_view.prop('readonly', 'readonly');
+        disable_edit_giao_dich2_view.prop('readonly', 'readonly');
+        disable_edit_giao_dich3_view.prop('readonly', 'readonly');
 
         $('.sl_gd').keyup(function(){
             setTimeout(function(){
                 $('.don_gia_ban_gd').click();
             },500);
         });
-        setTimeout(function(){
+        /*setTimeout(function(){
             $('.don_gia_ban_gd').click();
-        },500);
+        },500);*/
 
         //Check input number empty
         var arr_input_number_class = [
@@ -314,9 +328,9 @@
             });
         });
 
-        /*$('.ngay_cập_nhập_giao_dịch_cuối_cung').prop( "disabled", true );
-        $('.so_dem_gd').prop( "disabled", true );
-        $('.con_ngay_gd').prop( "disabled", true );*/
+        /*$('.ngay_cập_nhập_giao_dịch_cuối_cung').prop('readonly', 'readonly');
+        $('.so_dem_gd').prop('readonly', 'readonly');
+        $('.con_ngay_gd').prop('readonly', 'readonly');*/
 
         //enter login ajax
         $(document).keypress(function(e) {
@@ -1633,7 +1647,7 @@
             var gia_tien_dt = $(this).parents('.btn').siblings('.content').find('.item .gia_tien_dt').val();
             var data_id = $(this).parents('.btn').siblings('.content').find('.item .item_room_name').attr('data-id');
 
-            $(this).parents('.btn').siblings('.content').find('input').prop( "disabled", true );
+            $(this).parents('.btn').siblings('.content').find('input').prop('readonly', 'readonly');
 
             $(this).siblings('.edit').show();
             $(this).hide();
@@ -2327,7 +2341,17 @@
             }
         }
 
-
+        $('.key_date').on('change', function(){
+            var now = new Date();
+            var currentYear = now.getFullYear();
+            var numOfDays = new Date(currentYear, parseInt($(this).val()),0).getDate();
+            var days = new Array();
+            $('.key_day').empty();
+            for(var i=1;i<=numOfDays;i++)
+            {
+                $('.key_day').append('<option value="'+i+'">'+i+'</option>');
+            }
+        });
 
         //hide popup search giao dich
         $('.quantri_admin .them_giao_dich input').on('focus', function () {
@@ -2510,31 +2534,15 @@
                         });
                     },500);
                 }else if(cut_google_sheets == 'true'){
-                    var sl_gd2 = $('div#content #content').attr('data-number');
+                    /*var sl_gd2 = $('div#content #content').attr('data-number');
                     var sl_dt2 = $('div#content #content').attr('data-number');
                     var idb2 = $('div#content #content').attr('data-idb2');
-                    var don_gia_ban_gd2 = don_gia_ban_gd.replace(',','');
-                    don_gia_ban_gd2 = don_gia_ban_gd2.replace(',','');
-                    don_gia_ban_gd2 = don_gia_ban_gd2.replace(',','');
-                    don_gia_ban_gd2 = don_gia_ban_gd2.replace(',','');
-                    var don_gia_ban_dt2 = don_gia_ban_dt.replace(',','');
-                    don_gia_ban_dt2 = don_gia_ban_dt2.replace(',','');
-                    don_gia_ban_dt2 = don_gia_ban_dt2.replace(',','');
-                    don_gia_ban_dt2 = don_gia_ban_dt2.replace(',','');
+                    var tong_pt = $('.tong_pt').val();
+                    tong_pt = tong_pt.replace(',','');
+                    tong_pt = tong_pt.replace(',','');
+                    tong_pt = tong_pt.replace(',','');
 
-                    var tong_gd2 = parseInt(sl_gd2) * don_gia_ban_gd2;
-                    tong_gd2 = tong_gd2 * parseInt($('.so_dem_gd').val());
-                    tong_gd2 = tong_gd2.format(0, 3, ',');
-
-                    var tong_dt2 = parseInt(sl_gd2) * don_gia_ban_dt2;
-                    tong_dt2 = tong_dt2 * parseInt($('.so_dem_gd').val());
-                    tong_dt2 = tong_dt2.format(0, 3, ',');
-
-                    var tien_chua_pt_khac22 = tong_dt2;
-                    var tong_gia_tri_khac22 = tong_dt2;
-                    var bct_con_no_khac22 = tong_dt2;
-
-                    var url = script_url+"?callback=ctrlq&thoi_gian="+today+"&trang_thai="+trang_thai+"&ma_lk="+ma_lk+"&ma_gd="+ma_gd+"&mbk="+mbk+"&ma_xac_nhan="+ma_xac_nhan+"&ten_khach_san_gd="+ten_khach_san_gd+"&ma_dich_vu_gd="+ma_dich_vu_gd+"&noi_di_gd="+noi_di_gd+"&noi_den_gd="+noi_den_gd+"&khach_dai_dien_gd="+khach_dai_dien_gd+"&sdt_gd="+sdt_gd+"&trang_thai_bkk_voi_kh_gd="+trang_thai_bkk_voi_kh_gd+"&ci_gd="+ci_gd+"&co_gd="+co_gd+"&so_dem_gd="+so_dem_gd +"&loai_phong_ban_gd="+loai_phong_ban_gd +"&sl_gd="+sl_gd +"&don_gia_ban_gd="+don_gia_ban_gd +"&don_vi_gd="+don_vi_gd +"&tong_gd="+tong_gd +"&ngay_lock_phong_khach="+ngay_lock_phong_khach +"&goi_dv_km_ban_gd="+goi_dv_km_ban_gd +"&ma_pro_gd="+ma_pro_gd +"&dich_vu_di_kem_gd="+dich_vu_di_kem_gd +"&ten_dt_gui_book_dt="+ten_dt_gui_book_dt+"&ma_dt="+ma_dt+"&trang_thai_bkk_voi_dt="+trang_thai_bkk_voi_dt+"&nick_dt="+nick_dt+"&ten_nv_dat_phong_dt="+ten_nv_dat_phong_dt+"&sdt_bpdp="+sdt_bpdp+"&ngay_duoc_huy="+ngay_duoc_huy+"&con_ngay_dt="+con_ngay_dt+"&ngay_duoc_thay_doi="+ngay_duoc_thay_doi+"&con_ngay_thay_doi_dt="+con_ngay_thay_doi_dt+"&loai_phong_ban_dt="+loai_phong_ban_dt+"&sl_dt="+sl_dt+"&don_gia_ban_dt="+don_gia_ban_dt+"&don_vi_dt="+don_vi_dt+"&tong_dt="+tong_dt+"&ngay_lock_phong_doi_tac="+ngay_lock_phong_doi_tac+"&goi_dv_km_ban_dt="+goi_dv_km_ban_dt+"&ma_pro_dt="+ma_pro_dt+"&dich_vu_di_kem_dt="+dich_vu_di_kem_dt+"&sl_nl="+sl_nl+"&gp="+gp+"&sl02="+sl02+"&sl24="+sl24+"&sl46="+sl46+"&sl612="+sl612+"&pt_nguoi="+pt_nguoi+"&pt_giai_doan="+pt_giai_doan+"&pt_cuoi_tuan="+pt_cuoi_tuan+"&bua_an_bat_buoc="+bua_an_bat_buoc+"&dich_vu_khac="+dich_vu_khac+"&tong_pt="+tong_pt+"&kh_tt_pt_tai="+kh_tt_pt_tai+"&ly_giai_pt="+ly_giai_pt+"&danh_sach_doan_yeu_cau_khac="+danh_sach_doan_yeu_cau_khac+"&tien_chua_pt_khac="+tien_chua_pt_khac+"&tong_phu_thu_khac="+tong_phu_thu_khac+"&giam_gia_cho_kh_khac="+giam_gia_cho_kh_khac+"&tong_gia_tri_khac="+tong_gia_tri_khac+"&da_thanh_toan_khac="+da_thanh_toan_khac+"&kh_con_no_khac="+kh_con_no_khac+"&ngay_yeu_cau_kh_hoan_tat_tt_khac="+ngay_yeu_cau_kh_hoan_tat_tt_khac+"&lai_lo_khac="+lai_lo_khac+"&thue_vat_khac="+thue_vat_khac+"&thue_tndn_khac="+thue_tndn_khac+"&cp_marketing_khac="+cp_marketing_khac+"&cp_hau_can_khac="+cp_hau_can_khac+"&cp_hau_mai_khac="+cp_hau_mai_khac+"&cp_co_dinh_khac="+cp_co_dinh_khac+"&tien_chua_pt_khac2="+tien_chua_pt_khac22+"&tong_phu_thu_khac2="+tong_phu_thu_khac2+"&giam_gia_cua_dt_khac2="+giam_gia_cua_dt_khac2+"&tong_gia_tri_khac2="+tong_gia_tri_khac22+"&da_thanh_toan_khac2="+da_thanh_toan_khac2+"&bct_con_no_khac2="+bct_con_no_khac22+"&ngay_phai_hoan_tat_tt_cho_ks_khac2="+ngay_phai_hoan_tat_tt_cho_ks_khac2+"&ghi_chu_cua_dt_khac2="+ghi_chu_cua_dt_khac2+"&ten_kgd="+ten_kgd+"&nick_kgd="+nick_kgd+"&sdt_kgd="+sdt_kgd+"&email_kgd="+email_kgd+"&tk_kgd="+tk_kgd+"&ma_kgd="+ma_kgd+"&xep_hang_kgd="+xep_hang_kgd+"&ma_ctv="+ma_ctv+"&ma_nv="+ma_nv+"&ma_kho_popup_thong_tin_kho="+ma_kho_popup_thong_tin_kho+"&sl_lay_tu_kho="+sl_lay_tu_kho+"&tien_den="+list_price_1+"&tien_di="+list_price_2+"&ghi_chu_thanh_toan_1="+ghi_chu_thanh_toan_1+"&ghi_chu_thanh_toan_2="+ghi_chu_thanh_toan_2+"&action=insert";
+                    var url = script_url+"?travelcallback=ctrlq&thoi_gian="+today+"&trang_thai="+trang_thai+"&ma_lk="+ma_lk+"&ma_gd="+ma_gd+"&mbk="+mbk+"&ma_xac_nhan="+ma_xac_nhan+"&ten_khach_san_gd="+ten_khach_san_gd+"&ma_dich_vu_gd="+ma_dich_vu_gd+"&noi_di_gd="+noi_di_gd+"&noi_den_gd="+noi_den_gd+"&khach_dai_dien_gd="+khach_dai_dien_gd+"&sdt_gd="+sdt_gd+"&trang_thai_bkk_voi_kh_gd="+trang_thai_bkk_voi_kh_gd+"&ci_gd="+ci_gd+"&co_gd="+co_gd+"&so_dem_gd="+so_dem_gd +"&loai_phong_ban_gd="+loai_phong_ban_gd +"&sl_gd="+sl_gd +"&don_gia_ban_gd="+don_gia_ban_gd +"&don_vi_gd="+don_vi_gd +"&tong_gd="+tong_gd +"&ngay_lock_phong_khach="+ngay_lock_phong_khach +"&goi_dv_km_ban_gd="+goi_dv_km_ban_gd +"&ma_pro_gd="+ma_pro_gd +"&dich_vu_di_kem_gd="+dich_vu_di_kem_gd +"&ten_dt_gui_book_dt="+ten_dt_gui_book_dt+"&ma_dt="+ma_dt+"&trang_thai_bkk_voi_dt="+trang_thai_bkk_voi_dt+"&nick_dt="+nick_dt+"&ten_nv_dat_phong_dt="+ten_nv_dat_phong_dt+"&sdt_bpdp="+sdt_bpdp+"&ngay_duoc_huy="+ngay_duoc_huy+"&con_ngay_dt="+con_ngay_dt+"&ngay_duoc_thay_doi="+ngay_duoc_thay_doi+"&con_ngay_thay_doi_dt="+con_ngay_thay_doi_dt+"&loai_phong_ban_dt="+loai_phong_ban_dt+"&sl_dt="+sl_dt+"&don_gia_ban_dt="+don_gia_ban_dt+"&don_vi_dt="+don_vi_dt+"&tong_dt="+tong_dt+"&ngay_lock_phong_doi_tac="+ngay_lock_phong_doi_tac+"&goi_dv_km_ban_dt="+goi_dv_km_ban_dt+"&ma_pro_dt="+ma_pro_dt+"&dich_vu_di_kem_dt="+dich_vu_di_kem_dt+"&sl_nl="+sl_nl+"&gp="+gp+"&sl02="+sl02+"&sl24="+sl24+"&sl46="+sl46+"&sl612="+sl612+"&pt_nguoi="+pt_nguoi+"&pt_giai_doan="+pt_giai_doan+"&pt_cuoi_tuan="+pt_cuoi_tuan+"&bua_an_bat_buoc="+bua_an_bat_buoc+"&dich_vu_khac="+dich_vu_khac+"&tong_pt="+tong_pt+"&kh_tt_pt_tai="+kh_tt_pt_tai+"&ly_giai_pt="+ly_giai_pt+"&danh_sach_doan_yeu_cau_khac="+danh_sach_doan_yeu_cau_khac+"&tien_chua_pt_khac="+tien_chua_pt_khac+"&tong_phu_thu_khac="+tong_phu_thu_khac+"&giam_gia_cho_kh_khac="+giam_gia_cho_kh_khac+"&tong_gia_tri_khac="+tong_gia_tri_khac+"&da_thanh_toan_khac="+da_thanh_toan_khac+"&kh_con_no_khac="+kh_con_no_khac+"&ngay_yeu_cau_kh_hoan_tat_tt_khac="+ngay_yeu_cau_kh_hoan_tat_tt_khac+"&lai_lo_khac="+lai_lo_khac+"&thue_vat_khac="+thue_vat_khac+"&thue_tndn_khac="+thue_tndn_khac+"&cp_marketing_khac="+cp_marketing_khac+"&cp_hau_can_khac="+cp_hau_can_khac+"&cp_hau_mai_khac="+cp_hau_mai_khac+"&cp_co_dinh_khac="+cp_co_dinh_khac+"&tien_chua_pt_khac2="+tien_chua_pt_khac2+"&tong_phu_thu_khac2="+tong_phu_thu_khac2+"&giam_gia_cua_dt_khac2="+giam_gia_cua_dt_khac2+"&tong_gia_tri_khac2="+tong_gia_tri_khac2+"&da_thanh_toan_khac2="+da_thanh_toan_khac2+"&bct_con_no_khac2="+bct_con_no_khac2+"&ngay_phai_hoan_tat_tt_cho_ks_khac2="+ngay_phai_hoan_tat_tt_cho_ks_khac2+"&ghi_chu_cua_dt_khac2="+ghi_chu_cua_dt_khac2+"&ten_kgd="+ten_kgd+"&nick_kgd="+nick_kgd+"&sdt_kgd="+sdt_kgd+"&email_kgd="+email_kgd+"&tk_kgd="+tk_kgd+"&ma_kgd="+ma_kgd+"&xep_hang_kgd="+xep_hang_kgd+"&ma_ctv="+ma_ctv+"&ma_nv="+ma_nv+"&ma_kho_popup_thong_tin_kho="+ma_kho_popup_thong_tin_kho+"&sl_lay_tu_kho="+sl_lay_tu_kho+"&tien_den="+list_price_1+"&tien_di="+list_price_2+"&ghi_chu_thanh_toan_1="+ghi_chu_thanh_toan_1+"&ghi_chu_thanh_toan_2="+ghi_chu_thanh_toan_2+"&action=insert";
                     $.ajax({
                         crossDomain: true,
                         url: url ,
@@ -2542,7 +2550,103 @@
                         dataType: "jsonp",
                     });
 
-                    var url2 = script_url+"?callback=ctrlq&thoi_gian="+today+"&trang_thai="+trang_thai+"&ma_lk="+ma_lk+"&ma_gd="+ma_gd+"&mbk="+idb2+"&ma_xac_nhan="+ma_xac_nhan+"&ten_khach_san_gd="+ten_khach_san_gd+"&ma_dich_vu_gd="+ma_dich_vu_gd+"&noi_di_gd="+noi_di_gd+"&noi_den_gd="+noi_den_gd+"&khach_dai_dien_gd="+khach_dai_dien_gd+"&sdt_gd="+sdt_gd+"&trang_thai_bkk_voi_kh_gd="+trang_thai_bkk_voi_kh_gd+"&ci_gd="+ci_gd+"&co_gd="+co_gd+"&so_dem_gd="+so_dem_gd +"&loai_phong_ban_gd="+loai_phong_ban_gd +"&sl_gd="+sl_gd2 +"&don_gia_ban_gd="+don_gia_ban_gd +"&don_vi_gd="+don_vi_gd +"&tong_gd="+tong_gd2 +"&ngay_lock_phong_khach="+ngay_lock_phong_khach +"&goi_dv_km_ban_gd="+goi_dv_km_ban_gd +"&ma_pro_gd="+ma_pro_gd +"&dich_vu_di_kem_gd="+dich_vu_di_kem_gd +"&ten_dt_gui_book_dt="+ten_dt_gui_book_dt+"&ma_dt="+ma_dt+"&trang_thai_bkk_voi_dt="+trang_thai_bkk_voi_dt+"&nick_dt="+nick_dt+"&ten_nv_dat_phong_dt="+ten_nv_dat_phong_dt+"&sdt_bpdp="+sdt_bpdp+"&ngay_duoc_huy="+ngay_duoc_huy+"&con_ngay_dt="+con_ngay_dt+"&ngay_duoc_thay_doi="+ngay_duoc_thay_doi+"&con_ngay_thay_doi_dt="+con_ngay_thay_doi_dt+"&loai_phong_ban_dt="+loai_phong_ban_dt+"&sl_dt="+sl_dt2+"&don_gia_ban_dt="+don_gia_ban_dt+"&don_vi_dt="+don_vi_dt+"&tong_dt="+tong_dt2+"&ngay_lock_phong_doi_tac="+ngay_lock_phong_doi_tac+"&goi_dv_km_ban_dt="+goi_dv_km_ban_dt+"&ma_pro_dt="+ma_pro_dt+"&dich_vu_di_kem_dt="+dich_vu_di_kem_dt+"&sl_nl="+sl_nl+"&gp="+gp+"&sl02="+sl02+"&sl24="+sl24+"&sl46="+sl46+"&sl612="+sl612+"&pt_nguoi="+pt_nguoi+"&pt_giai_doan="+pt_giai_doan+"&pt_cuoi_tuan="+pt_cuoi_tuan+"&bua_an_bat_buoc="+bua_an_bat_buoc+"&dich_vu_khac="+dich_vu_khac+"&tong_pt="+tong_pt+"&kh_tt_pt_tai="+kh_tt_pt_tai+"&ly_giai_pt="+ly_giai_pt+"&danh_sach_doan_yeu_cau_khac="+danh_sach_doan_yeu_cau_khac+"&tien_chua_pt_khac="+tien_chua_pt_khac+"&tong_phu_thu_khac="+tong_phu_thu_khac+"&giam_gia_cho_kh_khac="+giam_gia_cho_kh_khac+"&tong_gia_tri_khac="+tong_gia_tri_khac+"&da_thanh_toan_khac="+da_thanh_toan_khac+"&kh_con_no_khac="+kh_con_no_khac+"&ngay_yeu_cau_kh_hoan_tat_tt_khac="+ngay_yeu_cau_kh_hoan_tat_tt_khac+"&lai_lo_khac="+lai_lo_khac+"&thue_vat_khac="+thue_vat_khac+"&thue_tndn_khac="+thue_tndn_khac+"&cp_marketing_khac="+cp_marketing_khac+"&cp_hau_can_khac="+cp_hau_can_khac+"&cp_hau_mai_khac="+cp_hau_mai_khac+"&cp_co_dinh_khac="+cp_co_dinh_khac+"&tien_chua_pt_khac2="+tien_chua_pt_khac22+"&tong_phu_thu_khac2="+tong_phu_thu_khac2+"&giam_gia_cua_dt_khac2="+giam_gia_cua_dt_khac2+"&tong_gia_tri_khac2="+tong_gia_tri_khac22+"&da_thanh_toan_khac2="+da_thanh_toan_khac2+"&bct_con_no_khac2="+bct_con_no_khac22+"&ngay_phai_hoan_tat_tt_cho_ks_khac2="+ngay_phai_hoan_tat_tt_cho_ks_khac2+"&ghi_chu_cua_dt_khac2="+ghi_chu_cua_dt_khac2+"&ten_kgd="+ten_kgd+"&nick_kgd="+nick_kgd+"&sdt_kgd="+sdt_kgd+"&email_kgd="+email_kgd+"&tk_kgd="+tk_kgd+"&ma_kgd="+ma_kgd+"&xep_hang_kgd="+xep_hang_kgd+"&ma_ctv="+ma_ctv+"&ma_nv="+ma_nv+"&ma_kho_popup_thong_tin_kho="+ma_kho_popup_thong_tin_kho+"&sl_lay_tu_kho="+sl_lay_tu_kho+"&tien_den="+list_price_1+"&tien_di="+list_price_2+"&ghi_chu_thanh_toan_1="+ghi_chu_thanh_toan_1+"&ghi_chu_thanh_toan_2="+ghi_chu_thanh_toan_2+"&action=insert";
+                    var url2 = script_url+"?callback=ctrlq&thoi_gian="
+                        +today
+                        +"&trang_thai="+trang_thai
+                        +"&ma_lk="+ma_lk
+                        +"&ma_gd="+ma_gd
+                        +"&mbk="+idb2
+                        +"&ma_xac_nhan="+ma_xac_nhan
+                        +"&ten_khach_san_gd="+ten_khach_san_gd
+                        +"&ma_dich_vu_gd="+ma_dich_vu_gd
+                        +"&noi_di_gd="+noi_di_gd
+                        +"&noi_den_gd="+noi_den_gd
+                        +"&khach_dai_dien_gd="+khach_dai_dien_gd
+                        +"&sdt_gd="+sdt_gd
+                        +"&trang_thai_bkk_voi_kh_gd="+trang_thai_bkk_voi_kh_gd
+                        +"&ci_gd="+ci_gd
+                        +"&co_gd="+co_gd
+                        +"&so_dem_gd="+so_dem_gd
+                        +"&loai_phong_ban_gd="+loai_phong_ban_gd
+                        +"&sl_gd="+sl_gd
+                        +"&don_gia_ban_gd="+don_gia_ban_gd
+                        +"&don_vi_gd="+don_vi_gd
+                        +"&tong_gd="+tong_gd
+                        +"&ngay_lock_phong_khach="+ngay_lock_phong_khach
+                        +"&goi_dv_km_ban_gd="+goi_dv_km_ban_gd
+                        +"&ma_pro_gd="+ma_pro_gd
+                        +"&dich_vu_di_kem_gd="+dich_vu_di_kem_gd
+                        +"&ten_dt_gui_book_dt="+ten_dt_gui_book_dt
+                        +"&ma_dt="+ma_dt
+                        +"&trang_thai_bkk_voi_dt="+trang_thai_bkk_voi_dt
+                        +"&nick_dt="+nick_dt
+                        +"&ten_nv_dat_phong_dt="+ten_nv_dat_phong_dt
+                        +"&sdt_bpdp="+sdt_bpdp
+                        +"&ngay_duoc_huy="+ngay_duoc_huy
+                        +"&con_ngay_dt="+con_ngay_dt
+                        +"&ngay_duoc_thay_doi="+ngay_duoc_thay_doi
+                        +"&con_ngay_thay_doi_dt="+con_ngay_thay_doi_dt
+                        +"&loai_phong_ban_dt="+loai_phong_ban_dt
+                        +"&sl_dt="+sl_dt2
+                        +"&don_gia_ban_dt="+don_gia_ban_dt
+                        +"&don_vi_dt="+don_vi_dt
+                        +"&tong_dt="+tong_dt
+                        +"&ngay_lock_phong_doi_tac="+ngay_lock_phong_doi_tac
+                        +"&goi_dv_km_ban_dt="+goi_dv_km_ban_dt
+                        +"&ma_pro_dt="+ma_pro_dt
+                        +"&dich_vu_di_kem_dt="+dich_vu_di_kem_dt
+                        +"&sl_nl="+sl_nl
+                        +"&gp="+gp
+                        +"&sl02="+sl02
+                        +"&sl24="+sl24
+                        +"&sl46="+sl46
+                        +"&sl612="+sl612
+                        +"&pt_nguoi="+pt_nguoi
+                        +"&pt_giai_doan="+pt_giai_doan
+                        +"&pt_cuoi_tuan="+pt_cuoi_tuan
+                        +"&bua_an_bat_buoc="+bua_an_bat_buoc
+                        +"&dich_vu_khac="+dich_vu_khac
+                        +"&tong_pt="+tong_pt
+                        +"&kh_tt_pt_tai="+kh_tt_pt_tai
+                        +"&ly_giai_pt="+ly_giai_pt
+                        +"&danh_sach_doan_yeu_cau_khac="+danh_sach_doan_yeu_cau_khac
+                        +"&tien_chua_pt_khac="+tien_chua_pt_khac2
+                        +"&tong_phu_thu_khac="+tong_phu_thu_khac
+                        +"&giam_gia_cho_kh_khac="+giam_gia_cho_kh_khac
+                        +"&tong_gia_tri_khac="+tong_gia_tri_khac
+                        +"&da_thanh_toan_khac="+da_thanh_toan_khac
+                        +"&kh_con_no_khac="+kh_con_no_khac
+                        +"&ngay_yeu_cau_kh_hoan_tat_tt_khac="+ngay_yeu_cau_kh_hoan_tat_tt_khac
+                        +"&lai_lo_khac="+lai_lo_khac
+                        +"&thue_vat_khac="+thue_vat_khac
+                        +"&thue_tndn_khac="+thue_tndn_khac
+                        +"&cp_marketing_khac="+cp_marketing_khac
+                        +"&cp_hau_can_khac="+cp_hau_can_khac
+                        +"&cp_hau_mai_khac="+cp_hau_mai_khac
+                        +"&cp_co_dinh_khac="+cp_co_dinh_khac
+                        +"&tien_chua_pt_khac2="+tien_chua_pt_khac2
+                        +"&tong_phu_thu_khac2="+tong_phu_thu_khac2
+                        +"&giam_gia_cua_dt_khac2="+giam_gia_cua_dt_khac2
+                        +"&tong_gia_tri_khac2="+tong_gia_tri_khac2
+                        +"&da_thanh_toan_khac2="+da_thanh_toan_khac2
+                        +"&bct_con_no_khac2="+bct_con_no_khac2
+                        +"&ngay_phai_hoan_tat_tt_cho_ks_khac2="+ngay_phai_hoan_tat_tt_cho_ks_khac2
+                        +"&ghi_chu_cua_dt_khac2="+ghi_chu_cua_dt_khac2
+                        +"&ten_kgd="+ten_kgd
+                        +"&nick_kgd="+nick_kgd
+                        +"&sdt_kgd="+sdt_kgd
+                        +"&email_kgd="+email_kgd
+                        +"&tk_kgd="+tk_kgd
+                        +"&ma_kgd="+ma_kgd
+                        +"&xep_hang_kgd="+xep_hang_kgd
+                        +"&ma_ctv="+ma_ctv
+                        +"&ma_nv="+ma_nv
+                        +"&ma_kho_popup_thong_tin_kho="+ma_kho_popup_thong_tin_kho
+                        +"&sl_lay_tu_kho="+sl_lay_tu_kho
+                        +"&tien_den="+list_price_1
+                        +"&tien_di="+list_price_2
+                        +"&ghi_chu_thanh_toan_1="+ghi_chu_thanh_toan_1
+                        +"&ghi_chu_thanh_toan_2="+ghi_chu_thanh_toan_2+"&action=insert";
                     $.ajax({
                         crossDomain: true,
                         url: url2 ,
@@ -2561,7 +2665,7 @@
                             success: function (response) {
                             }
                         });
-                    },500);
+                    },500);*/
                 }
             },2000);
         }

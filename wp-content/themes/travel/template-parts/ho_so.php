@@ -144,91 +144,69 @@ if($_SESSION['sucess'] == "sucess") {
 
         <div id="content">
         <div class="quantri_admin">
-            <div class="menu_admin">
-                <div class="info_user">
-                    <div class="avatar">
-                        <?php
-                        if (isset($_SESSION['avatar'])) {
-                            echo '<img src="' . $_SESSION['avatar'] . '" alt="Ảnh đại diện">';
-                        } else {
-                            echo '<img src="' . get_template_directory_uri() . '/assets/images/user.png" alt="Ảnh đại diện">';
-                        }
-                        ?>
-
-                    </div>
-                    <div class="info">
-                        <p><strong>Hi: </strong><?php if (isset($_SESSION['name'])) {
-                                echo $_SESSION['name'];
-                            } ?> !</p>
-                        <button class="logout">Logout</button>
-                    </div>
-                </div>
-                <a href="<?php echo home_url('/') ?>ho-so" class="ho_so"><span class="dashicons dashicons-id"></span> Hồ
-                    sơ</a>
-                <?php
-                wp_nav_menu(array(
-                    'theme_location' => 'menu-1',
-                    'menu_id' => 'primary-menu',
-                    'menu' => 'Admin'
-                ));
-                ?>
-            </div>
+            <?php include 'inc/template_menu.php'; ?>
 
             <div class="content_admin">
                 <div class="giao_dich_moi add_user edit_user">
                     <h1>Hồ sơ</h1>
                     <form action="<?php echo get_home_url('/') ?>/ho-so" method="post" enctype="multipart/form-data">
-                        <ul class="list_ho_so">
-                            <li>
-                                <label>Tên biệt danh</label>
-                                <input type="text" name="ten_biet_danh_tai_khoan" class="ten_biet_danh_tai_khoan"
-                                       value="<?php echo $ten_biet_danh_tai_khoan; ?>" required>
-                            </li>
-                            <li>
-                                <label>Họ và tên</label>
-                                <input type="text" name="ho_va_ten_tai_khoan" class="ho_va_ten_tai_khoan"
-                                       value="<?php echo $ho_va_ten_tai_khoan; ?>" required>
-                            </li>
-                            <li>
-                                <label>Số điện thoại</label>
-                                <input type="number" name="sdt_tai_khoan" class="sdt_tai_khoan"
-                                       value="<?php echo $sdt_tai_khoan; ?>" required>
-                            </li>
-                            <li>
-                                <label>Số chứng minh thư</label>
-                                <input type="number" name="cmt_tai_khoan" class="cmt_tai_khoan"
-                                       value="<?php echo $cmt_tai_khoan; ?>" required>
-                            </li>
-                            <li>
-                                <label>Bộ phận</label>
-                                <select name="bo_phan_tai_khoan" class="bo_phan_tai_khoan"
-                                        data-check="<?php echo $bo_phan_tai_khoan; ?>" disabled>
-                                    <option value="Quản lý">Quản lý</option>
-                                    <option value="Sales">Sales</option>
-                                    <option value="Booking">Booking</option>
-                                    <option value="Kế toán">Kế toán</option>
-                                </select>
-                            </li>
-                            <li>
-                                <label>Đổi mật khẩu</label>
-                                <input type="password" name="mat_khau_tai_khoan" class="mat_khau_tai_khoan" value="">
-                            </li>
-                            <li>
-                                <label for="file">Ảnh đại diện</label>
-                                <input type="file" name="anh_dai_dien" class="anh_dai_dien"
-                                       value="<?php the_post_thumbnail_url(); ?>">
-                                <button class="btn_upload_image">Chọn ảnh</button>
-                            </li>
-                            <li>
-                                <label>Địa chỉ</label>
-                                <textarea type="number" name="dia_chi_tai_khoan"
-                                          class="dia_chi_tai_khoan"><?php echo $dia_chi_tai_khoan; ?></textarea>
-                                <div class="get_alert"></div>
-                                <?php if ($alert) {
-                                    echo $alert;
-                                } ?>
-                            </li>
-                        </ul>
+                        <div class="all">
+                            <ul class="list_ho_so">
+                                <li>
+                                    <label>Tên biệt danh</label>
+                                    <input type="text" name="ten_biet_danh_tai_khoan" class="ten_biet_danh_tai_khoan"
+                                           value="<?php echo $ten_biet_danh_tai_khoan; ?>" required>
+                                </li>
+                                <li>
+                                    <label>Họ và tên</label>
+                                    <input type="text" name="ho_va_ten_tai_khoan" class="ho_va_ten_tai_khoan"
+                                           value="<?php echo $ho_va_ten_tai_khoan; ?>" required>
+                                </li>
+                                <li>
+                                    <label>Số điện thoại</label>
+                                    <input type="number" name="sdt_tai_khoan" class="sdt_tai_khoan"
+                                           value="<?php echo $sdt_tai_khoan; ?>" required>
+                                </li>
+                                <li>
+                                    <label>Số chứng minh thư</label>
+                                    <input type="number" name="cmt_tai_khoan" class="cmt_tai_khoan"
+                                           value="<?php echo $cmt_tai_khoan; ?>" required>
+                                </li>
+                                <li>
+                                    <label>Bộ phận</label>
+                                    <select name="bo_phan_tai_khoan" class="bo_phan_tai_khoan"
+                                            data-check="<?php echo $bo_phan_tai_khoan; ?>" disabled>
+                                        <option value="Quản lý">Quản lý</option>
+                                        <option value="Sales">Sales</option>
+                                        <option value="Booking">Booking</option>
+                                        <option value="Kế toán">Kế toán</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <label>Đổi mật khẩu</label>
+                                    <input type="password" name="mat_khau_tai_khoan" class="mat_khau_tai_khoan" value="">
+                                </li>
+                                <li>
+                                    <label for="file">Ảnh đại diện</label>
+                                    <input type="file" name="anh_dai_dien" class="anh_dai_dien"
+                                           value="<?php the_post_thumbnail_url(); ?>">
+                                    <button class="btn_upload_image">Chọn ảnh</button>
+                                </li>
+                                <li>
+                                    <label>Địa chỉ</label>
+                                    <textarea type="number" name="dia_chi_tai_khoan"
+                                              class="dia_chi_tai_khoan"><?php echo $dia_chi_tai_khoan; ?></textarea>
+                                    <div class="get_alert"></div>
+                                    <?php if ($alert) {
+                                        echo $alert;
+                                    } ?>
+                                    <div class="acf-form-submit">
+                                        <input type="submit" name="sub_update_user" value="Cập nhập">
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
 
                         <div class="screen_user">
                             <div class="screen">
@@ -293,9 +271,6 @@ if($_SESSION['sucess'] == "sucess") {
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="acf-form-submit">
-                            <input type="submit" name="sub_update_user" value="Cập nhập">
                         </div>
                     </form>
                 </div>

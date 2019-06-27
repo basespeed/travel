@@ -125,34 +125,7 @@ if (isset($_POST['sub_update_user'])) {
 
 <div id="content">
     <div class="quantri_admin">
-        <div class="menu_admin">
-            <div class="info_user">
-                <div class="avatar">
-                    <?php
-                    if (isset($_SESSION['avatar'])) {
-                        echo '<img src="' . $_SESSION['avatar'] . '" alt="Ảnh đại diện">';
-                    } else {
-                        echo '<img src="' . get_template_directory_uri() . '/assets/images/user.png" alt="Ảnh đại diện">';
-                    }
-                    ?>
-
-                </div>
-                <div class="info">
-                    <p><strong>Hi: </strong><?php if (isset($_SESSION['name'])) {
-                            echo $_SESSION['name'];
-                        } ?> !</p>
-                    <button class="logout">Logout</button>
-                </div>
-            </div>
-            <a href="<?php echo home_url('/') ?>ho-so" class="ho_so"><span class="dashicons dashicons-id"></span> Hồ sơ</a>
-            <?php
-            wp_nav_menu(array(
-                'theme_location' => 'menu-1',
-                'menu_id' => 'primary-menu',
-                'menu' => 'Admin'
-            ));
-            ?>
-        </div>
+        <?php include get_template_directory(). '/template-parts/inc/template_menu.php'; ?>
 
         <div class="content_admin">
             <div class="giao_dich_moi add_user edit_user">
@@ -228,6 +201,9 @@ if (isset($_POST['sub_update_user'])) {
                             <?php if ($alert) {
                                 echo $alert;
                             } ?>
+                            <div class="acf-form-submit">
+                                <input type="submit" name="sub_update_user" value="Cập nhập">
+                            </div>
                         </li>
                     </ul>
 
@@ -294,9 +270,6 @@ if (isset($_POST['sub_update_user'])) {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="acf-form-submit">
-                        <input type="submit" name="sub_update_user" value="Cập nhập">
                     </div>
                 </form>
             </div>
