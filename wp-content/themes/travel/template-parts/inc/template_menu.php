@@ -1,4 +1,4 @@
-<div class="menu_admin animated tada">
+<div class="menu_admin animated fadeIn">
     <div class="toggle_menu_setting">
         <i class="fa fa-cog" aria-hidden="true"></i>
     </div>

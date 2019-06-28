@@ -2,15 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="10ff4d42-bfd7-474d-a996-a827b798cfe4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/travel.zip" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/themes/travel/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/travel/assets/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/themes/travel/assets/js/js.js" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/travel/assets/js/js.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/themes/travel/assets/sass/inc/base.scss" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/travel/assets/sass/inc/base.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/travel/assets/sass/inc/admin.scss" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/travel/assets/sass/inc/admin.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/themes/travel/assets/sass/inc/giao_dich.scss" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/travel/assets/sass/inc/giao_dich.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/themes/travel/inc/ajax/ajax-khach-san.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/travel/inc/ajax/ajax-khach-san.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/travel/template-parts/history_giao_dich.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/travel/template-parts/history_giao_dich.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/travel/template-parts/inc/template_booking.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/travel/template-parts/inc/template_booking.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/travel/template-parts/inc/template_menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/travel/template-parts/inc/template_menu.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/themes/travel/template-parts/inc/template_search_bk.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/travel/template-parts/inc/template_search_bk.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/themes/travel/template-parts/tach-booking.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/travel/template-parts/tach-booking.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/themes/travel/template-parts/them_giao_dich.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/travel/template-parts/them_giao_dich.php" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/node_modules/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,19 +36,31 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/template-parts/inc/template_search_bk.php">
+        <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/template-parts/them_giao_dich.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="49" selection-start-line="22" selection-start-column="40" selection-end-line="22" selection-end-column="49" />
+            <state relative-caret-position="1430">
+              <caret line="194" column="50" lean-forward="true" selection-start-line="194" selection-start-column="50" selection-end-line="194" selection-end-column="50" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/template-parts/them_giao_dich.php">
+        <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/template-parts/history_giao_dich.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="495">
-              <caret line="337" column="46" lean-forward="true" selection-start-line="337" selection-start-column="46" selection-end-line="337" selection-end-column="46" />
+            <state relative-caret-position="467">
+              <caret line="408" column="60" lean-forward="true" selection-start-line="408" selection-start-column="60" selection-end-line="408" selection-end-column="60" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/template-parts/all_giao_dich.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-170">
+              <caret line="14" column="107" lean-forward="true" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="107" />
+              <folding>
+                <element signature="e#6#42#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -63,10 +75,28 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/template-parts/inc/template_search_bk.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="127">
+              <caret line="23" column="25" lean-forward="true" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/inc/ajax/ajax-khach-san.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="633" column="14" lean-forward="true" selection-start-line="633" selection-start-column="14" selection-end-line="633" selection-end-column="14" />
+            <state relative-caret-position="671">
+              <caret line="732" column="18" selection-start-line="732" selection-start-column="18" selection-end-line="732" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/assets/sass/inc/admin.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="235">
+              <caret line="16" column="19" lean-forward="true" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -74,17 +104,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/assets/js/js.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="468">
-              <caret line="655" column="24" selection-start-line="655" selection-start-column="16" selection-end-line="655" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/assets/sass/inc/giao_dich.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="1150" column="20" lean-forward="true" selection-start-line="1150" selection-start-column="20" selection-end-line="1150" selection-end-column="20" />
+            <state relative-caret-position="332">
+              <caret line="2371" column="25" lean-forward="true" selection-start-line="2371" selection-start-column="25" selection-end-line="2371" selection-end-column="25" />
+              <folding>
+                <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -92,8 +117,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/template-parts/inc/template_menu.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="36" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="36" />
+            <state relative-caret-position="527">
+              <caret line="31" column="6" lean-forward="true" selection-start-line="31" selection-start-column="6" selection-end-line="31" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -102,16 +127,9 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>tong_gd</find>
-      <find>tong_gd2</find>
-      <find>tien_chua_pt_khac2</find>
-      <find>tong_dt</find>
-      <find>tien_chua_pt_khac</find>
-      <find>22</find>
       <find>khach_dai</find>
       <find>header</find>
       <find>.content_admin</find>
-      <find>.acf-form-submit</find>
       <find>.single-tai_khoan .acf-form-submit</find>
       <find>acf-form-submit</find>
       <find>.save_tach_bk</find>
@@ -131,7 +149,14 @@
       <find>BTC_</find>
       <find>BCT_</find>
       <find>sub_search_gd</find>
+      <find>chat</find>
       <find>search_hotel</find>
+      <find>key_month</find>
+      <find>key_day</find>
+      <find>.acf-form-submit</find>
+      <find>Gói DV - KM bán</find>
+      <find>Gói DV - KM mua</find>
+      <find>Nick</find>
     </findStrings>
     <replaceStrings>
       <replace>ĐT</replace>
@@ -170,7 +195,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/wp-content/themes/travel/template-parts/chat.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/travel/template-parts/cong_tac_vien.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/travel/template-parts/doi_tac.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/travel/template-parts/edit-ctv.php" />
@@ -180,7 +204,6 @@
         <option value="$PROJECT_DIR$/wp-content/themes/travel/template-parts/edit_khuyen_mai.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/travel/template-parts/edit_nhan_vien.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/travel/template-parts/edit_tai_khoan.php" />
-        <option value="$PROJECT_DIR$/wp-content/themes/travel/template-parts/history_giao_dich.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/travel/template-parts/import_excel_hotel.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/travel/template-parts/khach_san.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/travel/template-parts/nhan_vien.php" />
@@ -209,22 +232,24 @@
         <option value="$PROJECT_DIR$/wp-content/themes/travel/template-parts/single/single_khach_hang.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/travel/template-parts/add_khach_hang.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/travel/template-parts/add_dia_diem.php" />
-        <option value="$PROJECT_DIR$/wp-content/themes/travel/template-parts/inc/template_menu.php" />
-        <option value="$PROJECT_DIR$/wp-content/themes/travel/assets/sass/inc/admin.scss" />
         <option value="$PROJECT_DIR$/wp-content/themes/travel/template-parts/single/sua-giao-dich.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/travel/functions.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/travel/template-parts/all_giao_dich.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/travel/template-parts/them_giao_dich.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/travel/template-parts/tach-booking.php" />
+        <option value="$PROJECT_DIR$/wp-content/themes/travel/assets/sass/inc/base.scss" />
+        <option value="$PROJECT_DIR$/wp-content/themes/travel/template-parts/history_giao_dich.php" />
+        <option value="$PROJECT_DIR$/wp-content/themes/travel/assets/sass/inc/giao_dich.scss" />
         <option value="$PROJECT_DIR$/wp-content/themes/travel/template-parts/inc/template_search_bk.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/travel/assets/js/js.js" />
+        <option value="$PROJECT_DIR$/wp-content/themes/travel/template-parts/inc/template_menu.php" />
+        <option value="$PROJECT_DIR$/wp-content/themes/travel/assets/sass/inc/admin.scss" />
+        <option value="$PROJECT_DIR$/wp-content/themes/travel/template-parts/inc/template_booking.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/travel/inc/ajax/ajax-khach-san.php" />
-        <option value="$PROJECT_DIR$/wp-content/themes/travel/assets/sass/inc/base.scss" />
-        <option value="$PROJECT_DIR$/wp-content/themes/travel/assets/sass/inc/giao_dich.scss" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="260" />
     <option name="y" value="20" />
     <option name="width" value="1400" />
@@ -447,12 +472,12 @@
       <workItem from="1561600315489" duration="3589000" />
       <workItem from="1561604013972" duration="17692000" />
       <workItem from="1561685666792" duration="7333000" />
-      <workItem from="1561693158438" duration="2272000" />
+      <workItem from="1561693158438" duration="18157000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1146516000" />
+    <option name="totallyTimeSpent" value="1162401000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
@@ -534,13 +559,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="11" column="57" selection-start-line="11" selection-start-column="57" selection-end-line="11" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/template-parts/history_giao_dich.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="53" selection-start-line="9" selection-start-column="53" selection-end-line="9" selection-end-column="53" />
         </state>
       </provider>
     </entry>
@@ -767,13 +785,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/assets/sass/inc/admin.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="681">
-          <caret line="881" column="41" selection-start-line="881" selection-start-column="41" selection-end-line="881" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/template-parts/them_doi_tac.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="663">
@@ -791,16 +802,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/template-parts/all_giao_dich.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10149">
-          <caret line="598" column="56" selection-start-line="598" selection-start-column="56" selection-end-line="598" selection-end-column="56" />
-          <folding>
-            <element signature="e#6#42#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/functions.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1190">
@@ -815,55 +816,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/template-parts/inc/template_booking.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="2625" column="53" selection-start-line="2625" selection-start-column="53" selection-end-line="2625" selection-end-column="53" />
-          <folding>
-            <element signature="e#149593#149613#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/template-parts/tach-booking.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="291">
           <caret line="180" column="91" selection-start-line="180" selection-start-column="91" selection-end-line="180" selection-end-column="91" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/template-parts/inc/template_menu.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="36" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/template-parts/single/sua-giao-dich.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="623">
-          <caret line="516" column="38" selection-start-line="516" selection-start-column="38" selection-end-line="516" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/template-parts/them_giao_dich.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="337" column="46" lean-forward="true" selection-start-line="337" selection-start-column="46" selection-end-line="337" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/template-parts/inc/template_search_bk.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="49" selection-start-line="22" selection-start-column="40" selection-end-line="22" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/inc/ajax/ajax-khach-san.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="633" column="14" lean-forward="true" selection-start-line="633" selection-start-column="14" selection-end-line="633" selection-end-column="14" />
         </state>
       </provider>
     </entry>
@@ -874,17 +830,87 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/assets/js/js.js">
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/assets/sass/inc/giao_dich.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="655" column="24" selection-start-line="655" selection-start-column="16" selection-end-line="655" selection-end-column="24" />
+        <state relative-caret-position="664">
+          <caret line="1454" column="69" selection-start-line="1454" selection-start-column="55" selection-end-line="1454" selection-end-column="69" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/assets/sass/inc/giao_dich.scss">
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/assets/js/js.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="1150" column="20" lean-forward="true" selection-start-line="1150" selection-start-column="20" selection-end-line="1150" selection-end-column="20" />
+        <state relative-caret-position="332">
+          <caret line="2371" column="25" lean-forward="true" selection-start-line="2371" selection-start-column="25" selection-end-line="2371" selection-end-column="25" />
+          <folding>
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/template-parts/all_giao_dich.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-170">
+          <caret line="14" column="107" lean-forward="true" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="107" />
+          <folding>
+            <element signature="e#6#42#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/template-parts/single/sua-giao-dich.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="623">
+          <caret line="516" column="38" selection-start-line="516" selection-start-column="38" selection-end-line="516" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/template-parts/inc/template_menu.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="31" column="6" lean-forward="true" selection-start-line="31" selection-start-column="6" selection-end-line="31" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/template-parts/history_giao_dich.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="467">
+          <caret line="408" column="60" lean-forward="true" selection-start-line="408" selection-start-column="60" selection-end-line="408" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/template-parts/them_giao_dich.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1430">
+          <caret line="194" column="50" lean-forward="true" selection-start-line="194" selection-start-column="50" selection-end-line="194" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/template-parts/inc/template_booking.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="2629" column="48" selection-start-line="2629" selection-start-column="48" selection-end-line="2629" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/assets/sass/inc/admin.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="16" column="19" lean-forward="true" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/template-parts/inc/template_search_bk.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="127">
+          <caret line="23" column="25" lean-forward="true" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/travel/inc/ajax/ajax-khach-san.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="671">
+          <caret line="732" column="18" selection-start-line="732" selection-start-column="18" selection-end-line="732" selection-end-column="18" />
         </state>
       </provider>
     </entry>

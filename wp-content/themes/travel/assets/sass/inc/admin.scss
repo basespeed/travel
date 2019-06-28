@@ -305,7 +305,7 @@
       position: relative;
       bottom:0px;
       left: 0px;
-      z-index: 100;
+      z-index: -1;
       margin-top: 5px;
     }
     .acf-form-submit input {
@@ -432,7 +432,7 @@ a.view{
     position: relative;
     bottom:0px;
     left: 0px;
-    z-index: 100;
+    z-index: -1;
     margin-top: 5px;
   }
   .acf-form-submit input {
@@ -760,7 +760,7 @@ a.ho_so{
     position: relative;
     bottom:0px;
     left: 0px;
-    z-index: 100;
+    z-index: -1;
     margin-top: 5px;
   }
   .acf-form-submit input {

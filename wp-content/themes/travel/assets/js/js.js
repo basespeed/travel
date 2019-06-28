@@ -637,9 +637,10 @@
         var key_mlk = $(this).siblings('input.key_mlk').val();
         var key_code = $(this).siblings('input.key_code').val();
         var key_tks = $(this).siblings('input.key_tks').val();
-        var key_day = $(this).siblings('input.key_day').val();
-        var key_month = $(this).siblings('input.key_month').val();
-        var key_year = $(this).siblings('input.key_year').val();
+        var key_day = $(this).siblings('select.key_day').val();
+        var key_month = $(this).siblings('select.key_month').val();
+        var key_year = $(this).siblings('select.key_year').val();
+        var key_check_date = $(this).siblings('select.key_check_date').val();
         $.ajax({
             type: "post",
             dataType: "html",
@@ -654,6 +655,7 @@
                 key_day : key_day,
                 key_month : key_month,
                 key_year : key_year,
+                key_check_date : key_check_date,
             },
             success: function(response){
                 $('.content_hotel_list').html(response);
@@ -2358,15 +2360,21 @@
             }
         }
 
-        $('.key_date').on('change', function(){
+        $('.key_month').on('change', function(){
             var now = new Date();
             var currentYear = now.getFullYear();
             var numOfDays = new Date(currentYear, parseInt($(this).val()),0).getDate();
             var days = new Array();
             $('.key_day').empty();
+            $('.key_day').append('<option value="Chọn ngày" selected disabled="">Chọn ngày</option>');
             for(var i=1;i<=numOfDays;i++)
             {
-                $('.key_day').append('<option value="'+i+'">'+i+'</option>');
+                if(i<10){
+                    $('.key_day').append('<option value="0'+i+'">0'+i+'</option>');
+                }else{
+                    $('.key_day').append('<option value="'+i+'">'+i+'</option>');
+                }
+
             }
         });
 

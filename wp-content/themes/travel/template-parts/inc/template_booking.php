@@ -1387,33 +1387,16 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                         if(isset($_POST['add_edit_giao_dich']) || isset($_POST['sub_tach_giao_dich'])){
                             $goi_dv_km_ban_gd = $_POST['goi_dv_km_ban_gd'];
                             ?>
-                            <select name="goi_dv_km_ban_gd" class="goi_dv_km_ban_gd" data-check="<?php echo $goi_dv_km_ban_gd; ?>" required>
-                                <option value="" selected disabled hidden>Chọn gói DV - KM</option>
-                                <option value="BB - Ăn sáng">BB - Ăn sáng</option>
-                                <option value="FB - Ăn 3 bữa">FB - Ăn 3 bữa</option>
-                                <option value="FBV - Ăn 3 bữa + Vui chơi">FBV - Ăn 3 bữa + Vui chơi</option>
-                                <option value="FBVS - Ăn 3 bữa + Vui chơi + Safari">FBVS - Ăn 3 bữa + Vui chơi + Safari</option>
-                            </select>
+                            <input name="goi_dv_km_ban_gd" class="goi_dv_km_ban_gd" value="<?php echo $goi_dv_km_ban_gd; ?>"/>
                             <?php
                         }elseif(is_page(213) || is_page()){
                             $goi_dv_km_ban_gd = $_POST['goi_dv_km_ban_gd'];
                             ?>
-                            <select name="goi_dv_km_ban_gd" class="goi_dv_km_ban_gd" required>
-                                <option value="BB - Ăn sáng" selected>BB - Ăn sáng</option>
-                                <option value="FB - Ăn 3 bữa">FB - Ăn 3 bữa</option>
-                                <option value="FBV - Ăn 3 bữa + Vui chơi">FBV - Ăn 3 bữa + Vui chơi</option>
-                                <option value="FBVS - Ăn 3 bữa + Vui chơi + Safari">FBVS - Ăn 3 bữa + Vui chơi + Safari</option>
-                            </select>
+                            <input name="goi_dv_km_ban_gd" class="goi_dv_km_ban_gd" value="<?php echo $goi_dv_km_ban_gd; ?>"/>
                             <?php
                         }else{
                             ?>
-                            <select name="goi_dv_km_ban_gd" class="goi_dv_km_ban_gd" data-check="<?php echo get_field('goi_dv_km_ban_gd'); ?>" required>
-                                <option value="" selected disabled hidden>Chọn gói DV - KM</option>
-                                <option value="BB - Ăn sáng">BB - Ăn sáng</option>
-                                <option value="FB - Ăn 3 bữa">FB - Ăn 3 bữa</option>
-                                <option value="FBV - Ăn 3 bữa + Vui chơi">FBV - Ăn 3 bữa + Vui chơi</option>
-                                <option value="FBVS - Ăn 3 bữa + Vui chơi + Safari">FBVS - Ăn 3 bữa + Vui chơi + Safari</option>
-                            </select>
+                            <input name="goi_dv_km_ban_gd" class="goi_dv_km_ban_gd" value="<?php echo get_field('goi_dv_km_ban_gd'); ?>"/>
                             <?php
                         }
                         ?>
@@ -1738,33 +1721,16 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                         if(isset($_POST['add_edit_giao_dich']) || isset($_POST['sub_tach_giao_dich'])){
                             $goi_dv_km_ban_dt = $_POST['goi_dv_km_ban_dt'];
                             ?>
-                            <select name="goi_dv_km_ban_dt" class="goi_dv_km_ban_dt" data-check="<?php echo $goi_dv_km_ban_dt; ?>" required>
-                                <option value="" selected disabled hidden>Chọn gói DV - KM</option>
-                                <option value="BB - Ăn sáng">BB - Ăn sáng</option>
-                                <option value="FB - Ăn 3 bữa">FB - Ăn 3 bữa</option>
-                                <option value="FBV - Ăn 3 bữa + Vui chơi">FBV - Ăn 3 bữa + Vui chơi</option>
-                                <option value="FBVS - Ăn 3 bữa + Vui chơi + Safari">FBVS - Ăn 3 bữa + Vui chơi + Safari</option>
-                            </select>
+                            <input name="goi_dv_km_ban_dt" class="goi_dv_km_ban_dt" data-check="<?php echo $goi_dv_km_ban_dt; ?>" />
                             <?php
                         }elseif(is_page(213) || is_page()){
                             $goi_dv_km_ban_dt = $_POST['goi_dv_km_ban_dt'];
                             ?>
-                            <select name="goi_dv_km_ban_dt" class="goi_dv_km_ban_dt" required>
-                                <option value="BB - Ăn sáng" selected>BB - Ăn sáng</option>
-                                <option value="FB - Ăn 3 bữa">FB - Ăn 3 bữa</option>
-                                <option value="FBV - Ăn 3 bữa + Vui chơi">FBV - Ăn 3 bữa + Vui chơi</option>
-                                <option value="FBVS - Ăn 3 bữa + Vui chơi + Safari">FBVS - Ăn 3 bữa + Vui chơi + Safari</option>
-                            </select>
+                            <input name="goi_dv_km_ban_dt" class="goi_dv_km_ban_dt" data-check="<?php echo $goi_dv_km_ban_dt; ?>" />
                             <?php
                         }else{
                             ?>
-                            <select name="goi_dv_km_ban_dt" class="goi_dv_km_ban_dt" data-check="<?php echo get_field('goi_dv_km_ban_dt'); ?>" required>
-                                <option value="" selected disabled hidden>Chọn gói DV - KM</option>
-                                <option value="BB - Ăn sáng">BB - Ăn sáng</option>
-                                <option value="FB - Ăn 3 bữa">FB - Ăn 3 bữa</option>
-                                <option value="FBV - Ăn 3 bữa + Vui chơi">FBV - Ăn 3 bữa + Vui chơi</option>
-                                <option value="FBVS - Ăn 3 bữa + Vui chơi + Safari">FBVS - Ăn 3 bữa + Vui chơi + Safari</option>
-                            </select>
+                            <input name="goi_dv_km_ban_dt" class="goi_dv_km_ban_dt" data-check="<?php echo get_field('goi_dv_km_ban_dt'); ?>" />
                             <?php
                         }
                         ?>
@@ -1811,7 +1777,7 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
 
     <?php
         global $post;
-        if( !$post->ID == 213 || !$post->ID == 1142 || !$post->ID == 1189) :
+        if( !$post->ID == 213 || !$post->ID == 1142 || !$post->ID == 1189 || is_singular('giao_dich')) :
     ?>
     <tr>
         <td colspan="3"><table width="100%" border="1" id="show_chat" class="show_chat_table" data-id="<?php echo $ma_gd_them_booking; ?>">
@@ -2661,7 +2627,7 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                 <tbody>
                 <tr>
                     <td width="15%">Tên KGD</td>
-                    <td width="8%">Nick KGD</td>
+                    <td width="8%">Nick Facebook</td>
                     <td width="8%">SĐT KGD</td>
                     <td width="15%">Email KGD (duy nhất)</td>
                     <td width="12%">TK KGD</td>

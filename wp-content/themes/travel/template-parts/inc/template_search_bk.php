@@ -5,6 +5,10 @@
         <input type="text" name="key_mlk" class="key_mlk" placeholder="MLK...">
         <input type="text" name="key_code" class="key_code" placeholder="CODE...">
         <input type="text" name="key_tks" class="key_tks" placeholder="Tên khách sạn...">
+        <select name="key_check_date" class="key_check_date">
+            <option value="Check-in">Check-in</option>
+            <option value="Check-out">Check-out</option>
+        </select>
         <select name="key_day" class="key_day">
             <option value="Chọn ngày" selected disabled>Chọn ngày</option>
             <?php
@@ -14,9 +18,15 @@
             $d = date('d', strtotime('last day of this month', strtotime($y_m))); // get max date of current month: 28, 29, 30 or 31.
 
             for ($i = 1; $i <= $d; $i++) {
-                ?>
-                <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                <?php
+                if($i < 10){
+                    ?>
+                    <option value="<?php echo '0'.$i; ?>"><?php echo '0'.$i; ?></option>
+                    <?php
+                }else{
+                    ?>
+                    <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                    <?php
+                }
             }
             ?>
         </select>
@@ -25,9 +35,15 @@
             <?php
                 $month = 1;
                 for($month; $month <= 12; $month++) {
-                    ?>
-                    <option value="<?php echo $month; ?>"><?php echo $month; ?></option>
-                    <?php
+                    if($month < 10){
+                        ?>
+                        <option value="<?php echo '0'.$month; ?>"><?php echo '0'.$month; ?></option>
+                        <?php
+                    }else{
+                        ?>
+                        <option value="<?php echo $month; ?>"><?php echo $month; ?></option>
+                        <?php
+                    }
                 }
             ?>
         </select>

@@ -563,9 +563,26 @@ function search_gd() {
     $key_mlk = $_POST['key_mlk'];
     $key_code = $_POST['key_code'];
     $key_tks = $_POST['key_tks'];
+
     $key_day = $_POST['key_day'];
+
     $key_month = $_POST['key_month'];
+
     $key_year = $_POST['key_year'];
+
+    $key_check_date = $_POST['key_check_date'];
+
+    if($key_check_date == 'Check-in'){
+        $check_date = 'ci_gd';
+    }elseif($key_check_date == 'Check-out'){
+        $check_date = 'co_gd';
+    }
+
+    var_dump($key_year.$key_month.$key_day);
+
+    $day_current = date('d');
+    $month_current = date('m');
+    $year_current = date('Y');
 
     if(!empty($key_mgd) || !empty($key_mbk) || !empty($key_mlk) || !empty($key_code) || !empty($key_tks) || !empty($key_day) || !empty($key_month) || !empty($key_year)){
         $posts = new WP_Query(array(
@@ -631,6 +648,99 @@ function search_gd() {
                     'compare'	=> '='
                 ),
             ) ;
+        }elseif(!empty($key_day)){
+            $meta_query = array(
+                'relation'		=> 'AND',
+                array(
+                    'key' => $check_date,
+                    'value' => '201901'.$key_day,
+                    'compare' => '>=',
+                ),
+                array(
+                    'key' => $check_date,
+                    'value' => '205012'.$key_day,
+                    'compare' => '<=',
+                ),
+            ) ;
+        }elseif(!empty($key_month)){
+            $meta_query = array(
+                'relation'		=> 'AND',
+                array(
+                    'key' => $check_date,
+                    'value' => '2019'.$key_month.'01',
+                    'compare' => '>=',
+                ),
+                array(
+                    'key' => $check_date,
+                    'value' => '2050'.$key_month.'12',
+                    'compare' => '<=',
+                ),
+            );
+        }elseif(!empty($key_year)){
+            $meta_query = array(
+                'relation'		=> 'AND',
+                array(
+                    'key' => $check_date,
+                    'value' => $key_year.'0101',
+                    'compare' => '>=',
+                ),
+                array(
+                    'key' => $check_date,
+                    'value' => $key_year.'1231',
+                    'compare' => '<=',
+                ),
+            ) ;
+        }elseif(!empty($key_year) && !empty($key_month)){
+            $meta_query = array(
+                'relation'		=> 'AND',
+                array(
+                    'key' => $check_date,
+                    'value' => $key_year.$key_month.'01',
+                    'compare' => '>=',
+                ),
+                array(
+                    'key' => $check_date,
+                    'value' => $key_year.$key_month.'31',
+                    'compare' => '<=',
+                ),
+            ) ;
+        }elseif(!empty($key_year) && !empty($key_day)){
+            $meta_query = array(
+                'relation'		=> 'AND',
+                array(
+                    'key' => $check_date,
+                    'value' => $key_year.'01'.$key_day,
+                    'compare' => '>=',
+                ),
+                array(
+                    'key' => $check_date,
+                    'value' => $key_year.'12'.$key_day,
+                    'compare' => '<=',
+                ),
+            ) ;
+        }elseif(!empty($key_month) && !empty($key_day)){
+            $meta_query = array(
+                'relation'		=> 'AND',
+                array(
+                    'key' => $check_date,
+                    'value' => '20190816',
+                    'compare' => '>=',
+                ),
+                array(
+                    'key' => $check_date,
+                    'value' => '20190831',
+                    'compare' => '<=',
+                ),
+            ) ;
+        }elseif(!empty($key_month) && !empty($key_day) && !empty($key_year)){
+            $meta_query = array(
+                'relation'		=> 'OR',
+                array(
+                    'key' => 'co_gd',
+                    'value' => $key_year.$key_month.$key_day,
+                    'compare' => '=',
+                ),
+            ) ;
         }else{
             $meta_query = array(
                 'relation'		=> 'OR',
@@ -658,6 +768,11 @@ function search_gd() {
                     'key'		=> 'ten_khach_san_gd',
                     'value'		=> $hotel_id,
                     'compare'	=> '='
+                ),
+                array(
+                    'key' => $check_date,
+                    'value' => $key_year.$key_month.$key_day,
+                    'compare' => '=',
                 ),
             );
         }
