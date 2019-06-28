@@ -632,12 +632,29 @@
     });
     $('.search_hotel .sub_search_gd').on('click', function (e) {
         e.preventDefault();
-        var keyword = $(this).siblings('input').val();
+        var key_mgd = $(this).siblings('input.key_mgd').val();
+        var key_mbk = $(this).siblings('input.key_mbk').val();
+        var key_mlk = $(this).siblings('input.key_mlk').val();
+        var key_code = $(this).siblings('input.key_code').val();
+        var key_tks = $(this).siblings('input.key_tks').val();
+        var key_day = $(this).siblings('input.key_day').val();
+        var key_month = $(this).siblings('input.key_month').val();
+        var key_year = $(this).siblings('input.key_year').val();
         $.ajax({
             type: "post",
             dataType: "html",
             url: my_ajax_object.ajax_url,
-            data: {action: "search_gd", keyword : keyword},
+            data: {
+                action: "search_gd",
+                key_mgd : key_mgd,
+                key_mbk : key_mbk,
+                key_mlk : key_mlk,
+                key_code : key_code,
+                key_tks : key_tks,
+                key_day : key_day,
+                key_month : key_month,
+                key_year : key_year,
+            },
             success: function(response){
                 $('.content_hotel_list').html(response);
                 $('.nav').remove();

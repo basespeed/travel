@@ -171,7 +171,7 @@ if($_SESSION['sucess'] == "sucess") {
                                         $dob_str = 'MLK_'.$post_id;
                                         add_post_meta($post_id, 'ma_gd_con', $dob_str, true);
                                     }elseif($field['name'] == 'ma_gd_them_booking'){
-                                        $dob_str = 'BTC_'.$post_id;
+                                        $dob_str = 'BCT_'.$post_id;
                                         add_post_meta($post_id, 'ma_gd_them_booking', $dob_str, true);
                                     }elseif($field['name'] == 'ma_gd'){
                                         $dob_str = 'MBK_'.$post_id;
@@ -311,7 +311,7 @@ if($_SESSION['sucess'] == "sucess") {
                                         $dob_str = 'MLK_'.$post_lich_su_gd;
                                         add_post_meta($post_lich_su_gd, 'ma_gd_con', $dob_str, true);
                                     }elseif($field['name'] == 'ma_gd_them_booking'){
-                                        $dob_str = 'BTC_'.$post_lich_su_gd;
+                                        $dob_str = 'BCT_'.$post_lich_su_gd;
                                         add_post_meta($post_lich_su_gd, 'ma_gd_them_booking', $dob_str, true);
                                     }elseif($field['name'] == 'ma_gd'){
                                         $dob_str = 'MBK_'.$post_lich_su_gd;

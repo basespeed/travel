@@ -6,7 +6,7 @@
         <input type="text" name="key_code" class="key_code" placeholder="CODE...">
         <input type="text" name="key_tks" class="key_tks" placeholder="Tên khách sạn...">
         <select name="key_day" class="key_day">
-            <option value="Chọn ngày">Chọn ngày</option>
+            <option value="Chọn ngày" selected disabled>Chọn ngày</option>
             <?php
             $y_m = '2019-6';
 
@@ -20,7 +20,7 @@
             }
             ?>
         </select>
-        <select name="key_date" class="key_date">
+        <select name="key_month" class="key_month">
             <option value="Chọn tháng" disabled selected>Chọn tháng</option>
             <?php
                 $month = 1;
@@ -32,7 +32,7 @@
             ?>
         </select>
         <select name="key_year" class="key_year">
-            <option value="Chọn năm">Chọn năm</option>
+            <option value="Chọn năm" selected disabled>Chọn năm</option>
             <?php
                 for($year = 2019; $year <= 2050; $year++){
                     ?>

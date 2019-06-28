@@ -1148,7 +1148,7 @@ table#show_chat {
     border: none;
     background: #FFF;
     margin-right: 10px;
-    font-size: 14px;
+    font-size: 12px;
   }
 }
 
@@ -1450,4 +1450,8 @@ input.sub_new_giao_dich.add_new_bk {
   .page .giao_dich_moi table td{
     font-size: 11px;
   }
+}
+
+select.key_day,select.key_month,select.key_year{
+  width: 85px;
 }

@@ -178,7 +178,7 @@ if($_SESSION['sucess'] == "sucess") {
                                             update_field('ngay_hoan_tien_2', $date, $post_id);
                                         }
                                     }elseif($field['name'] == 'ma_gd_them_booking'){
-                                        add_post_meta($post_id, 'ma_gd_them_booking', 'BTC_'.$post_id, true);
+                                        add_post_meta($post_id, 'ma_gd_them_booking', 'BCT_'.$post_id, true);
                                     }elseif($field['name'] == 'ma_gd'){
                                         add_post_meta($post_id, 'ma_gd', 'MBK_'.$post_id, true);
                                     }else{
