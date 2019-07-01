@@ -31,7 +31,7 @@ if($_SESSION['sucess'] == "sucess") {
                                 <td><strong>Tên khách giao dịch</strong></td>
                                 <td><strong>SĐT Khách giao dịch</strong></td>
                                 <td><strong>Email khách giao dịch</strong></td>
-                                <td><strong>TK khách giao dịch</strong></td>
+                                <td><strong>Nick Zalo</strong></td>
                                 <td><strong>Loại tài khoản</strong></td>
                                 <td></td>
                             </tr>
@@ -44,7 +44,7 @@ if($_SESSION['sucess'] == "sucess") {
                                     <td><?php echo get_field('ten_kgd'); ?></td>
                                     <td><?php echo get_field('sdt_kgd'); ?></td>
                                     <td><?php echo get_field('email_kgd_duy_nhat'); ?></td>
-                                    <td><?php echo get_field('tk_kgd'); ?></td>
+                                    <td><?php echo get_field('nick_kgd'); ?></td>
                                     <td><?php
                                         echo get_field('loai_tai_khoan_khach_gd');
                                     ?></td>

@@ -214,7 +214,7 @@ if($_SESSION['sucess'] == "sucess") {
                             $arr = array(
                                 'post_type' => 'history_giao_dich',
                                 'posts_per_page' => 200,
-                                'order' => 'DESC',
+                                'order' => 'ASC',
                                 'meta_key' => 'ma_gd_them_booking',
                                 'orderby' => 'meta_value',
                                 'paged' => $paged,

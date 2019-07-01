@@ -13,6 +13,9 @@ if($_SESSION['sucess'] == "sucess") {
             <div class="content_admin">
                 <div class="giao_dich_moi">
                     <?php include get_template_directory().'/template-parts/inc/template_search_bk.php'; ?>
+                    <div class="total_room">Tổng giao dịch : <?php
+                        echo '<strong>'.$count_posts = wp_count_posts( 'giao_dich' )->publish.'</strong>';
+                    ?></div>
                     <div class="content_hotel_list">
                         <table>
                             <?php
@@ -216,7 +219,7 @@ if($_SESSION['sucess'] == "sucess") {
                                 $arr = array(
                                     'post_type' => 'giao_dich',
                                     'posts_per_page' => 200,
-                                    'order' => 'DESC',
+                                    'order' => 'ASC',
                                     'meta_key' => 'ma_gd_them_booking',
                                     'orderby' => 'meta_value',
                                     'paged' => $paged,
@@ -325,35 +328,11 @@ if($_SESSION['sucess'] == "sucess") {
                                                 echo 'tks_desc';
                                             }else{
                                                 echo 'tks';
-                                            }?>">Tên Khách sạn</a>/
-                                            <a href="<?php
-                                            echo get_home_url('/');
-                                            ?>/giao-dich/?sort=<?php
-                                            if($_GET['sort'] == 'slp'){
-                                                echo 'slp_desc';
-                                            }else{
-                                                echo 'slp';
-                                            }?>">SLP</a>
-                                            &ensp;-&ensp;
-                                            <a href="<?php
-                                            echo get_home_url('/');
-                                            ?>/giao-dich/?sort=<?php
-                                            if($_GET['sort'] == 'lp'){
-                                                echo 'lp_desc';
-                                            }else{
-                                                echo 'lp';
-                                            }?>"> Loại phòng <?php
+                                            }?>">Tên Khách sạn</a>
+                                             <?php
                                                 if(isset($_GET['sort']) && $_GET['sort'] == 'tks'){
                                                     echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
                                                 }elseif(isset($_GET['sort']) && $_GET['sort'] == 'tks_desc'){
-                                                    echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
-                                                }elseif(isset($_GET['sort']) && $_GET['sort'] == 'slp'){
-                                                    echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
-                                                }elseif(isset($_GET['sort']) && $_GET['sort'] == 'slp_desc'){
-                                                    echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
-                                                }elseif(isset($_GET['sort']) && $_GET['sort'] == 'lp'){
-                                                    echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
-                                                }elseif(isset($_GET['sort']) && $_GET['sort'] == 'lp_desc'){
                                                     echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
                                                 }
                                                 ?>
@@ -362,7 +341,39 @@ if($_SESSION['sucess'] == "sucess") {
                                     </td>
                                     <td>
                                         <strong>
-                                            Gói DV - KM - DV đi kèm
+                                            <a href="<?php
+                                            echo get_home_url('/');
+                                            ?>/giao-dich/?sort=<?php
+                                            if($_GET['sort'] == 'slp'){
+                                                echo 'slp_desc';
+                                            }else{
+                                                echo 'slp';
+                                            }?>">SLP</a>
+                                            <?php
+                                            if(isset($_GET['sort']) && $_GET['sort'] == 'slp'){
+                                                echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
+                                            }elseif(isset($_GET['sort']) && $_GET['sort'] == 'slp_desc'){
+                                                echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
+                                            }
+                                            ?>
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <strong>
+                                            <a href="<?php
+                                            echo get_home_url('/');
+                                            ?>/giao-dich/?sort=<?php
+                                            if($_GET['sort'] == 'lp'){
+                                                echo 'lp_desc';
+                                            }else{
+                                                echo 'lp';
+                                            }?>"> Loại phòng <?php
+                                                if(isset($_GET['sort']) && $_GET['sort'] == 'lp'){
+                                                    echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
+                                                }elseif(isset($_GET['sort']) && $_GET['sort'] == 'lp_desc'){
+                                                    echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
+                                                }
+                                                ?>
                                         </strong>
                                     </td>
                                     <td>
@@ -504,7 +515,7 @@ if($_SESSION['sucess'] == "sucess") {
                                     </td>
                                     <td><strong>Tổng cả PT</strong></td>
                                     <td><strong>KH nợ/BCT nợ</strong></td>
-                                    <td><strong>TT BKK KH/ĐT</strong></td>
+                                    <!--<td><strong>TT BKK KH/ĐT</strong></td>-->
                                     <td></td>
                                 </tr>
                                 <?php
@@ -590,11 +601,14 @@ if($_SESSION['sucess'] == "sucess") {
                                                     }
                                                 }
                                                 echo '<br>';
-
-                                                echo '<strong>'.$sl_gd.'</strong> - '.$loai_phong_ban_dt;
                                             ?>
                                         </td>
-                                        <td><?php echo $goi_dv_km_ban_gd; ?></td>
+                                        <td>
+                                            <?php echo $sl_gd; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $loai_phong_ban_dt; ?>
+                                        </td>
                                         <td><?php
                                             echo $ci_gd;
                                             echo '<br>';
@@ -726,11 +740,11 @@ if($_SESSION['sucess'] == "sucess") {
                                             ?>
                                         </td>
 
-                                        <td><?php
-                                            echo '<strong>'.$trang_thai_bkk_voi_kh_gd.'</strong>';
+                                       <!-- <td><?php
+/*                                            echo '<strong>'.$trang_thai_bkk_voi_kh_gd.'</strong>';
                                             echo '<br>';
                                             echo $trang_thai_bkk_voi_dt;
-                                        ?></td>
+                                        */?></td>-->
                                         <td>
                                             <a class="edit" href="<?php echo $the_permalink; ?>"><i
                                                         class="fa fa-pencil-square-o" aria-hidden="true"></i></a>

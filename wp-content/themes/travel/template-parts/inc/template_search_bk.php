@@ -10,7 +10,7 @@
             <option value="Check-out">Check-out</option>
         </select>
         <select name="key_day" class="key_day">
-            <option value="Chọn ngày" selected disabled>Chọn ngày</option>
+            <option value="" selected>Chọn ngày</option>
             <?php
             $y_m = '2019-6';
 
@@ -31,7 +31,7 @@
             ?>
         </select>
         <select name="key_month" class="key_month">
-            <option value="Chọn tháng" disabled selected>Chọn tháng</option>
+            <option value="" disabled selected>Chọn tháng</option>
             <?php
                 $month = 1;
                 for($month; $month <= 12; $month++) {
@@ -48,7 +48,7 @@
             ?>
         </select>
         <select name="key_year" class="key_year">
-            <option value="Chọn năm" selected disabled>Chọn năm</option>
+            <option value="" selected >Chọn năm</option>
             <?php
                 for($year = 2019; $year <= 2050; $year++){
                     ?>

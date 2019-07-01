@@ -1373,11 +1373,11 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                         if(isset($_POST['add_edit_giao_dich']) || isset($_POST['sub_tach_giao_dich'])){
                             $ngay_lock_phong_khach = $_POST['ngay_lock_phong_khach'];
                             ?>
-                            <input type="text" data-date-format="dd/mm/yyyy" name="ngay_lock_phong_khach" class="ngay_lock_phong_khach datepicker-here" data-language='en' value="<?php echo $ngay_lock_phong_khach; ?>" autocomplete="off"/>
+                            <input type="text" data-date-format="dd/mm/yyyy" data-timepicker="true" name="ngay_lock_phong_khach" class="ngay_lock_phong_khach" data-language='en' value="<?php echo $ngay_lock_phong_khach; ?>" autocomplete="off"/>
                             <?php
                         }else{
                             ?>
-                            <input type="text" data-date-format="dd/mm/yyyy" name="ngay_lock_phong_khach" class="ngay_lock_phong_khach datepicker-here" data-language='en' value="<?php echo get_field('ngay_lock_phong_khach'); ?>" autocomplete="off"/>
+                            <input type="text" data-date-format="dd/mm/yyyy" data-timepicker="true" name="ngay_lock_phong_khach" class="ngay_lock_phong_khach" data-language='en' value="<?php echo get_field('ngay_lock_phong_khach'); ?>" autocomplete="off"/>
                             <?php
                         }
                         ?>
@@ -1707,11 +1707,11 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                         if(isset($_POST['add_edit_giao_dich']) || isset($_POST['sub_tach_giao_dich'])){
                             $ngay_lock_phong_doi_tac = $_POST['ngay_lock_phong_doi_tac'];
                             ?>
-                            <input type="text" data-date-format="dd/mm/yyyy" name="ngay_lock_phong_doi_tac" class="ngay_lock_phong_doi_tac datepicker-here" data-language='en' value="<?php echo $ngay_lock_phong_doi_tac; ?>" autocomplete="off"/>
+                            <input type="text" data-date-format="dd/mm/yyyy" data-timepicker="true" name="ngay_lock_phong_doi_tac" class="ngay_lock_phong_doi_tac" data-language='en' value="<?php echo $ngay_lock_phong_doi_tac; ?>" autocomplete="off"/>
                             <?php
                         }else{
                             ?>
-                            <input type="text" data-date-format="dd/mm/yyyy" name="ngay_lock_phong_doi_tac" class="ngay_lock_phong_doi_tac datepicker-here" data-language='en' value="<?php echo get_field('ngay_lock_phong_doi_tac'); ?>" autocomplete="off"/>
+                            <input type="text" data-date-format="dd/mm/yyyy" data-timepicker="true" name="ngay_lock_phong_doi_tac" class="ngay_lock_phong_doi_tac" data-language='en' value="<?php echo get_field('ngay_lock_phong_doi_tac'); ?>" autocomplete="off"/>
                             <?php
                         }
                         ?>
@@ -2627,7 +2627,7 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
                 <tbody>
                 <tr>
                     <td width="15%">Tên KGD</td>
-                    <td width="8%">Nick Facebook</td>
+                    <td width="8%">Nick </td>
                     <td width="8%">SĐT KGD</td>
                     <td width="15%">Email KGD (duy nhất)</td>
                     <td width="12%">TK KGD</td>
@@ -3357,3 +3357,6 @@ $ma_gd_them_booking = get_field('ma_gd_them_booking');
         }
     }
 ?>
+
+
+

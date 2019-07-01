@@ -258,16 +258,21 @@
                                     }elseif($field['name'] == 'ngay_lock_phong_khach'){
                                         $dob_str = $_POST['ngay_lock_phong_khach'];
                                         if(!empty($dob_str)){
-                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
-                                            $date = $date->format('Ymd');
-                                            update_field('ngay_lock_phong_khach', $date, $post_update);
+                                            $date = DateTime::createFromFormat('d/m/Y g:i a', $dob_str);
+                                            if($date == true){
+                                                $date2 = $date->format('d/m/Y g:i a');
+                                                var_dump($date2);
+                                                update_field('ngay_lock_phong_khach', $date2, $post_update);
+                                            }
                                         }
                                     }elseif($field['name'] == 'ngay_lock_phong_doi_tac'){
                                         $dob_str = $_POST['ngay_lock_phong_doi_tac'];
                                         if(!empty($dob_str)){
-                                            $date = DateTime::createFromFormat('d/m/Y', $dob_str);
-                                            $date = $date->format('Ymd');
-                                            update_field('ngay_lock_phong_doi_tac', $date, $post_update);
+                                            $date = DateTime::createFromFormat('d/m/Y g:i a', $dob_str);
+                                            if($date == true){
+                                                $date = $date->format('d/m/Y g:i a');
+                                                update_field('ngay_lock_phong_doi_tac', $date, $post_update);
+                                            }
                                         }
                                     }else{
                                         if($field['name'] != ""){
@@ -398,16 +403,20 @@
                                 }elseif($field['name'] == 'ngay_lock_phong_khach'){
                                     $dob_str = $_POST['ngay_lock_phong_khach'];
                                     if(!empty($dob_str)){
-                                        $date = DateTime::createFromFormat('d/m/Y', $dob_str);
-                                        $date = $date->format('Ymd');
-                                        update_field('ngay_lock_phong_khach', $date, $post_lich_su_gd);
+                                        $date = DateTime::createFromFormat('d/m/Y g:i a', $dob_str);
+                                        if($date === true){
+                                            $date = $date->format('Ymdgia');
+                                            update_field('ngay_lock_phong_khach', $date, $post_lich_su_gd);
+                                        }
                                     }
                                 }elseif($field['name'] == 'ngay_lock_phong_doi_tac'){
                                     $dob_str = $_POST['ngay_lock_phong_doi_tac'];
                                     if(!empty($dob_str)){
-                                        $date = DateTime::createFromFormat('d/m/Y', $dob_str);
-                                        $date = $date->format('Ymd');
-                                        update_field('ngay_lock_phong_doi_tac', $date, $post_lich_su_gd);
+                                        $date = DateTime::createFromFormat('d/m/Y g:i a', $dob_str);
+                                        if($date === true){
+                                            $date = $date->format('Ymdgia');
+                                            update_field('ngay_lock_phong_doi_tac', $date, $post_lich_su_gd);
+                                        }
                                     }
                                 }else{
                                     if($field['name'] != ""){
@@ -482,7 +491,7 @@
                                     if(get_field('trang_thai_add_booking') != 'true'){
                                         ?>
                                         <input type="submit" name="sub_tach_giao_dich" class="sub_tach_giao_dich"
-                                               value="Tách Giao dịch">
+                                               value="Tách Giao dịch" style="left: 300px;">
                                         <?php
                                     }
                                     ?>

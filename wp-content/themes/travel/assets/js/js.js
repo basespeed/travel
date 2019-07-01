@@ -231,12 +231,14 @@
             $('.quantri_admin .menu_admin').removeClass('menu_right');
             $(this).hide();
             $('.toggle_menu_setting2').show();
+            $('.quantri_admin .content_admin').removeClass('full_width');
         });
         $('.toggle_menu_setting2').on('click', function(){
             $('.quantri_admin .menu_admin').removeClass('menu_left');
             $('.quantri_admin .menu_admin').addClass('menu_right');
             $(this).hide();
             $('.toggle_menu_setting').show();
+            $('.quantri_admin .content_admin').addClass('full_width');
         });
 
         var change_label_title =  $('.acf-field--post-title .acf-label label');
@@ -247,6 +249,12 @@
         var disable_edit_giao_dich_view = $( ".view_fix input");
         var disable_edit_giao_dich2_view = $( ".view_fix select");
         var disable_edit_giao_dich3_view = $( ".view_fix textarea");
+
+        $('.page-template-tach-booking input').attr('readonly','readonly');
+        $('.page-template-tach-booking select').attr('readonly','readonly');
+        $('.page-template-tach-booking textarea').attr('readonly','readonly');
+        $('.page-template-tach-booking input.sl_gd').attr("readonly", false);
+        $('.page-template-tach-booking input.sl_dt').attr("readonly", false);
 
         $('.so_dem_gd').prop('readonly', 'readonly');
         $('.con_ngay_gd').prop('readonly', 'readonly');
@@ -326,6 +334,46 @@
                     $('.'+val).val(0);
                 }
             });
+        });
+
+        $('.ngay_lock_phong_khach').datepicker({
+            timepicker: true,
+            language: 'en',
+            days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+            minDate: new Date(),
+            weekends: [0, 5, 6],
+            firstDay: 1,
+            onSelect: function (fd, d, picker) {
+
+            },
+            onRenderCell: function (date, cellType) {
+                if (date.getDay() == 0) {
+                    return {
+                        classes: 'sunday',
+                        disabled: false
+                    }
+                }
+            }
+        });
+
+        $('.ngay_lock_phong_doi_tac').datepicker({
+            timepicker: true,
+            language: 'en',
+            days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+            minDate: new Date(),
+            weekends: [0, 5, 6],
+            firstDay: 1,
+            onSelect: function (fd, d, picker) {
+
+            },
+            onRenderCell: function (date, cellType) {
+                if (date.getDay() == 0) {
+                    return {
+                        classes: 'sunday',
+                        disabled: false
+                    }
+                }
+            }
         });
 
         /*$('.ngay_cập_nhập_giao_dịch_cuối_cung').prop('readonly', 'readonly');
@@ -641,6 +689,7 @@
         var key_month = $(this).siblings('select.key_month').val();
         var key_year = $(this).siblings('select.key_year').val();
         var key_check_date = $(this).siblings('select.key_check_date').val();
+        $('.content_hotel_list').html('<div class="load_search_bk"><div class="spinner"><div class="rect1"></div><div class="rect2"></div><div class="rect3"></div><div class="rect4"></div><div class="rect5"></div></div><p style="text-align: center;margin-top: -20px;">Đang tìm kiếm dữ liệu...</p></div>');
         $.ajax({
             type: "post",
             dataType: "html",

@@ -42,7 +42,7 @@ function setKhachDaiDien() {
                         ?></li>
                     <li><input type="text" value="<?php echo get_field('sdt_kgd'); ?>"></li>
                     <li><input type="email" value="<?php echo get_field('email_kgd_duy_nhat'); ?>"></li>
-                    <li><input type="text" value="<?php echo get_field('tk_kgd'); ?>"></li>
+                    <li><input type="text" value="<?php echo get_field('nick_kgd'); ?>"></li>
                     <li>
                         <input type="text" value="<?php echo get_field('link_facebook_khach_gd'); ?>">
                         <input type="hidden" class="ma_kgd" value="<?php echo get_field('ma_kgd'); ?>">
@@ -115,7 +115,7 @@ function setKhachDaiDienSDT() {
                         echo $str;
                         ?></li>
                     <li><input type="email" value="<?php echo get_field('email_kgd_duy_nhat'); ?>"></li>
-                    <li><input type="text" value="<?php echo get_field('tk_kgd'); ?>"></li>
+                    <li><input type="text" value="<?php echo get_field('nick_kgd'); ?>"></li>
                     <li>
                         <input type="text" value="<?php echo get_field('link_facebook_khach_gd'); ?>">
                         <input type="hidden" class="ma_kgd" value="<?php echo get_field('ma_kgd'); ?>">
@@ -187,7 +187,7 @@ function setKhachDaiDienTenKgd() {
                         $str = get_field('email_kgd_duy_nhat');
                         echo $str;
                         ?></li>
-                    <li><input type="text" value="<?php echo get_field('tk_kgd'); ?>"></li>
+                    <li><input type="text" value="<?php echo get_field('nick_kgd'); ?>"></li>
                     <li>
                         <input type="text" value="<?php echo get_field('link_facebook_khach_gd'); ?>">
                         <input type="hidden" class="ma_kgd" value="<?php echo get_field('ma_kgd'); ?>">
@@ -260,7 +260,7 @@ function setNickKgd() {
                         ?></li>
                     <li><input type="text" value="<?php echo get_field('sdt_kgd'); ?>"></li>
                     <li><input type="email" value="<?php echo get_field('email_kgd_duy_nhat'); ?>"></li>
-                    <li><input type="text" value="<?php echo get_field('tk_kgd'); ?>"></li>
+                    <li><input type="text" value="<?php echo get_field('nick_kgd'); ?>"></li>
                     <li>
                         <input type="text" value="<?php echo get_field('link_facebook_khach_gd'); ?>">
                         <input type="hidden" class="ma_kgd" value="<?php echo get_field('ma_kgd'); ?>">
@@ -330,7 +330,7 @@ function setSdtKgd() {
                         ?></li>
                     <li><input type="text" value="<?php echo get_field('sdt_kgd'); ?>"></li>
                     <li><input type="email" value="<?php echo get_field('email_kgd_duy_nhat'); ?>"></li>
-                    <li><input type="text" value="<?php echo get_field('tk_kgd'); ?>"></li>
+                    <li><input type="text" value="<?php echo get_field('nick_kgd'); ?>"></li>
                     <li>
                         <input type="text" value="<?php echo get_field('link_facebook_khach_gd'); ?>">
                         <input type="hidden" class="ma_kgd" value="<?php echo get_field('ma_kgd'); ?>">
@@ -397,7 +397,7 @@ function setEmail_kgd_duy_nhat() {
                         ?></li>
                     <li><input type="text" value="<?php echo get_field('sdt_kgd'); ?>"></li>
                     <li><input type="email" value="<?php echo get_field('email_kgd_duy_nhat'); ?>"></li>
-                    <li><input type="text" value="<?php echo get_field('tk_kgd'); ?>"></li>
+                    <li><input type="text" value="<?php echo get_field('nick_kgd'); ?>"></li>
                     <li>
                         <input type="text" value="<?php echo get_field('link_facebook_khach_gd'); ?>">
                         <input type="hidden" class="ma_kgd" value="<?php echo get_field('ma_kgd'); ?>">
@@ -469,7 +469,7 @@ function setTk_kgd() {
                         ?></li>
                     <li><input type="text" value="<?php echo get_field('sdt_kgd'); ?>"></li>
                     <li><input type="email" value="<?php echo get_field('email_kgd_duy_nhat'); ?>"></li>
-                    <li><input type="text" value="<?php echo get_field('tk_kgd'); ?>"></li>
+                    <li><input type="text" value="<?php echo get_field('nick_kgd'); ?>"></li>
                     <li>
                         <input type="text" value="<?php echo get_field('link_facebook_khach_gd'); ?>">
                         <input type="hidden" class="ma_kgd" value="<?php echo get_field('ma_kgd'); ?>">
@@ -540,7 +540,7 @@ function setMa_kgd() {
                         ?></li>
                     <li><input type="text" value="<?php echo get_field('sdt_kgd'); ?>"></li>
                     <li><input type="email" value="<?php echo get_field('email_kgd_duy_nhat'); ?>"></li>
-                    <li><input type="text" value="<?php echo get_field('tk_kgd'); ?>"></li>
+                    <li><input type="text" value="<?php echo get_field('nick_kgd'); ?>"></li>
                     <li>
                         <input type="text" value="<?php echo get_field('link_facebook_khach_gd'); ?>">
                         <input type="hidden" class="ma_kgd" value="<?php echo get_field('ma_kgd'); ?>">
@@ -610,7 +610,7 @@ function set_pop_ten_dt_gui_book_dt() {
                         ?></li>
                     <li><input type="text" value="<?php echo get_field('sdt_dt'); ?>"></li>
                     <li><input type="email" value="<?php echo get_field('email_dt'); ?>"></li>
-                    <li><input type="text" value="<?php echo get_field('stk_dt'); ?>"></li>
+                    <li><input type="text" value="<?php echo get_field('nick_kgd'); ?>"></li>
                     <li>
                         <input type="text" value="<?php echo get_field('don_vi_cong_tac_dt'); ?>">
                         <input type="hidden" class="ma_kgd" value="<?php echo get_field('ma_kgd'); ?>">
@@ -684,7 +684,7 @@ function setMGDLK() {
                         ?></li>
                     <li><input type="text" value="<?php echo get_field('sdt_kgd'); ?>"></li>
                     <li><input type="email" value="<?php echo get_field('email_kgd_duy_nhat'); ?>"></li>
-                    <li><input type="text" value="<?php echo get_field('tk_kgd'); ?>"></li>
+                    <li><input type="text" value="<?php echo get_field('nick_kgd'); ?>"></li>
                     <li>
                         <input type="text" value="<?php echo get_field('link_facebook_khach_gd'); ?>">
                         <input type="hidden" class="ma_kgd" value="<?php echo get_field('ma_kgd'); ?>">

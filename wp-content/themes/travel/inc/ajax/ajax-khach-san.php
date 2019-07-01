@@ -373,7 +373,19 @@ function search_gd() {
                         echo 'tks_desc';
                     }else{
                         echo 'tks';
-                    }?>">Tên Khách sạn</a>/
+                    }?>">Tên Khách sạn</a>
+                    <?php
+                    if(isset($_GET['sort']) && $_GET['sort'] == 'tks'){
+                        echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
+                    }elseif(isset($_GET['sort']) && $_GET['sort'] == 'tks_desc'){
+                        echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
+                    }
+                    ?>
+                    </a>
+                </strong>
+            </td>
+            <td>
+                <strong>
                     <a href="<?php
                     echo get_home_url('/');
                     ?>/giao-dich/?sort=<?php
@@ -382,7 +394,17 @@ function search_gd() {
                     }else{
                         echo 'slp';
                     }?>">SLP</a>
-                    &ensp;-&ensp;
+                    <?php
+                    if(isset($_GET['sort']) && $_GET['sort'] == 'slp'){
+                        echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
+                    }elseif(isset($_GET['sort']) && $_GET['sort'] == 'slp_desc'){
+                        echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
+                    }
+                    ?>
+                </strong>
+            </td>
+            <td>
+                <strong>
                     <a href="<?php
                     echo get_home_url('/');
                     ?>/giao-dich/?sort=<?php
@@ -391,26 +413,12 @@ function search_gd() {
                     }else{
                         echo 'lp';
                     }?>"> Loại phòng <?php
-                        if(isset($_GET['sort']) && $_GET['sort'] == 'tks'){
-                            echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
-                        }elseif(isset($_GET['sort']) && $_GET['sort'] == 'tks_desc'){
-                            echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
-                        }elseif(isset($_GET['sort']) && $_GET['sort'] == 'slp'){
-                            echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
-                        }elseif(isset($_GET['sort']) && $_GET['sort'] == 'slp_desc'){
-                            echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
-                        }elseif(isset($_GET['sort']) && $_GET['sort'] == 'lp'){
+                        if(isset($_GET['sort']) && $_GET['sort'] == 'lp'){
                             echo '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>';
                         }elseif(isset($_GET['sort']) && $_GET['sort'] == 'lp_desc'){
                             echo '<i class="fa fa-long-arrow-down" aria-hidden="true"></i>';
                         }
                         ?>
-                    </a>
-                </strong>
-            </td>
-            <td>
-                <strong>
-                    Gói DV - KM - DV đi kèm
                 </strong>
             </td>
             <td>
@@ -552,7 +560,7 @@ function search_gd() {
             </td>
             <td><strong>Tổng cả PT</strong></td>
             <td><strong>KH nợ/BCT nợ</strong></td>
-            <td><strong>TT BKK KH/ĐT</strong></td>
+            <!--<td><strong>TT BKK KH/ĐT</strong></td>-->
             <td></td>
         </tr>
     <?php
@@ -578,37 +586,75 @@ function search_gd() {
         $check_date = 'co_gd';
     }
 
-    var_dump($key_year.$key_month.$key_day);
-
     $day_current = date('d');
     $month_current = date('m');
     $year_current = date('Y');
 
     if(!empty($key_mgd) || !empty($key_mbk) || !empty($key_mlk) || !empty($key_code) || !empty($key_tks) || !empty($key_day) || !empty($key_month) || !empty($key_year)){
-        $posts = new WP_Query(array(
-            'numberposts'	=> -1,
-            'post_type'		=> 'hotel',
-            'meta_query'	=> array(
-                'relation'		=> 'OR',
-                array(
-                    'key'		=> 'hotel_name',
-                    'value'		=> $key_tks,
-                    'compare'	=> 'LIKE'
-                ),
-            )
-        ));
+        if(!empty($key_tks)){
+            $posts = new WP_Query(array(
+                'numberposts'	=> -1,
+                'post_type'		=> 'hotel',
+                'order' => 'DESC',
+                'posts_per_page' => 10000,
+                'meta_query'	=> array(
+                    'relation'		=> 'OR',
+                    array(
+                        'key'		=> 'hotel_name',
+                        'value'		=> $key_tks,
+                        'compare'	=> 'LIKE'
+                    ),
+                )
+            ));
+            $hotel_id = array();
+            if($posts) : while ($posts->have_posts()) : $posts->the_post();
+                array_push($hotel_id,get_the_ID());
+            endwhile;
+            else :
+                ?><p class="search_empty_bk">Dữ liệu trống !</p><?php
+            endif;
+            wp_reset_postdata();
+        }
 
-        while ($posts->have_posts()) : $posts->the_post();
-            $hotel_id = get_the_ID();
-        endwhile;
-        wp_reset_postdata();
-
-        if(!empty($key_mgd)){
+        if(!empty($key_mgd) and !empty($key_mbk) and !empty($key_mlk)){
             $meta_query = array(
                 'relation'		=> 'OR',
                 array(
                     'key'		=> 'ma_gd_them_booking',
                     'value'		=> $key_mgd,
+                    'compare'	=> 'LIKE'
+                ),
+            ) ;
+        }elseif(!empty($key_tks) and !empty($key_day) and !empty($key_month) and !empty($key_year)){
+            $meta_query = array(
+                'relation'		=> 'AND',
+                array(
+                    'key'		=> 'ten_khach_san_gd',
+                    'value'		=> $hotel_id,
+                    'compare'	=> '='
+                ),
+                array(
+                    'key' => $check_date,
+                    'value' => $key_year.$key_month.$key_day,
+                    'compare' => '=',
+                ),
+            ) ;
+        }elseif(!empty($key_mgd)){
+            $meta_query = array(
+                'relation'		=> 'AND',
+                array(
+                    'key'		=> 'ma_gd_them_booking',
+                    'value'		=> $key_mgd,
+                    'compare'	=> 'LIKE'
+                ),
+                array(
+                    'key'		=> 'ma_gd',
+                    'value'		=> $key_mbk,
+                    'compare'	=> 'LIKE'
+                ),
+                array(
+                    'key'		=> 'ma_gd_con',
+                    'value'		=> $key_mlk,
                     'compare'	=> 'LIKE'
                 ),
             ) ;
@@ -625,9 +671,17 @@ function search_gd() {
             $meta_query = array(
                 'relation'		=> 'OR',
                 array(
-                    'key'		=> 'key_mlk',
+                    'key'		=> 'ma_gd_con',
                     'value'		=> $key_mlk,
                     'compare'	=> 'LIKE'
+                ),
+                'sort_list_booking' => array(
+                    'key' => 'ma_gd_con',
+                    'compare' => 'EXISTS',
+                ),
+                'sort_list_booking' => array(
+                    'key' => 'ma_gd_them_booking',
+                    'compare' => 'EXISTS',
                 ),
             ) ;
         }elseif(!empty($key_code)){
@@ -645,77 +699,16 @@ function search_gd() {
                 array(
                     'key'		=> 'ten_khach_san_gd',
                     'value'		=> $hotel_id,
-                    'compare'	=> '='
+                    'compare'	=> 'IN'
                 ),
             ) ;
-        }elseif(!empty($key_day)){
+        }elseif(!empty($key_month) && !empty($key_day) && !empty($key_year)){
             $meta_query = array(
                 'relation'		=> 'AND',
                 array(
                     'key' => $check_date,
-                    'value' => '201901'.$key_day,
-                    'compare' => '>=',
-                ),
-                array(
-                    'key' => $check_date,
-                    'value' => '205012'.$key_day,
-                    'compare' => '<=',
-                ),
-            ) ;
-        }elseif(!empty($key_month)){
-            $meta_query = array(
-                'relation'		=> 'AND',
-                array(
-                    'key' => $check_date,
-                    'value' => '2019'.$key_month.'01',
-                    'compare' => '>=',
-                ),
-                array(
-                    'key' => $check_date,
-                    'value' => '2050'.$key_month.'12',
-                    'compare' => '<=',
-                ),
-            );
-        }elseif(!empty($key_year)){
-            $meta_query = array(
-                'relation'		=> 'AND',
-                array(
-                    'key' => $check_date,
-                    'value' => $key_year.'0101',
-                    'compare' => '>=',
-                ),
-                array(
-                    'key' => $check_date,
-                    'value' => $key_year.'1231',
-                    'compare' => '<=',
-                ),
-            ) ;
-        }elseif(!empty($key_year) && !empty($key_month)){
-            $meta_query = array(
-                'relation'		=> 'AND',
-                array(
-                    'key' => $check_date,
-                    'value' => $key_year.$key_month.'01',
-                    'compare' => '>=',
-                ),
-                array(
-                    'key' => $check_date,
-                    'value' => $key_year.$key_month.'31',
-                    'compare' => '<=',
-                ),
-            ) ;
-        }elseif(!empty($key_year) && !empty($key_day)){
-            $meta_query = array(
-                'relation'		=> 'AND',
-                array(
-                    'key' => $check_date,
-                    'value' => $key_year.'01'.$key_day,
-                    'compare' => '>=',
-                ),
-                array(
-                    'key' => $check_date,
-                    'value' => $key_year.'12'.$key_day,
-                    'compare' => '<=',
+                    'value' => $key_year.$key_month.$key_day,
+                    'compare'  => 'REGEXP',
                 ),
             ) ;
         }elseif(!empty($key_month) && !empty($key_day)){
@@ -723,22 +716,56 @@ function search_gd() {
                 'relation'		=> 'AND',
                 array(
                     'key' => $check_date,
-                    'value' => '20190816',
-                    'compare' => '>=',
-                ),
-                array(
-                    'key' => $check_date,
-                    'value' => '20190831',
-                    'compare' => '<=',
+                    'value' => '[0-9]{4}'.$key_month.$key_day,
+                    'compare'  => 'REGEXP',
                 ),
             ) ;
-        }elseif(!empty($key_month) && !empty($key_day) && !empty($key_year)){
+        }elseif(!empty($key_year) && !empty($key_month)){
             $meta_query = array(
-                'relation'		=> 'OR',
+                'relation'		=> 'AND',
                 array(
-                    'key' => 'co_gd',
-                    'value' => $key_year.$key_month.$key_day,
-                    'compare' => '=',
+                    'key' => $check_date,
+                    'value' => $key_year.$key_month.'[0-9]{2}',
+                    'compare'  => 'REGEXP',
+                ),
+            ) ;
+        }elseif(!empty($key_year) && !empty($key_day)){
+            $meta_query = array(
+                'relation'		=> 'AND',
+                array(
+                    'key' => $check_date,
+                    'value' => $key_year.'[0-9]{2}'.$key_day,
+                    'compare'  => 'REGEXP',
+                ),
+            ) ;
+        }elseif(!empty($key_day)){
+            $day      = $key_day;
+            $meta_query = array(
+                'relation'		=> 'AND',
+                array(
+                    'key'		=> $check_date,
+                    'compare'  => 'REGEXP',
+                    'value'    => '[0-9]{4}' . '[0-9]{2}' . $day,
+                ),
+            );
+        }elseif(!empty($key_month)){
+            $month      = $key_month;
+            $meta_query = array(
+                'relation'		=> 'AND',
+                array(
+                    'key' => $check_date,
+                    'compare'  => 'REGEXP',
+                    'value'    => '[0-9]{4}' . $month . '[0-9]{2}',
+                ),
+            );
+        }elseif(!empty($key_year)){
+            $year      = $key_year;
+            $meta_query = array(
+                'relation'		=> 'AND',
+                array(
+                    'key' => $check_date,
+                    'compare'  => 'REGEXP',
+                    'value'    => $year . '[0-9]{2}' . '[0-9]{2}',
                 ),
             ) ;
         }else{
@@ -755,7 +782,7 @@ function search_gd() {
                     'compare'	=> 'LIKE'
                 ),
                 array(
-                    'key'		=> 'key_mlk',
+                    'key'		=> 'ma_gd_con',
                     'value'		=> $key_mlk,
                     'compare'	=> 'LIKE'
                 ),
@@ -779,246 +806,267 @@ function search_gd() {
 
         $args = array(
             'post_type' => 'giao_dich',
-            'order' => 'DESC',
             'posts_per_page' => 50,
-            'meta_query'	=> $meta_query
+            'status' => 'published',
+            'order' => 'DESC',
+            'meta_query'	=> $meta_query,
+            'meta_key' => 'ma_gd_them_booking',
+            'orderby' => 'meta_value',
         );
 
         $query_hotel = new WP_Query($args);
-        while ($query_hotel->have_posts()) : $query_hotel->the_post();
+        if($query_hotel) : while ($query_hotel->have_posts()) : $query_hotel->the_post();
             $this_ID = get_the_ID();
-            $the_permalink = get_permalink();
-            $ten_khach_san_gd = get_field('ten_khach_san_gd');
-            $ci_gd = get_field('ci_gd');
-            $co_gd = get_field('co_gd');
-            $sl_gd = get_field('sl_gd');
-            $loai_phong_ban_dt = get_field('loai_phong_ban_dt');
-            $hinh_thuc_book_gd = get_field('hinh_thuc_book_gd');
-            $kh_con_no_khac = get_field('kh_con_no_khac');
-            $tong_gia_tri_khac = get_field('tong_gia_tri_khac');
-            $ngay_phai_hoan_tat_tt_cho_ks_khac2 = get_field('ngay_phai_hoan_tat_tt_cho_ks_khac2');
-            $ma_gd_them_booking = get_field('ma_gd_them_booking');
-            $goi_dv_km_ban_gd = get_field('goi_dv_km_ban_gd');
-            $so_dem_gd = get_field('so_dem_gd');
-            $con_ngay_gd = get_field('con_ngay_gd');
-            $con_ngay_dt = get_field('con_ngay_dt');
-            $con_ngay_thay_doi_dt = get_field('con_ngay_thay_doi_dt');
-            $don_gia_ban_gd = get_field('don_gia_ban_gd');
-            $don_gia_ban_dt = get_field('don_gia_ban_dt');
-            $tong_gd = get_field('tong_gd');
-            $tong_dt = get_field('tong_dt');
-            $tong_pt = get_field('tong_pt');
-            $tong_gia_tri_khac = get_field('tong_gia_tri_khac');
-            $tong_gia_tri_khac2 = get_field('tong_gia_tri_khac2');
-            $kh_con_no_khac = get_field('kh_con_no_khac');
-            $bct_con_no_khac2 = get_field('bct_con_no_khac2');
-            $trang_thai_bkk_voi_kh_gd = get_field('trang_thai_bkk_voi_kh_gd');
-            $trang_thai_bkk_voi_dt = get_field('trang_thai_bkk_voi_dt');
-            ?>
-            <tr>
-                <td><?php echo get_field('ma_gd_them_booking'); ?></td>
-                <td><?php
-                    echo get_field('ma_gd');
-                    echo '</br>';
-                    echo get_field('ma_gd_con');
-                    ?>
-                </td>
-                <td><?php echo get_field('ma_xac_nhan'); ?></td>
-                <td><?php
-                    $args = array(
-                        'p'         => get_field('khach_dai_dien_gd'), // ID of a page, post, or custom type
-                        'post_type' => 'khach_hang'
-                    );
-                    $query_kh = new WP_Query($args);
-                    if($query_kh->have_posts()) :
-                        while ($query_kh->have_posts()) : $query_kh->the_post();
-                            if (!empty(get_field('ten_kgd'))){
-                                echo get_field('ten_kgd');
-                            }else{
-                                echo get_field('khach_dai_dien_gd');
-                            }
-                        endwhile;
-                    else :
-                        echo get_field('khach_dai_dien_gd');
-                    endif;
-                    wp_reset_postdata();
-                    ?>
-                </td>
-                <td><?php
-                    if(!empty($ten_khach_san_gd)){
-                        if ( (int)$ten_khach_san_gd == $ten_khach_san_gd ) {
-                            $query_name_hotel = new WP_Query(array(
-                                'post_type' => 'hotel',
-                                'p' => $ten_khach_san_gd,
-                                'posts_per_page' => 1,
-                            ));
-
-                            if($query_name_hotel->have_posts()) : while ($query_name_hotel->have_posts()) : $query_name_hotel->the_post();
-                                echo get_the_title();
+            if($this_ID != '') {
+                $the_permalink = get_permalink();
+                $ten_khach_san_gd = get_field('ten_khach_san_gd');
+                $ci_gd = get_field('ci_gd');
+                $co_gd = get_field('co_gd');
+                $sl_gd = get_field('sl_gd');
+                $loai_phong_ban_dt = get_field('loai_phong_ban_dt');
+                $hinh_thuc_book_gd = get_field('hinh_thuc_book_gd');
+                $kh_con_no_khac = get_field('kh_con_no_khac');
+                $tong_gia_tri_khac = get_field('tong_gia_tri_khac');
+                $ngay_phai_hoan_tat_tt_cho_ks_khac2 = get_field('ngay_phai_hoan_tat_tt_cho_ks_khac2');
+                $ma_gd_them_booking = get_field('ma_gd_them_booking');
+                $goi_dv_km_ban_gd = get_field('goi_dv_km_ban_gd');
+                $so_dem_gd = get_field('so_dem_gd');
+                $con_ngay_gd = get_field('con_ngay_gd');
+                $con_ngay_dt = get_field('con_ngay_dt');
+                $con_ngay_thay_doi_dt = get_field('con_ngay_thay_doi_dt');
+                $don_gia_ban_gd = get_field('don_gia_ban_gd');
+                $don_gia_ban_dt = get_field('don_gia_ban_dt');
+                $tong_gd = get_field('tong_gd');
+                $tong_dt = get_field('tong_dt');
+                $tong_pt = get_field('tong_pt');
+                $tong_gia_tri_khac = get_field('tong_gia_tri_khac');
+                $tong_gia_tri_khac2 = get_field('tong_gia_tri_khac2');
+                $kh_con_no_khac = get_field('kh_con_no_khac');
+                $bct_con_no_khac2 = get_field('bct_con_no_khac2');
+                $trang_thai_bkk_voi_kh_gd = get_field('trang_thai_bkk_voi_kh_gd');
+                $trang_thai_bkk_voi_dt = get_field('trang_thai_bkk_voi_dt');
+                ?>
+                <tr>
+                    <td><?php echo get_field('ma_gd_them_booking'); ?></td>
+                    <td><?php
+                        echo get_field('ma_gd');
+                        echo '</br>';
+                        echo get_field('ma_gd_con');
+                        ?>
+                    </td>
+                    <td><?php echo get_field('ma_xac_nhan'); ?></td>
+                    <td><?php
+                        $args = array(
+                            'p'         => get_field('khach_dai_dien_gd'), // ID of a page, post, or custom type
+                            'post_type' => 'khach_hang'
+                        );
+                        $query_kh = new WP_Query($args);
+                        if($query_kh->have_posts()) :
+                            while ($query_kh->have_posts()) : $query_kh->the_post();
+                                if (!empty(get_field('ten_kgd'))){
+                                    echo get_field('ten_kgd');
+                                }else{
+                                    echo get_field('khach_dai_dien_gd');
+                                }
                             endwhile;
-                            else :
+                        else :
+                            echo get_field('khach_dai_dien_gd');
+                        endif;
+                        wp_reset_postdata();
+                        ?>
+                    </td>
+                    <td><?php
+                        if(!empty($ten_khach_san_gd)){
+                            if ( (int)$ten_khach_san_gd == $ten_khach_san_gd ) {
+                                $query_name_hotel = new WP_Query(array(
+                                    'post_type' => 'hotel',
+                                    'p' => $ten_khach_san_gd,
+                                    'posts_per_page' => 1,
+                                ));
+
+                                if($query_name_hotel->have_posts()) : while ($query_name_hotel->have_posts()) : $query_name_hotel->the_post();
+                                    echo get_the_title();
+                                endwhile;
+                                else :
+                                    echo get_field('ten_khach_san_gd');
+                                endif;
+                                wp_reset_postdata();
+                            }else{
                                 echo get_field('ten_khach_san_gd');
-                            endif;
-                            wp_reset_postdata();
-                        }else{
-                            echo get_field('ten_khach_san_gd');
+                            }
                         }
-                    }
-                    echo '<br>';
+                        echo '<br>';
+                        ?>
+                    </td>
+                    <td>
+                        <?php echo $sl_gd; ?>
+                    </td>
+                    <td>
+                        <?php echo $loai_phong_ban_dt; ?>
+                    </td>
+                    <td><?php
+                        echo $ci_gd;
+                        echo '<br>';
+                        echo $co_gd;
+                        ?>
+                    </td>
+                    <td>
+                        <?php
+                        echo '<strong>'.$so_dem_gd.'</strong>';
+                        echo '<br>';
+                        echo $con_ngay_gd;
+                        ?>
+                    </td>
+                    <td width="12%"><?php
+                        $arr_chat = array(
+                            'post_type' => 'chat',
+                            'posts_per_page' => 1,
+                            'order' => 'DESC',
+                            'meta_key'		=> 'id_chat_gd',
+                            'meta_value' => $ma_gd_them_booking,
+                        );
+                        $query_chat = get_posts($arr_chat);
+                        if( $query_chat ): foreach( $query_chat as $post ):
+                            setup_postdata( $post );
+                            echo get_field('tin_nhan_chat');
+                        endforeach;
+                        else :
+                            echo 'Dữ liệu trống !';
+                        endif;
+                        wp_reset_postdata();
+                        ?>
+                    </td>
+                    <td><?php
+                        echo $con_ngay_dt;
+                        echo '<br>';
+                        echo $con_ngay_thay_doi_dt;
+                        ?>
+                    </td>
+                    <td><?php
+                        if(!empty($don_gia_ban_gd)){
+                            if (strpos($don_gia_ban_gd, ',') === false) {
+                                echo '<strong>'.number_format($don_gia_ban_gd,'0',',',',').'</strong>';
+                            }else{
+                                echo '<strong>'.$don_gia_ban_gd.'</strong>';
+                            }
+                        }
+                        echo '<br>';
+                        if(!empty($don_gia_ban_dt)){
+                            if (strpos($don_gia_ban_dt, ',') === false) {
+                                echo number_format($don_gia_ban_dt,'0',',',',');
+                            }else{
+                                echo $don_gia_ban_dt;
+                            }
+                        }
+                        ?>
+                    </td>
+                    <td><?php
+                        if(!empty($tong_gd)){
+                            if (strpos($tong_gd, ',') === false) {
+                                echo '<strong>'.number_format($tong_gd,'0',',',',').'</strong>';
+                            }else{
+                                echo '<strong>'.$tong_gd.'</strong>';
+                            }
+                        }
+                        echo '<br>';
+                        if(!empty($tong_dt)){
+                            if (strpos($tong_dt, ',') === false) {
+                                echo number_format($tong_dt,'0',',',',');
+                            }else{
+                                echo $tong_dt;
+                            }
+                        }
+                        ?>
+                    </td>
+                    <td><?php
+                        if(!empty($tong_pt)){
+                            if (strpos($tong_pt, ',') === false) {
+                                echo '<strong>'.number_format($tong_pt,'0',',',',').'</strong>';
+                            }else{
+                                echo '<strong>'.$tong_pt.'</strong>';
+                            }
+                        }
+                        echo '<br>';
+                        if(!empty($tong_pt)){
+                            if (strpos($tong_pt, ',') === false) {
+                                echo number_format($tong_pt,'0',',',',');
+                            }else{
+                                echo $tong_pt;
+                            }
+                        }
+                        ?>
+                    </td>
+                    <td><?php
+                        if(!empty($tong_gia_tri_khac)){
+                            if (strpos($tong_gia_tri_khac, ',') === false) {
+                                echo '<strong>'.number_format($tong_gia_tri_khac,'0',',',',').'</strong>';
+                            }else{
+                                echo '<strong>'.$tong_gia_tri_khac.'</strong>';
+                            }
+                        }
+                        echo '<br>';
+                        if(!empty($tong_gia_tri_khac2)){
+                            if (strpos($tong_gia_tri_khac2, ',') === false) {
+                                echo number_format($tong_gia_tri_khac2,'0',',',',');
+                            }else{
+                                echo $tong_gia_tri_khac2;
+                            }
+                        }
+                        ?>
+                    </td>
+                    <td><?php
+                        $a = $kh_con_no_khac;
+                        if(!empty($kh_con_no_khac)){
+                            if (strpos($a, ',') === false) {
+                                echo '<strong>'.number_format($kh_con_no_khac,'0',',',',').'</strong>';
+                            }else{
+                                echo '<strong>'.$kh_con_no_khac.'</strong>';
+                            }
+                        }
+                        echo '<br>';
+                        $b = $bct_con_no_khac2;
+                        if(!empty($bct_con_no_khac2)){
+                            if (strpos($b, ',') === false) {
+                                echo number_format($bct_con_no_khac2,'0',',',',');
+                            }else{
+                                echo $bct_con_no_khac2;
+                            }
+                        }
+                        ?>
+                    </td>
 
-                    echo '<strong>'.$sl_gd.'</strong> - '.$loai_phong_ban_dt;
-                    ?>
-                </td>
-                <td><?php echo $goi_dv_km_ban_gd; ?></td>
-                <td><?php
-                    echo $ci_gd;
-                    echo '<br>';
-                    echo $co_gd;
-                    ?>
-                </td>
-                <td>
-                    <?php
-                    echo '<strong>'.$so_dem_gd.'</strong>';
-                    echo '<br>';
-                    echo $con_ngay_gd;
-                    ?>
-                </td>
-                <td width="12%"><?php
-                    $arr_chat = array(
-                        'post_type' => 'chat',
-                        'posts_per_page' => 1,
-                        'order' => 'DESC',
-                        'meta_key'		=> 'id_chat_gd',
-                        'meta_value' => $ma_gd_them_booking,
-                    );
-                    $query_chat = get_posts($arr_chat);
-                    if( $query_chat ): foreach( $query_chat as $post ):
-                        setup_postdata( $post );
-                        echo get_field('tin_nhan_chat');
-                    endforeach;
-                    else :
-                        echo 'Dữ liệu trống !';
-                    endif;
-                    wp_reset_postdata();
-                    ?>
-                </td>
-                <td><?php
-                    echo $con_ngay_dt;
-                    echo '<br>';
-                    echo $con_ngay_thay_doi_dt;
-                    ?>
-                </td>
-                <td><?php
-                    if(!empty($don_gia_ban_gd)){
-                        if (strpos($don_gia_ban_gd, ',') === false) {
-                            echo '<strong>'.number_format($don_gia_ban_gd,'0',',',',').'</strong>';
-                        }else{
-                            echo '<strong>'.$don_gia_ban_gd.'</strong>';
-                        }
-                    }
-                    echo '<br>';
-                    if(!empty($don_gia_ban_dt)){
-                        if (strpos($don_gia_ban_dt, ',') === false) {
-                            echo number_format($don_gia_ban_dt,'0',',',',');
-                        }else{
-                            echo $don_gia_ban_dt;
-                        }
-                    }
-                    ?>
-                </td>
-                <td><?php
-                    if(!empty($tong_gd)){
-                        if (strpos($tong_gd, ',') === false) {
-                            echo '<strong>'.number_format($tong_gd,'0',',',',').'</strong>';
-                        }else{
-                            echo '<strong>'.$tong_gd.'</strong>';
-                        }
-                    }
-                    echo '<br>';
-                    if(!empty($tong_dt)){
-                        if (strpos($tong_dt, ',') === false) {
-                            echo number_format($tong_dt,'0',',',',');
-                        }else{
-                            echo $tong_dt;
-                        }
-                    }
-                    ?>
-                </td>
-                <td><?php
-                    if(!empty($tong_pt)){
-                        if (strpos($tong_pt, ',') === false) {
-                            echo '<strong>'.number_format($tong_pt,'0',',',',').'</strong>';
-                        }else{
-                            echo '<strong>'.$tong_pt.'</strong>';
-                        }
-                    }
-                    echo '<br>';
-                    if(!empty($tong_pt)){
-                        if (strpos($tong_pt, ',') === false) {
-                            echo number_format($tong_pt,'0',',',',');
-                        }else{
-                            echo $tong_pt;
-                        }
-                    }
-                    ?>
-                </td>
-                <td><?php
-                    if(!empty($tong_gia_tri_khac)){
-                        if (strpos($tong_gia_tri_khac, ',') === false) {
-                            echo '<strong>'.number_format($tong_gia_tri_khac,'0',',',',').'</strong>';
-                        }else{
-                            echo '<strong>'.$tong_gia_tri_khac.'</strong>';
-                        }
-                    }
-                    echo '<br>';
-                    if(!empty($tong_gia_tri_khac2)){
-                        if (strpos($tong_gia_tri_khac2, ',') === false) {
-                            echo number_format($tong_gia_tri_khac2,'0',',',',');
-                        }else{
-                            echo $tong_gia_tri_khac2;
-                        }
-                    }
-                    ?>
-                </td>
-                <td><?php
-                    $a = $kh_con_no_khac;
-                    if(!empty($kh_con_no_khac)){
-                        if (strpos($a, ',') === false) {
-                            echo '<strong>'.number_format($kh_con_no_khac,'0',',',',').'</strong>';
-                        }else{
-                            echo '<strong>'.$kh_con_no_khac.'</strong>';
-                        }
-                    }
-                    echo '<br>';
-                    $b = $bct_con_no_khac2;
-                    if(!empty($bct_con_no_khac2)){
-                        if (strpos($b, ',') === false) {
-                            echo number_format($bct_con_no_khac2,'0',',',',');
-                        }else{
-                            echo $bct_con_no_khac2;
-                        }
-                    }
-                    ?>
-                </td>
-
-                <td><?php
-                    echo '<strong>'.$trang_thai_bkk_voi_kh_gd.'</strong>';
-                    echo '<br>';
-                    echo $trang_thai_bkk_voi_dt;
-                    ?></td>
-                <td>
-                    <a class="edit" href="<?php echo $the_permalink; ?>"><i
-                                class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                </td>
-            </tr>
-        <?php
-        endwhile;
-        wp_reset_postdata();
+                    <!-- <td><?php
+                    /*                                            echo '<strong>'.$trang_thai_bkk_voi_kh_gd.'</strong>';
+                                                                echo '<br>';
+                                                                echo $trang_thai_bkk_voi_dt;
+                                                            */?></td>-->
+                    <td>
+                        <a class="edit" href="<?php echo $the_permalink; ?>"><i
+                                    class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+                <?php
+            }else{
+                ?>
+                <p class="search_empty_bk">Dữ liệu trống !</p>
+                <?php
+            }
+            endwhile;
+        else :
         ?>
-        </table>
+            <p class="search_empty_bk">Dữ liệu trống !</p>
         <?php
+        endif;
+        wp_reset_postdata();
     }
-
+    ?>
+    </table>
+    <?php
+        if(empty($query_hotel)){
+            ?>
+            <p class="search_empty_bk">Dữ liệu trống !</p>
+            <?php
+        }
     die();
 }
 

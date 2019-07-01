@@ -1446,7 +1446,7 @@ input.sub_new_giao_dich.add_new_bk {
   top: -20px !important;
 }
 
-@media screen and (max-width: 1389px){
+@media screen and (max-width: 1440px){
   .page .giao_dich_moi table td{
     font-size: 11px;
   }
@@ -1454,4 +1454,30 @@ input.sub_new_giao_dich.add_new_bk {
 
 select.key_day,select.key_month,select.key_year,select.key_check_date{
   width: 85px;
+}
+.page-template-tach-booking{
+  .quantri_admin .menu_admin ul li:nth-child(2){
+     .sub-menu{
+       li{
+         background: #000;
+       }
+     }
+  }
+}
+
+.page-template-tach-booking{
+  .sl_gd{
+    background:#F1B355 !important;
+  }
+  .sl_dt{
+    background:#F1B355 !important;
+  }
+}
+
+.total_room{
+  margin-bottom: 10px;
+  font-weight: bold;
+  strong{
+    color: #1A56B2;
+  }
 }

@@ -62,7 +62,7 @@
       position: relative;
       bottom:0px;
       left: 0px;
-      z-index: 100;
+      z-index: -1;
       margin-top: 5px;
       input{
         padding: 0px;
@@ -89,6 +89,7 @@
   position: relative !important;
   bottom:0px !important;
   left: 0px !important;
-  z-index: 100;
+  z-index: -1px !important;
   margin-top: 5px;
 }
+
