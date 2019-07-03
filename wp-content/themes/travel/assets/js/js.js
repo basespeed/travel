@@ -280,9 +280,9 @@
                 $('.don_gia_ban_gd').click();
             },500);
         });
-        /*setTimeout(function(){
+        setTimeout(function(){
             $('.don_gia_ban_gd').click();
-        },500);*/
+        },500);
 
         //Check input number empty
         var arr_input_number_class = [

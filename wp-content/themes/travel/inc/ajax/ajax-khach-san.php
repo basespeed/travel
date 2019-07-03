@@ -593,12 +593,11 @@ function search_gd() {
     if(!empty($key_mgd) || !empty($key_mbk) || !empty($key_mlk) || !empty($key_code) || !empty($key_tks) || !empty($key_day) || !empty($key_month) || !empty($key_year)){
         if(!empty($key_tks)){
             $posts = new WP_Query(array(
-                'numberposts'	=> -1,
                 'post_type'		=> 'hotel',
                 'order' => 'DESC',
-                'posts_per_page' => 10000,
+                'posts_per_page'	=> -1,
                 'meta_query'	=> array(
-                    'relation'		=> 'OR',
+                    'relation'		=> 'AND',
                     array(
                         'key'		=> 'hotel_name',
                         'value'		=> $key_tks,
@@ -616,27 +615,75 @@ function search_gd() {
             wp_reset_postdata();
         }
 
-        if(!empty($key_mgd) and !empty($key_mbk) and !empty($key_mlk)){
+        if(!empty($key_tks) and !empty($key_day) and !empty($key_month) and !empty($key_year) and !empty($key_check_date)){
+            $meta_query = array(
+                'relation'		=> 'AND',
+                array(
+                    'key' => $check_date,
+                    'value' => $key_year.$key_month.$key_day,
+                    'compare' => '=',
+                ),
+                array(
+                    'key'		=> 'ten_khach_san_gd',
+                    'value'		=> $hotel_id,
+                    'compare'	=> 'IN'
+                ),
+            ) ;
+        }elseif(!empty($key_tks) and !empty($key_check_date) and !empty($key_day)){
+            $meta_query = array(
+                'relation'		=> 'AND',
+                array(
+                    'key'		=> 'ten_khach_san_gd',
+                    'value'		=> $hotel_id,
+                    'compare'	=> 'IN'
+                ),
+                array(
+                    'key'		=> $check_date,
+                    'compare'  => 'REGEXP',
+                    'value'    => '[0-9]{4}' . '[0-9]{2}' . $key_day,
+                ),
+            ) ;
+        }elseif(!empty($key_tks) and !empty($key_check_date) and !empty($key_month)){
+            $meta_query = array(
+                'relation'		=> 'AND',
+                array(
+                    'key'		=> 'ten_khach_san_gd',
+                    'value'		=> $hotel_id,
+                    'compare'	=> 'IN'
+                ),
+                $meta_query = array(
+                    'relation'		=> 'AND',
+                    array(
+                        'key' => $check_date,
+                        'compare'  => 'REGEXP',
+                        'value'    => '[0-9]{4}' . $key_month . '[0-9]{2}',
+                    ),
+                ),
+            ) ;
+        }elseif(!empty($key_tks) and !empty($key_check_date) and !empty($key_year)){
+            $meta_query = array(
+                'relation'		=> 'AND',
+                array(
+                    'key'		=> 'ten_khach_san_gd',
+                    'value'		=> $hotel_id,
+                    'compare'	=> 'IN'
+                ),
+                $meta_query = array(
+                    'relation'		=> 'AND',
+                    array(
+                        'key' => $check_date,
+                        'compare'  => 'REGEXP',
+                        'value'    => $key_year . '[0-9]{2}' . '[0-9]{2}',
+                    ),
+                ),
+            ) ;
+        }elseif(!empty($key_mgd) and !empty($key_mbk) and !empty($key_mlk)){
             $meta_query = array(
                 'relation'		=> 'OR',
                 array(
                     'key'		=> 'ma_gd_them_booking',
                     'value'		=> $key_mgd,
                     'compare'	=> 'LIKE'
-                ),
-            ) ;
-        }elseif(!empty($key_tks) and !empty($key_day) and !empty($key_month) and !empty($key_year)){
-            $meta_query = array(
-                'relation'		=> 'AND',
-                array(
-                    'key'		=> 'ten_khach_san_gd',
-                    'value'		=> $hotel_id,
-                    'compare'	=> '='
-                ),
-                array(
-                    'key' => $check_date,
-                    'value' => $key_year.$key_month.$key_day,
-                    'compare' => '=',
                 ),
             ) ;
         }elseif(!empty($key_mgd)){

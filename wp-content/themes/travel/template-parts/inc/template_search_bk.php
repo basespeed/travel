@@ -31,7 +31,7 @@
             ?>
         </select>
         <select name="key_month" class="key_month">
-            <option value="" disabled selected>Chọn tháng</option>
+            <option value="">Chọn tháng</option>
             <?php
                 $month = 1;
                 for($month; $month <= 12; $month++) {
@@ -48,7 +48,7 @@
             ?>
         </select>
         <select name="key_year" class="key_year">
-            <option value="" selected >Chọn năm</option>
+            <option value="" >Chọn năm</option>
             <?php
                 for($year = 2019; $year <= 2050; $year++){
                     ?>

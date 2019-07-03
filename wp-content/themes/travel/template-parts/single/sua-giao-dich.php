@@ -405,7 +405,7 @@
                                     if(!empty($dob_str)){
                                         $date = DateTime::createFromFormat('d/m/Y g:i a', $dob_str);
                                         if($date === true){
-                                            $date = $date->format('Ymdgia');
+                                            $date = $date->format('d/m/Y g:i a');
                                             update_field('ngay_lock_phong_khach', $date, $post_lich_su_gd);
                                         }
                                     }
@@ -414,7 +414,7 @@
                                     if(!empty($dob_str)){
                                         $date = DateTime::createFromFormat('d/m/Y g:i a', $dob_str);
                                         if($date === true){
-                                            $date = $date->format('Ymdgia');
+                                            $date = $date->format('d/m/Y g:i a');
                                             update_field('ngay_lock_phong_doi_tac', $date, $post_lich_su_gd);
                                         }
                                     }
@@ -488,7 +488,9 @@
                                     <input type="hidden" name="id_gd_goc" value="<?php echo get_the_ID(); ?>">
 
                                     <?php
-                                    if(get_field('trang_thai_add_booking') != 'true'){
+                                    $kh_con_no_khac = get_field('kh_con_no_khac');
+                                    $bct_con_no_khac2 = get_field('bct_con_no_khac2');
+                                    if(get_field('trang_thai_add_booking') != 'true' and $kh_con_no_khac > 0 || $bct_con_no_khac2 > 0){
                                         ?>
                                         <input type="submit" name="sub_tach_giao_dich" class="sub_tach_giao_dich"
                                                value="Tách Giao dịch" style="left: 300px;">

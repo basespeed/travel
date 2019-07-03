@@ -1477,7 +1477,40 @@ select.key_day,select.key_month,select.key_year,select.key_check_date{
 .total_room{
   margin-bottom: 10px;
   font-weight: bold;
+  background: red;
+  width: fit-content;
+  color: #FFF;
+  font-size: 14px;
+  padding: 5px;
+  position: absolute;
+  right: 0px;
+  margin-top: -2px;
   strong{
-    color: #1A56B2;
+    color: #FFF;
   }
+}
+
+.menu_link_bk{
+  ul{
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    margin-bottom: 10px;
+    li{
+      list-style: none;
+      font-weight: bold;
+      margin: 0 3px;
+      a{
+        text-decoration: none;
+        color: #000;
+      }
+      a.active{
+        color: red;
+      }
+    }
+  }
+}
+
+.acf-form-submit{
+  z-index: 9999999999 !important;
 }
